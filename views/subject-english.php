@@ -91,10 +91,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-questionnaires.php">
-                <span class="menu-title">Questionnaires</span>
+              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Subjects</span>
                 <i class="icon-chart menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-english.php active">English</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-math.php">Math</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-fil.php">Filipino</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-science.php">Science</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-logic.php">Logic</a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
@@ -122,7 +131,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Questions</h5>
+                    <h5 class="mb-0">English</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table">

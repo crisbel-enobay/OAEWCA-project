@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin Dashboard</title>
+    <title>Category-Questions</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -101,7 +101,7 @@
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-math.php">Math</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-fil.php">Filipino</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-science.php">Science</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-logic.php">Logic</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-logic.php active">Logic</a></li>
                 </ul>
               </div>
             </li>
@@ -118,11 +118,10 @@
        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
-            <h3 class="page-title"> Results </h3>
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Results</li>
-            <li class="breadcrumb-item"><a href="../views/admin.php">Home</a></li>
+                <li class="breadcrumb-item active">Questions List</li>
+                <li class="breadcrumb-item"><a href="../views/archived_courses.php">Archives</a></li>
               </ol>
             </nav>
           </div>
@@ -132,17 +131,18 @@
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Overall Result</h5>
+                    <h5 class="mb-0">Logic</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table">
                       <thead>
                         <tr>
                           <th class="font-weight-bold">ID</th>
-                          <th class="font-weight-bold">Student Name</th>
-                          <th class="font-weight-bold">Course</th>
-                          <th class="font-weight-bold">Sample</th>
-                          <th class="font-weight-bold">Score</th>
+                          <th class="font-weight-bold">Question</th>
+                          <th class="font-weight-bold">Option A</th>
+                          <th class="font-weight-bold">Option B</th>
+                          <th class="font-weight-bold">Option C</th>
+                          <th class="font-weight-bold">Right Answer</th>
                           <th class="font-weight-bold">Status</th>
                         </tr>
                       </thead>
@@ -151,48 +151,56 @@
                           <td>
                             1
                           </td>
-                          <td>Crisbel Enobay</td>
-                          <td>BSCS</td>
+                          <td>Question 1</td>
                           <td>Sample</td>
-                          <td>85/100</td>
+                          <td>Sample</td>
+                          <td>Sample</td>
+                          <td>Sample</td>
                           <td>
-                            <div class="badge badge-success p-2">Passed</div>
+                            <div class="btn btn-primary">Edit</div>
+                            <div class="btn btn-danger">Del</div>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             2
                           </td>
-                          <td>Lorence Lactud</td>
-                          <td>BSIT</td>
+                          <td>Question 2</td>
                           <td>Sample</td>
-                          <td>75/100</td>
+                          <td>Sample</td>
+                          <td>Sample</td>
+                          <td>Sample</td>
                           <td>
-                            <div class="badge badge-warning p-2">Pending</div>
+                            <div class="btn btn-primary">Edit</div>
+                            <div class="btn btn-danger">Del</div>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             3
                           </td>
-                          <td>Grace Cortex</td>
-                          <td>BSIS</td>
+                          <td>Question 3</td>
                           <td>Sample</td>
-                          <td>70/100</td>
+                          <td>Sample</td>
+                          <td>Sample</td>
+                          <td>Sample</td>
                           <td>
-                            <div class="badge badge-danger p-2">Failed</div>
+                            <div class="btn btn-primary">Edit</div>
+                            <div class="btn btn-danger">Del</div>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             4
                           </td>
-                          <td>Marvin Caharop</td>
-                          <td>BSCS</td>
+                          <td>Question 4</td>
                           <td>Sample</td>
-                          <td>90/100</td>
+                          <td>Sample</td>
+                          <td>Sample</td>
+                          <td>Sample</td>
                           <td>
-                            <div class="badge badge-success p-2">Passed</div>
+                            <div class="btn btn-primary">Edit</div>
+                            <div class="btn btn-danger">Del</div>
                           </td>
                         </tr>
                       </tbody>
@@ -211,6 +219,7 @@
                       </ul>
                     </nav>
                   </div>
+                  <button type="button" id="add" class="btn btn-primary my-4 py-2 px-4" data-bs-toggle="modal" data-bs-target="#transactionModal" style="display: flex;">Add Question</button>
                 </div>
               </div>
             </div>
