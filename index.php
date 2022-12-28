@@ -73,7 +73,7 @@
           <h1>Welcome to UCC-OAEW/CA!</h1>
           <h2>We are here to recommend courses and support your decisions.</h2>
           <div>
-            <a href="views/loginform.html" class="btn-get-started scrollto">Get Started</a>
+            <a href="views/loginform.php" class="btn-get-started scrollto">Get Started</a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 home-img">
