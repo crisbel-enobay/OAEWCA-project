@@ -1,1 +1,0 @@
-SAMPLE Ko lang to. HEHE
