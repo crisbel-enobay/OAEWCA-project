@@ -32,7 +32,7 @@
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <div id="countdown-container">
                 <div id="countdown">
-                    <h1><span id="hours">0h</span> :  <span id="minutes">0m</span> : <span id="seconds">0s</span></h1>
+                    <h1><span id="hours">1h</span> :  <span id="minutes">0m</span> : <span id="seconds">0s</span></h1>
                 </div>
             </div>
           </ul>
