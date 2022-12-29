@@ -1,5 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+  
+<?php
+    include '..\file\session.php';
+    //Import PHPMailer classes into the global namespace
+    //These must be at the top of your script, not inside a function
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+ 
+    //Load Composer's autoloader
+    require '../vendor/autoload.php';
+ 
+    if (isset($_POST["signup"]))
+    {
+        $reg_fullname = $_POST["fullname"];
+        $reg_email = $_POST["email"];
+        $reg_password = $_POST["password"];
+        $reg_password2 = $_POST["password2"];
+        
+
+        //Instantiation and passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+ 
+        try {
+            //Enable verbose debug output
+            $mail->SMTPDebug = 0;//SMTP::DEBUG_SERVER;
+ 
+            //Send using SMTP
+            $mail->isSMTP();
+ 
+            //Set the SMTP server to send through
+            $mail->Host = 'smtp.gmail.com';
+ 
+            //Enable SMTP authentication
+            $mail->SMTPAuth = true;
+ 
+            //SMTP username
+            $mail->Username = 'lebbraumjayce3@gmail.com';
+ 
+            //SMTP password
+            $mail->Password = 'rnimmwsahakqkmmb';
+ 
+            //Enable TLS encryption;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+ 
+            //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->Port = 465;
+ 
+            //Recipients
+            $mail->setFrom('lebbraumjayce3@gmail.com', 'OAEWCA');
+ 
+            //Add a recipient
+            $mail->addAddress($reg_email, $reg_fullname);
+ 
+            //Set email format to HTML
+            $mail->isHTML(true);
+ 
+            $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
+ 
+            $mail->Subject = 'Email verification';
+            $mail->Body    = '<p>Your verification code is: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
+ 
+            $mail->send();
+            // echo 'Message has been sent';
+ 
+            $encrypted_password = password_hash($reg_password, PASSWORD_DEFAULT);
+ 
+            // connect with database
+            $conn = mysqli_connect('localhost', "root", "", "project");
+            // check email
+            $duplicate_email = mysqli_query($conn, "SELECT email, password, verified_date, type FROM users WHERE email= '$reg_email'");
+		          if (mysqli_num_rows($duplicate_email) > 0) {
+		          	function cantSignup(){
+                  $cantSignup_message = "email already exists";
+                  return $cantSignup_message;
+                }
+		          }else{
+			          $ins = mysqli_query($conn, "INSERT INTO `users` (fullname, email, password, type, verification_code, verified_date) VALUES ('$reg_fullname','$reg_email','$encrypted_password', 0 ,'$verification_code', NULL )");
+			        if ($ins) {
+				        header("Location: ./email-verification.php?email=" . $reg_email);
+            exit();
+
+			  }
+	  	}
+            // insert in users table
+            // $sql = "INSERT INTO users(fullname, email, password, type, verification_code, verified_date) VALUES ('" . $reg_fullname . "','" . $reg_email . "','" . $encrypted_password . "', 0 ,'" . $verification_code . "', NULL )";
+            // mysqli_query($conn, $sql);
+ 
+            //  header("Location: ./email-verification.php?email=" . $reg_email);
+            // exit();
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+?>
 
 <head>
   <meta charset="utf-8">
@@ -46,7 +141,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <a href="index.php" class="logo d-flex align-items-center">
+        <a href="../index.php" class="logo d-flex align-items-center">
           <span>
             <img src="../assets/img/OAEWCA-LOGO copy.png" alt="">
           </span>
@@ -75,7 +170,7 @@
                           <form method="POST" class="register-form" id="register-form">
                               <div class="form-group">
                                   <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                  <input type="text" name="name" id="name" placeholder="Your Name"/>
+                                  <input type="text" name="fullname" id="name" placeholder="Your Name"/>                      
                               </div>
                               <div class="form-group">
                                   <label for="email"><i class="zmdi zmdi-email"></i></label>
@@ -83,16 +178,21 @@
                               </div>
                               <div class="form-group">
                                   <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                  <input type="password" name="pass" id="pass" placeholder="Password"/>
+                                  <input type="password" name="password" id="pass" placeholder="Password"/>
                               </div>
                               <div class="form-group">
                                   <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                  <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
+                                  <input type="password" name="password2" id="re_pass" placeholder="Repeat your password"/>
                               </div>
                               <div class="form-group">
                                   <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                                   <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                              </div>
+                                  <?php 
+                                    if (isset($_POST["signup"])){
+                                        echo cantSignup();
+                                    }
+                                    ?>
+                                </div>
                               <div class="form-group form-button">
                                   <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                               </div>
