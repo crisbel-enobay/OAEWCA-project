@@ -91,10 +91,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-questionnaires.php">
-                <span class="menu-title">Questionnaires</span>
+              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Subjects</span>
                 <i class="icon-chart menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-english.php">English</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-math.php active">Math</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-fil.php">Filipino</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-science.php">Science</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/subject-logic.php">Logic</a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
@@ -112,7 +121,7 @@
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Questions List</li>
-                <li class="breadcrumb-item"><a href="../views/archived_courses.php">Archives</a></li>
+                <li class="breadcrumb-item"><a href="../views/archived_math.php">Archives</a></li>
               </ol>
             </nav>
           </div>
@@ -122,7 +131,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Questions</h5>
+                    <h5 class="mb-0">Mathematics</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table">
@@ -221,7 +230,6 @@
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright BSCS4B Group 3</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
           </div>
         </footer>
       </div>

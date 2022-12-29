@@ -1,6 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include '..\file\session.php';
+if (isset($_POST["submit"])){
+  mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // enable exceptions
 
+$conn = mysqli_connect('localhost', "root", "", "project");
+
+$log_email = $_POST['your_name'];
+$log_password = $_POST['your_pass'];
+
+$sql = "SELECT email, password, verified_date, type FROM users WHERE email=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('s', $log_email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+  if (password_verify($log_password, $row['password'])) {
+      $message = "ok";
+      // header must be called before any other output
+      if ($row['verified_date'] == null){
+          die("Please verify your email <a href='../views/email-verification.php?email=" . $log_email . "'>from here</a>");
+      }
+      else{ 
+          $_SESSION['valid'] = true;
+          if ($row['type'] == '1'){
+              $_SESSION['type'] = 'admin';
+              echo "<script> window.location = '../views/admin.php' </script>";}
+            else if ($row['type'] == '0'){
+              $_SESSION['type'] = 'student';
+              echo "<script> window.location = '../views/student.php' </script>";}
+          }
+      // header("Location: loggedin.php");
+      exit();
+  }
+  
+}
+$message = "No";
+// header must be called before any other output
+  function cantLogIn(){
+      $notLoggedIn = "invalid credentials or credentials is taken please check your input";
+      return $notLoggedIn;
+  }
+}
+?>
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -78,7 +122,7 @@
                   <form method="POST" class="register-form" id="login-form">
                       <div class="form-group">
                           <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                          <input type="text" name="your_name" id="your_name" placeholder="Your Name"/>
+                          <input type="text" name="your_name" id="your_name" placeholder="Your Email"/>
                       </div>
                       <div class="form-group">
                           <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
