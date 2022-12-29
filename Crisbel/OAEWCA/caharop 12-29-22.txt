@@ -1,0 +1,17 @@
+functionality modified
+
+// note my project.sql database is required in here located in https://drive.google.com/drive/folders/1OtTh_afinXW4MdT-OMxB-_BDjHccG9Yh
+
+admin credentials - email= 'admin@gmail.com'; password= 'admin';
+
+Login {
+	-can accept admin account and student account -done
+	-inform user if invalid credentials when logged in -done
+	-redirect to otp verification when email is still not verified after succesful login -done
+	-redirect to admin or student page when succesful login and have verified email -done
+}
+Register {
+	-can see if email is already exist -done
+	-send verification code to email after succesful register -done
+	-redirect to otp verification after succesful register -done
+}
