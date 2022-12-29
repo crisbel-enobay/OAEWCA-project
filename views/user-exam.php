@@ -121,8 +121,6 @@
                   </div>
                   <div class="card-body d-flex align-items-center justify-content-center">
                       <form action="../views/exam-english.php">
-                        <button type="submit" class="btn btn-outline-primary btn-fw">Take Examination</button>
-                      </form>
                     </div>
               </div>
             </div>
