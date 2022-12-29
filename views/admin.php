@@ -118,7 +118,6 @@
        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
-            <h3 class="page-title"> Dashboard </h3>
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Home</li>

@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin Dashboard</title>
+    <title>History</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -118,7 +118,6 @@
        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
-            <h3 class="page-title"> Results </h3>
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Results</li>
