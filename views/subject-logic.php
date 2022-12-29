@@ -36,11 +36,11 @@
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-               <span class="font-weight-normal"> User user </span></a>
+               <span class="font-weight-normal"> Admin admin </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <p class="mb-1 mt-3">User user</p>
-                  <p class="font-weight-light text-muted mb-0">user@gmail.com</p>
+                  <p class="mb-1 mt-3">Admin admin</p>
+                  <p class="font-weight-light text-muted mb-0">admin@gmail.com</p>
                 </div>
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
