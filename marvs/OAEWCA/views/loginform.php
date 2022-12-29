@@ -90,7 +90,7 @@ $message = "No";
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <a href="index.php" class="logo d-flex align-items-center">
+        <a href="../index.php" class="logo d-flex align-items-center">
           <span>
             <img src="../assets/img/OAEWCA-LOGO copy.png" alt="">
           </span>
