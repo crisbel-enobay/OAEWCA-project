@@ -112,7 +112,7 @@
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-english.php">English</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-math.php">Math</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-fil.php">Filipino</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/archived_science.php active">Science Archive</a></li>
+                  <li class="nav-item"> <a class="nav-link active" href="../views/archived_science.php">Science Archive</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-logic.php">Logic</a></li>
                 </ul>
               </div>

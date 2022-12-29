@@ -59,7 +59,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
-                  <p class="profile-name">User user</p>
+                  <p class="profile-name">Admin admin</p>
                   <p class="designation">Administrator</p>
                 </div>
                 <div class="icon-container">
@@ -101,7 +101,7 @@
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-math.php">Math</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-fil.php">Filipino</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-science.php">Science</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-logic.php active">Logic</a></li>
+                  <li class="nav-item"> <a class="nav-link active" href="../views/subject-logic.php">Logic</a></li>
                 </ul>
               </div>
             </li>

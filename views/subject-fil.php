@@ -99,7 +99,7 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-english.php">English</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-math.php">Math</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-fil.php active">Filipino</a></li>
+                  <li class="nav-item"> <a class="nav-link active" href="../views/subject-fil.php">Filipino</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-science.php">Science</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-logic.php">Logic</a></li>
                 </ul>
