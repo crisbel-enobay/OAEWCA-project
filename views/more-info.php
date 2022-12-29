@@ -121,19 +121,19 @@
                         </div>
                       <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">
                       <div class="col-sm-4 col-md-3 p-3 text-center btn-wrapper">
-                        <h4>English</h4>
+                        <p>English</p>
                       </div>
                       <div class="col-sm-4 col-md-2 p-3 text-center btn-wrapper">
-                        <h4>Math</h4>
+                        <p>Math</p>
                       </div>
                       <div class="col-sm-4 col-md-2 p-3 text-center btn-wrapper">
-                        <h4>Filipino</h4>
+                        <p>Filipino</p>
                       </div>
                       <div class="col-sm-4 col-md-2 p-3 text-center btn-wrapper">
-                        <h4>Science</h4>
+                        <p>Science</p>
                       </div>
                       <div class="col-sm-4 col-md-2 p-3 text-center btn-wrapper">
-                        <h4>Logic</h4>
+                        <p>Logic</p>
                       </div>
                     </div>
                     </blockquote>
