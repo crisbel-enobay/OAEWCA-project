@@ -41,16 +41,17 @@
                     <h4 class="text-center font-weight-light">Account Validation</h4>
                 </div>
                 <p class="font-weight-light text-center small">Enter the OTP code sent to your Email</p>
-                <form class="row g-3 needs-validation" action="../forms/user-verification-action.php" method="POST" enctype="multipart/form-data">
+                <form class="row g-3 needs-validation" method="POST" enctype="multipart/form-data">
                     <div class="input-group mb-3">
-                      <input type="password" name="otp_code" id="otp_code" class="form-control" placeholder="Input OTP code" aria-label="Username" aria-describedby="basic-addon1">
+                     <input type="hidden" name="email" value="<?php echo $_GET['email']; ?>" required/> 
+                      <input type="password" name="verification_code" id="otp_code" class="form-control" placeholder="Input OTP code" aria-label="Username" aria-describedby="basic-addon1">
                       <button type="button" class="btn btn-primary bi bi-eye-slash" id="togglePassword"></span>
-                        <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
+                        <div class="invalid-feedback"> </div></div>
 
                     <div class="col-12">
-                      <input class="btn btn-primary w-100" type="submit" name="verify" value="Verify">
+                      <input class="btn btn-primary w-100" type="submit" name="verify_email" value="Verify">
                     </div>
+                    <?php include '../forms/email-verification.php'; if (isset($_POST["verify_email"])){ echo $verify_status;}  ?>
                   </form>
               </div>
             </div>
