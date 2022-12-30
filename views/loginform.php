@@ -21,7 +21,7 @@ while ($row = $result->fetch_assoc()) {
       $message = "ok";
       // header must be called before any other output
       if ($row['verified_date'] == null){
-          die("Please verify your email <a href='../views/email-verification.php?email=" . $log_email . "'>from here</a>");
+          header("Location: ../views/email-ui.php?email=" . $log_email . "");
       }
       else{ 
           $_SESSION['valid'] = true;

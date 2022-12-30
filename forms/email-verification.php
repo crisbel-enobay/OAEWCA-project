@@ -14,26 +14,25 @@
  
         if (mysqli_affected_rows($conn) == 0)
         {
-           function verifyFailed(){
-            $verify_failed = "verification failed";
-            return $verify_failed;
+        //    function verifyFailed(){
+        //     $verify_failed = "verification failed";
+        //     return $verify_failed;
+                 $verify_status = "incorrect OTP";
            }
-
-        }
         else {
-        echo "<p>You can login now.</p>";
-        exit();
+            $verify_status = "Verification Succesful! You can login now!";
     }
-    }
+}
+
  
 ?>
-
+<!-- 
 <form method="POST">
      <input type="hidden" name="email" value="<?php // echo $_GET['email']; ?>" required/> 
     <input type="text" name="verification_code" placeholder="Enter verification code" required />
  
     <input type="submit" name="verify_email" value="Verify Email">
-    <?php if (isset($_POST["verify_email"])){
-        echo verifyFailed();
-    }  ?>
+    <?php //if (isset($_POST["verify_email"])){
+        //echo verifyFailed();
+    //}  ?> -->
 </form>
