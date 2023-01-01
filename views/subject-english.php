@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Category-Questions</title>
+    <title>Category-Subject</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -36,11 +36,11 @@
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-               <span class="font-weight-normal"> User user </span></a>
+               <span class="font-weight-normal"> Admin admin </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <p class="mb-1 mt-3">User user</p>
-                  <p class="font-weight-light text-muted mb-0">user@gmail.com</p>
+                  <p class="mb-1 mt-3">Admin admin</p>
+                  <p class="font-weight-light text-muted mb-0">admin@gmail.com</p>
                 </div>
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
@@ -59,7 +59,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
-                  <p class="profile-name">User user</p>
+                  <p class="profile-name">Admin admin</p>
                   <p class="designation">Administrator</p>
                 </div>
                 <div class="icon-container">
@@ -97,7 +97,7 @@
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-english.php active">English</a></li>
+                  <li class="nav-item"> <a class="nav-link active" href="../views/subject-english.php">English</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-math.php">Math</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-fil.php">Filipino</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/subject-science.php">Science</a></li>
@@ -121,7 +121,7 @@
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Questions List</li>
-                <li class="breadcrumb-item"><a href="../views/archived_courses.php">Archives</a></li>
+                <li class="breadcrumb-item"><a href="../views/archived_english.php">Archives</a></li>
               </ol>
             </nav>
           </div>
@@ -230,7 +230,6 @@
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright BSCS4B Group 3</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
           </div>
         </footer>
       </div>

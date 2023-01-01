@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin Dashboard</title>
+    <title>History</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -36,11 +36,11 @@
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-               <span class="font-weight-normal"> User user </span></a>
+               <span class="font-weight-normal"> Admin admin </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <p class="mb-1 mt-3">User user</p>
-                  <p class="font-weight-light text-muted mb-0">user@gmail.com</p>
+                  <p class="mb-1 mt-3">Admin admin</p>
+                  <p class="font-weight-light text-muted mb-0">admin@gmail.com</p>
                 </div>
                 <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
@@ -59,7 +59,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
-                  <p class="profile-name">User user</p>
+                  <p class="profile-name">Admin admin</p>
                   <p class="designation">Administrator</p>
                 </div>
                 <div class="icon-container">
@@ -118,7 +118,6 @@
        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
-            <h3 class="page-title"> Results </h3>
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Results</li>
@@ -221,7 +220,6 @@
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright BSCS4B Group 3</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
           </div>
         </footer>
       </div>
