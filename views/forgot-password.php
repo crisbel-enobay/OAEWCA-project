@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  <?php include '../forms/send-password-reset-link.php'; ?>
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -76,20 +76,21 @@
     
                       <div class="pt-4 pb-2">
                         <h5 class="card-title text-center pb-0 fs-4">Reset Password</h5>
-                        <p class="text-center small">Enter your New Password</p>
+                        <p class="text-center small">Enter your Email address</p>
                       </div>
     
-                      <form class="row g-3 needs-validation" action="../forms/reset-password-action.php" method="POST" enctype="multipart/form-data">
+                      <form class="row g-3 needs-validation" method="POST" enctype="multipart/form-data">
     
                         <div class="col-12">
-                          <input type="password" id="password" name="password" class="form-control" placeholder="input" required>
+                          <input type="text" id="email" name="email" class="form-control" placeholder="input" required>
                           <div class="d-flex justify-content-end px-3 pt-2">
                             <i class="bi bi-eye-slash" id="togglePassword"></i>
                           </div>
                         </div>
     
                         <div class="col-12">
-                          <input class="btn btn-primary w-100" type="submit" value="Reset" name="reset">
+                          <input class="btn btn-primary w-100" type="submit" value="submit" name="submit_email">
+                          <?php include '../forms/email-verification.php'; if (isset($_POST["submit_email"])){ echo $submit_email_status;}  ?>
                         </div>
                       </form>
                       
