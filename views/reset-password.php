@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <?php include '../forms/send-password-reset-link.php'; ?>
+
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -73,26 +73,46 @@
                 <div class="card mb-3">
 
                     <div class="card-body">
-    
+                     
                       <div class="pt-4 pb-2">
                         <h5 class="card-title text-center pb-0 fs-4">Reset Password</h5>
-                        <p class="text-center small">Enter your Email address</p>
                       </div>
-    
+                      <?php
+                        if($_GET['key'] && $_GET['token'])
+                        {
+                         $conn = mysqli_connect('localhost', "root", "", "project");
+                          $email = $_GET['key'];
+                          $token = $_GET['token'];
+                          $query = mysqli_query($conn,
+                        "SELECT * FROM `users` WHERE `reset_link_token`='".$token."' and `email`='".$email."';"
+                        );
+                        $curDate = date("Y-m-d H:i:s");
+                        if (mysqli_num_rows($query) > 0) { 
+                        $row= mysqli_fetch_array($query);
+                        if($row['expiry_reset_link_token'] >= $curDate){ ?>
+                        <p class="text-center small">Enter your New Password</p>
                       <form class="row g-3 needs-validation" method="POST" enctype="multipart/form-data">
     
                         <div class="col-12">
-                          <input type="text" id="email" name="email" class="form-control" placeholder="input" required>
+                          <input type="hidden" name="email" value="<?php echo $email;?>">
+                          <input type="hidden" name="reset_link_token" value="<?php echo $token;?>">
+                          <input type="password" id="password" name="password" class="form-control" placeholder="enter your new password" required>
                           <div class="d-flex justify-content-end px-3 pt-2">
                             <i class="bi bi-eye-slash" id="togglePassword"></i>
                           </div>
                         </div>
     
                         <div class="col-12">
-                          <input class="btn btn-primary w-100" type="submit" value="submit" name="submit_email">
-                          <?php include '../forms/email-verification.php'; if (isset($_POST["submit_email"])){ echo $submit_email_status;}  ?>
+                          <input class="btn btn-primary w-100" type="submit" value="Reset" name="reset-password">
                         </div>
+                        <?php include '../forms/update-password.php'; if (isset($_POST["reset-password"])){ echo $password_reset_status;} ?>
                       </form>
+                           <?php } } else {
+                                  echo "<p>This forget password link has been expired</p>";
+                                 }
+                        }
+                        ?>
+                      
                       
                     </div>
                   </div>
