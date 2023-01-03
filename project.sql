@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2022 at 03:04 AM
+-- Generation Time: Jan 03, 2023 at 04:23 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -125,17 +125,18 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `type` int(11) NOT NULL,
   `verification_code` text NOT NULL,
-  `verified_date` datetime DEFAULT NULL
+  `verified_date` datetime DEFAULT NULL,
+  `reset_link_token` varchar(255) NOT NULL,
+  `expiry_reset_link_token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`) VALUES
-('admin', 'admin@gmail.com', '$2y$10$3nMPCFG14Lz9ayUOH80mc.vf1G2Wse0ZQr7/OZE3lRM8mNw2dkZee', 1, '170813', '2022-12-29 03:32:28'),
-('lebb@gmail.com', 'lebb@gmail.com', '$2y$10$vd8ZIKw5Q7YBRZ7DYKPlaeV/5BKhxAaMkUGMOTh8M.YuG2/vidMJC', 0, '', NULL),
-('Marvin Caharop', 'lebbraumjayce@gmail.com', '$2y$10$G9eKIOcc6BW4p0O8EJ9wde9XUQaiRSrThuGlwtqObfCdpX8Hs796m', 0, '224050', '2022-12-29 03:04:51');
+INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
+('admin', 'admin@gmail.com', '$2y$10$3nMPCFG14Lz9ayUOH80mc.vf1G2Wse0ZQr7/OZE3lRM8mNw2dkZee', 1, '170813', '2022-12-29 03:32:28', '', ''),
+('marvin caharop', 'lebbraumjayce@gmail.com', '$2y$10$I7eqsBgwKh3USf4G4/zeQeXbSy4XaYP2uRsTcIX7SzWzkMqT2tPka', 0, '719100', '2023-01-01 16:28:43', '', '');
 
 --
 -- Indexes for dumped tables
