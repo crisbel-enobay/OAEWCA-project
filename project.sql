@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2023 at 01:52 PM
+-- Generation Time: Jan 04, 2023 at 02:50 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -221,27 +221,23 @@ CREATE TABLE `science_questionnaire` (
 --
 
 CREATE TABLE `users` (
-  `username` varchar(20) NOT NULL,
-  `firstname` varchar(20) NOT NULL,
-  `lastname` varchar(20) NOT NULL,
-  `email` varchar(20) NOT NULL,
+  `fullname` varchar(30) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) NOT NULL,
+  `verification_code` text NOT NULL,
+  `verified_date` datetime DEFAULT NULL,
+  `reset_link_token` varchar(255) NOT NULL,
+  `expiry_reset_link_token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`username`, `firstname`, `lastname`, `email`, `password`, `type`) VALUES
-('add@add.com', 'add', 'add', 'add@add.com', '$2y$10$cX/X/Gwk8VxcCFKIwd4S0OFXrD3GDRSwswe.8BJIigsMBnYWTZCFO', 1),
-('admin', '', '', '', 'admin', 1),
-('afeaf', '', '', 'glagjel@gmail.com', '222', 0),
-('afeafeaf', '', '', 'Efooaf@gmafea.com', 'odyssey', 0),
-('akfjaw', '', '', 'leafwa@gmail.com', '123', 0),
-('ddwdwa', '', '', 'faeafe@gmail.com', '123', 0),
-('fafeaaf', '', '', 'lebbraumhatyce@gfmia', '12', 0),
-('marvin', '', '', 'leb@gmail.com', '111', 0);
+INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
+('marvin caharop', 'lebbraumjayce@gmail.com', '$2y$10$LLqTF71mFh0BDayI8yCWk.dwLcnnlZoIZSc7SAmjPD4Qr1OFwI59m', 0, '113398', '2023-01-04 21:29:46', 'd41d8cd98f00b204e9800998ecf8427e7892', '2023-01-05 14:31:25'),
+('password \"admin\"', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', '');
 
 --
 -- Indexes for dumped tables
@@ -293,7 +289,7 @@ ALTER TABLE `science_questionnaire`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`username`);
+  ADD PRIMARY KEY (`fullname`);
 
 --
 -- AUTO_INCREMENT for dumped tables

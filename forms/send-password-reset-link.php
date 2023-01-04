@@ -67,7 +67,7 @@ if (isset($_POST["submit_email"]))
            //Set email format to HTML
            $mail->isHTML(true);
 
-           $mail->Subject = 'Email verification';
+           $mail->Subject = 'Password Reset';
            $mail->Body    = '<p>Click here to reset you password: <b style="font-size: 30px;"></b>'.$link.'</p>';
 
            if ($mail->send()){
