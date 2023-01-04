@@ -104,95 +104,70 @@
               </ol>
             </nav>
           </div>
-          <!-- Quick Action Toolbar Starts-->
+          <div class="row">   
+            <div class="col-sm-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Requirements</h5>
+                        <a href="../views/more-info.php" class="align-self-end px-4">View more</a>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Instructions</h5>
+                          <a href="../views/more-info.php" class="align-self-end px-4">View more</a>
+                    </div>
+                  </div>
+              </div>
+             
+             <div class="col-sm-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                      <h5 class="card-title">Take Examination</h5>
+                          
+                      <a href="../views/user-exam.php" class="align-self-end px-4">View more</a>
+                  </div>
+                  </div>
+                </div>
+            </div>
+            
+            <!-- Quick Action Toolbar Starts-->
           <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
-              <div class="card">
+                  <div class="card">
                 <div class="card-body">
-                  <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Available Courses</h5>
+              <div class="card-header d-block d-md-flex">
+                    <h5 class="mb-0">Courses Available</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
-                    <table class="table">
+                    <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
-                          <th class="font-weight-bold">ID</th>
-                          <th class="font-weight-bold">Department</th>
-                          <th class="font-weight-bold">Course</th>
-                          <th class="font-weight-bold">Sample</th>
-                          <th class="font-weight-bold">Sample</th>
-                          <th class="font-weight-bold">Status</th>
+                          <th scope="col">Courses</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>CSD</td>
-                          <td>BSCS</td>
-                          <td>Sample</td>
-                          <td>Sample</td>
-                          <td>
-                            <div class="badge badge-success p-2">Available</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>CSD</td>
-                          <td>BSIT</td>
-                          <td>Sample</td>
-                          <td>Sample</td>
-                          <td>
-                            <div class="badge badge-warning p-2">Pending</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>CSD</td>
-                          <td>BSIS</td>
-                          <td>Sample</td>
-                          <td>Sample</td>
-                          <td>
-                            <div class="badge badge-secondary p-2">Not available</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>CSD</td>
-                          <td>BSCS</td>
-                          <td>Sample</td>
-                          <td>Sample</td>
-                          <td>
-                            <div class="badge badge-success p-2">Available</div>
-                          </td>
-                        </tr>
+                        <?php
+                        $rows = getCourses();
+                        $i = 0;
+                        while ($i < count($rows)) {   //Creates a loop to loop through results
+                          $row = $rows[$i];
+                          $courseName = $row['course'];
+                          echo "<tr>
+                                    <td>" . $courseName . "</td>
+                                  </tr>";  //$row['index'] the index here is a field name
+                          $i++;
+                        }
+                        ?>
                       </tbody>
                     </table>
                   </div>
-                  <div class="d-flex mt-4 flex-wrap">
-                    <p class="text-muted">Showing 1 to 10 of 57 entries</p>
-                    <nav class="ml-auto">
-                      <ul class="pagination separated pagination-info">
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
               </div>
             </div>
-          
+            
+            </div>      
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
@@ -215,6 +190,11 @@
     <script src="../vendors/moment/moment.min.js"></script>
     <script src="../vendors/daterangepicker/daterangepicker.js"></script>
     <script src="../vendors/chartist/chartist.min.js"></script>
+     <!-- Vendor JS Files -->
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="../js/off-canvas.js"></script>
@@ -223,5 +203,13 @@
     <!-- Custom js for this page -->
     <script src="../js/dashboard.js"></script>
     <!-- End custom js for this page -->
+
+    <!-- Template Main JS File -->
+    <script src="../assets/js/main2.js"></script>
+
+    <!-- Other JS Files -->
+    <script>
+        <?php include '../assets/js/jquery.js' ?>
+    </script>
   </body>
 </html>
