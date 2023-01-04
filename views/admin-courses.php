@@ -43,11 +43,11 @@
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-               <span class="font-weight-normal"> Admin </span></a>
+               <span class="font-weight-normal"> Admin admin </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <p class="mb-1 mt-3">Administrator</p>
-                  <p class="font-weight-light text-muted mb-0">user@gmail.com</p>
+                  <p class="mb-1 mt-3">Admin admin</p>
+                  <p class="font-weight-light text-muted mb-0">admin@gmail.com</p>
                 </div>
                 <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
@@ -66,7 +66,6 @@
                   }
                   ?>
 
-              </div>
             </li>
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -92,7 +91,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
-                  <p class="profile-name">Admin</p>
+                  <p class="profile-name">Admin admin</p>
                   <p class="designation">Administrator</p>
                 </div>
                 <div class="icon-container">
