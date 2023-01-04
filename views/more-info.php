@@ -138,9 +138,47 @@
                     </div>
                     </blockquote>
                   </div>
-                  
               </div>
-            </div>
+              </div>
+                  
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Requirements</h4>
+                    <p class="card-description"> Students must have the following: </p>
+                      <ul class="list-ticked">
+                        <li>Lorem ipsum dolor sit amet</li>
+                        <li>Consectetur adipiscing elit</li>
+                        <li>Integer molestie lorem at massa</li>
+                        <li>Facilisis in pretium nisl aliquet</li>
+                        <li>Nulla volutpat aliquam velit></li>
+                      </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Instructions</h4>
+                    <p class="card-description"> Students should do the following: </p>
+                      <h6 class="lead">Before Exam</h6>
+                        <ul class="list-ticked">
+                          <li>Lorem ipsum dolor sit amet</li>
+                          <li>Consectetur adipiscing elit</li>
+                        </ul>
+                        <h6 class="lead">During Exam</h6>
+                        <ul class="list-ticked">
+                          <li>Lorem ipsum dolor sit amet</li>
+                          <li>Consectetur adipiscing elit</li>
+                        </ul>
+                        <h6 class="lead">After Exam</h6>
+                        <ul class="list-ticked">
+                          <li>Lorem ipsum dolor sit amet</li>
+                          <li>Consectetur adipiscing elit</li>
+                        </ul>
+                  </div>
+                
+              </div>
           </div>
         </div>
         <!-- content-wrapper ends -->
