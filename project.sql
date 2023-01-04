@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2023 at 04:23 AM
+-- Generation Time: Jan 04, 2023 at 01:52 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `courses` (
   `crs_id` int(11) NOT NULL,
   `course` varchar(255) NOT NULL,
-  `related_hobbies` enum('House Keeping','Baking','Programming/Coding','Web Development','Designing','Researching','Mathematics','Assembling/Disassembling','Digital Art','Drawing','Painting','Dancing/Singing','Communicating','Gaming','Cooking','Broadcasting','Writing','Reading','Watching','Travelling','Photography','Blogging','Videography','Self Studying','Exercise','Volunteering') NOT NULL,
+  `related_hobbies` varchar(255) NOT NULL,
   `English` int(11) NOT NULL,
   `Math` int(11) NOT NULL,
   `Filipino` int(11) NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`crs_id`, `course`, `related_hobbies`, `English`, `Math`, `Filipino`, `Science`, `Logic`) VALUES
-(1, 'Bachelor of Science in Mathematics (BSMath)', 'Mathematics', 2, 4, 2, 2, 3),
+(1, 'Bachelor of Science in Mathematics (BSMath)', 'Mathematics', 3, 4, 3, 3, 4),
 (2, 'Bachelor of Science in Psychology (BSPsych)', 'Communicating', 3, 2, 2, 4, 3),
 (3, 'Bachelor of Science in Criminology (BSCrim)', 'Volunteering', 3, 3, 2, 3, 3),
 (4, 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Programming/Coding', 2, 3, 3, 2, 4),
@@ -73,6 +73,52 @@ INSERT INTO `courses` (`crs_id`, `course`, `related_hobbies`, `English`, `Math`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `english_questionnaire`
+--
+
+CREATE TABLE `english_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `english_questionnaire`
+--
+
+INSERT INTO `english_questionnaire` (`id`, `question`, `optionA`, `optionB`, `optionC`, `optionD`, `correctAnswer`) VALUES
+(2, ' Question 1', 'A', 'B', 'C', 'D', 'C');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `filipino_questionnaire`
+--
+
+CREATE TABLE `filipino_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `filipino_questionnaire`
+--
+
+INSERT INTO `filipino_questionnaire` (`id`, `question`, `optionA`, `optionB`, `optionC`, `optionD`, `correctAnswer`) VALUES
+(1, ' Filipino 1', 'A', 'B', 'C', 'D', 'D');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hobbies`
 --
 
@@ -86,7 +132,7 @@ CREATE TABLE `hobbies` (
 --
 
 INSERT INTO `hobbies` (`hob_id`, `hobby`) VALUES
-(1, 'Researching'),
+(1, 'Research'),
 (2, 'Mathematics'),
 (3, 'Assembling/Disassembling'),
 (4, 'Digital Art'),
@@ -116,27 +162,86 @@ INSERT INTO `hobbies` (`hob_id`, `hobby`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `logic_questionnaire`
+--
+
+CREATE TABLE `logic_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `logic_questionnaire`
+--
+
+INSERT INTO `logic_questionnaire` (`id`, `question`, `optionA`, `optionB`, `optionC`, `optionD`, `correctAnswer`) VALUES
+(1, '', 'A', 'B', 'C', 'D', 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `math_questionnaire`
+--
+
+CREATE TABLE `math_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `science_questionnaire`
+--
+
+CREATE TABLE `science_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `fullname` varchar(30) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `firstname` varchar(20) NOT NULL,
+  `lastname` varchar(20) NOT NULL,
+  `email` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `type` int(11) NOT NULL,
-  `verification_code` text NOT NULL,
-  `verified_date` datetime DEFAULT NULL,
-  `reset_link_token` varchar(255) NOT NULL,
-  `expiry_reset_link_token` varchar(255) NOT NULL
+  `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
-('admin', 'admin@gmail.com', '$2y$10$3nMPCFG14Lz9ayUOH80mc.vf1G2Wse0ZQr7/OZE3lRM8mNw2dkZee', 1, '170813', '2022-12-29 03:32:28', '', ''),
-('marvin caharop', 'lebbraumjayce@gmail.com', '$2y$10$I7eqsBgwKh3USf4G4/zeQeXbSy4XaYP2uRsTcIX7SzWzkMqT2tPka', 0, '719100', '2023-01-01 16:28:43', '', '');
+INSERT INTO `users` (`username`, `firstname`, `lastname`, `email`, `password`, `type`) VALUES
+('add@add.com', 'add', 'add', 'add@add.com', '$2y$10$cX/X/Gwk8VxcCFKIwd4S0OFXrD3GDRSwswe.8BJIigsMBnYWTZCFO', 1),
+('admin', '', '', '', 'admin', 1),
+('afeaf', '', '', 'glagjel@gmail.com', '222', 0),
+('afeafeaf', '', '', 'Efooaf@gmafea.com', 'odyssey', 0),
+('akfjaw', '', '', 'leafwa@gmail.com', '123', 0),
+('ddwdwa', '', '', 'faeafe@gmail.com', '123', 0),
+('fafeaaf', '', '', 'lebbraumhatyce@gfmia', '12', 0),
+('marvin', '', '', 'leb@gmail.com', '111', 0);
 
 --
 -- Indexes for dumped tables
@@ -149,16 +254,46 @@ ALTER TABLE `courses`
   ADD PRIMARY KEY (`crs_id`);
 
 --
+-- Indexes for table `english_questionnaire`
+--
+ALTER TABLE `english_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `filipino_questionnaire`
+--
+ALTER TABLE `filipino_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hobbies`
 --
 ALTER TABLE `hobbies`
   ADD PRIMARY KEY (`hob_id`);
 
 --
+-- Indexes for table `logic_questionnaire`
+--
+ALTER TABLE `logic_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `math_questionnaire`
+--
+ALTER TABLE `math_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `science_questionnaire`
+--
+ALTER TABLE `science_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`fullname`);
+  ADD PRIMARY KEY (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -171,10 +306,40 @@ ALTER TABLE `courses`
   MODIFY `crs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
+-- AUTO_INCREMENT for table `english_questionnaire`
+--
+ALTER TABLE `english_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `filipino_questionnaire`
+--
+ALTER TABLE `filipino_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `hobbies`
 --
 ALTER TABLE `hobbies`
   MODIFY `hob_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `logic_questionnaire`
+--
+ALTER TABLE `logic_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `math_questionnaire`
+--
+ALTER TABLE `math_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `science_questionnaire`
+--
+ALTER TABLE `science_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
