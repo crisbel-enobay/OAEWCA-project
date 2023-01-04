@@ -130,13 +130,41 @@
               </ol>
             </nav>
           </div>
+          <div class="row">   
+            <div class="col-sm-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Courses</h5>
+                        <a href="../views/admin-courses.php" class="align-self-end px-4">View more</a>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Hobbies</h5>
+                          <a href="../views/admin-hobbies.php" class="align-self-end px-4">View more</a>
+                    </div>
+                  </div>
+              </div>
+             
+             <div class="col-sm-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                      <h5 class="card-title">Subjects</h5>
+                          
+                      <a href="../views/subject-english.php" class="align-self-end px-4">View more</a>
+                  </div>
+                  </div>
+                </div>
+            </div>
           <!-- Quick Action Toolbar Starts-->
           <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Available Courses</h5>
+                    <h5 class="mb-0">Result History</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table">

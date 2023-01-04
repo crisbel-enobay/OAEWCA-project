@@ -149,6 +149,7 @@
                           <th scope="col">OPTION C</th>
                           <th scope="col">OPTION D</th>
                           <th scope="col">CORRECT ANSWER</th>
+                          <th scope="col">ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
