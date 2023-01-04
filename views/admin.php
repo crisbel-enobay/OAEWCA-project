@@ -1,3 +1,8 @@
+<?php 
+
+  include '../file/logout-function.php';
+  
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,6 +27,7 @@
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
   </head>
   <body>
+    
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -42,7 +48,7 @@
                   <p class="mb-1 mt-3">Admin admin</p>
                   <p class="font-weight-light text-muted mb-0">admin@gmail.com</p>
                 </div>
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
             </li>
           </ul>

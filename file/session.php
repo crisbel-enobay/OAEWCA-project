@@ -8,4 +8,5 @@
             echo "<script> window.location = './student.php' </script>";
         }
     }
+
 ?>
