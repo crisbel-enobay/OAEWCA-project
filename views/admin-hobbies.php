@@ -1,3 +1,7 @@
+<?php
+    include '../forms/adminQueries.php';
+    include "checker.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -134,91 +138,170 @@
                     <h5 class="mb-0">Hobbies</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
-                    <table class="table">
+                    <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
-                          <th class="font-weight-bold">ID</th>
-                          <th class="font-weight-bold">Course</th>
-                          <th class="font-weight-bold">Hobby 1</th>
-                          <th class="font-weight-bold">Hobby 2</th>
-                          <th class="font-weight-bold">Hobby 3</th>
-                          <th class="font-weight-bold">Status</th>
+                          <th scope="col">HOBBY ID</th>
+                          <th scope="col">HOBBY</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>BSCS</td>
-                          <td>Coding</td>
-                          <td>Self Study</td>
-                          <td>Logical</td>
-                          <td>
-                            <div class="btn btn-primary">Edit</div>
-                            <div class="btn btn-danger">Del</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>BSIT</td>
-                          <td>Coding</td>
-                          <td>Assemble and Disassemble</td>
-                          <td>Self study</td>
-                          <td>
-                            <div class="btn btn-primary">Edit</div>
-                            <div class="btn btn-danger">Del</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>BSIS</td>
-                          <td>Coding</td>
-                          <td>Information sorting</td>
-                          <td>Sample</td>
-                          <td>
-                            <div class="btn btn-primary">Edit</div>
-                            <div class="btn btn-danger">Del</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>BSEMC</td>
-                          <td>Drawing</td>
-                          <td>Gaming</td>
-                          <td>Editing</td>
-                          <td>
-                            <div class="btn btn-primary">Edit</div>
-                            <div class="btn btn-danger">Del</div>
-                          </td>
-                        </tr>
+                        <?php
+                        $rows = getHobbies();
+                        $i = 0;
+                        while ($i < count($rows)) {   //Creates a loop to loop through results
+                          $row = $rows[$i];
+                          $id = $row['hob_id'];
+                          $hobbyName = $row['hobby'];
+                          echo "<tr>
+                                    <td>" . $id . "</td>
+                                    <td>" . $hobbyName . "</td>
+                                    <td>" .
+                            "<div class='d-flex '>
+                              <form method='POST' action='../forms/delete_bus.php'>
+                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-ID='$id' data-hobname='$hobbyName'  onClick='editCourse(this)'>EDIT</button>
+                                      </form>" .
+                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+                            "</div>" .
+                            "</td>" .
+                            "</td>
+                                  </tr>";  //$row['index'] the index here is a field name
+                          $i++; 
+                        }
+                        ?>
                       </tbody>
                     </table>
                   </div>
-                  <div class="d-flex mt-4 flex-wrap">
-                    <p class="text-muted">Showing 1 to 10 of 57 entries</p>
-                    <nav class="ml-auto">
-                      <ul class="pagination separated pagination-info">
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                      </ul>
-                    </nav>
+              <div>
+                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Hobby</button>
+              </div>
+
+              <!-- Add Bus-->
+              <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md modal-dialog-centered">
+                  <div class="modal-content">
+
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add Hobby</h5>
+                    </div>
+
+                    <form method="POST">
+                      <div class="modal-body p-5">
+                        <div class="mb-3">
+                          <label>Hobby</label>
+                          <input type="text" name="hobName" class="form-control" placeholder="Enter Hobby" required />
+                        </div>
+                    
+                      <div class="modal-footer">
+                        <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
+                        <?php
+                          if (isset($_POST['Add'])){
+                          $url = 'localhost';
+                          $username = 'root';
+                          $password = '';                     
+                          $newhob= $_POST['hobName'];                   
+                          $conn = new mysqli($url, $username, $password, 'project');
+                          if ($conn->connect_error) {
+                              die("Connection failed!:" . $conn->connect_error);
+                          }
+                          $sql = mysqli_query($conn,
+                          "INSERT INTO hobbies(hobby) VALUES ('".$newhob."')
+                          ");
+                              echo "<script> window.location = 'admin-hobbies.php' </script>";
+                          }
+                        ?>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </form>
+                    </div>
                   </div>
-                  <button type="button" id="add" class="btn btn-primary my-4 py-2 px-4" data-bs-toggle="modal" data-bs-target="#transactionModal" style="display: flex;">Add Hobby</button>
                 </div>
               </div>
-            </div>
-          
+              <!-- End Add Bus-->
+
+                <!-- Edit Modal-->
+                <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Details</h5>
+                      </div>
+                      <form method="POST">
+                        <div class="modal-body">
+                          <input type="hidden" name="edit_id" id="edit_id" />
+                          <div class="mb-3">
+                            <label>Hobby</label>
+                            <input type="text" name="edithobName" id="edithobName" class="form-control" required />
+                          </div>
+                        
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" name="Update" class="btn btn-primary"/>
+                          <?php
+                          if (isset($_POST['Update'])){
+                          $url = 'localhost';
+                          $username = 'root';
+                          $password = '';                     
+                          $edtid = $_POST['edit_id'];                      
+                          $edtHob = $_POST['edithobName'];                
+                          $conn = new mysqli($url, $username, $password, 'project');
+                          if ($conn->connect_error) {
+                              die("Connection failed!:" . $conn->connect_error);
+                          }
+                            $sql = mysqli_query($conn,
+                          "UPDATE hobbies SET hobby='".$edtHob."' WHERE hob_id= ".$edtid."
+                          ");
+                              echo "<script> window.location = 'admin-hobbies.php' </script>";
+                          }
+                        ?>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Edit Modal -->
+
+                <!-- Archive Modal -->
+                <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Remove Hobby</h5>
+                      </div>
+                      <form  method="POST">
+                        <div class="modal-body">
+                          <input type="hidden" name="rem_course_id" id="course_id" />
+                          <h4>Are you sure you want to remove this hobby?</h4>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
+                          <?php
+                            if (isset($_POST['Archive'])){
+                              $url = 'localhost';
+                              $username = 'root';
+                              $password = '';                     
+                              $delid = $_POST['rem_course_id'];                   
+                              $conn = new mysqli($url, $username, $password, 'project');
+                              if ($conn->connect_error) {
+                                  die("Connection failed!:" . $conn->connect_error);
+                              }
+                              $sql = mysqli_query($conn,
+                              "DELETE FROM hobbies WHERE crs_id = ".$delid."
+                              ");
+                              echo "<script> window.location = 'admin-hobbies.php' </script>";
+                              }
+                          ?>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Archive Modal -->
+
+              </div>
+          </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
@@ -241,6 +324,11 @@
     <script src="../vendors/moment/moment.min.js"></script>
     <script src="../vendors/daterangepicker/daterangepicker.js"></script>
     <script src="../vendors/chartist/chartist.min.js"></script>
+     <!-- Vendor JS Files -->
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="../js/off-canvas.js"></script>
@@ -249,5 +337,57 @@
     <!-- Custom js for this page -->
     <script src="../js/dashboard.js"></script>
     <!-- End custom js for this page -->
+
+    <!-- Template Main JS File -->
+    <script src="../assets/js/main2.js"></script>
+
+    <!-- Other JS Files -->
+    <script>
+        <?php include '../assets/js/jquery.js' ?>
+    </script>
+     <script>
+    function editCourse(value) {
+      let courseID = value.getAttribute("data-ID");
+      let courseName = value.getAttribute("data-hobname");
+      document.querySelector("#edit_id").value = courseID;
+      document.querySelector("#edithobName").value = courseName;
+    }
+
+    function archiveCourse(value) {
+      let courseID = value.getAttribute("data-courseid");
+      document.querySelector("#course_id").value = courseID;
+    }
+
+    /* check duplicate similar values
+    $(document).ready(function() {
+      $('#check_plateNo').keyup(function(e) {
+        var plateNum = $('#check_plateNo').val();
+        $.ajax({
+          type: "POST",
+          url: "../forms/manage_bus.php",
+          data: {
+            "check_plateNo_btn": 1,
+            "plateNo": plateNum,
+          },
+          success: function(response) {
+            var jsonData = JSON.parse(response);
+            $("#error_plateNo").removeClass();
+            if (jsonData.success == "1") {
+              $('#error_plateNo').text("Available");
+              $("#error_plateNo").addClass("text-success");
+              $("#btnAdd").prop('disabled', false);
+            } else {
+              $('#error_plateNo').text("Unavailable");
+              $("#error_plateNo").addClass("text-danger");
+              $("#btnAdd").prop('disabled', true);
+            }
+          },
+          error: function() {
+            alert('System Error. Calling ajax failed');
+          }
+        });
+      });
+    });*/
+  </script>
   </body>
 </html>

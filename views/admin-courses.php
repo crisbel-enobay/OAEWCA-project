@@ -1,5 +1,6 @@
 <?php
     include '../forms/adminQueries.php';
+    include "checker.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,13 +42,28 @@
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-               <span class="font-weight-normal"> Admin admin </span></a>
+               <span class="font-weight-normal"> Admin </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <p class="mb-1 mt-3">Admin admin</p>
-                  <p class="font-weight-light text-muted mb-0">admin@gmail.com</p>
+                  <p class="mb-1 mt-3">Administrator</p>
+                  <p class="font-weight-light text-muted mb-0">user@gmail.com</p>
                 </div>
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                <a class="dropdown-item" href="admin.php?off=true"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                
+                <?php
+                  function log_off() {
+                    $_SESSION['valid'] = false;
+                    unset($_SESSION['user']);
+                    unset($_SESSION['type']);
+                    unset($_SESSION['name']);
+                    echo "<script> window.location = './loginform.php' </script>";
+                  }
+                
+                  if (isset($_GET['off'])) {
+                    log_off();
+                  }
+                  ?>
+
               </div>
             </li>
           </ul>
@@ -74,7 +90,7 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
-                  <p class="profile-name">Admin admin</p>
+                  <p class="profile-name">Admin</p>
                   <p class="designation">Administrator</p>
                 </div>
                 <div class="icon-container">
@@ -152,11 +168,14 @@
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
-                          <th scope="col">ID</th>
-                          <th scope="col">Courses</th>
-                          <th scope="col">Department</th>
-                          <th scope="col">Availability</th>
-                          <th scope="col">Action</th>
+                          <th scope="col">COURSE ID</th>
+                          <th scope="col">COURSES</th>
+                          <th scope="col">RELATED HOBBIES</th>
+                          <th scope="col">ENGLISH</th>
+                          <th scope="col">MATH</th>
+                          <th scope="col">FILIPINO</th>
+                          <th scope="col">SCIENCE</th>
+                          <th scope="col">LOGIC</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -165,26 +184,34 @@
                         $i = 0;
                         while ($i < count($rows)) {   //Creates a loop to loop through results
                           $row = $rows[$i];
-                          $id = $row['id'];
+                          $id = $row['crs_id'];
                           $courseName = $row['course'];
-                          $dept = $row['dept'];
-                          $availability = $row['availability'];
+                          $hobbies = $row['related_hobbies'];
+                          $eng = $row['English'];
+                          $mat = $row['Math'];
+                          $fil = $row['Filipino'];
+                          $sci = $row['Science'];
+                          $log = $row['Logic'];
                           echo "<tr>
                                     <td>" . $id . "</td>
                                     <td>" . $courseName . "</td>
-                                    <td>" . $dept . "</td>
-                                    <td>" . $availability . "</td>
+                                    <td>" . $hobbies . "</td>
+                                    <td>" . $eng . "</td>
+                                    <td>" . $mat . "</td>
+                                    <td>" . $fil . "</td>
+                                    <td>" . $sci . "</td>
+                                    <td>" . $log . "</td>
                                     <td>" .
                             "<div class='d-flex '>
                               <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-busid='$id' data-busname='$courseName' data-maxseats='$dept' data-plateno='$availability' onClick='editCourse(this)'>EDIT</button>
+                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$courseName' data-eng='$eng' data-mat='$mat' data-fil='$fil' data-sci='$sci' data-log='$log' onClick='editCourse(this)'>EDIT</button>
                                       </form>" .
-                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-busid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
                             "</div>" .
                             "</td>" .
                             "</td>
                                   </tr>";  //$row['index'] the index here is a field name
-                          $i++;
+                          $i++; 
                         }
                         ?>
                       </tbody>
@@ -203,58 +230,155 @@
                       <h5 class="modal-title" id="exampleModalLabel">Add Course</h5>
                     </div>
 
-                    <form action="../forms/manage_course.php" method="POST">
+                    <form method="POST">
                       <div class="modal-body p-5">
                         <div class="mb-3">
                           <label>Course Name</label>
                           <input type="text" name="courseName" class="form-control" placeholder="Enter Course" required />
                         </div>
                         <div class="mb-3">
-                          <label>Department</label>
-                          <input name="dept" class="form-control" id="dept" placeholder="Enter Department" required  />
+                          <label>Related Hobbies</label>
+                          <input name="relhobby" class="form-control" id="relhobby" placeholder="Enter Department" required  />
                         </div>
                         <div class="mb-3">
-                          <label>Availability</label>
-                          <input type="text" name="availability" value="45" class="form-control" readonly/>
+                          <label>English</label>
+                          <input type="number" name="neng" class="form-control" id="eng" placeholder="Set Score Threshold" required  />
                         </div>
-                      </div>
-
+                        <div class="mb-3">
+                          <label>Math</label>
+                          <input type="number" name="nmat" class="form-control" id="mat" placeholder="Set Score Threshold" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Filipino</label>
+                          <input type="number" name="nfil" class="form-control" id="fil" placeholder="Set Score Threshold" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Science</label>
+                          <input type="number" name="nsci" class="form-control" id="sci" placeholder="Set Score Threshold" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Logic</label>
+                          <input type="number" name="nlog" class="form-control" id="log" placeholder="Set Score Threshold" required  />
+                        </div>
+                    
                       <div class="modal-footer">
-                        <button type="submit" name="Add" class="btn btn-primary" id="btnAdd">Add</button>
+                        <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
+                        <?php
+                          if (isset($_POST['Add'])){
+                          $url = 'localhost';
+                          $username = 'root';
+                          $password = '';                     
+                          $newcrs = $_POST['courseName'];                      
+                          $newhob= $_POST['relhobby'];                      
+                          $newen = $_POST['neng'];                      
+                          $newmt = $_POST['nmat'];                      
+                          $newfl = $_POST['nfil'];                      
+                          $newsc = $_POST['nsci'];                      
+                          $newlg = $_POST['nlog'];                      
+                          $conn = new mysqli($url, $username, $password, 'project');
+                          if ($conn->connect_error) {
+                              die("Connection failed!:" . $conn->connect_error);
+                          }
+                          $sql = mysqli_query($conn,
+                          "INSERT INTO courses(course, related_hobbies, English, Math, Filipino, Science, Logic) VALUES ('".$newcrs."','".$newhob."', ".$newen.", ".$newmt.", ".$newfl.", ".$newsc.", ".$newlg.")
+                          ");
+                              echo "<script> window.location = 'admin-courses.php' </script>";
+                          }
+                        ?>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
                     </form>
-
+                    </div>
                   </div>
                 </div>
               </div>
               <!-- End Add Bus-->
 
                 <!-- Edit Modal-->
-                <div class="modal fade" id="editmodal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Edit Course Details</h5>
                       </div>
-                      <form action="../forms/manage_bus.php" method="POST">
+                      <form method="POST">
                         <div class="modal-body">
                           <input type="hidden" name="edit_id" id="edit_id" />
                           <div class="mb-3">
                             <label>Course Name</label>
-                            <input type="text" name="courseName" id="courseName" class="form-control" required />
+                            <input type="text" name="editcourseName" id="editcourseName" class="form-control" required />
                           </div>
                           <div class="mb-3">
-                            <label>Department</label>
-                            <input name="dept" id="dept" class="form-control" required/>
-                          </div>
+                          <label>Related Hobbies</label>
+                          <select name="relhob" class="form-control" id="edithob" required>
+                            <option value="0">-No Changes-</option>
+                            <?php
+                            $conn = new mysqli('localhost', 'root', '', 'project');
+                            if ($conn->connect_error) {
+                                die("Connection failed!:" . $conn->connect_error);
+                            }
+                            $find = "select * from hobbies";
+                            $list = $conn->query($find);
+                            while($row = $list->fetch_assoc()){
+                              echo '<option value="'.$row['hob_id'].'">'.$row['hobby'].'</option>';
+                            }
+                            ?>
+                          </select>
+                        </div>
                           <div class="mb-3">
-                            <label>Availability</label>
-                            <input type="text" name="availability" id="availability" value="45" class="form-control" readonly />
-                          </div>
+                          <label>English</label>
+                          <input type="number" name="editeng" class="form-control" id="editeng" placeholder="Set Score Threshold" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Math</label>
+                          <input type="number" name="editmat" class="form-control" id="editmat" placeholder="Set Score Threshold" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Filipino</label>
+                          <input type="number" name="editfil" class="form-control" id="editfil" placeholder="Set Score Threshold" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Science</label>
+                          <input type="number" name="editsci" class="form-control" id="editsci" placeholder="Set Score Threshold" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Logic</label>
+                          <input type="number" name="editlog" class="form-control" id="editlog" placeholder="Set Score Threshold" required  />
+                        </div>
                         </div>
                         <div class="modal-footer">
-                          <button type="submit" name="Update" class="btn btn-primary">Update</button>
+                          <input type="submit" name="Update" class="btn btn-primary"/>
+                          <?php
+                          if (isset($_POST['Update'])){
+                          $url = 'localhost';
+                          $username = 'root';
+                          $password = '';                     
+                          $edtid = $_POST['edit_id'];                      
+                          $edtcrs = $_POST['editcourseName'];                      
+                          $edten = $_POST['editeng'];                      
+                          $edtmt = $_POST['editmat'];                      
+                          $edtfl = $_POST['editfil'];                      
+                          $edtsc = $_POST['editsci'];                      
+                          $edtlg = $_POST['editlog'];                      
+                          $conn = new mysqli($url, $username, $password, 'project');
+                          if ($conn->connect_error) {
+                              die("Connection failed!:" . $conn->connect_error);
+                          }
+                          if ($_POST['relhob'] == '0'){
+                            $sql = mysqli_query($conn,
+                          "UPDATE courses SET course='".$edtcrs."' , English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
+                          ");
+                          }
+                          else {
+                          $findhob = "select * from hobbies where hob_id = ".$_POST['relhob']." ";
+                            $showhob = $conn->query($findhob);                 
+                            $changedhob = $showhob->fetch_assoc();
+                          $sql = mysqli_query($conn,
+                          "UPDATE courses SET course='".$edtcrs."',related_hobbies='".$changedhob['hobby']."',English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
+                          ");}
+                              echo "<script> window.location = 'admin-courses.php' </script>";
+                          }
+                        ?>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                       </form>
@@ -268,15 +392,31 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Archive Bus Data</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Remove Course</h5>
                       </div>
-                      <form action="../forms/manage_bus.php" method="POST">
+                      <form  method="POST">
                         <div class="modal-body">
-                          <input type="hidden" name="course_id" id="course_id" />
-                          <h4>Are you sure you want to archive this data?</h4>
+                          <input type="hidden" name="rem_course_id" id="course_id" />
+                          <h4>Are you sure you want to remove this course??</h4>
                         </div>
                         <div class="modal-footer">
-                          <button type="submit" name="Archive" class="btn btn-danger">Yes</button>
+                          <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
+                          <?php
+                            if (isset($_POST['Archive'])){
+                              $url = 'localhost';
+                              $username = 'root';
+                              $password = '';                     
+                              $delid = $_POST['rem_course_id'];                   
+                              $conn = new mysqli($url, $username, $password, 'project');
+                              if ($conn->connect_error) {
+                                  die("Connection failed!:" . $conn->connect_error);
+                              }
+                              $sql = mysqli_query($conn,
+                              "DELETE FROM courses WHERE crs_id = ".$delid."
+                              ");
+                              echo "<script> window.location = 'admin-courses.php' </script>";
+                              }
+                          ?>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                         </div>
                       </form>
@@ -332,14 +472,20 @@
     </script>
      <script>
     function editCourse(value) {
-      let courseID = value.getAttribute("data-courseid");
+      let courseID = value.getAttribute("data-courseID");
       let courseName = value.getAttribute("data-coursename");
-      let dept = value.getAttribute("data-dept");
-      let availability = value.getAttribute("data-availability");
+      let english = value.getAttribute("data-eng");
+      let math = value.getAttribute("data-mat");
+      let filipino = value.getAttribute("data-fil");
+      let science = value.getAttribute("data-sci");
+      let logic = value.getAttribute("data-log");
       document.querySelector("#edit_id").value = courseID;
-      document.querySelector("#courseName").value = courseName;
-      document.querySelector("#dept").value = dept;
-      document.querySelector("#availability").value = availability;
+      document.querySelector("#editcourseName").value = courseName;
+      document.querySelector("#editeng").value = english;
+      document.querySelector("#editmat").value = math;
+      document.querySelector("#editfil").value = filipino;
+      document.querySelector("#editsci").value = science;
+      document.querySelector("#editlog").value = logic;
     }
 
     function archiveCourse(value) {

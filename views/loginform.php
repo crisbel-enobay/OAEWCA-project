@@ -1,3 +1,4 @@
+<?php include "../file/session.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -50,7 +51,7 @@ $message = "No";
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <title>Login Form</title>
+  <title>Log in</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -130,6 +131,7 @@ $message = "No";
                       </div>
                       <div class="col-12">
                           <input class="btn btn-primary w-100" type="submit" name="submit" value="Login">
+                          <?php include "../file/log_confirm.php";?>
                         </div>
                         <div class="col-12">
                           <p class="col-12 d-flex justify-content-center"><a href="../views/register.php"  class="signup-image-link"> &nbsp; Create an account</a></p>
