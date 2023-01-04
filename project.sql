@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< Updated upstream
 -- Generation Time: Jan 03, 2023 at 04:23 AM
+=======
+-- Generation Time: Jan 04, 2023 at 02:34 PM
+>>>>>>> Stashed changes
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -135,8 +139,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
+<<<<<<< Updated upstream
 ('admin', 'admin@gmail.com', '$2y$10$3nMPCFG14Lz9ayUOH80mc.vf1G2Wse0ZQr7/OZE3lRM8mNw2dkZee', 1, '170813', '2022-12-29 03:32:28', '', ''),
 ('marvin caharop', 'lebbraumjayce@gmail.com', '$2y$10$I7eqsBgwKh3USf4G4/zeQeXbSy4XaYP2uRsTcIX7SzWzkMqT2tPka', 0, '719100', '2023-01-01 16:28:43', '', '');
+=======
+('marvin caharop', 'lebbraumjayce@gmail.com', '$2y$10$LLqTF71mFh0BDayI8yCWk.dwLcnnlZoIZSc7SAmjPD4Qr1OFwI59m', 0, '113398', '2023-01-04 21:29:46', 'd41d8cd98f00b204e9800998ecf8427e7892', '2023-01-05 14:31:25'),
+('password \"admin\"', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', '');
+>>>>>>> Stashed changes
 
 --
 -- Indexes for dumped tables
