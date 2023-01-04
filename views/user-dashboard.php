@@ -1,3 +1,7 @@
+<?php
+    include '../forms/adminQueries.php';
+    include "checker.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,6 +55,15 @@
           </button>
         </div>
       </nav>
+      <?php
+        include("../forms/database.php");
+        include("../forms/alert.php");
+
+        if ($_GET) {
+            $val = $_GET['status'];
+            alert($val);
+        }
+        ?>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
@@ -143,9 +156,10 @@
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
-                      <thead>
+                    <thead>
                         <tr>
-                          <th scope="col">Courses</th>
+                          <th scope="col">COURSE ID</th>
+                          <th scope="col">COURSES</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -154,11 +168,14 @@
                         $i = 0;
                         while ($i < count($rows)) {   //Creates a loop to loop through results
                           $row = $rows[$i];
+                          $id = $row['crs_id'];
                           $courseName = $row['course'];
                           echo "<tr>
+                                    <td>" . $id . "</td>
                                     <td>" . $courseName . "</td>
+                            
                                   </tr>";  //$row['index'] the index here is a field name
-                          $i++;
+                          $i++; 
                         }
                         ?>
                       </tbody>
