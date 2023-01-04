@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2023 at 02:37 PM
+-- Generation Time: Jan 04, 2023 at 02:50 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -73,6 +73,52 @@ INSERT INTO `courses` (`crs_id`, `course`, `related_hobbies`, `English`, `Math`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `english_questionnaire`
+--
+
+CREATE TABLE `english_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `english_questionnaire`
+--
+
+INSERT INTO `english_questionnaire` (`id`, `question`, `optionA`, `optionB`, `optionC`, `optionD`, `correctAnswer`) VALUES
+(2, ' Question 1', 'A', 'B', 'C', 'D', 'C');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `filipino_questionnaire`
+--
+
+CREATE TABLE `filipino_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `filipino_questionnaire`
+--
+
+INSERT INTO `filipino_questionnaire` (`id`, `question`, `optionA`, `optionB`, `optionC`, `optionD`, `correctAnswer`) VALUES
+(1, ' Filipino 1', 'A', 'B', 'C', 'D', 'D');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hobbies`
 --
 
@@ -116,6 +162,61 @@ INSERT INTO `hobbies` (`hob_id`, `hobby`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `logic_questionnaire`
+--
+
+CREATE TABLE `logic_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `logic_questionnaire`
+--
+
+INSERT INTO `logic_questionnaire` (`id`, `question`, `optionA`, `optionB`, `optionC`, `optionD`, `correctAnswer`) VALUES
+(1, '', 'A', 'B', 'C', 'D', 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `math_questionnaire`
+--
+
+CREATE TABLE `math_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `science_questionnaire`
+--
+
+CREATE TABLE `science_questionnaire` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `correctAnswer` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -149,10 +250,40 @@ ALTER TABLE `courses`
   ADD PRIMARY KEY (`crs_id`);
 
 --
+-- Indexes for table `english_questionnaire`
+--
+ALTER TABLE `english_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `filipino_questionnaire`
+--
+ALTER TABLE `filipino_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `hobbies`
 --
 ALTER TABLE `hobbies`
   ADD PRIMARY KEY (`hob_id`);
+
+--
+-- Indexes for table `logic_questionnaire`
+--
+ALTER TABLE `logic_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `math_questionnaire`
+--
+ALTER TABLE `math_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `science_questionnaire`
+--
+ALTER TABLE `science_questionnaire`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -171,10 +302,40 @@ ALTER TABLE `courses`
   MODIFY `crs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
+-- AUTO_INCREMENT for table `english_questionnaire`
+--
+ALTER TABLE `english_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `filipino_questionnaire`
+--
+ALTER TABLE `filipino_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `hobbies`
 --
 ALTER TABLE `hobbies`
   MODIFY `hob_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `logic_questionnaire`
+--
+ALTER TABLE `logic_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `math_questionnaire`
+--
+ALTER TABLE `math_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `science_questionnaire`
+--
+ALTER TABLE `science_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
