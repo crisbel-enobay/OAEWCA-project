@@ -1,13 +1,13 @@
-<?php include "../file/session.php";?>
+
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include '..\file\session.php';
+ include '..\file\session.php';
 if (isset($_POST["submit"])){
   mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // enable exceptions
 
 $conn = mysqli_connect('localhost', "root", "", "project");
-
+$_SESSION['valid'] = true;
 $log_email = $_POST['your_name'];
 $log_password = $_POST['your_pass'];
 

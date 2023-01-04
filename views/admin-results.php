@@ -1,3 +1,6 @@
+<?php 
+include '../file/logout-function.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,7 +45,7 @@
                   <p class="mb-1 mt-3">Admin admin</p>
                   <p class="font-weight-light text-muted mb-0">admin@gmail.com</p>
                 </div>
-                <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
             </li>
           </ul>

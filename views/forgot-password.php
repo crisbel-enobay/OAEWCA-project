@@ -82,7 +82,7 @@
                       <form class="row g-3 needs-validation" method="POST" enctype="multipart/form-data">
     
                         <div class="col-12">
-                          <input type="text" id="email" name="email" class="form-control" placeholder="input" required>
+                          <input type="text" id="email" name="email" class="form-control" placeholder="enter email address" required>
                           <div class="d-flex justify-content-end px-3 pt-2">
                             <i class="bi bi-eye-slash" id="togglePassword"></i>
                           </div>
