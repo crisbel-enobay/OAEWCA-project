@@ -44,7 +44,7 @@
                 <form class="row g-3 needs-validation" method="POST" enctype="multipart/form-data">
                     <div class="input-group mb-3">
                      <input type="hidden" name="email" value="<?php echo $_GET['email']; ?>" required/> 
-                      <input type="password" name="verification_code" id="otp_code" class="form-control" placeholder="Input OTP code" aria-label="Username" aria-describedby="basic-addon1">
+                      <input type="text" name="verification_code" id="otp_code" class="form-control" placeholder="Input OTP code" aria-label="Username" aria-describedby="basic-addon1">
                       <button type="button" class="btn btn-primary bi bi-eye-slash" id="togglePassword"></span>
                         <div class="invalid-feedback"> </div></div>
 
