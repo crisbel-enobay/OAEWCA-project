@@ -1,7 +1,8 @@
 <?php 
 
   include '../file/logout-function.php';
-  
+  include '../forms/adminQueries.php';
+  include "checker.php";
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -133,28 +134,49 @@
           <div class="row">   
             <div class="col-sm-4 grid-margin stretch-card">
                   <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Courses</h5>
-                        <a href="../views/admin-courses.php" class="align-self-end px-4">View more</a>
-                    </div>
+                    <div class="card">
+                      <div class="card-body">
+                          <h5 class="card-title">Available Courses</h5>
+                          <div class="ps-3">
+                              <h2>
+                                  <?php
+                                  $rows = getCourses();
+                                  echo count($rows);
+                                  ?>
+                              </h2>
+                          </div>
+                          </div>
+                          <a href="../views/admin-courses.php" class="align-self-end px-4">View more</a>
+                      </div>
                     </div>
                   </div>
                   <div class="col-sm-4 grid-margin stretch-card">
                   <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Hobbies</h5>
+                    <div class="card">
+                      <div class="card-body">
+                          <h5 class="card-title">Hobbies</h5>
+                          <div class="ps-3">
+                              <h2>
+                                  <?php
+                                  $rows = getHobbies();
+                                  echo count($rows);
+                                  ?>
+                              </h2>
+                          </div>
+                        </div>
                           <a href="../views/admin-hobbies.php" class="align-self-end px-4">View more</a>
                     </div>
                   </div>
               </div>
              
              <div class="col-sm-4 grid-margin stretch-card">
+              <div class="card">
                 <div class="card">
-                  <div class="card-body">
-                      <h5 class="card-title">Subjects</h5>
-                          
-                      <a href="../views/subject-english.php" class="align-self-end px-4">View more</a>
-                  </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Subjects</h5>
+                        </div>
+                    </div>
+                    <a href="../views/subject-english.php" class="align-self-end px-4">View More</a><br>
                   </div>
                 </div>
             </div>
