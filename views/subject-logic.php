@@ -1,7 +1,6 @@
 <?php
     include '../forms/adminQueries.php';
     include "checker.php";
-    include '../file/logout-function.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +46,7 @@
                   <p class="mb-1 mt-3">Admin admin</p>
                   <p class="font-weight-light text-muted mb-0">admin@gmail.com</p>
                 </div>
-                <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
             </li>
           </ul>
@@ -149,7 +148,6 @@
                           <th scope="col">OPTION C</th>
                           <th scope="col">OPTION D</th>
                           <th scope="col">CORRECT ANSWER</th>
-                          <th scope="col">ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -167,13 +165,13 @@
                           $right = $row['correctAnswer'];
                           echo "<tr>
                                     <td>" . $id . "</td>
-                                    <td>" . $question . "</td>
-                                    <td>" . $optA . "</td>
-                                    <td>" . $optB . "</td>
-                                    <td>" . $optC . "</td>
-                                    <td>" . $optD . "</td>
-                                    <td>" . $right . "</td>
-                                    <td>" .
+                                    <td> <img src='".$row['question']."' alt='' > </td>
+                                    <td> <img src='".$optA."' alt='' > </td>
+                                    <td> <img src='".$optB."' alt='' > </td>
+                                    <td> <img src='".$optC."' alt='' > </td>
+                                    <td> <img src='".$optD."' alt='' > </td>
+                                    <td> ".$right." </td>
+                                    <td> " .
                             "<div class='d-flex '>
                               <form method='POST' action='../forms/delete_bus.php'>
                                         <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-ID='$id' data-question='$question' data-optA='$optA' data-optB='$optB' data-optC='$optC' data-optD='$optD' data-right='$right' onClick='editCourse(this)'>EDIT</button>
@@ -202,27 +200,27 @@
                       <h5 class="modal-title" id="exampleModalLabel">Add a Question</h5>
                     </div>
 
-                    <form method="POST">
+                    <form method="POST" enctype="multipart/form-data">
                       <div class="modal-body p-5">
                         <div class="mb-3">
                           <label>Question</label>
-                          <textarea name="nquestion" class="form-control" id="question" rows="5" cols="45" required> </textarea>
+                          <input type="file" name="nquestion" placeholder="Please Select an Image"/>
                         </div>
                         <div class="mb-3">
                           <label>Option A</label>
-                          <input type="text" name="nopta" class="form-control" id="eng" placeholder="Enter an option" required  />
+                          <input type="file"  name="nopta" id="eng" placeholder="Enter an option" required  />
                         </div>
                         <div class="mb-3">
                           <label>Option B</label>
-                          <input type="text" name="noptb" class="form-control" id="mat" placeholder="Enter an option" required  />
+                          <input type="file"  name="noptb" id="mat" placeholder="Enter an option" required  />
                         </div>
                         <div class="mb-3">
                           <label>Option C</label>
-                          <input type="text" name="noptc" class="form-control" id="fil" placeholder="Enter an option" required  />
+                          <input type="file"  name="noptc" id="fil" placeholder="Enter an option" required  />
                         </div>
                         <div class="mb-3">
                           <label>Option D</label>
-                          <input type="text" name="noptd" class="form-control" id="sci" placeholder="Enter an option" required  />
+                          <input type="file"  name="noptd" id="sci" placeholder="Enter an option" required  />
                         </div>
                         <div class="mb-3">
                           <label>Correct Answer</label>
@@ -242,14 +240,60 @@
                           if (isset($_POST['Add'])){
                           $url = 'localhost';
                           $username = 'root';
-                          $password = '';                     
-                          $newQS = $_POST['nquestion'];                      
-                          $newA= $_POST['nopta'];                      
-                          $newB = $_POST['noptb'];                      
-                          $newC = $_POST['noptc'];                      
-                          $newD = $_POST['noptd'];                      
-                          $newright = $_POST['right'];                  
+                          $password = '';
                           $conn = new mysqli($url, $username, $password, 'project');
+                          if ($conn->connect_error) {
+                            die("Connection failed!:" . $conn->connect_error);
+                          }
+                          $newQS = $_FILES['nquestion'] ['name'];                  
+                          $newA = $_FILES['nopta'] ['name'];                  
+                          $newB = $_FILES['noptb'] ['name'];                  
+                          $newC = $_FILES['noptc'] ['name'];                  
+                          $newD = $_FILES['noptd'] ['name'];                  
+                          $newright = $_POST['right'];                 
+                          $conn = new mysqli($url, $username, $password, 'project');
+                          if ($conn->connect_error) {
+                            die("Connection failed!:" . $conn->connect_error);
+                        }
+                      
+                       $tmp_name=$_FILES['nquestion']['tmp_name'];
+                       $file_name=$_FILES['nquestion']['name'];
+                       $file_size=$_FILES['nquestion']['size'];
+                       $file_location="folder/";
+                       $file_to_uploadnewQS=$file_location.basename($newQS);
+                       $file_to_uploadnewA=$file_location.basename($newA);
+                       $file_to_uploadnewB=$file_location.basename($newB);
+                       $file_to_uploadnewC=$file_location.basename($newC);
+                       $file_to_uploadnewD=$file_location.basename($newD);
+                      if($file_size>0){
+                        if($file_size<=2400000){
+                          $extname=strtolower(pathinfo($file_name,PATHINFO_EXTENSION));
+                          if($extname=='png' || $extname=='jpg' || $extname=='jpeg' || $extname=='gif' || $extname=='bmp'){
+                              if(move_uploaded_file($tmp_name,$file_to_uploadnewQS)){
+                                move_uploaded_file($tmp_name,$file_to_uploadnewA);
+                                move_uploaded_file($tmp_name,$file_to_uploadnewB);
+                                move_uploaded_file($tmp_name,$file_to_uploadnewC);
+                                move_uploaded_file($tmp_name,$file_to_uploadnewD);
+                                
+                                $sql = mysqli_query($conn,
+                          "INSERT INTO logic_questionnaire(question, optionA, optionB, optionC, optionD, correctAnswer) VALUES ('$file_to_uploadnewQS','$file_to_uploadnewA', '$file_to_uploadnewB', '$file_to_uploadnewC', '$file_to_uploadnewD', '".$newright."')
+                          ");
+                          echo "<script> window.location = 'subject-logic.php' </script>";
+                              }
+                          }else{
+                                $err_msg='Selected File is not an Image ';
+                          }
+                        }else{
+                          $err_msg='Exceeds 24MB maximum file size';
+                        }
+                      }
+                      
+                      
+                      
+                      
+                          
+
+                            /*
                           if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
@@ -257,6 +301,7 @@
                           "INSERT INTO logic_questionnaire(question, optionA, optionB, optionC, optionD, correctAnswer) VALUES ('".$newQS."','".$newA."', '".$newB."', '".$newC."', '".$newD."', '".$newright."')
                           ");
                               echo "<script> window.location = 'subject-logic.php' </script>";
+                              */
                           }
                         ?>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -279,27 +324,32 @@
                         <div class="modal-body">
                           <input type="hidden" name="edit_id" id="edit_id" />
                           <div class="mb-3">
-                            <label>Question</label>
-                          <textarea name="edtquestion" class="form-control" id="edtquestion" rows="5" cols="45" required> </textarea>
-                          </div>
-                          <div class="mb-3">
-                            <label>Option A</label>
-                            <input type="text" name="edtA" id="edtA" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option B</label>
-                            <input type="text" name="edtB" id="edtB" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option C</label>
-                            <input type="text" name="edtC" id="edtC" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option D</label>
-                            <input type="text" name="edtD" id="edtD" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Correct Answer</label>
+                            <label>Question</label><br>
+                            <img src="" alt="" id="edtquestion">
+                            <input type="file" name="edtquestion" placeholder="Please Select an Image"/>
+                        </div>
+                        <div class="mb-3">
+                          <label>Option A</label>
+                          <img src="" alt="" id="edtA">
+                            <input type="file"  name="edtopta" placeholder="Enter an option" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Option B</label>
+                          <img src="" alt="" id="edtB">
+                          <input type="file"  name="edtoptb" placeholder="Enter an option" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Option C</label>
+                          <img src="" alt="" id="edtC">
+                          <input type="file"  name="edtoptc" placeholder="Enter an option" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Option D</label>
+                          <img src="" alt="" id="edtD">
+                          <input type="file"  name="edtoptd" placeholder="Enter an option" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Correct Answer</label>
                           <select name="edtright" class="form-control" id="edtright" required>
                             <option value="X">-Select a Letter-</option>
                             <option value="A">A</option>
@@ -308,32 +358,62 @@
                             <option value="D">D</option>
                             
                           </select>
-                          </div>
-                        
+                        </div>
                         </div>
                         <div class="modal-footer">
                           <input type="submit" name="Update" class="btn btn-primary"/>
                           <?php
-                          if (isset($_POST['Update'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $edtid = $_POST['edit_id'];                      
-                          $edtQuestion = $_POST['edtquestion'];                
-                          $edtoptionA = $_POST['edtA'];                
-                          $edtoptionB = $_POST['edtB'];                
-                          $edtoptionC = $_POST['edtC'];                
-                          $edtoptionD = $_POST['edtD'];                
-                          $edtrightoption = $_POST['edtright'];                
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
+                          if (isset($_POST['Add'])){
+                            $url = 'localhost';
+                            $username = 'root';
+                            $password = '';
+                            $conn = new mysqli($url, $username, $password, 'project');
+                            if ($conn->connect_error) {
+                              die("Connection failed!:" . $conn->connect_error);
+                            }
+                            $edtQS = $_FILES['edtquestion'] ['name'];                  
+                            $edtA = $_FILES['edtA'] ['name'];                  
+                            $edtB = $_FILES['edtB'] ['name'];                  
+                            $edtC = $_FILES['edtC'] ['name'];                  
+                            $edtD = $_FILES['edtD'] ['name'];                  
+                            $edtright = $_POST['edtright'];                 
+                            $conn = new mysqli($url, $username, $password, 'project');
+                            if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
-                            $sql = mysqli_query($conn,
-                          "UPDATE logic_questionnaire SET question='".$edtQuestion."', optionA='".$edtoptionA."', optionB='".$edtoptionB."', optionC='".$edtoptionC."', optionD='".$edtoptionD."', correctAnswer='".$edtrightoption."' WHERE id= ".$edtid."
-                          ");
-                              echo "<script> window.location = 'subject-logic.php' </script>";
+                        
+                         $tmp_name=$_FILES['edtquestion']['tmp_name'];
+                         $file_name=$_FILES['edtquestion']['name'];
+                         $file_size=$_FILES['edtquestion']['size'];
+                         $file_location="./folder/";
+                         $file_to_uploadedtQS=$file_location.basename($edtQS);
+                         $file_to_uploadedtA=$file_location.basename($edtA);
+                         $file_to_uploadedtB=$file_location.basename($edtB);
+                         $file_to_uploadedtC=$file_location.basename($edtC);
+                         $file_to_uploadedtD=$file_location.basename($edtD);
+                        if($file_size>0){
+                          if($file_size<=2400000){
+                            $extname=strtolower(pathinfo($file_name,PATHINFO_EXTENSION));
+                            if($extname=='png' || $extname=='jpg' || $extname=='jpeg' || $extname=='gif' || $extname=='bmp'){
+                                if(move_uploaded_file($tmp_name,$file_to_uploadedtQS)){
+                                  move_uploaded_file($tmp_name,$file_to_uploadedtA);
+                                  move_uploaded_file($tmp_name,$file_to_uploadedtB);
+                                  move_uploaded_file($tmp_name,$file_to_uploadedtC);
+                                  move_uploaded_file($tmp_name,$file_to_uploadedtD);
+                                  
+                                  $sql = mysqli_query($conn,
+                            "UPDATE logic_questionnaire SET question='".$file_to_uploadedtQS."', optionA='".$file_to_uploadedtA."', optionB='".$file_to_uploadedtB."', optionC='".$file_to_uploadedtC."', optionD='".$file_to_uploadedtD."', correctAnswer='".$edtoption."' WHERE id= ".$edtid."
+                            ");
+                            echo "<script> window.location = 'subject-logic.php' </script>";
+                                }
+                            }else{
+                                  $err_msg='Selected File is not an Image ';
+                            }
+                          }else{
+                            $err_msg='Exceeds 24MB maximum file size';
                           }
+                        }
+                            }
                         ?>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -436,11 +516,11 @@
       let datD = value.getAttribute("data-optD");
       let datRight = value.getAttribute("data-right");
       document.querySelector("#edit_id").value = courseID;
-      document.querySelector("#edtquestion").value = datquestion;
-      document.querySelector("#edtA").value = datA;
-      document.querySelector("#edtB").value = datB;
-      document.querySelector("#edtC").value = datC;
-      document.querySelector("#edtD").value = datD;
+      document.querySelector("#edtquestion").src = datquestion;
+      document.querySelector("#edtA").src = datA;
+      document.querySelector("#edtB").src = datB;
+      document.querySelector("#edtC").src = datC;
+      document.querySelector("#edtD").src = datD;
       document.querySelector("#edtright").value = datRight;
     }
 
