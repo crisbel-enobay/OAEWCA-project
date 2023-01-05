@@ -47,6 +47,7 @@
         <div class="content-wrapper">
           <div class="row flex-grow">
           <div class="container-fluid mt-sm-5 my-0">
+            <div class="py-2 h4"><b>SENTENCE COMPLETION. Select the word or phrase that most appropriately completes the sentence.</b></div>
               <div class="question ml-sm-5 pl-sm-5 pt-2">
                   <div class="py-2 h5"><b>Q. which option best describes your job role?</b></div>
                     <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
