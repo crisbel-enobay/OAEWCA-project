@@ -146,13 +146,18 @@
                   <div class="card-body">
                     <h4 class="card-title">Requirements</h4>
                     <p class="card-description"> Students must have the following: </p>
+                    <h6 class="lead">Reminder</h6>
                       <ul class="list-ticked">
-                        <li>Lorem ipsum dolor sit amet</li>
-                        <li>Consectetur adipiscing elit</li>
-                        <li>Integer molestie lorem at massa</li>
-                        <li>Facilisis in pretium nisl aliquet</li>
-                        <li>Nulla volutpat aliquam velit></li>
+                        <li>once online enrollment has been confirmed and a student number has been obtained, requirements must be submitted to the registrar's office (unless specifically stated to be submitted prior to admission). Enrollment is conditional upon receipt of all required paperwork (original hard copies) in person. <br>
+                        The Registrar will make known the submission deadline. Please be aware that any needs you provide will belong to UCC and won't be given back to you.</li>
+                        <li>Applicants may submit documents on campus </li>
                       </ul>
+                      <h6 class="lead">Additional Health Requirements:</h6>
+                      <ul class="list-ticked">
+                        <li>All College or applicants who will undergo in-person classes MUST be *fully vaccinated against COVID-19. While it is not required by DepEd, we encourage our High School students to have their COVID-19 vaccinations when eligible.</li>
+                        <li>Fully vaccinated means a person has received all recommended doses in their primary series of COVID-19 vaccines.</li>
+                      </ul>
+                      
                   </div>
                 </div>
               </div>
