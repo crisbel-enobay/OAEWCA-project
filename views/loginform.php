@@ -7,7 +7,7 @@ if (isset($_POST["submit"])){
   mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // enable exceptions
 
 $conn = mysqli_connect('localhost', "root", "", "project");
-$_SESSION['valid'] = true;
+$_SESSION['valid'] = false;
 $log_email = $_POST['your_name'];
 $log_password = $_POST['your_pass'];
 
@@ -36,14 +36,9 @@ while ($row = $result->fetch_assoc()) {
       // header("Location: loggedin.php");
       exit();
   }
-  
 }
-$message = "No";
+$message = "invalid credentials";
 // header must be called before any other output
-  function cantLogIn(){
-      $notLoggedIn = "invalid credentials or credentials is taken please check your input";
-      return $notLoggedIn;
-  }
 }
 ?>
 <head>
@@ -131,7 +126,9 @@ $message = "No";
                       </div>
                       <div class="col-12">
                           <input class="btn btn-primary w-100" type="submit" name="submit" value="Login">
-                          <?php include "../file/log_confirm.php";?>
+                          <?php if (isset($_POST["submit"])){
+                            echo $message;
+                          } ?>
                         </div>
                         <div class="col-12">
                           <p class="col-12 d-flex justify-content-center"><a href="../views/register.php"  class="signup-image-link"> &nbsp; Create an account</a></p>
