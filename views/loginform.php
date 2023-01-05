@@ -31,7 +31,7 @@ while ($row = $result->fetch_assoc()) {
               echo "<script> window.location = '../views/admin.php' </script>";}
             else if ($row['type'] == '0'){
               $_SESSION['type'] = 'student';
-              echo "<script> window.location = '../views/student.php' </script>";}
+              echo "<script> window.location = '../views/user-dashboard.php' </script>";}
           }
       // header("Location: loggedin.php");
       exit();

@@ -163,18 +163,29 @@
                     <p class="card-description"> Students should do the following: </p>
                       <h6 class="lead">Before Exam</h6>
                         <ul class="list-ticked">
-                          <li>Lorem ipsum dolor sit amet</li>
-                          <li>Consectetur adipiscing elit</li>
+                          <li>Please make sure that:<br>
+                            •	You have an active user account. Log on to ______.<br>
+                            •	You remember the password for your account. If you have forgotten your password, you can change it at _______.                               
+                          </li>
+                          <li>When using a laptop at digital examinations, the laptop has to be set up as soon as possible. Make sure that the internet connection is stable.</li>
+                          <li>You must bring your own scratch paper for use during the examination.</li>
+                          <li>If failure to comply with these recommendations results in technical problems that cause a delay in your examination, you cannot expect to be granted extended time.</li>
                         </ul>
                         <h6 class="lead">During Exam</h6>
                         <ul class="list-ticked">
-                          <li>Lorem ipsum dolor sit amet</li>
-                          <li>Consectetur adipiscing elit</li>
+                          <li>You are required to comply with the directions given by the head invigilator or admin.</li>
+                          <li>You must be visible on the screen or camera of the devices.</li>
+                          <li>You may keep food and drink on or by the desk during the entire examination. You may eat and drink whenever you want.</li>
+                          <li>You are not permitted to leave the examination for a break.  </li>
+                          <li>You must be visible on the screen or camera of the devices.</li>
+                          <li>If anything in the examination question is unclear, you can contact the lecturer or admin. Such contact is facilitated by the head invigilator.</li>
+                          <li>Papers and computer/laptop are to be covered when you leave your place.</li>
+                          <li>If you experience technical problems during a digital examination, you must immediately contact one of the invigilators. The invigilator will call for technical support. Failure to report such technical problems might be treated as cheating or an attempt to cheat.</li>
                         </ul>
                         <h6 class="lead">After Exam</h6>
                         <ul class="list-ticked">
-                          <li>Lorem ipsum dolor sit amet</li>
-                          <li>Consectetur adipiscing elit</li>
+                          <li>You can withdraw from an examination, at the earliest, one hour after the examination has started. Contact the head invigilator and complete a withdrawal form. Withdrawals during an examination will be treated as an examination attempt. You have to contact the head invigilator before you close down the examination program at digital examination.</li>
+                          <li>If you fall ill during the examination and cannot complete it, you can withdraw from the examination. Contact the head invigilator and complete a withdrawal form. In order for an absence caused by illness to be registered as legitimate absence, you must see a doctor immediately after leaving the examination venue. The doctor's certificate must be issued on the day of the examination and must identify the illness that arose during the examination. The doctor's certificate, possibly along with an application for a postponed examination, must be sent or submitted to the faculty in charge of the examination within the deadlines set by the Faculty. It is your responsibility to apply to the Faculty and to submit the relevant documentation and to assure you have the information about the deadlines that apply. Withdrawal from an examination due to documented illness is not considered an examination attempt.</li>
                         </ul>
                   </div>
                 
