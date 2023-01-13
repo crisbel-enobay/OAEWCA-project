@@ -1,8 +1,11 @@
 <?php
-     session_start();
+     if(session_status() !== PHP_SESSION_ACTIVE) 
+     {
+      session_start();
+     }
      if ($_SESSION['type'] != 'student'){
-        include "../file/session.php";
-        //  echo "<script> window.location = '../index.php' </script>";
+      //   include "../file/session.php";
+          echo "<script> window.location = '../index.php' </script>";
      }
 
 ?>

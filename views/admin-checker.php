@@ -1,8 +1,11 @@
 <?php
+    if(session_status() !== PHP_SESSION_ACTIVE) 
+    {
      session_start();
+    }
      if ($_SESSION['type'] != 'admin'){
         //  echo "<script> window.location = '../index.php' </script>";
-        include "../file/session.php";
+        echo "<script> window.location = '../index.php' </script>";
      }
      else{
         // include "file/session.php";
