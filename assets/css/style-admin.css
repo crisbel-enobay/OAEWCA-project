@@ -8835,7 +8835,7 @@ button.bg-dark:focus {
   padding-left: 1.5rem !important; }
 
 .p-5 {
-  padding: 3rem !important; }
+  padding: 1rem !important; }
 
 .pt-5,
 .py-5 {
@@ -11910,7 +11910,7 @@ dl {
       font-weight: 400;
       color: #6a6a6a; }
   .modal .modal-dialog .modal-content .modal-body {
-    padding: 35px 26px; }
+    padding: 25px 25px; }
   .modal .modal-dialog .modal-content .modal-footer {
     padding: 15px 31px; }
 
