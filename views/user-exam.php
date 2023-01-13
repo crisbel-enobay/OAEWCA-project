@@ -1,6 +1,7 @@
 
 <?php
 include '../file/logout-function.php';
+include "../views/student-checker.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,14 +37,14 @@ include '../file/logout-function.php';
           <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome Student!</h5>
+          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-               <span class="font-weight-normal"> Student user </span></a>
+               <span class="font-weight-normal"> <?php echo ($_SESSION['fullname']); ?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <p class="mb-1 mt-3">Student user</p>
+                  <p class="mb-1 mt-3"><?php echo ($_SESSION['fullname']); ?></p>
                   <p class="font-weight-light text-muted mb-0">student@gmail.com</p>
                 </div>
                 <a href="?log=out"e class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
@@ -63,7 +64,7 @@ include '../file/logout-function.php';
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
-                  <p class="profile-name">Student user</p>
+                  <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
                   <p class="designation">Student</p>
                 </div>
                 <div class="icon-container">
