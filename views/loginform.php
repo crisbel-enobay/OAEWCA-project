@@ -2,16 +2,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
- include '..\file\session.php';
 if (isset($_POST["submit"])){
   mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // enable exceptions
-
 $conn = mysqli_connect('localhost', "root", "", "project");
-$_SESSION['valid'] = false;
 $log_email = $_POST['your_name'];
 $log_password = $_POST['your_pass'];
+$_SESSION['valid'] = false;
+include "../file/session.php";
 
-$sql = "SELECT email, password, verified_date, type FROM users WHERE email=?";
+$sql = "SELECT email, fullname, password, verified_date, type FROM users WHERE email=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('s', $log_email);
 $stmt->execute();
@@ -25,16 +24,17 @@ while ($row = $result->fetch_assoc()) {
           header("Location: ../views/email-ui.php?email=" . $log_email . "");
       }
       else{ 
-          $_SESSION['valid'] = true;
+        $_SESSION['valid'] = true;
+        $_SESSION['fullname'] = $row['fullname'];
           if ($row['type'] == '1'){
               $_SESSION['type'] = 'admin';
-              echo "<script> window.location = '../views/admin.php' </script>";}
+              echo "<script> window.location = '../views/admin.php' </script>";
+            }
             else if ($row['type'] == '0'){
               $_SESSION['type'] = 'student';
-              echo "<script> window.location = '../views/user-dashboard.php' </script>";}
+              echo "<script> window.location = '../views/user-dashboard.php' </script>";
+            }
           }
-      // header("Location: loggedin.php");
-      exit();
   }
 }
 $message = "invalid credentials";
