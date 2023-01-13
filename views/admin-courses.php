@@ -110,32 +110,23 @@
               </a>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">Exam Categories</span></li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="../views/admin-courses.php">
                 <span class="menu-title">Courses</span>
                 <i class="icon-globe menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-hobbies.php">
-                <span class="menu-title">Hobbies</span>
+              <a class="nav-link" href="../views/admin-questions.php">
+                <span class="menu-title">Questions</span>
                 <i class="icon-book-open menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Subjects</span>
+              <a class="nav-link" href="../views/admin-answer.php">
+                <span class="menu-title">Answer</span>
                 <i class="icon-chart menu-icon"></i>
               </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-english.php">English</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-math.php">Math</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-fil.php">Filipino</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-science.php">Science</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-logic.php">Logic</a></li>
-                </ul>
-              </div>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
@@ -146,7 +137,7 @@
             </li>
           </ul>
         </nav>
-       <!-- partial -->
+         <!-- partial -->
        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">

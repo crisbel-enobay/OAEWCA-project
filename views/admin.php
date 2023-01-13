@@ -36,7 +36,7 @@
           <a class="navbar-brand brand-logo" href="../views/admin.php">
             <img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" class="logo-dark" />
           </a>
-          <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
@@ -78,7 +78,7 @@
             <li class="nav-item nav-category">
               <span class="nav-link">Admin Dashboard</span>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="../views/admin.php">
                 <span class="menu-title">Dashboard</span>
                 <i class="icon-screen-desktop menu-icon"></i>
@@ -92,25 +92,16 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-hobbies.php">
-                <span class="menu-title">Hobbies</span>
+              <a class="nav-link" href="../views/admin-questions.php">
+                <span class="menu-title">Questions</span>
                 <i class="icon-book-open menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Subjects</span>
+              <a class="nav-link" href="../views/admin-answer.php">
+                <span class="menu-title">Answer</span>
                 <i class="icon-chart menu-icon"></i>
               </a>
-              <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-english.php">English</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-math.php">Math</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-fil.php">Filipino</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-science.php">Science</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/subject-logic.php">Logic</a></li>
-                </ul>
-              </div>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
@@ -121,7 +112,7 @@
             </li>
           </ul>
         </nav>
-       <!-- partial -->
+         <!-- partial -->
        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
