@@ -188,40 +188,60 @@
               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-centered">
                   <div class="modal-content">
-                    
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Add a Question</h5>
                     </div>
                     <form method="POST">
-                      <div class="modal-body p-5">
-                      <div class="mb-3">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Multiple Choice</button>
-                                <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">True/False</a>
-                                </div>
-                            </div>
-                        <div class="mb-3">
-                          <label>Question</label>
-                          <textarea name="nquestion" class="form-control" id="question" rows="5" cols="45" required> </textarea>
+                      <div class="modal-body p-sm-3">
+                        <div class="row">
+                          <div class="col-md-2 py-2">
+                                <small>Subject</small>
+                          </div>
+                          <div class="col-md-10 mx-sm-0 mx-lg-n4">
+                              <div class="form-group">
+                                <select class="form-control">
+                                  <option>English</option>
+                                  <option>Filipino</option>
+                                  <option>Math</option>
+                                  <option>Science</option>
+                                  <option>Logic</option>
+                                </select>
+                              </div>
+                          </div>
                         </div>
                         <div class="mb-3">
-                          <label>Option A</label>
+                          <small>Question</small>
+                          <textarea placeholder="Insert Question..." name="nquestion" class="form-control" id="question" rows="5" cols="45" required></textarea>
+                        </div>
+                        <div class="row">
+                          <div class="mb-3 col-md-4">
+                          <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
+                              <i class="icon-picture"></i>
+                            </button>
+                            <small class="text-muted">Add image</small>
+                          </div>
+                          <div class="mb-3 col-md-4">
+                          <button type="button" class="btn btn-inverse-success btn-icon">
+                              <i class="icon-plus"></i>
+                            </button>
+                            <small class="text-muted">Add option</small>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="mb-3 col-md-11">
                           <input type="text" name="nopta" class="form-control" id="eng" placeholder="Enter an option" required  />
+                          </div>
+                          <div class="mb-3 mx-sm-0 mx-lg-n2">
+                          
+                            <div class="input-group-append">
+                              <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
+                              <i class="icon-picture icon-sm"></i>
+                            </button>
+                            </div>
+                          </div>
                         </div>
                         <div class="mb-3">
-                          <label>Option B</label>
-                          <input type="text" name="noptb" class="form-control" id="mat" placeholder="Enter an option" required  />
-                        </div>
-                        <div class="mb-3">
-                          <label>Option C</label>
-                          <input type="text" name="noptc" class="form-control" id="fil" placeholder="Enter an option" required  />
-                        </div>
-                        <div class="mb-3">
-                          <label>Option D</label>
-                          <input type="text" name="noptd" class="form-control" id="sci" placeholder="Enter an option" required  />
-                        </div>
-                        <div class="mb-3">
-                          <label>Correct Answer</label>
+                          <small>Correct Answer</small>
                           <select name="right" class="form-control" id="right" required>
                             <option value="X">-Select a Letter-</option>
                             <option value="A">A</option>
