@@ -170,7 +170,11 @@
                           <form method="POST" class="register-form" id="register-form">
                               <div class="form-group">
                                   <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                  <input type="text" name="fullname" id="name" placeholder="Your Name"/>                      
+                                  <input type="text" name="firstname" id="name" placeholder="First Name"/>                      
+                              </div>
+                              <div class="form-group">
+                                  <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                  <input type="text" name="lastname" id="name" placeholder="Last Name"/>                      
                               </div>
                               <div class="form-group">
                                   <label for="email"><i class="zmdi zmdi-email"></i></label>

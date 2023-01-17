@@ -197,7 +197,7 @@
                           <div class="col-md-2 py-2">
                                 <small>Subject</small>
                           </div>
-                          <div class="col-md-10 mx-sm-0 mx-lg-n4">
+                          <div class="col-md-4 mx-md-n3 px-lg-2">
                               <div class="form-group">
                                 <select class="form-control">
                                   <option>English</option>
@@ -205,6 +205,17 @@
                                   <option>Math</option>
                                   <option>Science</option>
                                   <option>Logic</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-md-2 py-2 px-lg-4">
+                                <small>Type</small>
+                          </div>
+                          <div class="col-md-4  mx-sm-0 mx-lg-n4">
+                              <div class="form-group">
+                                <select class="form-control">
+                                  <option>Multiple Choice</option>
+                                  <option>True/False</option>
                                 </select>
                               </div>
                           </div>
@@ -229,7 +240,7 @@
                         </div>
                         <div class="row">
                           <div class="mb-3 col-md-11">
-                          <input type="text" name="nopta" class="form-control" id="eng" placeholder="Enter an option" required  />
+                          <input type="text" name="nopta" class="form-control" id="eng" placeholder="Option 1" required  />
                           </div>
                           <div class="mb-3 mx-sm-0 mx-lg-n2">
                           
