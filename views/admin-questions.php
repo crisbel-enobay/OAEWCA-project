@@ -213,9 +213,9 @@
                           </div>
                           <div class="col-md-4  mx-sm-0 mx-lg-n4">
                               <div class="form-group">
-                                <select class="form-control">
-                                  <option>Multiple Choice</option>
-                                  <option>True/False</option>
+                                <select class="form-control" onchange="toggleDiv(this.value)">
+                                  <option value="1">Multiple Choice</option>
+                                  <option value="2">True/False</option>
                                 </select>
                               </div>
                           </div>
@@ -224,44 +224,66 @@
                           <small>Question</small>
                           <textarea placeholder="Insert Question..." name="nquestion" class="form-control" id="question" rows="5" cols="45" required></textarea>
                         </div>
-                        <div class="row">
-                          <div class="mb-3 col-md-4">
-                          <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
-                              <i class="icon-picture"></i>
-                            </button>
-                            <small class="text-muted">Add image</small>
-                          </div>
-                          <div class="mb-3 col-md-4">
-                          <button type="button" class="btn btn-inverse-success btn-icon">
-                              <i class="icon-plus"></i>
-                            </button>
-                            <small class="text-muted">Add option</small>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="mb-3 col-md-11">
-                          <input type="text" name="nopta" class="form-control" id="eng" placeholder="Option 1" required  />
-                          </div>
-                          <div class="mb-3 mx-sm-0 mx-lg-n2">
-                          
-                            <div class="input-group-append">
+
+                        <div id="multiChoice" style="display: none;">
+                            <div class="row">
+                              <div class="mb-3 col-md-4">
                               <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
-                              <i class="icon-picture icon-sm"></i>
-                            </button>
+                                  <i class="icon-picture"></i>
+                                </button>
+                                <small class="text-muted">Add image</small>
+                              </div>
+                              <div class="mb-3 col-md-4">
+                              <button type="button" onclick="hideOrShow()" class="btn btn-inverse-success btn-icon">
+                                  <i class="icon-plus"></i>
+                                </button>
+                                <small class="text-muted" >Add option</small>
+                              </div>
+                            </div>
+                            <div id="theDIV" style="display: none;">
+                              <div class="row">
+                                <div class="mb-3 col-md-11">
+                                <input type="text" name="nopta" class="form-control" id="eng" placeholder="Option 1" required  />
+                                </div>
+                                <div class="mb-3 mx-sm-0 mx-lg-n2">
+                                
+                                  <div class="input-group-append">
+                                    <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
+                                    <i class="icon-picture icon-sm"></i>
+                                  </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="mb-3">
+                              <small>Correct Answer</small>
+                              <select name="right" class="form-control" id="right" required>
+                                <option value="X">-Select a Letter-</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                              </select>
+                            </div>
+                        </div>
+                        
+                        <div id="TF" style="display: none;">
+                          <div class="col-md-6" >
+                          <small class="text-muted">Choose Correct Answer</small>
+                            <div class="form-group">
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> True <i class="input-helper"></i></label>
+                              </div>
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> False <i class="input-helper"></i></label>
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div class="mb-3">
-                          <small>Correct Answer</small>
-                          <select name="right" class="form-control" id="right" required>
-                            <option value="X">-Select a Letter-</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            
-                          </select>
-                        </div>
+                        
+                        
                         </div>
                       <div class="modal-footer">
                         <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
@@ -453,6 +475,38 @@
     <script>
         <?php include '../assets/js/jquery.js' ?>
     </script>
+    
+    <script>
+            // A function that hides or shows a selected element
+            function hideOrShow() {
+                
+                // Select the element with id "theDIV"
+                var x = document.getElementById("theDIV");
+                
+                // If selected element is hidden
+                if (x.style.display === "none") {
+                
+                // Show the hidden element
+                x.style.display = "block";
+                
+                // Else if the selected element is shown
+                } else {
+                
+                // Hide the element
+                x.style.display = "none";
+                }
+            }
+    </script>
+
+    <script>
+            function toggleDiv(value) {
+                const box = document.getElementById('multiChoice');
+                const box1 = document.getElementById('TF');
+                box.style.display = value == 1 ? 'block' : 'none';
+                box1.style.display = value == 2 ? 'block' : 'none';
+            }
+        </script>
+
      <script>
     function editCourse(value) {
       let courseID = value.getAttribute("data-ID");
