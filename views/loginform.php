@@ -26,6 +26,7 @@ while ($row = $result->fetch_assoc()) {
       else{ 
         $_SESSION['valid'] = true;
         $_SESSION['fullname'] = $row['fullname'];
+        $_SESSION['email'] = $row['email'];
           if ($row['type'] == '1'){
               $_SESSION['type'] = 'admin';
               echo "<script> window.location = '../views/admin.php' </script>";
