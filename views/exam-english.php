@@ -128,12 +128,13 @@
       </nav>
        <!-- partial -->
      
-      <div class="card-body d-flex align-items-center justify-content-center">
+        <div class="card-body d-flex align-items-center justify-content-center">
           <div class="row flex-grow">
-          <div class="container-fluid mt-sm-5 my-0">
+            <div class="container-fluid mt-sm-5 my-0">
             <div class="py-2 h4"><b>SENTENCE COMPLETION. Select the word or phrase that most appropriately completes the sentence.</b></div>
-              <div class="question ml-sm-5 pl-sm-5 pt-2">
-                  <div class="py-2 h5"><b>Q. which option best describes your job role?</b></div>
+              <div id="exam1">
+                <div class="question ml-sm-5 pl-sm-5 pt-2">
+                  <div class="py-2 h5"><b>1. which option best describes your job role?</b></div>
                     <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                             <div class="form-check">
                               <label class="form-check-label">
@@ -152,39 +153,71 @@
                               <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> d) other </label>
                             </div>
                     </div>
-                  </div>
-                  <div class="question ml-sm-5 pl-sm-5 pt-2">
-                  <div class="py-2 h5"><b>Q. In Pirates of the Caribbean, what was Captain Jack Sparrow’s ship’s name?</b></div>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                  <button onclick="toggleDiv(this.value)" value="" class="btn btn-success d-flex align-items-center btn-danger disabled" type="button">Previous</button>
+                  <button onclick="toggleDiv(this.value)" value="2" class="btn btn-success border-success align-items-center" type="button">Next</button>
+                </div>
+              </div>
+              <div id="exam2" style="display: none">
+                <div class="question ml-sm-5 pl-sm-5 pt-2">
+                  <div class="py-2 h5"><b>2. which option best describes your job role?</b></div>
                     <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                             <div class="form-check">
                               <label class="form-check-label">
-                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> a) The Marauder </label>
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> a) Small Business Owner or Employee </label>
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
-                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> b) The Black Pearl </label>
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> b) Nonprofit Owner or Employee </label>
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
-                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> c) The Black Python </label>
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> c) Journalist or Activist </label>
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
-                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> d) The Slytherin </label>
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> d) other </label>
                             </div>
                     </div>
-                  </div>
-                  <div class="d-flex align-items-center pt-3">
-                      <div class="ml-auto mr-sm-5">
-                        <form action="../views/exam-math.php">
-                            <button type="submit" class="btn btn-success">Next</button>
-                        </form>
-                      </div>
+                </div>
+                  <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                    <button onclick="toggleDiv(this.value)" value="1" class="btn btn-success d-flex align-items-center btn-danger" type="button">Previous</button>
+                    <button onclick="toggleDiv(this.value)" value="3" class="btn btn-success border-success align-items-center" type="button">Next</button>
                   </div>
               </div>
+              <div id="exam3" style="display: none">
+                <div class="question ml-sm-5 pl-sm-5 pt-2">
+                  <div class="py-2 h5"><b>3. which option best describes your job role?</b></div>
+                    <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> a) Small Business Owner or Employee </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> b) Nonprofit Owner or Employee </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> c) Journalist or Activist </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> d) other </label>
+                            </div>
+                    </div>
+                </div>
+                  <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                    <button onclick="toggleDiv(this.value)" value="2" class="btn btn-success d-flex align-items-center btn-danger" type="button">Previous</button>
+                    <button onclick="toggleDiv(this.value)" value="" class="btn btn-success border-success align-items-center disabled" type="button">Next</button>
+                  </div>
+                </div>
+              </div>   
             </div>
           </div>
         </div>
+      </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
@@ -275,6 +308,22 @@
       totalSeconds--;
       tempSeconds = totalSeconds;
       }, 1000);
+    </script>
+
+    <script>
+        function toggleDiv(value) {
+
+            if (value == "") {
+              btn.disabled = true;
+            }
+
+            const box = document.getElementById('exam1');
+            const box1 = document.getElementById('exam2');
+            const box2 = document.getElementById('exam3');
+            box.style.display = value == 1 ? 'block' : 'none';
+            box1.style.display = value == 2 ? 'block' : 'none';
+            box2.style.display = value == 3 ? 'block' : 'none';
+        }
     </script>
   </body>
 </html>

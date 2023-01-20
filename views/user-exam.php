@@ -125,10 +125,28 @@ include "../views/student-checker.php";
                     </blockquote>
                   </div>
                   <div class="card-body d-flex align-items-center justify-content-center">
-                    <form action="../views/exam-english.php">
-                            <button type="submit" class="btn btn-outline-primary btn-fw">Take Examination</button>
-                        </form>
+                      <button id="keyPass" type="submit" class="btn btn-outline-primary btn-fw" data-bs-toggle="modal" data-bs-target="#transactionModal">Take Examination</button>
+                  </div>
+                   <!-- Insert keyPass -->
+                  <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-body"> 
+                          <div class="col-md-12 d-flex align-items-center justify-content-center py-3 ">
+                            <h5 class="modal-title" id="exampleModalLabel">Insert Examination Keypass</h5>
+                          </div>
+                          <div class="form-group">
+                            <input type="text" class="form-control">
+                          </div>
+                          <div class="d-flex align-items-center justify-content-center">
+                            <form action="../views/exam-english.php" >
+                                  <button type="submit" class="btn btn-outline-primary btn-fw">ok</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -154,6 +172,11 @@ include "../views/student-checker.php";
     <script src="../vendors/moment/moment.min.js"></script>
     <script src="../vendors/daterangepicker/daterangepicker.js"></script>
     <script src="../vendors/chartist/chartist.min.js"></script>
+     <!-- Vendor JS Files -->
+     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="../js/off-canvas.js"></script>
