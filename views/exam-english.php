@@ -130,7 +130,7 @@
      
         <div class="card-body d-flex align-items-center justify-content-center">
           <div class="row flex-grow">
-            <div class="container-fluid mt-sm-5 my-0">
+            <div class="container-fluid">
             <div class="py-2 h4"><b>SENTENCE COMPLETION. Select the word or phrase that most appropriately completes the sentence.</b></div>
               <div id="exam1">
                 <div class="question ml-sm-5 pl-sm-5 pt-2">
@@ -210,7 +210,9 @@
                 </div>
                   <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
                     <button onclick="toggleDiv(this.value)" value="2" class="btn btn-success d-flex align-items-center btn-danger" type="button">Previous</button>
-                    <button onclick="toggleDiv(this.value)" value="" class="btn btn-success border-success align-items-center disabled" type="button">Next</button>
+                    <form action="../views/exam-fil.php">
+                      <button onclick="toggleDiv(this.value)" class="btn btn-success border-success align-items-center" type="submit">Next Subject</button>
+                    </form>
                   </div>
                 </div>
               </div>   
