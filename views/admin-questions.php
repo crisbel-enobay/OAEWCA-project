@@ -116,7 +116,8 @@
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Answer List</li>
+                <li class="breadcrumb-item active">Questions List</li>
+                <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>
                 <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
               </ol>
             </nav>
@@ -127,7 +128,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Answer</h5>
+                    <h5 class="mb-0">Questions</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
