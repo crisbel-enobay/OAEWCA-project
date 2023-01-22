@@ -142,29 +142,43 @@
                     <table class="table table-hover text-nowrap datatable">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Course Name</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Availability</th>
-                                <th scope="col">Action</th>
+                            <th scope="col">COURSE ID</th>
+                          <th scope="col">COURSES</th>
+                          <th scope="col">RELATED HOBBIES</th>
+                          <th scope="col">ENGLISH</th>
+                          <th scope="col">MATH</th>
+                          <th scope="col">FILIPINO</th>
+                          <th scope="col">SCIENCE</th>
+                          <th scope="col">LOGIC</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             <?php
-                            $rows = getCourses();
+                            $rows = getArchivedCourses();
                             $i = 0;
                                 while ($i < count($rows)) {   //Creates a loop to loop through results
                                     $row = $rows[$i];
-                                    $id = $row['id'];
+                                    $id = $row['crs_id'];
+                                    $courseName = $row['course'];
+                                    $hobbies = $row['related_hobbies'];
+                                    $eng = $row['English'];
+                                    $mat = $row['Math'];
+                                    $fil = $row['Filipino'];
+                                    $sci = $row['Science'];
+                                    $log = $row['Logic'];
                                     echo "<tr>
                                     <td>" . $id . "</td>
-                                    <td>" . $row['course'] . "</td>
-                                    <td>" . $row['dept'] . "</td>
-                                    <td>" . $row['availability'] . "</td>
+                                    <td>" . $courseName . "</td>
+                                    <td>" . $hobbies . "</td>
+                                    <td>" . $eng . "</td>
+                                    <td>" . $mat . "</td>
+                                    <td>" . $fil . "</td>
+                                    <td>" . $sci . "</td>
+                                    <td>" . $log . "</td>
                                     <td>" .
-                                        ' <button type="submit" class="btn btn-success delbtn" data-bs-toggle="modal" data-bs-target="#delmodal">RESTORE</button> '
-                                        . "</td>
+                                    "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='restoreCourse(this)'>RESTORE</button>" .
+                                         "</td>
 
                                     </tr>";  //$row['index'] the index here is a field name
                                     $i++;
@@ -179,15 +193,41 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Restore Bus Data</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Restore Course Data</h5>
                         </div>
-                        <form action="../forms/manage_bus.php" method="POST">
+                        <form method="POST">
                             <div class="modal-body">
-                                <input type="hidden" name="del_id" id="del_id" />
+                                <input type="hidden" name="res_course_id" id="course_id"/>
                                 <h4>Are you sure you want to restore this data?</h4>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" name="Unarchive" class="btn btn-primary">Yes</button>
+                                <?php
+                            if (isset($_POST['Unarchive'])){
+                              $url = 'localhost';
+                              $username = 'root';
+                              $password = '';                     
+                              $resid = $_POST['res_course_id'];                   
+                              $conn = new mysqli($url, $username, $password, 'project');
+                              if ($conn->connect_error) {
+                                  die("Connection failed!:" . $conn->connect_error);
+                              }
+                              // $sql = mysqli_query($conn,
+                              // "DELETE FROM courses WHERE crs_id = ".$delid."
+                              // ");
+                              $sql = mysqli_query($conn,
+                              "INSERT courses
+                              (crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic)
+                              SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic FROM archived_courses
+                              WHERE crs_id = ". $resid ."
+                              ");
+                               $sql2 = mysqli_query($conn,
+                               "DELETE FROM archived_courses
+                               WHERE crs_id = ". $resid ."
+                               ");
+                              echo "<script> window.location = 'archived_courses.php' </script>";
+                              }
+                          ?>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                             </div>
                         </form>
@@ -240,7 +280,7 @@
     <script>
     <?php include '../assets/js/jquery.js' ?>
     </script>
-
+<script> </script>
     <script>
         //DELETE
         $(document).ready(function() {
@@ -254,6 +294,10 @@
                 $('#del_id').val(data[0]);
             });
         });
+        function restoreCourse(value) {
+      let courseID = value.getAttribute("data-courseid");
+      document.querySelector("#course_id").value = courseID;
+    }
     </script>
   </body>
 </html>
