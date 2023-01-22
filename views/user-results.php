@@ -45,7 +45,7 @@
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
                   <p class="mb-1 mt-3"><?php echo ($_SESSION['fullname']); ?> </p>
-                  <p class="font-weight-light text-muted mb-0">student@gmail.com</p>
+                  <p class="font-weight-light text-muted mb-0"><?php echo ($_SESSION['email']); ?></p>
                 </div>
                 <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>

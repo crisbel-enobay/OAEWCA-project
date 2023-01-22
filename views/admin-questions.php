@@ -45,7 +45,7 @@
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
                   <p class="mb-1 mt-3"><?php echo ($_SESSION['fullname']); ?></p>
-                  <p class="font-weight-light text-muted mb-0">admin@gmail.com</p>
+                  <p class="font-weight-light text-muted mb-0"><?php echo ($_SESSION['email']); ?></p>
                 </div>
                 <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
@@ -110,14 +110,15 @@
             </li>
           </ul>
         </nav>
-       <!-- partial -->
-       <div class="main-panel">
+        <!-- partial -->
+        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Questions List</li>
-                <li class="breadcrumb-item"><a href="../views/archived_questions.php">Archives</a></li>
+                <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>
+                <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
               </ol>
             </nav>
           </div>
@@ -133,25 +134,41 @@
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
-                          <th scope="col">HOBBY ID</th>
-                          <th scope="col">HOBBY</th>
+                          <th scope="col">ID</th>
+                          <th scope="col">QUESTION</th>
+                          <th scope="col">OPTION A</th>
+                          <th scope="col">OPTION B</th>
+                          <th scope="col">OPTION C</th>
+                          <th scope="col">OPTION D</th>
+                          <th scope="col">CORRECT ANSWER</th>
+                          <th scope="col">ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
-                        $rows = getHobbies();
+                        $rows = getEnglish();
                         $i = 0;
                         while ($i < count($rows)) {   //Creates a loop to loop through results
                           $row = $rows[$i];
-                          $id = $row['hob_id'];
-                          $hobbyName = $row['hobby'];
+                          $id = $row['id'];
+                          $question = $row['question'];
+                          $optA = $row['optionA'];
+                          $optB = $row['optionB'];
+                          $optC = $row['optionC'];
+                          $optD = $row['optionD'];
+                          $right = $row['correctAnswer'];
                           echo "<tr>
                                     <td>" . $id . "</td>
-                                    <td>" . $hobbyName . "</td>
+                                    <td>" . $question . "</td>
+                                    <td>" . $optA . "</td>
+                                    <td>" . $optB . "</td>
+                                    <td>" . $optC . "</td>
+                                    <td>" . $optD . "</td>
+                                    <td>" . $right . "</td>
                                     <td>" .
                             "<div class='d-flex '>
                               <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-ID='$id' data-hobname='$hobbyName'  onClick='editCourse(this)'>EDIT</button>
+                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-ID='$id' data-question='$question' data-optA='$optA' data-optB='$optB' data-optC='$optC' data-optD='$optD' data-right='$right' onClick='editCourse(this)'>EDIT</button>
                                       </form>" .
                             "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
                             "</div>" .
@@ -165,25 +182,110 @@
                     </table>
                   </div>
               <div>
-                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Hobby</button>
+                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Question</button>
               </div>
 
               <!-- Add Bus-->
               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-centered">
                   <div class="modal-content">
-
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Hobby</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Add a Question</h5>
                     </div>
-
                     <form method="POST">
-                      <div class="modal-body p-5">
-                        <div class="mb-3">
-                          <label>Hobby</label>
-                          <input type="text" name="hobName" class="form-control" placeholder="Enter Hobby" required />
+                      <div class="modal-body p-sm-3">
+                        <div class="row">
+                          <div class="col-md-2 py-2">
+                                <small>Subject</small>
+                          </div>
+                          <div class="col-md-4 mx-md-n3 px-lg-2">
+                              <div class="form-group">
+                                <select class="form-control">
+                                  <option>English</option>
+                                  <option>Filipino</option>
+                                  <option>Math</option>
+                                  <option>Science</option>
+                                  <option>Logic</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-md-2 py-2 px-lg-4">
+                                <small>Type</small>
+                          </div>
+                          <div class="col-md-4  mx-sm-0 mx-lg-n4">
+                              <div class="form-group">
+                                <select class="form-control" onchange="toggleDiv(this.value)">
+                                  <option value="1">Multiple Choice</option>
+                                  <option value="2">True/False</option>
+                                </select>
+                              </div>
+                          </div>
                         </div>
-                    
+                        <div class="mb-3">
+                          <small>Question</small>
+                          <textarea placeholder="Insert Question..." name="nquestion" class="form-control" id="question" rows="5" cols="45" required></textarea>
+                        </div>
+
+                        <div id="multiChoice" style="display: none;">
+                            <div class="row">
+                              <div class="mb-3 col-md-4">
+                              <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
+                                  <i class="icon-picture"></i>
+                                </button>
+                                <small class="text-muted">Add image</small>
+                              </div>
+                              <div class="mb-3 col-md-4">
+                              <button type="button" onclick="hideOrShow()" class="btn btn-inverse-success btn-icon">
+                                  <i class="icon-plus"></i>
+                                </button>
+                                <small class="text-muted" >Add option</small>
+                              </div>
+                            </div>
+                            <div id="theDIV" style="display: none;">
+                              <div class="row">
+                                <div class="mb-3 col-md-11">
+                                <input type="text" name="nopta" class="form-control" id="eng" placeholder="Option 1" required  />
+                                </div>
+                                <div class="mb-3 mx-sm-0 mx-lg-n2">
+                                
+                                  <div class="input-group-append">
+                                    <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
+                                    <i class="icon-picture icon-sm"></i>
+                                  </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="mb-3">
+                              <small>Correct Answer</small>
+                              <select name="right" class="form-control" id="right" required>
+                                <option value="X">-Select a Letter-</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                              </select>
+                            </div>
+                        </div>
+                        
+                        <div id="TF" style="display: none;">
+                          <div class="col-md-6" >
+                          <small class="text-muted">Choose Correct Answer</small>
+                            <div class="form-group">
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> True <i class="input-helper"></i></label>
+                              </div>
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> False <i class="input-helper"></i></label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        
+                        </div>
                       <div class="modal-footer">
                         <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
                         <?php
@@ -191,15 +293,20 @@
                           $url = 'localhost';
                           $username = 'root';
                           $password = '';                     
-                          $newhob= $_POST['hobName'];                   
+                          $newQS = $_POST['nquestion'];                      
+                          $newA= $_POST['nopta'];                      
+                          $newB = $_POST['noptb'];                      
+                          $newC = $_POST['noptc'];                      
+                          $newD = $_POST['noptd'];                      
+                          $newright = $_POST['right'];                  
                           $conn = new mysqli($url, $username, $password, 'project');
                           if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
                           $sql = mysqli_query($conn,
-                          "INSERT INTO hobbies(hobby) VALUES ('".$newhob."')
+                          "INSERT INTO english_questionnaire(question, optionA, optionB, optionC, optionD, correctAnswer) VALUES ('".$newQS."','".$newA."', '".$newB."', '".$newC."', '".$newD."', '".$newright."')
                           ");
-                              echo "<script> window.location = 'admin-hobbies.php' </script>";
+                              echo "<script> window.location = 'subject-english.php' </script>";
                           }
                         ?>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -222,8 +329,35 @@
                         <div class="modal-body">
                           <input type="hidden" name="edit_id" id="edit_id" />
                           <div class="mb-3">
-                            <label>Hobby</label>
-                            <input type="text" name="edithobName" id="edithobName" class="form-control" required />
+                            <label>Question</label>
+                          <textarea name="edtquestion" class="form-control" id="edtquestion" rows="5" cols="45" required> </textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label>Option A</label>
+                            <input type="text" name="edtA" id="edtA" class="form-control" required />
+                          </div>
+                          <div class="mb-3">
+                            <label>Option B</label>
+                            <input type="text" name="edtB" id="edtB" class="form-control" required />
+                          </div>
+                          <div class="mb-3">
+                            <label>Option C</label>
+                            <input type="text" name="edtC" id="edtC" class="form-control" required />
+                          </div>
+                          <div class="mb-3">
+                            <label>Option D</label>
+                            <input type="text" name="edtD" id="edtD" class="form-control" required />
+                          </div>
+                          <div class="mb-3">
+                            <label>Correct Answer</label>
+                          <select name="edtright" class="form-control" id="edtright" required>
+                            <option value="X">-Select a Letter-</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            
+                          </select>
                           </div>
                         
                         </div>
@@ -235,15 +369,20 @@
                           $username = 'root';
                           $password = '';                     
                           $edtid = $_POST['edit_id'];                      
-                          $edtHob = $_POST['edithobName'];                
+                          $edtQuestion = $_POST['edtquestion'];                
+                          $edtoptionA = $_POST['edtA'];                
+                          $edtoptionB = $_POST['edtB'];                
+                          $edtoptionC = $_POST['edtC'];                
+                          $edtoptionD = $_POST['edtD'];                
+                          $edtrightoption = $_POST['edtright'];                
                           $conn = new mysqli($url, $username, $password, 'project');
                           if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
                             $sql = mysqli_query($conn,
-                          "UPDATE hobbies SET hobby='".$edtHob."' WHERE hob_id= ".$edtid."
+                          "UPDATE english_questionnaire SET question='".$edtQuestion."', optionA='".$edtoptionA."', optionB='".$edtoptionB."', optionC='".$edtoptionC."', optionD='".$edtoptionD."', correctAnswer='".$edtrightoption."' WHERE id= ".$edtid."
                           ");
-                              echo "<script> window.location = 'admin-hobbies.php' </script>";
+                              echo "<script> window.location = 'subject-english.php' </script>";
                           }
                         ?>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -259,12 +398,12 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Remove Hobby</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Remove</h5>
                       </div>
                       <form  method="POST">
                         <div class="modal-body">
                           <input type="hidden" name="rem_course_id" id="course_id" />
-                          <h4>Are you sure you want to remove this hobby?</h4>
+                          <h4>Are you sure you want to remove this??</h4>
                         </div>
                         <div class="modal-footer">
                           <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
@@ -279,9 +418,9 @@
                                   die("Connection failed!:" . $conn->connect_error);
                               }
                               $sql = mysqli_query($conn,
-                              "DELETE FROM hobbies WHERE crs_id = ".$delid."
+                              "DELETE FROM english_questionnaire WHERE id = ".$delid."
                               ");
-                              echo "<script> window.location = 'admin-hobbies.php' </script>";
+                              echo "<script> window.location = 'subject-english.php' </script>";
                               }
                           ?>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
@@ -337,6 +476,38 @@
     <script>
         <?php include '../assets/js/jquery.js' ?>
     </script>
+    
+    <script>
+            // A function that hides or shows a selected element
+            function hideOrShow() {
+                
+                // Select the element with id "theDIV"
+                var x = document.getElementById("theDIV");
+                
+                // If selected element is hidden
+                if (x.style.display === "none") {
+                
+                // Show the hidden element
+                x.style.display = "block";
+                
+                // Else if the selected element is shown
+                } else {
+                
+                // Hide the element
+                x.style.display = "none";
+                }
+            }
+    </script>
+
+    <script>
+            function toggleDiv(value) {
+                const box = document.getElementById('multiChoice');
+                const box1 = document.getElementById('TF');
+                box.style.display = value == 1 ? 'block' : 'none';
+                box1.style.display = value == 2 ? 'block' : 'none';
+            }
+        </script>
+
      <script>
     function editCourse(value) {
       let courseID = value.getAttribute("data-ID");

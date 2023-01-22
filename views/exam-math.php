@@ -1,3 +1,8 @@
+<?php 
+
+  include '../file/logout-function.php';
+  include "student-checker.php";
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,30 +30,111 @@
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="justify-content-center navbar-menu-wrapper d-flex align-items-center flex-grow-1 "> 
+        <div class="navbar-brand-wrapper d-flex align-items-center">
+          <a class="navbar-brand brand-logo" href="../views/admin.php">
+            <img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" class="logo-dark" />
+          </a>
+          <a class="navbar-brand brand-logo-mini"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
+          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?></h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <h1 class="mb-0 font-weight-medium d-none d-lg-flex text-primary">Mathematics</h1>
-          </ul>
-          <ul class="navbar-nav navbar-nav-right ml-auto">
-            <div id="countdown-container">
-                <div id="countdown">
-                    <h1><span id="hours">1h</span> :  <span id="minutes">0m</span> : <span id="seconds">0s</span></h1>
+            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+              <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+               <span class="font-weight-normal"><?php echo ($_SESSION['fullname']); ?> </span></a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                <div class="dropdown-header text-center">
+                  <p class="mb-1 mt-3"><?php echo ($_SESSION['fullname']); ?></p>
+                  <p class="font-weight-light text-muted mb-0"><?php echo ($_SESSION['email']); ?></p>
                 </div>
-            </div>
+                <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+              </div>
+            </li>
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="icon-menu"></span>
           </button>
         </div>
       </nav>
+      <?php
+        include("../forms/database.php");
+        include("../forms/alert.php");
+
+        if ($_GET) {
+            $val = $_GET['status'];
+            alert($val);
+        }
+        ?>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="#" class="nav-link">
+                <div class="text-wrapper">
+                  <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
+                  <p class="designation">Student</p>
+                </div>
+                <div class="icon-container">
+                  <i class="icon-user"></i>
+                  <div class="dot-indicator bg-success"></div>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item nav-category">
+              <span class="nav-link">Student Dashboard</span>
+            </li>
+            <li class="nav-item"> 
+              <a class="nav-link">
+                <span class="menu-title">Dashboard</span>
+                <i class="icon-screen-desktop menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item nav-category"><span class="nav-link">Admission Exam</span></li>
+            <li class="nav-item active">
+              <a class="nav-link" href="../views/user-exam.php">
+                <span class="menu-title">Examination</span>
+                <i class="icon-globe menu-icon"></i>
+              </a>
+            </li>
+            </li>
+            <li class="nav-item nav-category"><span class="nav-link">History</span></li>
+            <li class="nav-item">
+              <a class="nav-link">
+                <span class="menu-title">Results</span>
+                <i class="icon-chart menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
        <!-- partial -->
-       <div class="container-scroller">
-      <div class="container-fluid page-body-wrapper full-page-wrapper">
+       <div class="main-panel">
         <div class="content-wrapper">
+    <div class="container-scroller">
+    <div class="row quick-action-toolbar">
+            <div class="col-md-12 grid-margin">
+              <div class="card">
+                  <div class="card-header d-block d-md-flex"> 
+                     <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Mathematics</h5>
+          <ul class="navbar-nav navbar-nav-right ml-auto">
+            <div id="countdown-container">
+                <div id="countdown">
+                    <h5 class="text-success"><span id="hours">1h</span> :  <span id="minutes">0m</span> : <span id="seconds">0s</span></h5>
+                </div>
+            </div>
+          </ul>
+        </div>
+      </nav>
+       <!-- partial -->
+     
+        <div class="card-body d-flex align-items-center justify-content-center">
           <div class="row flex-grow">
-          <div class="container-fluid mt-sm-5 my-0">
-          <div class="question ml-sm-5 pl-sm-5 pt-2">
-                  <div class="py-2 h5"><b>Q. which option best describes your job role?</b></div>
+            <div class="container-fluid">
+            <div class="py-2 h4"><b>Choose the best answer.</b></div>
+              <div id="exam1">
+                <div class="question ml-sm-5 pl-sm-5 pt-2">
+                  <div class="py-2 h5"><b>1. which option best describes your job role?</b></div>
                     <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                             <div class="form-check">
                               <label class="form-check-label">
@@ -67,39 +153,73 @@
                               <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> d) other </label>
                             </div>
                     </div>
-                  </div>
-                  <div class="question ml-sm-5 pl-sm-5 pt-2">
-                  <div class="py-2 h5"><b>Q. In Pirates of the Caribbean, what was Captain Jack Sparrow’s ship’s name?</b></div>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                  <button onclick="toggleDiv(this.value)" value="" class="btn btn-success d-flex align-items-center btn-danger disabled" type="button">Previous</button>
+                  <button onclick="toggleDiv(this.value)" value="2" class="btn btn-success border-success align-items-center" type="button">Next</button>
+                </div>
+              </div>
+              <div id="exam2" style="display: none">
+                <div class="question ml-sm-5 pl-sm-5 pt-2">
+                  <div class="py-2 h5"><b>2. which option best describes your job role?</b></div>
                     <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
                             <div class="form-check">
                               <label class="form-check-label">
-                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> a) The Marauder </label>
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> a) Small Business Owner or Employee </label>
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
-                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> b) The Black Pearl </label>
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> b) Nonprofit Owner or Employee </label>
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
-                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> c) The Black Python </label>
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> c) Journalist or Activist </label>
                             </div>
                             <div class="form-check">
                               <label class="form-check-label">
-                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> d) The Slytherin </label>
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> d) other </label>
                             </div>
                     </div>
-                  </div>
-                  <div class="d-flex align-items-center pt-3">
-                      <div class="ml-auto mr-sm-5">
-                        <form action="../views/exam-fil.php">
-                            <button type="submit" class="btn btn-success">Next</button>
-                        </form>
-                      </div>
+                </div>
+                  <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                    <button onclick="toggleDiv(this.value)" value="1" class="btn btn-success d-flex align-items-center btn-danger" type="button">Previous</button>
+                    <button onclick="toggleDiv(this.value)" value="3" class="btn btn-success border-success align-items-center" type="button">Next</button>
                   </div>
               </div>
+              <div id="exam3" style="display: none">
+                <div class="question ml-sm-5 pl-sm-5 pt-2">
+                  <div class="py-2 h5"><b>3. which option best describes your job role?</b></div>
+                    <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> a) Small Business Owner or Employee </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> b) Nonprofit Owner or Employee </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> c) Journalist or Activist </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" default> d) other </label>
+                            </div>
+                    </div>
+                </div>
+                  <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                    <button onclick="toggleDiv(this.value)" value="2" class="btn btn-success d-flex align-items-center btn-danger" type="button">Previous</button>
+                    <form action="../views/exam-science.php">
+                      <button onclick="toggleDiv(this.value)" class="btn btn-success border-success align-items-center" type="submit">Next Subject</button>
+                    </form>                  
+                  </div>
+                </div>
+              </div>   
             </div>
           </div>
         </div>
+      </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
@@ -190,6 +310,22 @@
       totalSeconds--;
       tempSeconds = totalSeconds;
       }, 1000);
+    </script>
+
+    <script>
+        function toggleDiv(value) {
+
+            if (value == "") {
+              btn.disabled = true;
+            }
+
+            const box = document.getElementById('exam1');
+            const box1 = document.getElementById('exam2');
+            const box2 = document.getElementById('exam3');
+            box.style.display = value == 1 ? 'block' : 'none';
+            box1.style.display = value == 2 ? 'block' : 'none';
+            box2.style.display = value == 3 ? 'block' : 'none';
+        }
     </script>
   </body>
 </html>
