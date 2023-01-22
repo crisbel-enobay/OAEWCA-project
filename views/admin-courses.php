@@ -386,7 +386,7 @@
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Remove Course</h5>
                       </div>
-                      <form  method="POST">
+                      <form method="POST">
                         <div class="modal-body">
                           <input type="hidden" name="rem_course_id" id="course_id" />
                           <h4>Are you sure you want to remove this course??</h4>
@@ -403,8 +403,18 @@
                               if ($conn->connect_error) {
                                   die("Connection failed!:" . $conn->connect_error);
                               }
+                              // $sql = mysqli_query($conn,
+                              // "DELETE FROM courses WHERE crs_id = ".$delid."
+                              // ");
                               $sql = mysqli_query($conn,
-                              "DELETE FROM courses WHERE crs_id = ".$delid."
+                              "INSERT archived_courses
+                              (crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic)
+                              SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic FROM courses
+                              WHERE crs_id = ". $delid ."
+                              ");
+                              $sql2 = mysqli_query($conn,
+                              "DELETE FROM courses
+                              WHERE crs_id = ". $delid ."
                               ");
                               echo "<script> window.location = 'admin-courses.php' </script>";
                               }

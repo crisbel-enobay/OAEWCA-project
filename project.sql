@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2023 at 04:31 PM
+-- Generation Time: Jan 22, 2023 at 06:42 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `project`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `archived_courses`
+--
+
+CREATE TABLE `archived_courses` (
+  `crs_id` int(11) NOT NULL,
+  `course` varchar(255) NOT NULL,
+  `related_hobbies` varchar(255) NOT NULL,
+  `English` int(11) NOT NULL,
+  `Math` int(11) NOT NULL,
+  `Filipino` int(11) NOT NULL,
+  `Science` int(11) NOT NULL,
+  `Logic` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -285,6 +302,12 @@ INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code
 --
 
 --
+-- Indexes for table `archived_courses`
+--
+ALTER TABLE `archived_courses`
+  ADD PRIMARY KEY (`crs_id`);
+
+--
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
@@ -337,10 +360,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `archived_courses`
+--
+ALTER TABLE `archived_courses`
+  MODIFY `crs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `crs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `crs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `english_questionnaire`
