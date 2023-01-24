@@ -34,6 +34,27 @@ function getCourses() {
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
+function getArchivedCourses() {
+    /*include 'database.php';
+    $sql = mysqli_query($conn,
+    "SELECT obrs_sample.id, course, dept, availability
+    FROM obrs_sample
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);*/
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic
+    FROM archived_courses
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
 // hobbies
 function getHobbies() {
     $url = 'localhost';
