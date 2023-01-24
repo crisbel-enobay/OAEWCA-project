@@ -116,8 +116,8 @@
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Questions List</li>
-                <li class="breadcrumb-item"><a href="../views/admin-insertQuestion.php">Insert question</a></li>
+                <li class="breadcrumb-item"><a href="../views/admin-questions.php">Questions List</a></li>
+                <li class="breadcrumb-item active">Insert question</li>
                 <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>
                 <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
               </ol>
@@ -127,143 +127,15 @@
           <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
-                
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Questions</h5>
-                    <div class="form-group ml-auto mb-0">
-                                <select class="form-control" onchange="toggleDiv(this.value)">
-                                  <option value="3">Multiple Choice</option>
-                                  <option value="4">True/False</option>
-                                </select>
-                              </div>
+                    <h5 class="mb-0">Add Question</h5>
                   </div>
                 </div>
-                  <div id="multipleChoice">
-                    <div><small class="text-muted d-md-flex mb-0 mx-4 justify-content-end">Type: Multiple Choice</small></div>
-                    <div class="card">
-                  <div class="table-responsive border rounded p-1">
-                    <table class="table table-bordered table-hover text-nowrap datatable">
-                      <thead>
-                        <tr>
-                          <th scope="col">ID</th>
-                          <th scope="col">QUESTION</th>
-                          <th scope="col">OPTION A</th>
-                          <th scope="col">OPTION B</th>
-                          <th scope="col">OPTION C</th>
-                          <th scope="col">OPTION D</th>
-                          <th scope="col">CORRECT ANSWER</th>
-                          <th scope="col">ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $rows = getEnglish();
-                        $i = 0;
-                        while ($i < count($rows)) {   //Creates a loop to loop through results
-                          $row = $rows[$i];
-                          $id = $row['id'];
-                          $question = $row['question'];
-                          $optA = $row['optionA'];
-                          $optB = $row['optionB'];
-                          $optC = $row['optionC'];
-                          $optD = $row['optionD'];
-                          $right = $row['correctAnswer'];
-                          echo "<tr>
-                                    <td>" . $id . "</td>
-                                    <td>" . $question . "</td>
-                                    <td>" . $optA . "</td>
-                                    <td>" . $optB . "</td>
-                                    <td>" . $optC . "</td>
-                                    <td>" . $optD . "</td>
-                                    <td>" . $right . "</td>
-                                    <td>" .
-                            "<div class='d-flex '>
-                              <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-ID='$id' data-question='$question' data-optA='$optA' data-optB='$optB' data-optC='$optC' data-optD='$optD' data-right='$right' onClick='editCourse(this)'>EDIT</button>
-                                      </form>" .
-                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
-                            "</div>" .
-                            "</td>" .
-                            "</td>
-                                  </tr>";  //$row['index'] the index here is a field name
-                          $i++; 
-                        }
-                        ?>
-                      </tbody>
-                    </table>
-                      </div>
-                  </div>
-                      </div>
-              <div id="TrueFalse" style="display: none;">
-                <div><small class="text-muted d-md-flex mb-0 mx-5 justify-content-end">Type: True/False</small></div>
-                <div class="card">
-                  <div class="table-responsive border rounded p-1">
-                    <table class="table table-bordered table-hover text-nowrap datatable">
-                      <thead>
-                        <tr>
-                          <th scope="col">ID</th>
-                          <th scope="col">QUESTION</th>
-                          <th scope="col">OPTION A</th>
-                          <th scope="col">OPTION B</th>
-                          <th scope="col">OPTION C</th>
-                          <th scope="col">OPTION D</th>
-                          <th scope="col">CORRECT ANSWER</th>
-                          <th scope="col">ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $rows = getEnglish();
-                        $i = 0;
-                        while ($i < count($rows)) {   //Creates a loop to loop through results
-                          $row = $rows[$i];
-                          $id = $row['id'];
-                          $question = $row['question'];
-                          $optA = $row['optionA'];
-                          $optB = $row['optionB'];
-                          $optC = $row['optionC'];
-                          $optD = $row['optionD'];
-                          $right = $row['correctAnswer'];
-                          echo "<tr>
-                                    <td>" . $id . "</td>
-                                    <td>" . $question . "</td>
-                                    <td>" . $optA . "</td>
-                                    <td>" . $optB . "</td>
-                                    <td>" . $optC . "</td>
-                                    <td>" . $optD . "</td>
-                                    <td>" . $right . "</td>
-                                    <td>" .
-                            "<div class='d-flex '>
-                              <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-ID='$id' data-question='$question' data-optA='$optA' data-optB='$optB' data-optC='$optC' data-optD='$optD' data-right='$right' onClick='editCourse(this)'>EDIT</button>
-                                      </form>" .
-                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
-                            "</div>" .
-                            "</td>" .
-                            "</td>
-                                  </tr>";  //$row['index'] the index here is a field name
-                          $i++; 
-                        }
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
-                  </div>
               </div>
-              <!--
-              <div>
-                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Question</button>
-              </div>
-              -->
-              
-                        <!-- Add Bus-->
+              <!-- Add Bus-->
+              <div class="col-md-12 grid-margin">
               <div class="card">
-              <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-md modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add a Question</h5>
-                    </div>
+                  <div class="card body">
                     <form method="POST">
                       <div class="modal-body p-sm-3">
                         <div class="row">
@@ -287,6 +159,7 @@
                           <div class="col-md-4  mx-sm-0 mx-lg-n4">
                               <div class="form-group">
                                 <select class="form-control" onchange="toggleDiv(this.value)">
+                                  <option value="">-- select type --</option>
                                   <option value="1">Multiple Choice</option>
                                   <option value="2">True/False</option>
                                 </select>
@@ -318,7 +191,7 @@
                                 <div class="mb-3 col-md-11">
                                 <input type="text" name="nopta" class="form-control" id="eng" placeholder="Option 1" required  />
                                 </div>
-                                <div class="mb-3 mx-sm-0 mx-lg-n2">
+                                <div class="mb-3 col-md-1 ">
                                 
                                   <div class="input-group-append">
                                     <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
@@ -352,12 +225,9 @@
                                 <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> False <i class="input-helper"></i></label>
                               </div>
-                            </div>
                           </div>
-                        </div>
-                        
-                        
-                        </div>
+                        </div>                 
+                      </div>
                       <div class="modal-footer">
                         <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
                         <?php
@@ -381,7 +251,7 @@
                               echo "<script> window.location = 'subject-english.php' </script>";
                           }
                         ?>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        
                       </div>
                     </form>
                     </div>
@@ -389,121 +259,6 @@
                 </div>
               </div>
               <!-- End Add Bus-->
-
-              -->
-                <!-- Edit Modal-->
-                <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Details</h5>
-                      </div>
-                      <form method="POST">
-                        <div class="modal-body">
-                          <input type="hidden" name="edit_id" id="edit_id" />
-                          <div class="mb-3">
-                            <label>Question</label>
-                          <textarea name="edtquestion" class="form-control" id="edtquestion" rows="5" cols="45" required> </textarea>
-                          </div>
-                          <div class="mb-3">
-                            <label>Option A</label>
-                            <input type="text" name="edtA" id="edtA" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option B</label>
-                            <input type="text" name="edtB" id="edtB" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option C</label>
-                            <input type="text" name="edtC" id="edtC" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option D</label>
-                            <input type="text" name="edtD" id="edtD" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Correct Answer</label>
-                          <select name="edtright" class="form-control" id="edtright" required>
-                            <option value="X">-Select a Letter-</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            
-                          </select>
-                          </div>
-                        
-                        </div>
-                        <div class="modal-footer">
-                          <input type="submit" name="Update" class="btn btn-primary"/>
-                          <?php
-                          if (isset($_POST['Update'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $edtid = $_POST['edit_id'];                      
-                          $edtQuestion = $_POST['edtquestion'];                
-                          $edtoptionA = $_POST['edtA'];                
-                          $edtoptionB = $_POST['edtB'];                
-                          $edtoptionC = $_POST['edtC'];                
-                          $edtoptionD = $_POST['edtD'];                
-                          $edtrightoption = $_POST['edtright'];                
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                            $sql = mysqli_query($conn,
-                          "UPDATE english_questionnaire SET question='".$edtQuestion."', optionA='".$edtoptionA."', optionB='".$edtoptionB."', optionC='".$edtoptionC."', optionD='".$edtoptionD."', correctAnswer='".$edtrightoption."' WHERE id= ".$edtid."
-                          ");
-                              echo "<script> window.location = 'subject-english.php' </script>";
-                          }
-                        ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Edit Modal -->
-
-                <!-- Archive Modal -->
-                <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Remove</h5>
-                      </div>
-                      <form  method="POST">
-                        <div class="modal-body">
-                          <input type="hidden" name="rem_course_id" id="course_id" />
-                          <h4>Are you sure you want to remove this??</h4>
-                        </div>
-                        <div class="modal-footer">
-                          <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
-                          <?php
-                            if (isset($_POST['Archive'])){
-                              $url = 'localhost';
-                              $username = 'root';
-                              $password = '';                     
-                              $delid = $_POST['rem_course_id'];                   
-                              $conn = new mysqli($url, $username, $password, 'project');
-                              if ($conn->connect_error) {
-                                  die("Connection failed!:" . $conn->connect_error);
-                              }
-                              $sql = mysqli_query($conn,
-                              "DELETE FROM english_questionnaire WHERE id = ".$delid."
-                              ");
-                              echo "<script> window.location = 'subject-english.php' </script>";
-                              }
-                          ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Archive Modal -->
-
               
           </div>
         </div>
@@ -576,12 +331,8 @@
             function toggleDiv(value) {
                 const box = document.getElementById('multiChoice');
                 const box1 = document.getElementById('TF');
-                const box2 = document.getElementById('multipleChoice');
-                const box3 = document.getElementById('TrueFalse');
                 box.style.display = value == 1 ? 'block' : 'none';
                 box1.style.display = value == 2 ? 'block' : 'none';
-                box2.style.display = value == 3 ? 'block' : 'none';
-                box3.style.display = value == 4 ? 'block' : 'none';
             }
         </script>
 
