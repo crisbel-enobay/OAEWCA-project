@@ -34,6 +34,7 @@ function getCourses() {
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
+//archived courses
 function getArchivedCourses() {
     /*include 'database.php';
     $sql = mysqli_query($conn,
@@ -52,6 +53,22 @@ function getArchivedCourses() {
     $sql = mysqli_query($conn,
     "SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic
     FROM archived_courses
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+//exam dates
+function getExamDates() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id,exam_date, exam_date_created
+    FROM admin_schedule
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }

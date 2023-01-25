@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2023 at 06:42 AM
+-- Generation Time: Jan 25, 2023 at 01:55 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -20,6 +20,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `project`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_schedule`
+--
+
+CREATE TABLE `admin_schedule` (
+  `id` int(11) NOT NULL,
+  `exam_date` varchar(255) NOT NULL,
+  `exam_date_created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin_schedule`
+--
+
+INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_date_created`) VALUES
+(37, '2023-02-10', '2023-01-25 08:50:19');
 
 -- --------------------------------------------------------
 
@@ -118,6 +137,18 @@ INSERT INTO `english_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 (14, 'Calvin reached the __________ of his career in his early thirties when he became president and CEO of a software company.\r\n', 'zephyr', 'zenith', 'vale', 'nocturne', 'B'),
 (15, 'Genevieve’s stunning debut performance at the city opera has earned her  __________ from some of the city’s toughest critics.\r\n', 'antipathy', 'accolades', 'destitutions', 'lamentations', 'B'),
 (16, 'Prince Phillip had to choose: marry the woman he loved and ________ his right to the throne, or marry Fiona and inherit the crown.\r\n', 'reprimand', 'upbraid', 'abdicate', 'winnow', 'C');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exam_key`
+--
+
+CREATE TABLE `exam_key` (
+  `id` int(11) NOT NULL,
+  `exam_key` varchar(255) NOT NULL,
+  `exam_key_created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -302,6 +333,13 @@ INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code
 --
 
 --
+-- Indexes for table `admin_schedule`
+--
+ALTER TABLE `admin_schedule`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `archived_courses`
 --
 ALTER TABLE `archived_courses`
@@ -317,6 +355,12 @@ ALTER TABLE `courses`
 -- Indexes for table `english_questionnaire`
 --
 ALTER TABLE `english_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `exam_key`
+--
+ALTER TABLE `exam_key`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -360,6 +404,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `admin_schedule`
+--
+ALTER TABLE `admin_schedule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
 -- AUTO_INCREMENT for table `archived_courses`
 --
 ALTER TABLE `archived_courses`
@@ -376,6 +426,12 @@ ALTER TABLE `courses`
 --
 ALTER TABLE `english_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `exam_key`
+--
+ALTER TABLE `exam_key`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `filipino_questionnaire`
