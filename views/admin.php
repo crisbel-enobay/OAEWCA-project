@@ -108,7 +108,8 @@
             <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
               <a class="nav-link" href="../views/admin-results.php">
-                <span class="menu-title">Results</span>
+              <a class="nav-link" href="../views/admin-schedule.php">
+                <span class="menu-title">Exam Schedule</span>
                 <i class="icon-chart menu-icon"></i>
               </a>
             </li>
@@ -125,6 +126,7 @@
             </nav>
           </div>
           <!-- Quick Action Toolbar Starts-->
+<<<<<<< Updated upstream
           <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
@@ -212,6 +214,9 @@
                 </div>
               </div>
             </div>
+=======
+          
+>>>>>>> Stashed changes
           
         </div>
         <!-- content-wrapper ends -->

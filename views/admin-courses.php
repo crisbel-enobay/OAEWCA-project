@@ -122,8 +122,8 @@
             </li>
             <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-results.php">
-                <span class="menu-title">Results</span>
+              <a class="nav-link" href="../views/admin-schedule.php">
+                <span class="menu-title">Exam Schedule</span>
                 <i class="icon-chart menu-icon"></i>
               </a>
             </li>
@@ -136,7 +136,6 @@
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Course List</li>
-                <li class="breadcrumb-item"><a href="../views/archived_courses.php">Archives</a></li>
               </ol>
             </nav>
           </div>
@@ -152,11 +151,19 @@
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
+<<<<<<< Updated upstream
                           <th scope="col">ID</th>
                           <th scope="col">Courses</th>
                           <th scope="col">Department</th>
                           <th scope="col">Availability</th>
                           <th scope="col">Action</th>
+=======
+                          <th scope="col">COURSE ID</th>
+                          <th scope="col">COURSE NAME</th>
+                          <th scope="col">COURSE DETAILS</th>
+                          <th scope="col">DATE MODIFIED</th>
+                          <th scope="col">ACTION</th>
+>>>>>>> Stashed changes
                         </tr>
                       </thead>
                       <tbody>
@@ -165,13 +172,21 @@
                         $i = 0;
                         while ($i < count($rows)) {   //Creates a loop to loop through results
                           $row = $rows[$i];
+<<<<<<< Updated upstream
                           $id = $row['id'];
                           $courseName = $row['course'];
                           $dept = $row['dept'];
                           $availability = $row['availability'];
+=======
+                          $course_id = $row['course_id'];
+                          $courseName = $row['course_name'];
+                          $courseDetails = $row['course_details'];
+                          $date = $row['date_modified'];
+>>>>>>> Stashed changes
                           echo "<tr>
-                                    <td>" . $id . "</td>
+                                    <td>" . $course_id . "</td>
                                     <td>" . $courseName . "</td>
+<<<<<<< Updated upstream
                                     <td>" . $dept . "</td>
                                     <td>" . $availability . "</td>
                                     <td>" .
@@ -180,6 +195,16 @@
                                         <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-busid='$id' data-busname='$courseName' data-maxseats='$dept' data-plateno='$availability' onClick='editCourse(this)'>EDIT</button>
                                       </form>" .
                             "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-busid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+=======
+                                    <td>" . $courseDetails . "</td>
+                                    <td>" . $date . "</td>
+                                    <td>" .
+                            "<div class='d-flex '>
+                              <form method='POST' action='../forms/delete_bus.php'>
+                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$course_id' data-coursename='$courseName'data-details='$courseDetails' data-date='$date' onClick='editCourse(this)'>EDIT</button>
+                                      </form>" .
+                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$course_id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+>>>>>>> Stashed changes
                             "</div>" .
                             "</td>" .
                             "</td>

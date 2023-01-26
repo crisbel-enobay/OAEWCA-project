@@ -19,8 +19,179 @@ function getCourses() {
     "SELECT obrs_sample.id, course, dept, availability
     FROM obrs_sample
     ");
+<<<<<<< Updated upstream
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
+=======
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);*/
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT *
+    FROM courses
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+// hobbies
+function getHobbies() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT hob_id, hobby
+    FROM hobbies
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+//exam dates
+function getExamDates() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id,exam_date, exam_date_created
+    FROM admin_schedule
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+function getQuestion() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT * 
+    FROM questionnaire
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+function getAnsMC() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT * 
+    FROM answerss_mc
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+function getAnsTF() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT * 
+    FROM answers_tf
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+function getEnglish() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id, question, optionA, optionB, optionC, optionD, correctAnswer
+    FROM english_questionnaire
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+function getFilipino() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id, question, optionA, optionB, optionC, optionD, correctAnswer
+    FROM filipino_questionnaire
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+function getMath() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id, question, optionA, optionB, optionC, optionD, correctAnswer
+    FROM math_questionnaire
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+function getScience() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id, question, optionA, optionB, optionC, optionD, correctAnswer
+    FROM science_questionnaire
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+function getLogic() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id, question, optionA, optionB, optionC, optionD, correctAnswer
+    FROM logic_questionnaire
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+
+>>>>>>> Stashed changes
 // get all unpaid transactions
 function getUnpaidTransactions() {
     include 'database.php';
