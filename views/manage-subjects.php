@@ -134,7 +134,7 @@
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Subject listing</li>
-                <li class="breadcrumb-item"><a href="../views/admin-insertQuestion.php">New Subject</a></li>
+                <li class="breadcrumb-item"><a href="../views/new-subject.php">New Subject</a></li>
                 <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>
                 <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
               </ol>
