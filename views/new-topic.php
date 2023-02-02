@@ -82,31 +82,48 @@
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">Exam Categories</span></li>
             <li class="nav-item">
               <a class="nav-link" href="../views/admin-courses.php">
                 <span class="menu-title">Courses</span>
-                <i class="icon-globe menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="../views/admin-questions.php">
-                <span class="menu-title">Questions</span>
-                <i class="icon-book-open menu-icon"></i>
+                <i class="icon-list menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-answer.php">
-                <span class="menu-title">Answer</span>
-                <i class="icon-chart menu-icon"></i>
+              <a class="nav-link" data-toggle="collapse" href="#ui-subjects" aria-expanded="false" aria-controls="ui-subjects">
+                <span class="menu-title">Subjects</span>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-subjects">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/manage-subjects.php">Manage Subjects</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/new-subject.php">New Subject</a></li>
+                </ul>
+              </div>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-results.php">
-                <span class="menu-title">Results</span>
-                <i class="icon-chart menu-icon"></i>
+              <a class="nav-link" data-toggle="collapse" href="#ui-topics" aria-expanded="false" aria-controls="ui-topics">
+                <span class="menu-title">Topics</span>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-topics">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/manage-topics.php">Manage Topics</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/new-topic.php">New Topic</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-applicants" aria-expanded="false" aria-controls="ui-applicants">
+                <span class="menu-title">Applicants</span>
+                <i class="icon-layers menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-applicants">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/passers.php">Passers</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/examiners.php">Examiners</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/unverified.php">Unverified Applicants</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </nav>
@@ -116,9 +133,8 @@
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Questions List</li>
-                <li class="breadcrumb-item"><a href="../views/admin-insertQuestion.php">Insert question</a></li>
-                <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>
+                <li class="breadcrumb-item"><a href="../views/manage-topics.php">Topic Listing</a></li>
+                <li class="breadcrumb-item active">New Topic</li>
                 <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
               </ol>
             </nav>
@@ -127,22 +143,11 @@
           <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
-                
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Questions</h5>
-                    <div class="form-group ml-auto mb-0">
-                                <select class="form-control" onchange="toggleDiv(this.value)">
-                                  <option value="3">Multiple Choice</option>
-                                  <option value="4">True/False</option>
-                                </select>
-                              </div>
+                    <h5 class="mb-0">Insert New Topic</h5>
                   </div>
-                </div>
-                  <div id="multipleChoice">
-                    <div><small class="text-muted d-md-flex mb-0 mx-4 justify-content-end">Type: Multiple Choice</small></div>
-                    <div class="card">
                   <div class="table-responsive border rounded p-1">
-                    <table class="table table-bordered table-hover text-nowrap datatable">
+                    <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
                           <th scope="col">ID</th>
@@ -193,69 +198,7 @@
                     </table>
                       </div>
                   </div>
-                      </div>
-              <div id="TrueFalse" style="display: none;">
-                <div><small class="text-muted d-md-flex mb-0 mx-5 justify-content-end">Type: True/False</small></div>
-                <div class="card">
-                  <div class="table-responsive border rounded p-1">
-                    <table class="table table-bordered table-hover text-nowrap datatable">
-                      <thead>
-                        <tr>
-                          <th scope="col">ID</th>
-                          <th scope="col">QUESTION</th>
-                          <th scope="col">OPTION A</th>
-                          <th scope="col">OPTION B</th>
-                          <th scope="col">OPTION C</th>
-                          <th scope="col">OPTION D</th>
-                          <th scope="col">CORRECT ANSWER</th>
-                          <th scope="col">ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $rows = getEnglish();
-                        $i = 0;
-                        while ($i < count($rows)) {   //Creates a loop to loop through results
-                          $row = $rows[$i];
-                          $id = $row['id'];
-                          $question = $row['question'];
-                          $optA = $row['optionA'];
-                          $optB = $row['optionB'];
-                          $optC = $row['optionC'];
-                          $optD = $row['optionD'];
-                          $right = $row['correctAnswer'];
-                          echo "<tr>
-                                    <td>" . $id . "</td>
-                                    <td>" . $question . "</td>
-                                    <td>" . $optA . "</td>
-                                    <td>" . $optB . "</td>
-                                    <td>" . $optC . "</td>
-                                    <td>" . $optD . "</td>
-                                    <td>" . $right . "</td>
-                                    <td>" .
-                            "<div class='d-flex '>
-                              <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-ID='$id' data-question='$question' data-optA='$optA' data-optB='$optB' data-optC='$optC' data-optD='$optD' data-right='$right' onClick='editCourse(this)'>EDIT</button>
-                                      </form>" .
-                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
-                            "</div>" .
-                            "</td>" .
-                            "</td>
-                                  </tr>";  //$row['index'] the index here is a field name
-                          $i++; 
-                        }
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
-                  </div>
               </div>
-              <!--
-              <div>
-                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Question</button>
-              </div>
-              -->
-              
                         <!-- Add Bus-->
               <div class="card">
               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -390,7 +333,6 @@
               </div>
               <!-- End Add Bus-->
 
-              -->
                 <!-- Edit Modal-->
                 <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">

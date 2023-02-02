@@ -9,7 +9,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Category-Subject</title>
+    <title>Category-Questions</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -82,41 +82,60 @@
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">Exam Categories</span></li>
             <li class="nav-item">
               <a class="nav-link" href="../views/admin-courses.php">
                 <span class="menu-title">Courses</span>
-                <i class="icon-globe menu-icon"></i>
+                <i class="icon-list menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-questions.php">
-                <span class="menu-title">Questions</span>
-                <i class="icon-book-open menu-icon"></i>
+              <a class="nav-link" data-toggle="collapse" href="#ui-subjects" aria-expanded="false" aria-controls="ui-subjects">
+                <span class="menu-title">Subjects</span>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-subjects">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/manage-subjects.php">Manage Subjects</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/new-subject.php">New Subject</a></li>
+                </ul>
+              </div>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="../views/admin-answer.php">
-                <span class="menu-title">Answer</span>
-                <i class="icon-chart menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-results.php">
-                <span class="menu-title">Results</span>
-                <i class="icon-chart menu-icon"></i>
+              <a class="nav-link" data-toggle="collapse" href="#ui-topics" aria-expanded="false" aria-controls="ui-topics">
+                <span class="menu-title">Topics</span>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-topics">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/manage-topics.php">Manage Topics</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/new-topic.php">New Topic</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-applicants" aria-expanded="false" aria-controls="ui-applicants">
+                <span class="menu-title">Applicants</span>
+                <i class="icon-layers menu-icon"></i>
+              </a>
+              <div class="collapse" id="ui-applicants">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/passers.php">Passers</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/examiners.php">Examiners</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/unverified.php">Unverified Applicants</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </nav>
-         <!-- partial -->
-       <div class="main-panel">
+        <!-- partial -->
+        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Answer List</li>
+                <li class="breadcrumb-item active">Subject listing</li>
+                <li class="breadcrumb-item"><a href="../views/admin-insertQuestion.php">New Subject</a></li>
+                <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>
                 <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
               </ol>
             </nav>
@@ -125,9 +144,8 @@
           <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
-                <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Answer</h5>
+                    <h5 class="mb-0">Manage Subjects</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
@@ -179,53 +197,110 @@
                         ?>
                       </tbody>
                     </table>
+                      </div>
                   </div>
-              <div>
-                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Question</button>
               </div>
-
-              <!-- Add Bus-->
+                        <!-- Add Bus-->
+              <div class="card">
               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-centered">
                   <div class="modal-content">
-
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Add a Question</h5>
                     </div>
-
                     <form method="POST">
-                      <div class="modal-body p-5">
-                        <div class="mb-3">
-                          <label>Question</label>
-                          <textarea name="nquestion" class="form-control" id="question" rows="5" cols="45" required> </textarea>
+                      <div class="modal-body p-sm-3">
+                        <div class="row">
+                          <div class="col-md-2 py-2">
+                                <small>Subject</small>
+                          </div>
+                          <div class="col-md-4 mx-md-n3 px-lg-2">
+                              <div class="form-group">
+                                <select class="form-control">
+                                  <option>English</option>
+                                  <option>Filipino</option>
+                                  <option>Math</option>
+                                  <option>Science</option>
+                                  <option>Logic</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-md-2 py-2 px-lg-4">
+                                <small>Type</small>
+                          </div>
+                          <div class="col-md-4  mx-sm-0 mx-lg-n4">
+                              <div class="form-group">
+                                <select class="form-control" onchange="toggleDiv(this.value)">
+                                  <option value="1">Multiple Choice</option>
+                                  <option value="2">True/False</option>
+                                </select>
+                              </div>
+                          </div>
                         </div>
                         <div class="mb-3">
-                          <label>Option A</label>
-                          <input type="text" name="nopta" class="form-control" id="eng" placeholder="Enter an option" required  />
+                          <small>Question</small>
+                          <textarea placeholder="Insert Question..." name="nquestion" class="form-control" id="question" rows="5" cols="45" required></textarea>
                         </div>
-                        <div class="mb-3">
-                          <label>Option B</label>
-                          <input type="text" name="noptb" class="form-control" id="mat" placeholder="Enter an option" required  />
+
+                        <div id="multiChoice" style="display: none;">
+                            <div class="row">
+                              <div class="mb-3 col-md-4">
+                              <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
+                                  <i class="icon-picture"></i>
+                                </button>
+                                <small class="text-muted">Add image</small>
+                              </div>
+                              <div class="mb-3 col-md-4">
+                              <button type="button" onclick="hideOrShow()" class="btn btn-inverse-success btn-icon">
+                                  <i class="icon-plus"></i>
+                                </button>
+                                <small class="text-muted" >Add option</small>
+                              </div>
+                            </div>
+                            <div id="theDIV" style="display: none;">
+                              <div class="row">
+                                <div class="mb-3 col-md-11">
+                                <input type="text" name="nopta" class="form-control" id="eng" placeholder="Option 1" required  />
+                                </div>
+                                <div class="mb-3 mx-sm-0 mx-lg-n2">
+                                
+                                  <div class="input-group-append">
+                                    <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
+                                    <i class="icon-picture icon-sm"></i>
+                                  </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="mb-3">
+                              <small>Correct Answer</small>
+                              <select name="right" class="form-control" id="right" required>
+                                <option value="X">-Select a Letter-</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                              </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                          <label>Option C</label>
-                          <input type="text" name="noptc" class="form-control" id="fil" placeholder="Enter an option" required  />
+                        
+                        <div id="TF" style="display: none;">
+                          <div class="col-md-6" >
+                          <small class="text-muted">Choose Correct Answer</small>
+                            <div class="form-group">
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> True <i class="input-helper"></i></label>
+                              </div>
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> False <i class="input-helper"></i></label>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="mb-3">
-                          <label>Option D</label>
-                          <input type="text" name="noptd" class="form-control" id="sci" placeholder="Enter an option" required  />
-                        </div>
-                        <div class="mb-3">
-                          <label>Correct Answer</label>
-                          <select name="right" class="form-control" id="right" required>
-                            <option value="X">-Select a Letter-</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            
-                          </select>
-                        </div>
+                        
+                        
                         </div>
                       <div class="modal-footer">
                         <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
@@ -372,7 +447,7 @@
                 </div>
                 <!-- End Archive Modal -->
 
-              </div>
+              
           </div>
         </div>
         <!-- content-wrapper ends -->
@@ -417,22 +492,48 @@
     <script>
         <?php include '../assets/js/jquery.js' ?>
     </script>
+    
+    <script>
+            // A function that hides or shows a selected element
+            function hideOrShow() {
+                
+                // Select the element with id "theDIV"
+                var x = document.getElementById("theDIV");
+                
+                // If selected element is hidden
+                if (x.style.display === "none") {
+                
+                // Show the hidden element
+                x.style.display = "block";
+                
+                // Else if the selected element is shown
+                } else {
+                
+                // Hide the element
+                x.style.display = "none";
+                }
+            }
+    </script>
+
+    <script>
+            function toggleDiv(value) {
+                const box = document.getElementById('multiChoice');
+                const box1 = document.getElementById('TF');
+                const box2 = document.getElementById('multipleChoice');
+                const box3 = document.getElementById('TrueFalse');
+                box.style.display = value == 1 ? 'block' : 'none';
+                box1.style.display = value == 2 ? 'block' : 'none';
+                box2.style.display = value == 3 ? 'block' : 'none';
+                box3.style.display = value == 4 ? 'block' : 'none';
+            }
+        </script>
+
      <script>
     function editCourse(value) {
       let courseID = value.getAttribute("data-ID");
-      let datquestion = value.getAttribute("data-question");
-      let datA = value.getAttribute("data-optA");
-      let datB = value.getAttribute("data-optB");
-      let datC = value.getAttribute("data-optC");
-      let datD = value.getAttribute("data-optD");
-      let datRight = value.getAttribute("data-right");
+      let courseName = value.getAttribute("data-hobname");
       document.querySelector("#edit_id").value = courseID;
-      document.querySelector("#edtquestion").value = datquestion;
-      document.querySelector("#edtA").value = datA;
-      document.querySelector("#edtB").value = datB;
-      document.querySelector("#edtC").value = datC;
-      document.querySelector("#edtD").value = datD;
-      document.querySelector("#edtright").value = datRight;
+      document.querySelector("#edithobName").value = courseName;
     }
 
     function archiveCourse(value) {
