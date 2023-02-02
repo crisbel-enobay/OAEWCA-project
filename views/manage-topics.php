@@ -194,10 +194,13 @@
                         ?>
                       </tbody>
                     </table>
-                      </div>
                   </div>
+                  <div>
+                    <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Question</button>
+                  </div>
+                </div>
               </div>
-                        <!-- Add Bus-->
+              <!-- Add-->
               <div class="card">
               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-centered">
@@ -208,7 +211,7 @@
                     <form method="POST">
                       <div class="modal-body p-sm-3">
                         <div class="row">
-                          <div class="col-md-2 py-2">
+                        <div class="col-md-2 py-2">
                                 <small>Subject</small>
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2">
@@ -221,7 +224,8 @@
                                   <option>Logic</option>
                                 </select>
                               </div>
-                          </div>
+                          </div> 
+                          <!--
                           <div class="col-md-2 py-2 px-lg-4">
                                 <small>Type</small>
                           </div>
@@ -233,13 +237,15 @@
                                 </select>
                               </div>
                           </div>
+                        
+                        -->
                         </div>
                         <div class="mb-3">
                           <small>Question</small>
                           <textarea placeholder="Insert Question..." name="nquestion" class="form-control" id="question" rows="5" cols="45" required></textarea>
                         </div>
 
-                        <div id="multiChoice" style="display: none;">
+                        <div id="multiChoice">
                             <div class="row">
                               <div class="mb-3 col-md-4">
                               <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
@@ -281,6 +287,7 @@
                             </div>
                         </div>
                         
+                        <!--
                         <div id="TF" style="display: none;">
                           <div class="col-md-6" >
                           <small class="text-muted">Choose Correct Answer</small>
@@ -296,7 +303,7 @@
                             </div>
                           </div>
                         </div>
-                        
+                      -->
                         
                         </div>
                       <div class="modal-footer">
@@ -329,7 +336,7 @@
                   </div>
                 </div>
               </div>
-              <!-- End Add Bus-->
+              <!-- End Add-->
 
                 <!-- Edit Modal-->
                 <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
