@@ -132,8 +132,10 @@ include "admin-checker.php";
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Results</li>
-            <li class="breadcrumb-item"><a href="../views/admin.php">Home</a></li>
+                <li class="breadcrumb-item active">Passers</li>
+                <li class="breadcrumb-item"><a href="../views/examiners.php">Examiners</a></li>
+                <li class="breadcrumb-item"><a href="../views/unverified.php">Unverified</a></li>
+                <li class="breadcrumb-item"><a href="../views/admin.php">Home</a></li>
               </ol>
             </nav>
           </div>
@@ -143,7 +145,7 @@ include "admin-checker.php";
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Overall Result</h5>
+                  <p class="lead mb-0 ">Passers</p>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table">

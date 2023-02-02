@@ -142,7 +142,7 @@
             <div class="col-md-12 grid-margin quick-action-toolbar">
               <div class="card">
                   <div class="card-header d-block d-md-flex">
-                    <p class="lead mb-0">Welcome to UCC Admission Test!</h5>
+                    <p class="lead mb-0">Welcome to UCC Admission Test!</p>
                   </div>
                   </div>
           </div>

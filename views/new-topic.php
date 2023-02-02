@@ -144,309 +144,55 @@
             <div class="col-md-12 grid-margin">
               <div class="card">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Insert New Topic</h5>
+                  <p class="lead mb-0 ">Insert New Topic</p>
                   </div>
-                  <div class="table-responsive border rounded p-1">
-                    <table class="table table-hover text-nowrap datatable">
-                      <thead>
-                        <tr>
-                          <th scope="col">ID</th>
-                          <th scope="col">QUESTION</th>
-                          <th scope="col">OPTION A</th>
-                          <th scope="col">OPTION B</th>
-                          <th scope="col">OPTION C</th>
-                          <th scope="col">OPTION D</th>
-                          <th scope="col">CORRECT ANSWER</th>
-                          <th scope="col">ACTION</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $rows = getEnglish();
-                        $i = 0;
-                        while ($i < count($rows)) {   //Creates a loop to loop through results
-                          $row = $rows[$i];
-                          $id = $row['id'];
-                          $question = $row['question'];
-                          $optA = $row['optionA'];
-                          $optB = $row['optionB'];
-                          $optC = $row['optionC'];
-                          $optD = $row['optionD'];
-                          $right = $row['correctAnswer'];
-                          echo "<tr>
-                                    <td>" . $id . "</td>
-                                    <td>" . $question . "</td>
-                                    <td>" . $optA . "</td>
-                                    <td>" . $optB . "</td>
-                                    <td>" . $optC . "</td>
-                                    <td>" . $optD . "</td>
-                                    <td>" . $right . "</td>
-                                    <td>" .
-                            "<div class='d-flex '>
-                              <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-ID='$id' data-question='$question' data-optA='$optA' data-optB='$optB' data-optC='$optC' data-optD='$optD' data-right='$right' onClick='editCourse(this)'>EDIT</button>
-                                      </form>" .
-                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
-                            "</div>" .
-                            "</td>" .
-                            "</td>
-                                  </tr>";  //$row['index'] the index here is a field name
-                          $i++; 
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                  <div class="col-md-9 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                  <form class="forms-sample">
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Subject</label>
+                        <div class="col-sm-9">
+                                  <select class="form-control">
+                                    <option>English</option>
+                                    <option>Filipino</option>
+                                    <option>Math</option>
+                                    <option>Science</option>
+                                    <option>Logic</option>
+                                  </select>
+                        </div>
                       </div>
-                  </div>
-              </div>
-                        <!-- Add Bus-->
-              <div class="card">
-              <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-md modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add a Question</h5>
-                    </div>
-                    <form method="POST">
-                      <div class="modal-body p-sm-3">
-                        <div class="row">
-                          <div class="col-md-2 py-2">
-                                <small>Subject</small>
-                          </div>
-                          <div class="col-md-4 mx-md-n3 px-lg-2">
-                              <div class="form-group">
-                                <select class="form-control">
-                                  <option>English</option>
-                                  <option>Filipino</option>
-                                  <option>Math</option>
-                                  <option>Science</option>
-                                  <option>Logic</option>
-                                </select>
-                              </div>
-                          </div>
-                          <div class="col-md-2 py-2 px-lg-4">
-                                <small>Type</small>
-                          </div>
-                          <div class="col-md-4  mx-sm-0 mx-lg-n4">
-                              <div class="form-group">
-                                <select class="form-control" onchange="toggleDiv(this.value)">
-                                  <option value="1">Multiple Choice</option>
-                                  <option value="2">True/False</option>
-                                </select>
-                              </div>
-                          </div>
+                      <div class="form-group row">
+                        <label for="subject-name" class="col-sm-3 col-form-label">Topic Name</label>
+                        <div class="col-sm-9">
+                          <input type="email" class="form-control" id="subject-name" placeholder="Subject Name">
                         </div>
-                        <div class="mb-3">
-                          <small>Question</small>
-                          <textarea placeholder="Insert Question..." name="nquestion" class="form-control" id="question" rows="5" cols="45" required></textarea>
-                        </div>
-
-                        <div id="multiChoice" style="display: none;">
-                            <div class="row">
-                              <div class="mb-3 col-md-4">
-                              <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
-                                  <i class="icon-picture"></i>
-                                </button>
-                                <small class="text-muted">Add image</small>
-                              </div>
-                              <div class="mb-3 col-md-4">
-                              <button type="button" onclick="hideOrShow()" class="btn btn-inverse-success btn-icon">
-                                  <i class="icon-plus"></i>
-                                </button>
-                                <small class="text-muted" >Add option</small>
-                              </div>
-                            </div>
-                            <div id="theDIV" style="display: none;">
-                              <div class="row">
-                                <div class="mb-3 col-md-11">
-                                <input type="text" name="nopta" class="form-control" id="eng" placeholder="Option 1" required  />
-                                </div>
-                                <div class="mb-3 mx-sm-0 mx-lg-n2">
-                                
-                                  <div class="input-group-append">
-                                    <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
-                                    <i class="icon-picture icon-sm"></i>
-                                  </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="mb-3">
-                              <small>Correct Answer</small>
-                              <select name="right" class="form-control" id="right" required>
-                                <option value="X">-Select a Letter-</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                              </select>
-                            </div>
-                        </div>
-                        
-                        <div id="TF" style="display: none;">
-                          <div class="col-md-6" >
-                          <small class="text-muted">Choose Correct Answer</small>
-                            <div class="form-group">
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> True <i class="input-helper"></i></label>
-                              </div>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> False <i class="input-helper"></i></label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        
-                        </div>
-                      <div class="modal-footer">
-                        <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
-                        <?php
-                          if (isset($_POST['Add'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $newQS = $_POST['nquestion'];                      
-                          $newA= $_POST['nopta'];                      
-                          $newB = $_POST['noptb'];                      
-                          $newC = $_POST['noptc'];                      
-                          $newD = $_POST['noptd'];                      
-                          $newright = $_POST['right'];                  
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                          $sql = mysqli_query($conn,
-                          "INSERT INTO english_questionnaire(question, optionA, optionB, optionC, optionD, correctAnswer) VALUES ('".$newQS."','".$newA."', '".$newB."', '".$newC."', '".$newD."', '".$newright."')
-                          ");
-                              echo "<script> window.location = 'subject-english.php' </script>";
-                          }
-                        ?>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
+                      <div class="form-group row">
+                        <label for="subject-description" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                        <textarea placeholder="Subject Description..." name="nquestion" class="form-control" id="subject-description" rows="5" cols="45" required></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="duration" class="col-sm-3 col-form-label">Duration</label>
+                        <div class="col-sm-9">
+                          <input type="password" class="form-control" id="duration" placeholder="...minutes">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="status" class="col-sm-3 col-form-label">Status</label>
+                        <div class="form-check form-check-flat form-check-primary mx-3 ">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input"> Active <i class="input-helper"></i></label>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
                     </form>
-                    </div>
-                  </div>
+                  </div> 
                 </div>
               </div>
-              <!-- End Add Bus-->
-
-                <!-- Edit Modal-->
-                <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Details</h5>
-                      </div>
-                      <form method="POST">
-                        <div class="modal-body">
-                          <input type="hidden" name="edit_id" id="edit_id" />
-                          <div class="mb-3">
-                            <label>Question</label>
-                          <textarea name="edtquestion" class="form-control" id="edtquestion" rows="5" cols="45" required> </textarea>
-                          </div>
-                          <div class="mb-3">
-                            <label>Option A</label>
-                            <input type="text" name="edtA" id="edtA" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option B</label>
-                            <input type="text" name="edtB" id="edtB" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option C</label>
-                            <input type="text" name="edtC" id="edtC" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option D</label>
-                            <input type="text" name="edtD" id="edtD" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Correct Answer</label>
-                          <select name="edtright" class="form-control" id="edtright" required>
-                            <option value="X">-Select a Letter-</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            
-                          </select>
-                          </div>
-                        
-                        </div>
-                        <div class="modal-footer">
-                          <input type="submit" name="Update" class="btn btn-primary"/>
-                          <?php
-                          if (isset($_POST['Update'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $edtid = $_POST['edit_id'];                      
-                          $edtQuestion = $_POST['edtquestion'];                
-                          $edtoptionA = $_POST['edtA'];                
-                          $edtoptionB = $_POST['edtB'];                
-                          $edtoptionC = $_POST['edtC'];                
-                          $edtoptionD = $_POST['edtD'];                
-                          $edtrightoption = $_POST['edtright'];                
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                            $sql = mysqli_query($conn,
-                          "UPDATE english_questionnaire SET question='".$edtQuestion."', optionA='".$edtoptionA."', optionB='".$edtoptionB."', optionC='".$edtoptionC."', optionD='".$edtoptionD."', correctAnswer='".$edtrightoption."' WHERE id= ".$edtid."
-                          ");
-                              echo "<script> window.location = 'subject-english.php' </script>";
-                          }
-                        ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Edit Modal -->
-
-                <!-- Archive Modal -->
-                <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Remove</h5>
-                      </div>
-                      <form  method="POST">
-                        <div class="modal-body">
-                          <input type="hidden" name="rem_course_id" id="course_id" />
-                          <h4>Are you sure you want to remove this??</h4>
-                        </div>
-                        <div class="modal-footer">
-                          <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
-                          <?php
-                            if (isset($_POST['Archive'])){
-                              $url = 'localhost';
-                              $username = 'root';
-                              $password = '';                     
-                              $delid = $_POST['rem_course_id'];                   
-                              $conn = new mysqli($url, $username, $password, 'project');
-                              if ($conn->connect_error) {
-                                  die("Connection failed!:" . $conn->connect_error);
-                              }
-                              $sql = mysqli_query($conn,
-                              "DELETE FROM english_questionnaire WHERE id = ".$delid."
-                              ");
-                              echo "<script> window.location = 'subject-english.php' </script>";
-                              }
-                          ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Archive Modal -->
-
-              
           </div>
         </div>
         <!-- content-wrapper ends -->

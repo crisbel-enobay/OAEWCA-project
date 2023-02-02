@@ -144,20 +144,18 @@
             <div class="col-md-12 grid-margin">
               <div class="card">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Manage Topics</h5>
+                    <p class="lead mb-0 ">Manage Topics</p>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
-                          <th scope="col">ID</th>
-                          <th scope="col">QUESTION</th>
-                          <th scope="col">OPTION A</th>
-                          <th scope="col">OPTION B</th>
-                          <th scope="col">OPTION C</th>
-                          <th scope="col">OPTION D</th>
-                          <th scope="col">CORRECT ANSWER</th>
-                          <th scope="col">ACTION</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Subject</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Duration</th>
+                          <th scope="col">Questions</th>
+                          <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>

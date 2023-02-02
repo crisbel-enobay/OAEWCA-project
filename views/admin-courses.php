@@ -170,7 +170,7 @@
             <div class="col-md-12 grid-margin">
               <div class="card">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Courses</h5>
+                  <p class="lead mb-0 ">Course List</p>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
