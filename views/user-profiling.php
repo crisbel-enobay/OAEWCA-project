@@ -109,10 +109,10 @@
        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
-            <nav>
+          <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Schedule</li>
-            <li class="breadcrumb-item"><a href="../views/user-dashboard.php">Home</a></li>
+                <li class="breadcrumb-item active">Exam Schedule List</li>
+                <li class="breadcrumb-item "><a href="../views/user-exam_key.php">Exam Keys</a></li>
               </ol>
             </nav>
           </div>
@@ -254,12 +254,13 @@
                
                       </div>
                       <div class="modal-footer">
-                        <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
+                        <input type="submit" name="Add" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="btnAdd" value="Add"/>
                         <?php
                           if (isset($_POST['Add'])){
                           $url = 'localhost';
                           $username = 'root';
                           $password = '';       
+                          $email = ($_SESSION['email']);
                           $exam_code = bin2hex(random_bytes(10));                    
                           $date = $_POST['exam_date'];                      
                           $strand = $_POST['strand_opt'];                      
@@ -270,16 +271,37 @@
                           if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
-                          $sql = mysqli_query($conn,
-                          "INSERT INTO generated_codes(exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
+                          $sql2 = mysqli_query($conn,
+                          "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
                           ");
-                              echo "<script> window.location = 'user-profiling.php' </script>";
-                          }
+                          }                    
                         ?>
-                        
-                      </div>
+                                              <!-- Modal -->
+                      <!-- <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog"> -->
+
+                          <!-- Modal content-->
+                          <!-- <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Modal Header</h4>
+                            </div> -->
+                            <!-- <div class="modal-body">
+                              <p>Some text in the modal.</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                          </div> -->
+
+                        <!-- </div>
+                      </div> -->
                     </form>
                     </div>
+                    <h2 style="text-align:center"><?php if(isset($_POST['Add'])){
+                            echo "your exam key is: ". $exam_code;
+                          } ?></h2>
+                      </div>
                   </div>
                 </div>
               </div>
