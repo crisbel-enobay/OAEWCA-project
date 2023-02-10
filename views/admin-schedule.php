@@ -110,7 +110,7 @@
               </a>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">Exam Categories</span></li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="../views/admin-courses.php">
                 <span class="menu-title">Courses</span>
                 <i class="icon-globe menu-icon"></i>
@@ -126,6 +126,12 @@
               <a class="nav-link" href="../views/admin-answer.php">
                 <span class="menu-title">Answer</span>
                 <i class="icon-chart menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../views/admin-schedule.php">
+                <span class="menu-title">Schedule</span>
+                <i class="icon-globe menu-icon"></i>
               </a>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">History</span></li>
@@ -253,7 +259,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Remove Course</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Remove Schedule</h5>
                       </div>
                       <form method="POST">
                         <div class="modal-body">
