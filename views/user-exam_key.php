@@ -92,7 +92,7 @@
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
-                  <p class="designation">Administrator</p>
+                  <p class="designation">Student</p>
                 </div>
                 <div class="icon-container">
                   <i class="icon-user"></i>
@@ -101,7 +101,7 @@
               </a>
             </li>
             <li class="nav-item nav-category">
-              <span class="nav-link">Admin Dashboard</span>
+              <span class="nav-link">Student Dashboard</span>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../views/admin.php">
@@ -109,27 +109,15 @@
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">Exam Categories</span></li>
-            <li class="nav-item active">
-              <a class="nav-link" href="../views/admin-courses.php">
-                <span class="menu-title">Courses</span>
+            <li class="nav-item nav-category"><span class="nav-link">Admission Exam</span></li>
+            <li class="nav-item">
+              <a class="nav-link" href="../views/user-exam.php">
+                <span class="menu-title">Examination</span>
                 <i class="icon-globe menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-questions.php">
-                <span class="menu-title">Questions</span>
-                <i class="icon-book-open menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../views/admin-answer.php">
-                <span class="menu-title">Answer</span>
-                <i class="icon-chart menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../views/admin-schedule.php">
+              <a class="nav-link" href="../views/user-profiling.php">
                 <span class="menu-title">Schedule</span>
                 <i class="icon-globe menu-icon"></i>
               </a>
@@ -149,7 +137,7 @@
           <div class="page-header">
           <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item "><a href="../views/admin-schedule.php">Exam Schedule List</a></li>
+                <li class="breadcrumb-item "><a href="../views/user-profiling.php">Exam Schedule List</a></li>
                 <li class="breadcrumb-item active">Exam Keys</li>
                 <li class="breadcrumb-item"><a href="../views/admin-attendance.php">Attendance</a></li>
               </ol>
@@ -167,7 +155,7 @@
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
-                          <th scope="col">CODE ID</th>
+                          <th scope="col">ID</th>
                           <th scope="col">EMAIL</th>
                           <th scope="col">EXAM KEY</th>
                           <th scope="col">EXAM DATE</th>
@@ -179,50 +167,38 @@
                       </thead>
                       <tbody>
                         <?php
-                        $rows = getGeneratedCodes();
-                        $i = 0;
-                        while ($i < count($rows)) {   //Creates a loop to loop through results
-                          $row = $rows[$i];
-                          $id = $row['id'];
-                          $email = $row['email'];
-                          $exam_key = $row['exam_key'];
-                          $exam_date = $row['exam_date'];
-                          $pref_course = $row['pref_course'];
-                          $interest = $row['interest'];
-                          $hobbies = $row['hobbies'];
-                          $exam_key_created_at = $row['exam_key_created_at'];
-                          echo "<tr>
-                                    <td>" . $id . "</td>
-                                    <td>" . $email . "</td>
-                                    <td>" . $exam_key . "</td>
-                                    <td>" . $exam_date . "</td>
-                                    <td>" . $pref_course . "</td>
-                                    <td>" . $interest . "</td>
-                                    <td>" . $hobbies . "</td>
-                                    <td>" . $exam_key_created_at . "</td>
-                                    <td>" .
-                            "<div class='d-flex '>
-                              <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
-                                      </form>" .
-                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
-                            "</div>" .
-                            "</td>" .
-                            "</td>
-                                  </tr>";  //$row['index'] the index here is a field name
-                          $i++; 
+                        $conn = mysqli_connect("localhost", "root", "", "project");
+                        $email = ($_SESSION['email']);
+                        $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE email = '$email'");
+                        while($row = mysqli_fetch_assoc($result)) {
+                          $id = $row["id"];
+                          $exam_key = $row["exam_key"];
+                          $exam_date = $row["exam_date"];
+                          $pref_course = $row["pref_course"];
+                          $interest = $row["interest"];
+                          $hobbies = $row["hobbies"];
+                          $exam_key_created_at = $row["exam_key_created_at"];
+                          echo "<tr>";
+                          echo "<td>" . $row["id"] . "</td>";
+                          echo "<td>" . $row["email"] . "</td>";
+                          echo "<td>" . $row["exam_key"] . "</td>";
+                          echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" . $row["pref_course"] . "</td>";
+                          echo "<td>" . $row["interest"] . "</td>";
+                          echo "<td>" . $row["hobbies"] . "</td>";
+                          echo "<td>" . $row["exam_key_created_at"] . "</td>";
+                          // echo      "<td>". "<div class='d-flex '>
+                          //       <form method='POST' action='../forms/delete_bus.php'>
+                          //                 <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
+                          //               </form>" .
+                          //     "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+                          //     "</div>" .
+                          //     "</td>" .
+                               "</tr>";
                         }
-                        //other query
-                        // $email = ($_SESSION['email']);
-                        // $stmt = $pdo->prepare("SELECT id,email,exam_key,pref_course,interest,hobbies,exam_key_created_at from generated_codes WHERE email=?");
-                        // $stmt->execute([$email]); 
-                        // $user = $stmt->fetch();
-                        // if ($user) {
-                        //     // email found
-                        // } else {
-                        //     // or not
-                        // } 
-                        ?>
+                        mysqli_close($conn);
+                      ?>
+
                       </tbody>
                     </table>
                   </div>
