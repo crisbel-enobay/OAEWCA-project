@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 10:07 AM
+-- Generation Time: Feb 11, 2023 at 10:28 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -188,7 +188,8 @@ CREATE TABLE `generated_codes` (
 --
 
 INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `interest`, `hobbies`, `exam_key_created_at`) VALUES
-(0, 'user@gmail.com', 'wust7492', '2023-02-10', 'STEM', 'Bachelor of Science in Criminology (BSCrim)', 'sample interest', 'Mathematics', '2023-02-11 16:45:54');
+(1, 'user@gmail.com', 'wust7492', '2023-02-10', 'STEM', 'Bachelor of Science in Criminology (BSCrim)', 'sample interest', 'Mathematics', '2023-02-11 16:45:54'),
+(3, 'lebbraumjayce@gmail.com', 'bphn4601', '2023-02-10', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'sample interest', 'Mathematics', '2023-02-11 17:27:19');
 
 -- --------------------------------------------------------
 
@@ -338,7 +339,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
 ('admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
-('marvin caharop', 'lebbraumjayce@gmail.com', '$2y$10$LLqTF71mFh0BDayI8yCWk.dwLcnnlZoIZSc7SAmjPD4Qr1OFwI59m', 0, '113398', '2023-01-04 21:29:46', 'd41d8cd98f00b204e9800998ecf8427e7892', '2023-01-05 14:31:25'),
+('marvs', 'lebbraumjayce@gmail.com', '$2y$10$eDjtuM20eBruJDwSy0N2COBc8U9Ush9g4p/nkz09hAcyG8QzO1j3C', 0, '253435', '2023-02-11 17:24:39', '', ''),
 ('student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
 
 --
@@ -446,6 +447,12 @@ ALTER TABLE `english_questionnaire`
 --
 ALTER TABLE `filipino_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `generated_codes`
+--
+ALTER TABLE `generated_codes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
