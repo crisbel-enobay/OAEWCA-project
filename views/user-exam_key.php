@@ -139,7 +139,7 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="../views/user-profiling.php">Exam Schedule List</a></li>
                 <li class="breadcrumb-item active">Exam Keys</li>
-                <li class="breadcrumb-item"><a href="../views/admin-attendance.php">Attendance</a></li>
+
               </ol>
             </nav>
           </div>
@@ -149,7 +149,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Courses</h5>
+                    <h5 class="mb-0">Existing Exam Schedule</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
@@ -202,8 +202,9 @@
                       </tbody>
                     </table>
                   </div>
+              <!-- Add Bus-->
               <div>
-                <button hidden type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Course</button>
+                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add/Edit Exam Schedule and Profile</button>
               </div>
 
               <!-- Add Bus-->
@@ -211,46 +212,178 @@
                 <div class="modal-dialog modal-md modal-dialog-centered">
                   <div class="modal-content">
 
-                    <div class="modal-header" >
-                      <h5 class="modal-title" id="exampleModalLabel">Add Course</h5>
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add Exam Schedule</h5>
                     </div>
 
                     <form method="POST">
                       <div class="modal-body p-5">
                         <div class="mb-3">
-                          <label>Course Name</label>
-                          <input type="text" name="courseName" class="form-control" placeholder="Enter Course" required />
+                          <label>Select Date</label>
+                          <input type="date" value="<?= date('Y-m-d') ?>" name="date" id="schedule date"  class="form-control" required>
                         </div>
                         <div class="mb-3">
-                          <label>Related Hobbies</label>
-                          <input name="relhobby" class="form-control" id="relhobby" placeholder="Enter Department" required  />
+                          <label>Select Strand</label>
+                          <div class="form-group">
+                          <select required name="strand_opt" class="form-control" onchange="toggleDiv(this.value)">
+                                  <option value="">-- select strand --</option>
+                                  <option>STEM</option>
+                                  <option>ABM</option>
+                                  <option>HUMMS</option>
+                                  <option>GAS</option>
+                                </select>
+                                </div>
                         </div>
-                    
+                        <div class="mb-3">
+                        <label>Preffered Course</label>
+                        <div class="form-group">
+                              <?php 
+                              include '../forms/database.php';
+                                  $query2 ="SELECT course FROM courses";
+                                  $result = $conn->query($query2);
+                                  $array=[];
+                                  while ($row = mysqli_fetch_array($result)) {
+                                  $array[] = $row['course'];
+                             }
+                              ?>
+                                 <select required name="course_opt" class="form-control">
+                                 <option value="">-- select course --</option>
+                                 <?php 
+                                    foreach ($array as $arr) {
+                                    ?>
+                                      <option><?php print($arr); ?> </option>
+                                      <?php 
+                                      }
+                                    ?>
+                                </select> 
+                              </div>
+                                    </div>
+                                    <div class="mb-3">
+                          <label>Select Interest</label>
+                          <div class="form-group">
+                              <?php 
+                             
+                                  $query2 ="SELECT related_hobbies FROM courses";
+                                  $result = $conn->query($query2);
+                                  $array=[];
+                                  while ($row = mysqli_fetch_array($result)) {
+                                  $array[] = $row['related_hobbies'];
+                             }
+                              ?>
+                                 <select required name="related_interest_opt" class="form-control">
+                                 <option value="">-- select interest --</option>
+                                 <?php 
+                                    foreach ($array as $arr) {
+                                    ?>
+                                      <option><?php //print($arr); ?>sample interest </option>
+                                      <?php 
+                                      }
+                                    ?>
+                                </select> 
+                              </div>
+                        </div>
+                        <div class="mb-3">
+                          <label>Select Hobbies</label>
+                          <div class="form-group">
+                              <?php 
+                             
+                                  $query2 ="SELECT hobby FROM hobbies";
+                                  $result = $conn->query($query2);
+                                  $array=[];
+                                  while ($row = mysqli_fetch_array($result)) {
+                                  $array[] = $row['hobby'];
+                             }
+                              ?>
+                                 <select required name="related_hobbies_opt" class="form-control">
+                                 <option value="">-- select hobbies --</option>
+                                 <?php 
+                                    foreach ($array as $arr) {
+                                    ?>
+                                      <option><?php print($arr); ?> </option>
+                                      <?php 
+                                      }
+                                    ?>
+                                </select> 
+                              </div>
+                        </div>
+                      
                     
                       <div class="modal-footer">
-                        <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
+                        <input type="submit" name="exam_schedule_date" class="btn btn-primary" id="btnAdd" value="Add"/>
                         <?php
-                          if (isset($_POST['Add'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $newcrs = $_POST['courseName'];                      
-                          $newhob= $_POST['relhobby'];                      
-                          $newen = $_POST['neng'];                      
-                          $newmt = $_POST['nmat'];                      
-                          $newfl = $_POST['nfil'];                      
-                          $newsc = $_POST['nsci'];                      
-                          $newlg = $_POST['nlog'];                      
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                          $sql = mysqli_query($conn,
-                          "INSERT INTO courses(course, related_hobbies, English, Math, Filipino, Science, Logic) VALUES ('".$newcrs."','".$newhob."', ".$newen.", ".$newmt.", ".$newfl.", ".$newsc.", ".$newlg.")
-                          ");
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                          }
-                        ?>
+                             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                          // if (isset($_POST['Add'])){
+                          // $url = 'localhost';
+                          // $username = 'root';
+                          // $password = '';       
+                          // $email = ($_SESSION['email']);                                                 
+                          // $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
+                          // $last = substr(str_shuffle("1234567890"), 0, 4);
+                          // $exam_code = $first . $last;       
+                          // $date = $_POST['exam_date'];                      
+                          // $strand = $_POST['strand_opt'];                      
+                          // $pref_course = $_POST['course_opt'];                      
+                          // $related_hobbies = $_POST['related_hobbies_opt'];                      
+                          // $related_interest = $_POST['related_interest_opt'];                        
+                          // $conn = new mysqli($url, $username, $password, 'project');
+                          // if ($conn->connect_error) {
+                          //     die("Connection failed!:" . $conn->connect_error);
+                          // }
+                          // $sql2 = mysqli_query($conn,
+                          // "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
+                          // ");
+                          // }         
+                          
+                          // Get the email address from the form or wherever it is coming from 
+                          $email = ($_SESSION['email']);   
+                          $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
+                          $last = substr(str_shuffle("1234567890"), 0, 4);
+                          $exam_code = $first . $last;       
+                          $date = $_POST['date'];                      
+                          $strand = $_POST['strand_opt'];                      
+                          $pref_course = $_POST['course_opt'];                      
+                          $related_hobbies = $_POST['related_hobbies_opt'];                      
+                          $related_interest = $_POST['related_interest_opt'];     
+                              // Connect to the database
+                            $conn = mysqli_connect("localhost", "root", "", "project");
+
+                            // Check connection
+                            if (!$conn) {
+                                die("Connection failed: " . mysqli_connect_error());
+                            }
+
+                            
+
+                            // Check if the email address already exists in the database
+                            $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
+                            $check_result = mysqli_query($conn, $check_query);
+
+                            if (mysqli_num_rows($check_result) > 0) {
+                                // Delete the existing data
+                                $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
+                                $delete_result = mysqli_query($conn, $delete_query);
+
+                                if ($delete_result) {                                    
+                                } else {
+                                    
+                                }
+                            }
+                        
+
+                            // Insert the new data
+                            $insert_result = mysqli_query($conn,
+                            "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
+                            ");
+
+                            if ($insert_result) {
+                              echo "<script> window.location = '../views/user-exam_key.php' </script>";
+                            } else {
+                            }
+
+                            // Close the database connection
+                            mysqli_close($conn);  
+                          }    
+                        ?>          
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
                     </form>
@@ -260,126 +393,7 @@
               </div>
               <!-- End Add Bus-->
 
-                <!-- Edit Modal-->
-                <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Course Details</h5>
-                      </div>
-                      <form method="POST">
-                        <div class="modal-body">
-                          <input type="hidden" name="edit_id" id="edit_id" />
-                          <div class="mb-3">
-                            <label>Course Name</label>
-                            <input type="text" name="editcourseName" id="editcourseName" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                          <label>Related Hobbies</label>
-                          <select name="relhob" class="form-control" id="edithob" required>
-                            <option value="0">-No Changes-</option>
-                            <?php
-                            $conn = new mysqli('localhost', 'root', '', 'project');
-                            if ($conn->connect_error) {
-                                die("Connection failed!:" . $conn->connect_error);
-                            }
-                            $find = "select * from hobbies";
-                            $list = $conn->query($find);
-                            while($row = $list->fetch_assoc()){
-                              echo '<option value="'.$row['hob_id'].'">'.$row['hobby'].'</option>';
-                            }
-                            ?>
-                          </select>
-                        </div>
-                        </div>
-                        <div class="modal-footer">
-                          <input type="submit" name="Update" class="btn btn-primary"/>
-                          <?php
-                          if (isset($_POST['Update'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $edtid = $_POST['edit_id'];                      
-                          $edtcrs = $_POST['editcourseName'];                      
-                          $edten = $_POST['editeng'];                      
-                          $edtmt = $_POST['editmat'];                      
-                          $edtfl = $_POST['editfil'];                      
-                          $edtsc = $_POST['editsci'];                      
-                          $edtlg = $_POST['editlog'];                      
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                          if ($_POST['relhob'] == '0'){
-                            $sql = mysqli_query($conn,
-                          "UPDATE courses SET course='".$edtcrs."' , English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
-                          ");
-                          }
-                          else {
-                          $findhob = "select * from hobbies where hob_id = ".$_POST['relhob']." ";
-                            $showhob = $conn->query($findhob);                 
-                            $changedhob = $showhob->fetch_assoc();
-                          $sql = mysqli_query($conn,
-                          "UPDATE courses SET course='".$edtcrs."',related_hobbies='".$changedhob['hobby']."',English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
-                          ");}
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                          }
-                        ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Edit Modal -->
-
-                <!-- Archive Modal -->
-                <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Remove Course</h5>
-                      </div>
-                      <form method="POST">
-                        <div class="modal-body">
-                          <input type="hidden" name="rem_course_id" id="course_id" />
-                          <h4>Are you sure you want to remove this course??</h4>
-                        </div>
-                        <div class="modal-footer">
-                          <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
-                          <?php
-                            if (isset($_POST['Archive'])){
-                              $url = 'localhost';
-                              $username = 'root';
-                              $password = '';                     
-                              $delid = $_POST['rem_course_id'];                   
-                              $conn = new mysqli($url, $username, $password, 'project');
-                              if ($conn->connect_error) {
-                                  die("Connection failed!:" . $conn->connect_error);
-                              }
-                              // $sql = mysqli_query($conn,
-                              // "DELETE FROM courses WHERE crs_id = ".$delid."
-                              // ");
-                              $sql = mysqli_query($conn,
-                              "INSERT archived_courses
-                              (crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic)
-                              SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic FROM courses
-                              WHERE crs_id = ". $delid ."
-                              ");
-                              $sql2 = mysqli_query($conn,
-                              "DELETE FROM courses
-                              WHERE crs_id = ". $delid ."
-                              ");
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                              }
-                          ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Archive Modal -->
+               
 
               </div>
           </div>
@@ -426,6 +440,35 @@
     <script>
         <?php include '../assets/js/jquery.js' ?>
     </script>
+     <script>
+  const form = document.querySelector("form");
+  const submitBtn = form.querySelector("input[type='submit']");
+  const selects = form.querySelectorAll("select");
+
+  // Check if all selects are filled out
+  function checkSelects() {
+    let filledOut = true;
+    selects.forEach(select => {
+      if (!select.value) {
+        filledOut = false;
+      }
+    });
+    return filledOut;
+  }
+
+  // Enable or disable submit button based on select values
+  function toggleSubmitBtn() {
+    if (checkSelects()) {
+      submitBtn.removeAttribute("disabled");
+    } else {
+      submitBtn.setAttribute("disabled", true);
+    }
+  }
+
+  selects.forEach(select => {
+    select.addEventListener("change", toggleSubmitBtn);
+  });
+</script>
      <script>
     function editCourse(value) {
       let courseID = value.getAttribute("data-courseID");
