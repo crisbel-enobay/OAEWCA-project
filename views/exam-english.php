@@ -3,6 +3,8 @@
   include '../file/logout-function.php';
   include "student-checker.php";
  ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -118,11 +120,32 @@
                   <div class="card-header d-block d-md-flex"> 
                      <h5 class="mb-0 font-weight-medium d-none d-lg-flex">English</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <div id="countdown-container">
-                <div id="countdown">
-                    <h5 class="text-success"><span id="hours">1h</span> :  <span id="minutes">0m</span> : <span id="seconds">0s</span></h5>
-                </div>
-            </div>
+          <?php
+
+// Get the current time
+$current_time = time();
+
+// Get the start time from the session
+if (!isset($_SESSION['start_time'])) {
+    $_SESSION['start_time'] = time();
+}
+$start_time = $_SESSION['start_time'];
+
+// Calculate the elapsed time
+$allotted_time = 3600;
+$elapsed_time = $current_time - $start_time;
+
+// Check if the elapsed time is greater than the allotted time
+if ($elapsed_time > $allotted_time) {
+    echo "The exam has ended.";
+} else {
+    // Display the remaining time
+    $remaining_time = $allotted_time - $elapsed_time;
+?>
+<div id="timer">Time remaining: <span id="time-remaining"></span> seconds</div>
+
+<?php
+}?>
           </ul>
         </div>
       </nav>
@@ -256,60 +279,73 @@
     <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script>
+    // Get the remaining time from PHP
+    var remainingTime = <?php echo $remaining_time; ?>;
+
+    // Update the timer display every second
+    setInterval(function() {
+        remainingTime--;
+        var hours = Math.floor(remainingTime / 3600);
+        var minutes = Math.floor((remainingTime - (hours * 3600)) / 60);
+        var seconds = remainingTime - (hours * 3600) - (minutes * 60);
+        document.getElementById("time-remaining").innerHTML = hours + ":" + minutes + ":" + seconds;
+    }, 1000);
+</script>
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 
     <!--Timer-->
     <script>
-      let hours = 1; // starting number of hours
-      let minutes = 0; // starting number of minutes
-      let seconds = 0; // starting number of seconds
+      // let hours = 1; // starting number of hours
+      // let minutes = 0; // starting number of minutes
+      // let seconds = 0; // starting number of seconds
 
-      // converts all to seconds
-      let totalSeconds = hours * 60 * 60 + minutes * 60 + seconds;
+      // // converts all to seconds
+      // let totalSeconds = hours * 60 * 60 + minutes * 60 + seconds;
 
-      //temporary seconds holder
-      let tempSeconds = totalSeconds;
+      // //temporary seconds holder
+      // let tempSeconds = totalSeconds;
 
-      // calculates number of days, hours, minutes and seconds from a given number of seconds
-      const convert = (value, inSeconds) => {
-      if (value > inSeconds) {
-          let x = value % inSeconds;
-          tempSeconds = x;
-          return (value - x) / inSeconds;
-      } else {
-          return 0;
-      }
-      };
+      // // calculates number of days, hours, minutes and seconds from a given number of seconds
+      // const convert = (value, inSeconds) => {
+      // if (value > inSeconds) {
+      //     let x = value % inSeconds;
+      //     tempSeconds = x;
+      //     return (value - x) / inSeconds;
+      // } else {
+      //     return 0;
+      // }
+      // };
 
-      //sets seconds
-      const setSeconds = (s) => {
-      document.querySelector("#seconds").textContent = s + "s";
-      };
+      // //sets seconds
+      // const setSeconds = (s) => {
+      // document.querySelector("#seconds").textContent = s + "s";
+      // };
 
-      //sets minutes
-      const setMinutes = (m) => {
-      document.querySelector("#minutes").textContent = m + "m";
-      };
+      // //sets minutes
+      // const setMinutes = (m) => {
+      // document.querySelector("#minutes").textContent = m + "m";
+      // };
 
-      //sets hours
-      const setHours = (h) => {
-      document.querySelector("#hours").textContent = h + "h";
-      };
+      // //sets hours
+      // const setHours = (h) => {
+      // document.querySelector("#hours").textContent = h + "h";
+      // };
 
-      // Update the count down every 1 second
-      var x = setInterval(() => {
-      //clears countdown when all seconds are counted
-      if (totalSeconds <= 0) {
-          clearInterval(x);
-      }
-      setHours(convert(tempSeconds, 60 * 60));
-      setMinutes(convert(tempSeconds, 60));
-      setSeconds(tempSeconds == 60 ? 59 : tempSeconds);
-      totalSeconds--;
-      tempSeconds = totalSeconds;
-      }, 1000);
+      // // Update the count down every 1 second
+      // var x = setInterval(() => {
+      // //clears countdown when all seconds are counted
+      // if (totalSeconds <= 0) {
+      //     clearInterval(x);
+      // }
+      // setHours(convert(tempSeconds, 60 * 60));
+      // setMinutes(convert(tempSeconds, 60));
+      // setSeconds(tempSeconds == 60 ? 59 : tempSeconds);
+      // totalSeconds--;
+      // tempSeconds = totalSeconds;
+      // }, 1000);
     </script>
 
     <script>
