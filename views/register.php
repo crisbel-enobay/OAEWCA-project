@@ -67,8 +67,15 @@
  
             $encrypted_password = password_hash($reg_password, PASSWORD_DEFAULT);
  
-            // connect with database
-            $conn = mysqli_connect('localhost', "root", "", "project");
+            if ($reg_password == $reg_password2) {
+              // Connect to the database
+              $conn = mysqli_connect("localhost", "root", "", "project");
+          
+              // Check connection
+              if (!$conn) {
+                  die("Connection failed: " . mysqli_connect_error());
+              }
+
             // check email
             $duplicate_email = mysqli_query($conn, "SELECT email, password, verified_date, type FROM users WHERE email= '$reg_email'");
 		          if (mysqli_num_rows($duplicate_email) > 0) {
@@ -90,7 +97,14 @@
  
             //  header("Location: ./email-verification.php?email=" . $reg_email);
             // exit();
-        } catch (Exception $e) {
+          }
+          else {
+            function cantSignup(){
+              $cantSignup_message = "Passwords do not match. Registration failed.";
+              return $cantSignup_message;
+            }
+          }
+       } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
