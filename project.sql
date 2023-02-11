@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 10:28 AM
+-- Generation Time: Feb 11, 2023 at 10:43 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -323,7 +323,8 @@ INSERT INTO `science_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 --
 
 CREATE TABLE `users` (
-  `fullname` varchar(30) NOT NULL,
+  `id` int(11) NOT NULL,
+  `Fullname` varchar(30) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `type` int(11) NOT NULL,
@@ -337,10 +338,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
-('admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
-('marvs', 'lebbraumjayce@gmail.com', '$2y$10$eDjtuM20eBruJDwSy0N2COBc8U9Ush9g4p/nkz09hAcyG8QzO1j3C', 0, '253435', '2023-02-11 17:24:39', '', ''),
-('student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
+INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
+(1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
+(2, 'marvs', 'lebbraumjayce@gmail.com', '$2y$10$eDjtuM20eBruJDwSy0N2COBc8U9Ush9g4p/nkz09hAcyG8QzO1j3C', 0, '253435', '2023-02-11 17:24:39', '', ''),
+(3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
 
 --
 -- Indexes for dumped tables
@@ -412,7 +413,7 @@ ALTER TABLE `science_questionnaire`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`fullname`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -477,6 +478,12 @@ ALTER TABLE `math_questionnaire`
 --
 ALTER TABLE `science_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
