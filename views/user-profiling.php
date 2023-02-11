@@ -254,54 +254,90 @@
                
                       </div>
                       <div class="modal-footer">
-                        <input type="submit" name="Add" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="btnAdd" value="Add"/>
-                        <?php
-                          if (isset($_POST['Add'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';       
-                          $email = ($_SESSION['email']);
-                          $exam_code = bin2hex(random_bytes(10));                    
+                        <input type="submit" disabled name="Add" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="myBtn" value="Add"/>       
+<?php
+                             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                          // if (isset($_POST['Add'])){
+                          // $url = 'localhost';
+                          // $username = 'root';
+                          // $password = '';       
+                          // $email = ($_SESSION['email']);                                                 
+                          // $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
+                          // $last = substr(str_shuffle("1234567890"), 0, 4);
+                          // $exam_code = $first . $last;       
+                          // $date = $_POST['exam_date'];                      
+                          // $strand = $_POST['strand_opt'];                      
+                          // $pref_course = $_POST['course_opt'];                      
+                          // $related_hobbies = $_POST['related_hobbies_opt'];                      
+                          // $related_interest = $_POST['related_interest_opt'];                        
+                          // $conn = new mysqli($url, $username, $password, 'project');
+                          // if ($conn->connect_error) {
+                          //     die("Connection failed!:" . $conn->connect_error);
+                          // }
+                          // $sql2 = mysqli_query($conn,
+                          // "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
+                          // ");
+                          // }         
+                          
+                          // Get the email address from the form or wherever it is coming from 
+                          $email = ($_SESSION['email']);   
+                          $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
+                          $last = substr(str_shuffle("1234567890"), 0, 4);
+                          $exam_code = $first . $last;       
                           $date = $_POST['exam_date'];                      
                           $strand = $_POST['strand_opt'];                      
                           $pref_course = $_POST['course_opt'];                      
                           $related_hobbies = $_POST['related_hobbies_opt'];                      
-                          $related_interest = $_POST['related_interest_opt'];                        
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                          $sql2 = mysqli_query($conn,
-                          "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
-                          ");
-                          }                    
-                        ?>
-                                              <!-- Modal -->
-                      <!-- <div id="myModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog"> -->
+                          $related_interest = $_POST['related_interest_opt'];     
+                              // Connect to the database
+                            $conn = mysqli_connect("localhost", "root", "", "project");
 
-                          <!-- Modal content-->
-                          <!-- <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title">Modal Header</h4>
-                            </div> -->
-                            <!-- <div class="modal-body">
-                              <p>Some text in the modal.</p>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                          </div> -->
+                            // Check connection
+                            if (!$conn) {
+                                die("Connection failed: " . mysqli_connect_error());
+                            }
 
-                        <!-- </div>
-                      </div> -->
+                            
+
+                            // Check if the email address already exists in the database
+                            $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
+                            $check_result = mysqli_query($conn, $check_query);
+
+                            if (mysqli_num_rows($check_result) > 0) {
+                                // Delete the existing data
+                                $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
+                                $delete_result = mysqli_query($conn, $delete_query);
+
+                                if ($delete_result) {                                    
+                                } else {
+                                    
+                                }
+                            }
+                        
+
+                            // Insert the new data
+                            $insert_result = mysqli_query($conn,
+                            "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
+                            ");
+
+                            if ($insert_result) {
+                                $message = "your exam key is: ".$exam_code;
+                            } else {
+                            }
+
+                            // Close the database connection
+                            mysqli_close($conn);  
+                          }    
+                        ?>          
+                          </div>
+                        </div>
                     </form>
-                    </div>
-                    <h2 style="text-align:center"><?php if(isset($_POST['Add'])){
-                            echo "your exam key is: ". $exam_code;
-                          } ?></h2>
-                      </div>
+                    <h2 style="text-align: center"> <?php 
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                     echo "your exam key is: ".$exam_code; 
+                    }
+                  ?>
+                  </h2>
                   </div>
                 </div>
               </div>
@@ -336,6 +372,37 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="../js/dashboard.js"></script>
+
+    <script>
+  const form = document.querySelector("form");
+  const submitBtn = form.querySelector("input[type='submit']");
+  const selects = form.querySelectorAll("select");
+
+  // Check if all selects are filled out
+  function checkSelects() {
+    let filledOut = true;
+    selects.forEach(select => {
+      if (!select.value) {
+        filledOut = false;
+      }
+    });
+    return filledOut;
+  }
+
+  // Enable or disable submit button based on select values
+  function toggleSubmitBtn() {
+    if (checkSelects()) {
+      submitBtn.removeAttribute("disabled");
+    } else {
+      submitBtn.setAttribute("disabled", true);
+    }
+  }
+
+  selects.forEach(select => {
+    select.addEventListener("change", toggleSubmitBtn);
+  });
+</script>
+
     <!-- End custom js for this page -->
   </body>
 </html>
