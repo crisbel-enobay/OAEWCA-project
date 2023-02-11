@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2023 at 01:55 AM
+-- Generation Time: Feb 11, 2023 at 10:07 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -141,18 +141,6 @@ INSERT INTO `english_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exam_key`
---
-
-CREATE TABLE `exam_key` (
-  `id` int(11) NOT NULL,
-  `exam_key` varchar(255) NOT NULL,
-  `exam_key_created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `filipino_questionnaire`
 --
 
@@ -176,6 +164,31 @@ INSERT INTO `filipino_questionnaire` (`id`, `question`, `optionA`, `optionB`, `o
 (4, 'Hindi bumoboto doon si manong Jose dahil mahaba ang pila. Walang mali.', 'bumoboto', 'doon', 'mahaba ang pila', 'Walang mali', 'B'),
 (5, 'Kundi man ngayon makaluwas si Jorge sa Maynila, ay sa Agosto pa siya luluwas. Walang mali.\r\n', 'Kundi man', 'makaluwas', 'luluwas', 'Walang mali', 'A'),
 (6, 'Si Bonifacio, Rizal at Mabini ay mga ulirang bayani ng ating lahi. Walang mali.', 'Si Bonifacio', 'at Mabini', 'ating lahi', 'Walang mali', 'D');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `generated_codes`
+--
+
+CREATE TABLE `generated_codes` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `exam_key` varchar(255) NOT NULL,
+  `exam_date` varchar(255) NOT NULL,
+  `strand` varchar(255) NOT NULL,
+  `pref_course` varchar(255) NOT NULL,
+  `interest` varchar(255) NOT NULL,
+  `hobbies` varchar(255) NOT NULL,
+  `exam_key_created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `generated_codes`
+--
+
+INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `interest`, `hobbies`, `exam_key_created_at`) VALUES
+(0, 'user@gmail.com', 'wust7492', '2023-02-10', 'STEM', 'Bachelor of Science in Criminology (BSCrim)', 'sample interest', 'Mathematics', '2023-02-11 16:45:54');
 
 -- --------------------------------------------------------
 
@@ -349,7 +362,8 @@ ALTER TABLE `archived_courses`
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`crs_id`);
+  ADD PRIMARY KEY (`crs_id`),
+  ADD UNIQUE KEY `crs_id` (`crs_id`);
 
 --
 -- Indexes for table `english_questionnaire`
@@ -358,15 +372,15 @@ ALTER TABLE `english_questionnaire`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `exam_key`
---
-ALTER TABLE `exam_key`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `filipino_questionnaire`
 --
 ALTER TABLE `filipino_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `generated_codes`
+--
+ALTER TABLE `generated_codes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -425,13 +439,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `english_questionnaire`
 --
 ALTER TABLE `english_questionnaire`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `exam_key`
---
-ALTER TABLE `exam_key`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `filipino_questionnaire`
