@@ -199,7 +199,7 @@
                               </div>
                           </div>
                           <div class="col-md-2 py-2">
-                                <small>Related hobbies</small>
+                                <small>Related Hobbies</small>
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2">
                               <div class="form-group">
