@@ -11,8 +11,9 @@ include "file/session.php";
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/ucc.png" rel="icon">
+ <!-- Favicons -->
+ <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
@@ -27,8 +28,6 @@ include "file/session.php";
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <link rel="shortcut icon" href="../assets/img/ucc.png" />
 
   <!-- =======================================================
   * Template Name: Ninestars - v4.9.1
@@ -79,7 +78,7 @@ include "file/session.php";
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 home-img">
-          <img src="assets/img/home.png" class="img-fluid animated" alt="">
+          <img src="assets/img/home.png" class="img-fluid animated" height="300" width="500" alt="">
         </div>
       </div>
     </div>
@@ -100,9 +99,9 @@ include "file/session.php";
               <img src="assets/img/about-img.svg" class="img-fluid" alt="" data-aos="zoom-in">
             </div>
             <div class="col-lg-6 pt-5 pt-lg-0">
-              <h3 data-aos="fade-up">Online Admission Exam With Course Assessment (OAEW/CA)</h3>
+              <h3 data-aos="fade-up">UCC Online Admission Exam With Course Assessment (OAEW/CA)</h3>
               <p data-aos="fade-up" data-aos-delay="100">
-                OAEW/CA is a system intended for freshmen, shifters, and inquirers to help them decide on the course most fitted for them.
+                UCC-OAEW/CA is a system intended for freshmen, shifters, and inquirers of incoming student of University of Caloocan City to help them decide on the course most fitted for them.
               </p>
               <div class="row">
                 <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
@@ -127,42 +126,29 @@ include "file/session.php";
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Our Goals</h2>
-          <p>Mission and Vision</p>
+        <h2>About</h2>
+          <p>University of Caloocan City</p>
         </div>
 
         <div class="row">
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4 class="title"><a href="">Support users decision.</a></h4>
-              <p class="description">To prioritize recommending courses based on the users preferred courses.
-              </p>
+              <h4 class="title"><a href="">Profile</a></h4>
+              <p class="description" style="font-size: 13px; color: #5a6570; text-align: justify;">The University Of Caloocan City (UCC) is located in Sangandaan, Caloocan City, Metro Manila, Philippines. UCC-Main is located at Sangandaan Annexes, Tandang Sora, Camarin and (U.E.) Buena Park. The University of Caloocan City was formed in 2004 out of Caloocan City Polytechnic College, which had been founded in 1971. Its first programs are Bachelors of Science degrees in Industrial Education (BSIE) and B.S. Business Technology (BSBT). The school had first been located in a building at Caloocan High School. (10th avenue, grace park) It transferred to its present location (at General San. Miguel St. Sangandaan, Caloocan City) when the first building burned.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
+          <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4 class="title"><a href="">Secure admission examination</a></h4>
-              <p class="description">To ensure users that their data is in safe hand.</p>
+              <h4 class="title"><a href="">History</a></h4>
+              <p class="description" style="font-size: 13px; color: #5a6570; text-align: justify;">CCPC or Caloocan City Polytechnic College started as a two-year course college in 1971 and offered four-year courses in 1975. Its first programs are Bachelor of Science degrees in Industrial Education (BSIE) and B.S. Business Technology (BSBT). On January 23, 2004, Caloocan City Council unanimously approved the Ordinance 1020-2003 principally authored by then councilor Gonzalez Jr. authorized the city government to convert the existing Caloocan City Polytechnic College into a full-pledged university. The initially city hall-funded tertiary educational institution will henceforth be called as University of Caloocan City, the lone public university in Caloocan.</p>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="300">
+          <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="400">
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4 class="title"><a href="">Accurate recommendations</a></h4>
-              <p class="description">To ensure that courses recommended are based on the overall assessment.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="400">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4 class="title"><a href="">Offer related Courses</a></h4>
-              <p class="description">To provide as many option as possible.</p>
+              <h4 class="title"><a href="">Milestones</a></h4>
+              <p class="description" style="font-size: 13px; color: #5a6570; text-align: justify;">On April 20, 2006, the 32nd Commencement Exercise took place at Folk Arts Theater, Manila. BSIE is the first to call to come at the stage which is a tradition at the Commencement Exercises. In the summer of 2011 controversies arose regarding the battery exam of BSE science major and BSE TLE major, they accused that BSE leaked the exam, so a retake happened, but it made results that tarnished the reputation of the university politically and envied for the two department heads.</p>
             </div>
           </div>
 
@@ -171,35 +157,78 @@ include "file/session.php";
       </div>
     </section><!-- End Services Section -->
 
-    <!-- ======= Clients Section ======= -->
-    <section id="dept" class="clients">
+ <!-- ======= Portfolio Section ======= -->
+ <section id="portfolio" class="portfolio">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Departments</h2>
-          <p>Check out the departments available at UCC.</p>
+          <h2>Courses</h2>
+          <p>Courses offered in UCC</p>
         </div>
 
-        <div class="clients-slider swiper" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><img src="assets/img/dept/csd.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/jpia.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/jma.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/DTHM.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/jfinex.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/psych.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/entrep.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/pasoa.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/btled-he.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/law.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/dept/science.png" class="img-fluid" alt=""></div>
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap" style="box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);">
+              <center style="background-image:linear-gradient(to bottom, #ffeee6 , #ffcbb3); padding: 1rem;"><img src="assets/img/CLAS.PNG" class="img-fluid" width="350" height="350" alt=""></center>
+              <div class="portfolio-info">
+                <h4>COLLEGE OF LIBERAL ARTS AND SCIENCES (CLAS)</h4>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Mathematics (BSMath)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Criminology (BSCrim)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Computer Science (BSCS/BSComSci)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Information System (BSIS)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Information Technology (BSIT)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Arts in Political Science (ABPS/ABPolSci)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Arts in Communication (BAComm)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Arts in Behavioral Science</p>
+                <p style="font-size: 12px; margin: 0 0 0 3rem; text-align: left;">Organizational and Social Systems Development (ABBS-OSSD)</p>
+                <p style="font-size: 12px; margin: 0 0 3rem 1rem; text-align: left;">Bachelor in Public Administration (BPA)</p>
+              </div>
+            </div>
           </div>
-          <div class="swiper-pagination"></div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap" style="box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);">
+              <center style="background-image:linear-gradient(to bottom, #ffeee6 , #ffcbb3); padding: 1rem;"><img src="assets/img/CBA.png" class="img-fluid" width="350" height="350" alt=""></center>
+              <div class="portfolio-info">
+                <h4>COLLEGE OF BUSINESS AND ACCOUNTANCY (CBA)</h4>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Business Administration</p>
+                <p style="font-size: 12px; margin: 0 0 0 3rem; text-align: left;">Human Resource Development Management (BSBA-HRDM)</p>
+                <p style="font-size: 12px; margin: 0 0 0 3rem; text-align: left;">Financial Management (BSBA-FMGT)</p>
+                <p style="font-size: 12px; margin: 0 0 0 3rem; text-align: left;">Marketing Management (BSBA-MKMGT)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Entrepreneurial Management (BSEM)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Accountancy (BSA)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Accounting Information System (BSAIS - formerly BSAT)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Office Administration (BSOAd)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor of Science in Tourism Management (BSTM)</p>
+                <p style="font-size: 12px; margin: 0 0 4rem 1rem; text-align: left;">Bachelor of Science in Hotel and Restaurant Management (BSHRM)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap" style="box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);">
+              <center style="background-image:linear-gradient(to bottom, #ffeee6 , #ffcbb3); padding: 1rem;"><img src="assets/img/COE.png" class="img-fluid" width="350" height="350" alt=""></center>
+              <div class="portfolio-info">
+                <h4>COLLEGE OF EDUCATION (COE)</h4>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor in Elementary Education</p>
+                <p style="font-size: 12px; margin: 0 0 0 3rem; text-align: left;">Early Childhood (BEEd-ECEd)</p>
+                <p style="font-size: 12px; margin: 0 0 0 3rem; text-align: left;">Special Education (BEEd-SpEd)</p>
+                <p style="font-size: 12px; margin: 0 0 0 1rem; text-align: left;">Bachelor in Secondary Education</p>
+                <p style="font-size: 12px; margin: 0 0 0 3rem; text-align: left;">Science (BSEd-Sci)</p>
+                <p style="font-size: 12px; margin: 0 0 0 3rem; text-align: left;">English (BSEd-Eng)</p>
+                <p style="font-size: 12px; margin: 0 0 0 3rem; text-align: left;">English-Chinese (BSEd-EngChi)</p>
+                <p style="font-size: 12px; margin: 0 0 8rem 3rem; text-align: left;">BTLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)</p>
+              </div>
+            </div>
+          </div>
+
+          
         </div>
 
       </div>
-    </section>
-    <!-- End Clients Section -->
+    </section><!-- End Portfolio Section -->
 
     <!-- ======= F.A.Q Section ======= -->
     <section id="faq" class="faq section-bg">
@@ -216,23 +245,27 @@ include "file/session.php";
             <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">What is the difference between admissions and enrolment? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
             <div id="faq1" class="collapse" data-bs-parent=".faq-list">
               <p>
-                a freshman (a senior high school graduate who has not enrolled in another college or university)<br>
-                a transferee (previously enrolled and taken units in another college or university)<br>
-                a returnee (an admitted student in UCC who intends to enroll for a particular semester but was not enrolled during the previous semester/s)<br>
-                a 2nd courser (completed an undergraduate program and enrolling in another program)<br>
-                You apply for admissions only once while enrolment needs to done every semester until program completion.
+              - &nbsp;a freshman (a senior high school graduate who has not enrolled in another college or university)<br>
+              - &nbsp;a transferee (previously enrolled and taken units in another college or university)<br>
+              - &nbsp;a returnee (an admitted student in UCC who intends to enroll for a particular semester but was not enrolled during the previous semester/s)<br>
+              - &nbsp;a 2nd courser (completed an undergraduate program and enrolling in another program)<br>
+              - &nbsp;You apply for admissions only once while enrolment needs to done every semester until program completion.
               </p>
             </div>
           </li>
 
           <li>
-            <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">I am a freshman/transferee applicant, how do I apply for admissions? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-            <div id="faq2" class="collapse" data-bs-parent=".faq-list">
-              <p>
-                If you are applying to a program with an entrance exam requirement, kindly head on here for the application details.<br>
-                If you are applying to a program under waived entrance exam, kindly head on here for the application details.
-              </p>
-            </div>
+            <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">What are the requirements for application<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+              <div id="faq2" class="collapse" data-bs-parent=".faq-list">
+                <p>Photocopy of the following:</p>
+                <p>&nbsp; - &nbsp; Transcript of Records (of highest degree earned)</p>
+                <p>&nbsp; - &nbsp;Two copies ID pictures, 2"x2" (recent, identical and formal attire w/ white background)</p>
+                <p>&nbsp; - &nbsp;Birth Certificate (NSO Authenticated)</p>
+                <p>&nbsp; - &nbsp;Certificate of Employment or Service Record (if employed)</p>
+                <p>&nbsp; - &nbsp;Certificate of Marriage (for female married applicant)</p>
+                <p>&nbsp; - &nbsp;One (1) Long Brown Envelope with computerized name on the upper left side; (font should be Tahoma, font size should be 20)</p>
+                <p>&nbsp; - &nbsp;Entrance Examination Fee (PhP 100.00)</p>
+              </div>
           </li>
 
           <li>
@@ -258,10 +291,10 @@ include "file/session.php";
             <div id="faq5" class="collapse" data-bs-parent=".faq-list">
               <p>
                 You need to secure the following documents from your previous school: <br>
-                Transcript of Records,<br>
-                Transfer Credentials (formerly called Honorable Dismissal), <br>
-                and Good Moral Certificate.<br>
-                You will submit these documents to the University Registrar during enrolment.
+                &nbsp; - &nbsp;Transcript of Records,<br>
+                &nbsp; - &nbsp; Transfer Credentials (formerly called Honorable Dismissal), <br>
+                &nbsp; - &nbsp;and Good Moral Certificate.<br>
+                &nbsp; - &nbsp;You will submit these documents to the University Registrar during enrolment.
               </p>
             </div>
           </li>
@@ -320,7 +353,7 @@ include "file/session.php";
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Marvin Caharop</h4>
-                  <span>Web Designer</span>
+                  <span>Support Developer</span>
                 </div>
                 <div class="social">
                   <a href="cenobay9@gmail.com"><i class="bi bi-google"></i></a>
@@ -417,7 +450,6 @@ include "file/session.php";
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
 </body>
 
 </html>

@@ -51,7 +51,11 @@
                     <div class="col-12">
                       <input class="btn btn-primary w-100" type="submit" name="verify_email" value="Verify">
                     </div>
+                    <div class="col-12">
                     <?php include '../forms/email-verification.php'; if (isset($_POST["verify_email"])){ echo $verify_status;}  ?>
+                      <a href="../views/loginform.php" class="font-weight-light small" style="color: #1BDBE0; margin: 0 0 0 35%;">Already have an account.</a>
+                    </div>
+                    
                   </form>
               </div>
             </div>

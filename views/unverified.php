@@ -1,16 +1,14 @@
 <?php 
-
-  include '../file/logout-function.php';
-  include '../forms/adminQueries.php';
-  include "admin-checker.php";
- ?>
+include '../file/logout-function.php';
+include "admin-checker.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin Dashboard</title>
+    <title>History</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -28,7 +26,6 @@
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
   </head>
   <body>
-    
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -36,7 +33,7 @@
           <a class="navbar-brand brand-logo" href="../views/admin.php">
             <img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" class="logo-dark" />
           </a>
-          <a class="navbar-brand brand-logo-mini"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
@@ -78,7 +75,7 @@
             <li class="nav-item nav-category">
               <span class="nav-link">Admin Dashboard</span>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="../views/admin.php">
                 <span class="menu-title">Dashboard</span>
                 <i class="icon-screen-desktop menu-icon"></i>
@@ -115,12 +112,6 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-schedule.php">
-                <span class="menu-title">Schedule</span>
-                <i class="icon-globe menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-applicants" aria-expanded="false" aria-controls="ui-applicants">
                 <span class="menu-title">Applicants</span>
                 <i class="icon-layers menu-icon"></i>
@@ -141,17 +132,102 @@
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Home</li>
+                <li class="breadcrumb-item"><a href="../views/passers.php">Passers</a></li>
+                <li class="breadcrumb-item"><a href="../views/examiners.php">Examiners</a></li>
+                <li class="breadcrumb-item active">Unverified</li>
+                <li class="breadcrumb-item"><a href="../views/admin.php">Home</a></li>
               </ol>
             </nav>
-            </div>
-            <div class="col-md-12 grid-margin quick-action-toolbar">
-              <div class="card">
-                  <div class="card-header d-block d-md-flex">
-                    <p class="lead mb-0">Welcome to UCC Admission Test!</p>
-                  </div>
-                  </div>
           </div>
+          <!-- Quick Action Toolbar Starts-->
+          <div class="row quick-action-toolbar">
+            <div class="col-md-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="card-header d-block d-md-flex">
+                  <p class="lead mb-0 ">Unverified Students</p>
+                  </div>
+                  <div class="table-responsive border rounded p-1">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="font-weight-bold">ID</th>
+                          <th class="font-weight-bold">Student Name</th>
+                          <th class="font-weight-bold">Course</th>
+                          <th class="font-weight-bold">Sample</th>
+                          <th class="font-weight-bold">Score</th>
+                          <th class="font-weight-bold">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            1
+                          </td>
+                          <td>Crisbel Enobay</td>
+                          <td>BSCS</td>
+                          <td>Sample</td>
+                          <td>85/100</td>
+                          <td>
+                            <div class="badge badge-success p-2">Passed</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            2
+                          </td>
+                          <td>Lorence Lactud</td>
+                          <td>BSIT</td>
+                          <td>Sample</td>
+                          <td>75/100</td>
+                          <td>
+                            <div class="badge badge-warning p-2">Pending</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            3
+                          </td>
+                          <td>Grace Cortex</td>
+                          <td>BSIS</td>
+                          <td>Sample</td>
+                          <td>70/100</td>
+                          <td>
+                            <div class="badge badge-danger p-2">Failed</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            4
+                          </td>
+                          <td>Marvin Caharop</td>
+                          <td>BSCS</td>
+                          <td>Sample</td>
+                          <td>90/100</td>
+                          <td>
+                            <div class="badge badge-success p-2">Passed</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="d-flex mt-4 flex-wrap">
+                    <p class="text-muted">Showing 1 to 10 of 57 entries</p>
+                    <nav class="ml-auto">
+                      <ul class="pagination separated pagination-info">
+                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
+                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                        <li class="page-item"><a href="#" class="page-link">3</a></li>
+                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
