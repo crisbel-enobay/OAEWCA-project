@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2023 at 01:55 AM
+-- Generation Time: Feb 12, 2023 at 12:52 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -38,7 +38,8 @@ CREATE TABLE `admin_schedule` (
 --
 
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_date_created`) VALUES
-(37, '2023-02-10', '2023-01-25 08:50:19');
+(37, '2023-02-10', '2023-01-25 08:50:19'),
+(38, '2023-02-14', '2023-02-12 19:43:49');
 
 -- --------------------------------------------------------
 
@@ -141,18 +142,6 @@ INSERT INTO `english_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exam_key`
---
-
-CREATE TABLE `exam_key` (
-  `id` int(11) NOT NULL,
-  `exam_key` varchar(255) NOT NULL,
-  `exam_key_created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `filipino_questionnaire`
 --
 
@@ -176,6 +165,32 @@ INSERT INTO `filipino_questionnaire` (`id`, `question`, `optionA`, `optionB`, `o
 (4, 'Hindi bumoboto doon si manong Jose dahil mahaba ang pila. Walang mali.', 'bumoboto', 'doon', 'mahaba ang pila', 'Walang mali', 'B'),
 (5, 'Kundi man ngayon makaluwas si Jorge sa Maynila, ay sa Agosto pa siya luluwas. Walang mali.\r\n', 'Kundi man', 'makaluwas', 'luluwas', 'Walang mali', 'A'),
 (6, 'Si Bonifacio, Rizal at Mabini ay mga ulirang bayani ng ating lahi. Walang mali.', 'Si Bonifacio', 'at Mabini', 'ating lahi', 'Walang mali', 'D');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `generated_codes`
+--
+
+CREATE TABLE `generated_codes` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `exam_key` varchar(255) NOT NULL,
+  `exam_date` varchar(255) NOT NULL,
+  `strand` varchar(255) NOT NULL,
+  `pref_course` varchar(255) NOT NULL,
+  `interest` varchar(255) NOT NULL,
+  `hobbies` varchar(255) NOT NULL,
+  `exam_key_created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `generated_codes`
+--
+
+INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `interest`, `hobbies`, `exam_key_created_at`) VALUES
+(3, 'lebbraumjayce@gmail.com', 'bphn4601', '2023-02-10', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'sample interest', 'Mathematics', '2023-02-11 17:27:19'),
+(8, 'user@gmail.com', 'ixdu8925', '2023-02-11', 'GAS', 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'sample interest', 'Dancing/Singing', '2023-02-12 03:02:15');
 
 -- --------------------------------------------------------
 
@@ -309,7 +324,8 @@ INSERT INTO `science_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 --
 
 CREATE TABLE `users` (
-  `fullname` varchar(30) NOT NULL,
+  `id` int(11) NOT NULL,
+  `Fullname` varchar(30) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `type` int(11) NOT NULL,
@@ -323,10 +339,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
-('admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
-('marvin caharop', 'lebbraumjayce@gmail.com', '$2y$10$LLqTF71mFh0BDayI8yCWk.dwLcnnlZoIZSc7SAmjPD4Qr1OFwI59m', 0, '113398', '2023-01-04 21:29:46', 'd41d8cd98f00b204e9800998ecf8427e7892', '2023-01-05 14:31:25'),
-('student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
+INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
+(1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
+(2, 'marvs', 'lebbraumjayce@gmail.com', '$2y$10$eDjtuM20eBruJDwSy0N2COBc8U9Ush9g4p/nkz09hAcyG8QzO1j3C', 0, '253435', '2023-02-11 17:24:39', '', ''),
+(3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
 
 --
 -- Indexes for dumped tables
@@ -349,7 +365,8 @@ ALTER TABLE `archived_courses`
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`crs_id`);
+  ADD PRIMARY KEY (`crs_id`),
+  ADD UNIQUE KEY `crs_id` (`crs_id`);
 
 --
 -- Indexes for table `english_questionnaire`
@@ -358,15 +375,15 @@ ALTER TABLE `english_questionnaire`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `exam_key`
---
-ALTER TABLE `exam_key`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `filipino_questionnaire`
 --
 ALTER TABLE `filipino_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `generated_codes`
+--
+ALTER TABLE `generated_codes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -397,7 +414,7 @@ ALTER TABLE `science_questionnaire`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`fullname`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -407,7 +424,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_schedule`
 --
 ALTER TABLE `admin_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `archived_courses`
@@ -425,19 +442,19 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `english_questionnaire`
 --
 ALTER TABLE `english_questionnaire`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `exam_key`
---
-ALTER TABLE `exam_key`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `filipino_questionnaire`
 --
 ALTER TABLE `filipino_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `generated_codes`
+--
+ALTER TABLE `generated_codes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
@@ -461,6 +478,12 @@ ALTER TABLE `math_questionnaire`
 -- AUTO_INCREMENT for table `science_questionnaire`
 --
 ALTER TABLE `science_questionnaire`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 

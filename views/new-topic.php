@@ -108,9 +108,15 @@
               <div class="collapse" id="ui-topics">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="../views/manage-topics.php">Manage Topics</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/new-topic.php">New Topic</a></li>
+                  <li class="nav-item active"> <a class="nav-link" href="../views/new-topic.php">New Topic</a></li>
                 </ul>
               </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../views/admin-schedule.php">
+                <span class="menu-title">Schedule</span>
+                <i class="icon-globe menu-icon"></i>
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-applicants" aria-expanded="false" aria-controls="ui-applicants">

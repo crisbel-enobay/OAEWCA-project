@@ -89,6 +89,12 @@ include "../views/student-checker.php";
                 <i class="icon-globe menu-icon"></i>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../views/user-profiling.php">
+                <span class="menu-title">Schedule</span>
+                <i class="icon-globe menu-icon"></i>
+              </a>
+            </li>
             </li>
             <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
@@ -128,19 +134,23 @@ include "../views/student-checker.php";
                       <button id="keyPass" type="submit" class="btn btn-outline-primary btn-fw" data-bs-toggle="modal" data-bs-target="#transactionModal">Take Examination</button>
                   </div>
                    <!-- Insert keyPass -->
-                  <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                  <div class="modal fade" id="transactionModal" tabindex="-1"role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role ="document">
                       <div class="modal-content">
                         <div class="modal-body"> 
                           <div class="col-md-12 d-flex align-items-center justify-content-center py-3 ">
                             <h5 class="modal-title" id="exampleModalLabel">Insert Examination Keypass</h5>
                           </div>
                           <div class="form-group">
-                            <input type="text" class="form-control">
+                            <input type="text" id="inputkey" name="inputkey" placeholder="Input Key" class="form-control">
                           </div>
                           <div class="d-flex align-items-center justify-content-center">
-                            <form action="../views/exam-english.php" >
-                                  <button type="submit" class="btn btn-outline-primary btn-fw">ok</button>
+                        
+                            <form id ="myForm"method="POST">
+                           
+                                  <button type="submit"name="submit" class="btn btn-outline-primary btn-fw">Submit</button>                  
+                                  <div id="message" style="display: none;"></div>
+                              
                             </form>
                           </div>
                         </div>
@@ -168,6 +178,32 @@ include "../views/student-checker.php";
     <script src="../vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
+    <script>
+$(document).ready(function() {
+  $("#myForm").submit(function(e) {
+    e.preventDefault(); // prevent the form from submitting
+
+    var inputkey = $("#inputkey").val();
+    var response1 = "Your key is expired.";
+    var response2 = "invalid key";
+
+    // make an AJAX request to submit the form data
+    $.ajax({
+      type: "POST",
+      url: "../forms/insert-key.php",
+      data: { inputkey: inputkey },
+      success: function(response) {
+        // show the response from the server in the message div
+  
+          $("#message").text(response).show();     
+        if (response == 'valid') {
+      window.location.href = 'exam-english.php';
+    } 
+      }
+    });
+  });
+});
+</script>
     <script src="../vendors/chart.js/Chart.min.js"></script>
     <script src="../vendors/moment/moment.min.js"></script>
     <script src="../vendors/daterangepicker/daterangepicker.js"></script>
@@ -195,6 +231,7 @@ include "../views/student-checker.php";
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+ 
 
   </body>
 </html>

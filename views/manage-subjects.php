@@ -101,6 +101,12 @@
               </div>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="../views/admin-schedule.php">
+                <span class="menu-title">Schedule</span>
+                <i class="icon-globe menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-topics" aria-expanded="false" aria-controls="ui-topics">
                 <span class="menu-title">Topics</span>
                 <i class="icon-layers menu-icon"></i>
