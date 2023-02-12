@@ -72,10 +72,8 @@
             // check email
             $duplicate_email = mysqli_query($conn, "SELECT email, password, verified_date, type FROM users WHERE email= '$reg_email'");
 		          if (mysqli_num_rows($duplicate_email) > 0) {
-		          	function cantSignup(){
-                  $cantSignup_message = "email already exists";
-                  return $cantSignup_message;
-                }
+		          	header ("Location: ../views/register.php?status=user_exists");
+    	          exit;
 		          }else{
 			          $ins = mysqli_query($conn, "INSERT INTO `users` (fullname, email, password, type, verification_code, verified_date) VALUES ('$reg_fullname','$reg_email','$encrypted_password', 0 ,'$verification_code', NULL )");
 			        if ($ins) {
@@ -121,6 +119,8 @@
   <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+   <!-- SweetAlert JS -->
+   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
@@ -135,7 +135,14 @@
 </head>
 
 <body>
+<?php
+    include("../forms/alert.php");
 
+    $status = (isset($_GET['status']) ? $_GET['status'] : '');
+    if ($_GET) {
+      alert($status);
+    }
+    ?>
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
@@ -170,22 +177,22 @@
                           <form method="POST" class="register-form" id="register-form">
                               <div class="form-group">
                                   <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                  <input type="text" name="fullname" id="name" placeholder="Full Name"/>                       
+                                  <input type="text" name="fullname" id="name" placeholder="Full Name" required/>                       
                               </div>
                               <div class="form-group">
                                   <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                  <input type="email" name="email" id="email" placeholder="Your Email"/>
+                                  <input type="email" name="email" id="email" placeholder="Your Email" required/>
                               </div>
                               <div class="form-group">
                                   <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                  <input type="password" name="password" id="pass" placeholder="Password"/>
+                                  <input type="password" name="password" id="pass" placeholder="Password" required/>
                               </div>
                               <div class="form-group">
                                   <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                  <input type="password" name="password2" id="re_pass" placeholder="Repeat your password"/>
+                                  <input type="password" name="password2" id="re_pass" placeholder="Repeat your password" required/>
                               </div>
                               <div class="form-group">
-                                  <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                  <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required/>
                                   <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                                   <?php 
                                     if (isset($_POST["signup"])){
@@ -241,6 +248,8 @@
   <!-- JS -->
   <script src="../vendor/jquery/jquery.min.js"></script>
   <script src="../js/main.js"></script>
+  <!--SweetAlert-->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 </html>
