@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 10:43 AM
+-- Generation Time: Feb 12, 2023 at 12:52 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -38,7 +38,8 @@ CREATE TABLE `admin_schedule` (
 --
 
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_date_created`) VALUES
-(37, '2023-02-10', '2023-01-25 08:50:19');
+(37, '2023-02-10', '2023-01-25 08:50:19'),
+(38, '2023-02-14', '2023-02-12 19:43:49');
 
 -- --------------------------------------------------------
 
@@ -188,8 +189,8 @@ CREATE TABLE `generated_codes` (
 --
 
 INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `interest`, `hobbies`, `exam_key_created_at`) VALUES
-(1, 'user@gmail.com', 'wust7492', '2023-02-10', 'STEM', 'Bachelor of Science in Criminology (BSCrim)', 'sample interest', 'Mathematics', '2023-02-11 16:45:54'),
-(3, 'lebbraumjayce@gmail.com', 'bphn4601', '2023-02-10', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'sample interest', 'Mathematics', '2023-02-11 17:27:19');
+(3, 'lebbraumjayce@gmail.com', 'bphn4601', '2023-02-10', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'sample interest', 'Mathematics', '2023-02-11 17:27:19'),
+(8, 'user@gmail.com', 'ixdu8925', '2023-02-11', 'GAS', 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'sample interest', 'Dancing/Singing', '2023-02-12 03:02:15');
 
 -- --------------------------------------------------------
 
@@ -423,7 +424,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_schedule`
 --
 ALTER TABLE `admin_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `archived_courses`
@@ -453,7 +454,7 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
@@ -483,7 +484,7 @@ ALTER TABLE `science_questionnaire`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
