@@ -69,28 +69,30 @@
         
           <!-- Sign up form -->
           <section class="signup">
-              <div class="container-sign">
-                <div class="card mb-3">
+              <div class="container" style="width: 500px; height: 300px; padding: 15px; margin: 6% auto;">
+                <div class="card mb-3 row g-3 needs-validation">
 
                     <div class="card-body">
     
-                      <div class="pt-4 pb-2">
+                      <div class="pt-4 pb-2 pt-4 pb-2">
                         <h5 class="card-title text-center pb-0 fs-4">Reset Password</h5>
-                        <p class="text-center small">Enter your Email address</p>
+                        <p class="text-center small">Enter your Email Address</p>
                       </div>
     
-                      <form class="row g-3 needs-validation" method="POST" enctype="multipart/form-data">
-    
+                      <form method="POST" enctype="multipart/form-data">
+          
                         <div class="col-12">
-                          <input type="text" id="email" name="email" class="form-control" placeholder="enter email address" required>
+                          <input style="font-size: 13px;" type="text" id="email" name="email" class="form-control p-2" placeholder="e.g. user@gmail.com " required>
                           <div class="d-flex justify-content-end px-3 pt-2">
                             <i class="bi bi-eye-slash" id="togglePassword"></i>
                           </div>
                         </div>
     
                         <div class="col-12">
-                          <input class="btn btn-primary w-100" type="submit" value="submit" name="submit_email">
+                          <input class="btn btn-primary" type="submit" value="submit" name="submit_email">
+                          <div class="col 12 lead small" style="color: green; padding: 8px; font-size: 13px; text-align: center;">
                           <?php include '../forms/email-verification.php'; if (isset($_POST["submit_email"])){ echo $submit_email_status;}  ?>
+                          </div>
                         </div>
                       </form>
                       

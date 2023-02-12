@@ -38,7 +38,7 @@ while ($row = $result->fetch_assoc()) {
           }
   }
 }
-$message = "invalid credentials";
+$message = "Invalid credentials";
 // header must be called before any other output
 }
 ?>
@@ -127,9 +127,11 @@ $message = "invalid credentials";
                       </div>
                       <div class="col-12">
                           <input class="btn btn-primary w-100" type="submit" name="submit" value="Login">
-                          <?php if (isset($_POST["submit"])){
+                          <div class="col 12 lead small" style="color: red; padding: 8px; font-size: 13px; ">
+                            <?php if (isset($_POST["submit"])){
                             echo $message;
                           } ?>
+                          </div>
                         </div>
                         <div class="col-12">
                           <p class="col-12 d-flex justify-content-center"><a href="../views/register.php"  class="signup-image-link"> &nbsp; Create an account</a></p>

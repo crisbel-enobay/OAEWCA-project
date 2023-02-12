@@ -69,8 +69,8 @@
         
           <!-- Sign up form -->
           <section class="signup">
-              <div class="container-sign">
-                <div class="card mb-3">
+              <div class="container" style="width: 500px; height: 300px; padding: 15px; margin: 6% auto; text-align: center;">
+                <div class="card mb-3 row g-3 needs-validation">
 
                     <div class="card-body">
                      
@@ -91,12 +91,12 @@
                         $row= mysqli_fetch_array($query);
                         if($row['expiry_reset_link_token'] >= $curDate){ ?>
                         <p class="text-center small">Enter your New Password</p>
-                      <form class="row g-3 needs-validation" method="POST" enctype="multipart/form-data">
+                      <form method="POST" enctype="multipart/form-data">
     
                         <div class="col-12">
                           <input type="hidden" name="email" value="<?php echo $email;?>">
                           <input type="hidden" name="reset_link_token" value="<?php echo $token;?>">
-                          <input type="password" id="password" name="password" class="form-control" placeholder="enter your new password" required>
+                          <input style="font-size: 13px;" type="password" id="password" name="password" class="form-control" placeholder="enter your new password" required>
                           <div class="d-flex justify-content-end px-3 pt-2">
                             <i class="bi bi-eye-slash" id="togglePassword"></i>
                           </div>
@@ -104,14 +104,20 @@
     
                         <div class="col-12">
                           <input class="btn btn-primary w-100" type="submit" value="Reset" name="reset-password">
+                          <div class="col 12 lead small" style="color: green; padding: 8px; font-size: 13px; ">
+                            <?php include '../forms/update-password.php'; if (isset($_POST["reset-password"])){ echo $password_reset_status;} ?>
+                          </div>
                         </div>
-                        <?php include '../forms/update-password.php'; if (isset($_POST["reset-password"])){ echo $password_reset_status;} ?>
+                        
                       </form>
-                           <?php } } else {
+                          <div class="col 12 lead" style="font-size: 15px;">
+                          <?php } } else {
                                   echo "<p>This forget password link has been expired</p>";
                                  }
-                        }
-                        ?>
+                              }
+                            ?>
+                          </div>
+                           
                       
                       
                     </div>
