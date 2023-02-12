@@ -109,37 +109,54 @@
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">Exam Categories</span></li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="../views/admin-courses.php">
                 <span class="menu-title">Courses</span>
-                <i class="icon-globe menu-icon"></i>
+                <i class="icon-list menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-questions.php">
-                <span class="menu-title">Questions</span>
-                <i class="icon-book-open menu-icon"></i>
+              <a class="nav-link" data-toggle="collapse" href="#ui-subjects" aria-expanded="false" aria-controls="ui-subjects">
+                <span class="menu-title">Subjects</span>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-subjects">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/manage-subjects.php">Manage Subjects</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/new-subject.php">New Subject</a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-answer.php">
-                <span class="menu-title">Answer</span>
-                <i class="icon-chart menu-icon"></i>
+              <a class="nav-link" data-toggle="collapse" href="#ui-topics" aria-expanded="false" aria-controls="ui-topics">
+                <span class="menu-title">Topics</span>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-topics">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/manage-topics.php">Manage Topics</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/new-topic.php">New Topic</a></li>
+                </ul>
+              </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="../views/admin-schedule.php">
                 <span class="menu-title">Schedule</span>
                 <i class="icon-globe menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-results.php">
-                <span class="menu-title">Results</span>
-                <i class="icon-chart menu-icon"></i>
+              <a class="nav-link" data-toggle="collapse" href="#ui-applicants" aria-expanded="false" aria-controls="ui-applicants">
+                <span class="menu-title">Applicants</span>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-applicants">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/passers.php">Passers</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/examiners.php">Examiners</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/unverified.php">Unverified Applicants</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </nav>
