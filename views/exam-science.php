@@ -118,11 +118,32 @@
                   <div class="card-header d-block d-md-flex"> 
                      <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Science</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <div id="countdown-container">
-                <div id="countdown">
-                    <h5 class="text-success"><span id="hours">1h</span> :  <span id="minutes">0m</span> : <span id="seconds">0s</span></h5>
-                </div>
-            </div>
+          <?php
+
+// Get the current time
+$current_time = time();
+
+// Get the start time from the session
+if (!isset($_SESSION['start_time'])) {
+    $_SESSION['start_time'] = time();
+}
+$start_time = $_SESSION['start_time'];
+
+// Calculate the elapsed time
+$allotted_time = 3600;
+$elapsed_time = $current_time - $start_time;
+
+// Check if the elapsed time is greater than the allotted time
+if ($elapsed_time > $allotted_time) {
+    echo "The exam has ended.";
+} else {
+    // Display the remaining time
+    $remaining_time = $allotted_time - $elapsed_time;
+?>
+<div id="timer">Time remaining: <span id="time-remaining"></span> seconds</div>
+
+<?php
+}?>
           </ul>
         </div>
       </nav>
@@ -234,6 +255,19 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+    <script>
+    // Get the remaining time from PHP
+    var remainingTime = <?php echo $remaining_time; ?>;
+
+    // Update the timer display every second
+    setInterval(function() {
+        remainingTime--;
+        var hours = Math.floor(remainingTime / 3600);
+        var minutes = Math.floor((remainingTime - (hours * 3600)) / 60);
+        var seconds = remainingTime - (hours * 3600) - (minutes * 60);
+        document.getElementById("time-remaining").innerHTML = hours + ":" + minutes + ":" + seconds;
+    }, 1000);
+</script>
     <script src="../vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->

@@ -56,6 +56,28 @@ function getArchivedCourses() {
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
+// get generated codes
+function getGeneratedCodes() {
+    /*include 'database.php';
+    $sql = mysqli_query($conn,
+    "SELECT obrs_sample.id, course, dept, availability
+    FROM obrs_sample
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);*/
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id,email,exam_key,exam_date,strand,pref_course,interest,hobbies,exam_key_created_at
+    FROM generated_codes
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
 //exam dates
 function getExamDates() {
     $url = 'localhost';
