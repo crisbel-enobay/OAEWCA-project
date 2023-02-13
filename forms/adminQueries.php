@@ -125,22 +125,7 @@ function getArchivedCourses() {
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
-//exam dates
-function getExamDates() {
-    $url = 'localhost';
-    $username = 'root';
-    $password = '';
 
-    $conn = new mysqli($url, $username, $password, 'project');
-    if ($conn->connect_error) {
-        die("Connection failed!:" . $conn->connect_error);
-    }
-    $sql = mysqli_query($conn,
-    "SELECT id,exam_date, exam_date_created
-    FROM admin_schedule
-    ");
-    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
-}
 // hobbies
 function getHobbies() {
     $url = 'localhost';
