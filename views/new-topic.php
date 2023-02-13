@@ -108,9 +108,15 @@
               <div class="collapse" id="ui-topics">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="../views/manage-topics.php">Manage Topics</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/new-topic.php">New Topic</a></li>
+                  <li class="nav-item active"> <a class="nav-link" href="../views/new-topic.php">New Topic</a></li>
                 </ul>
               </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../views/admin-schedule.php">
+                <span class="menu-title">Schedule</span>
+                <i class="icon-globe menu-icon"></i>
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-applicants" aria-expanded="false" aria-controls="ui-applicants">
@@ -146,79 +152,53 @@
                   <div class="card-header d-block d-md-flex">
                   <p class="lead mb-0 ">Insert New Topic</p>
                   </div>
-              <div class="col-md-9 grid-margin stretch-card">
+                  <div class="col-md-9 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                  <form class="forms-sample" method="POST">
-                  <div class="form-group row">
-                        <label for="subject" class="col-sm-3 col-form-label">Topic Subject</label>
+                  <form class="forms-sample">
+                      <div class="form-group row">
+                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Subject</label>
                         <div class="col-sm-9">
-                        <select name="subject" class="form-control" id="subject" required>
-                          <?php
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';              
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                            die("Connection failed!:" . $conn->connect_error);
-                        }
-                          $sql = mysqli_query($conn,
-                        "SELECT * FROM tbl_exam_subjects
-                        ");
-                        while($row = $sql->fetch_assoc()) {
-                          echo "<option value=".$row['subj_id'].">".$row['subj_name']."</option>
-                          ";
-                        }
-                          ?>
-                            
-                          </select>
+                                  <select class="form-control">
+                                    <option>English</option>
+                                    <option>Filipino</option>
+                                    <option>Math</option>
+                                    <option>Science</option>
+                                    <option>Logic</option>
+                                  </select>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="topic_name" class="col-sm-3 col-form-label">Topic Name</label>
+                        <label for="subject-name" class="col-sm-3 col-form-label">Topic Name</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="topic_name" placeholder="Topic's Name">
+                          <input type="email" class="form-control" id="subject-name" placeholder="Subject Name">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="topic_description" class="col-sm-3 col-form-label">Topic Description</label>
+                        <label for="subject-description" class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-9">
-                        <textarea placeholder="Topic Description..." name="topic_description" class="form-control" id="topic-description" rows="5" cols="45" required></textarea>
+                        <textarea placeholder="Subject Description..." name="nquestion" class="form-control" id="subject-description" rows="5" cols="45" required></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="duration" class="col-sm-3 col-form-label">Duration</label>
                         <div class="col-sm-9">
-                          <input type="number" class="form-control" name="duration" placeholder="...minutes">
+                          <input type="password" class="form-control" id="duration" placeholder="...minutes">
                         </div>
                       </div>
-                      <input type="submit" name='add' class="btn btn-primary mr-2" value='Submit'>
-                      <input type="reset" class="btn btn-light" value='Clear'>
-                      <?php
-                        if (isset($_POST['add'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                                 
-                          $tsubj = $_POST['subject'];                
-                          $tname = $_POST['topic_name'];                
-                          $tdesc = $_POST['topic_description'];           
-                          $tdura = $_POST['duration'];                
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                            $sql = mysqli_query($conn,
-                          " INSERT INTO tbl_exam_topics (topic_name, topic_desc, topic_stat, topic_subj) 
-                          VALUES ('".$tname."', '".$tdesc."', 1, '".$tsubj."')
-                          ");
-                              echo "<script> window.location = 'manage-topics.php' </script>";
-                          }
-                      ?>
+                      <div class="form-group row">
+                        <label for="status" class="col-sm-3 col-form-label">Status</label>
+                        <div class="form-check form-check-flat form-check-primary mx-3 ">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input"> Active <i class="input-helper"></i></label>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
                     </form>
                   </div> 
                 </div>
               </div>
-            </div>
           </div>
         </div>
         <!-- content-wrapper ends -->
