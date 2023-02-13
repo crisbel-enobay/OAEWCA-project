@@ -134,7 +134,7 @@ $message = "Invalid credentials";
                           </div>
                         </div>
                         <div class="col-12">
-                          <p class="col-12 d-flex justify-content-center"><a href="../views/register.php"  class="signup-image-link"> &nbsp; Create an account</a></p>
+                          <p class="col-12 d-flex justify-content-center"><a href="../views/register.php"  class="signup-image-link">Create an account</a></p>
                           <p class="col-12 d-flex justify-content-center"><a href="../views/forgot-password.php"  class="signup-image-link">Forgot Password?</a></p>
                         </div>
                   </form>

@@ -113,6 +113,12 @@
               </div>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="../views/admin-schedule.php">
+                <span class="menu-title">Schedule</span>
+                <i class="icon-globe menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-applicants" aria-expanded="false" aria-controls="ui-applicants">
                 <span class="menu-title">Applicants</span>
                 <i class="icon-layers menu-icon"></i>
@@ -135,7 +141,7 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="../views/manage-subjects.php">Subject Listing</a></li>
                 <li class="breadcrumb-item active">New Subject</li>
-                <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
+                <li class="breadcrumb-item"><a href="../views/archived_subject.php">Archives</a></li>
               </ol>
             </nav>
           </div>

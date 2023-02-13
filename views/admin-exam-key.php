@@ -169,6 +169,7 @@
                 <li class="breadcrumb-item "><a href="../views/admin-schedule.php">Exam Schedule List</a></li>
                 <li class="breadcrumb-item active">Exam Keys</li>
                 <li class="breadcrumb-item"><a href="../views/admin-attendance.php">Attendance</a></li>
+                <li class="breadcrumb-item"><a href="../views/archived_schedule.php">Archive</a></li>
               </ol>
             </nav>
           </div>
@@ -178,7 +179,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Courses</h5>
+                    <h5 class="mb-0">Exam Keys</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">

@@ -143,7 +143,7 @@
                 <li class="breadcrumb-item active">Topics listing</li>
                 <li class="breadcrumb-item"><a href="../views/new-subject.php">New Subject</a></li>
                <!-- <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>-->
-                <li class="breadcrumb-item"><a href="../views/archived_topic.php">Archives</a></li>
+                <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
               </ol>
             </nav>
           </div>
@@ -152,7 +152,7 @@
             <div class="col-md-12 grid-margin">
               <div class="card">
                   <div class="card-header d-block d-md-flex">
-                    <p class="lead mb-0 ">Manage Topics</p>
+                    <p class="lead mb-0 ">Archive - Manage Topics</p>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
@@ -217,14 +217,8 @@
                             "<td>" .
                             "<div class='d-flex '>
                                 <form method='POST'>
-                                <button type='button' id='expandbutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#expandmodal' data-exname='$name' data-exStatus='$state' data-exSubj='$subject' data-dura='$duration' data-exDesc='$desc' data-exTime='$stamp' onClick='expand(this)'>
-                                <i class='fa fa-search-plus'></i>
-                               </button>
-                                <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-editid='$id' data-editName='$name' data-dura='$duration data-status='$state' data-description='$desc' onClick='editSubject(this)'>
-                                <i class='fa fa-pencil'></i>
-                                </button>
-                                
-                            <button type='button' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' data-question='$name' onClick='archiveCourse(this)'><i class='fa fa-trash-o'></i></button> </form>" .
+                            <button type='button' class='btn btn-primary delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' data-question='$name' onClick='archiveCourse(this)'>
+                            <i class='fa fa-archive'></i></button> </form>" .
                             "</div>" .
                             "</td>" .
                             "</td>
@@ -628,39 +622,8 @@
       let courseID = value.getAttribute("data-courseid");
       let name = value.getAttribute("data-question");
       document.querySelector("#course_id").value = courseID;
-      element.innerHTML = 'Are you sure you want to remove '+ '"' + name + '"' + '?';
+      element.innerHTML = 'Are you sure you want to restore '+ '"' + name + '"' + '?';
     }
-
-    /* check duplicate similar values
-    $(document).ready(function() {
-      $('#check_plateNo').keyup(function(e) {
-        var plateNum = $('#check_plateNo').val();
-        $.ajax({
-          type: "POST",
-          url: "../forms/manage_bus.php",
-          data: {
-            "check_plateNo_btn": 1,
-            "plateNo": plateNum,
-          },
-          success: function(response) {
-            var jsonData = JSON.parse(response);
-            $("#error_plateNo").removeClass();
-            if (jsonData.success == "1") {
-              $('#error_plateNo').text("Available");
-              $("#error_plateNo").addClass("text-success");
-              $("#btnAdd").prop('disabled', false);
-            } else {
-              $('#error_plateNo').text("Unavailable");
-              $("#error_plateNo").addClass("text-danger");
-              $("#btnAdd").prop('disabled', true);
-            }
-          },
-          error: function() {
-            alert('System Error. Calling ajax failed');
-          }
-        });
-      });
-    });*/
   </script>
   </body>
 </html>

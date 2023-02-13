@@ -166,10 +166,10 @@
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Exam Schedule List</li>
+                <li class="breadcrumb-item"><a href="../views/admin-schedule.php">Exam Schedule List</a></li>
                 <li class="breadcrumb-item"><a href="../views/admin-exam-key.php">Exam Keys</a></li>
                 <li class="breadcrumb-item"><a href="../views/admin-attendance.php">Attendance</a></li>
-                <li class="breadcrumb-item"><a href="../views/archived_schedule.php">Archive</a></li>
+                <li class="breadcrumb-item active">Archive</li>
               </ol>
             </nav>
           </div>
@@ -179,7 +179,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Exam Schedules</h5>
+                    <h5 class="mb-0">Archived - Exam Schedules</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                   <table class="table table-hover text-nowrap datatable">
@@ -205,7 +205,7 @@
                                     <td>" .$exam_date . "</td>
                                     <td>" . $datecreated . "</td>
                                     <td>" .
-                                  "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-dateid='$id' onClick='deleteSchedule(this)'>Delete</button>" .
+                                  "<button type='submit' class='btn btn-primary delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-dateid='$id' onClick='deleteSchedule(this)'>Restore</button>" .
                                          "</td>
 
                                     </tr>";  //$row['index'] the index here is a field name
@@ -215,9 +215,6 @@
                         </tbody>
                     </table>
                   </div>
-              <div>
-                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Exam Date</button>
-              </div>
 
               <!-- Add Bus-->
               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
