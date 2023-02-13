@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2023 at 08:13 AM
+-- Generation Time: Feb 13, 2023 at 02:07 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -195,8 +195,8 @@ CREATE TABLE `generated_codes` (
 --
 
 INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `interest`, `secondary_interest`, `tertiary_interest`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
-(8, 'user@gmail.com', 'ixdu8925', '2023-02-11', 'GAS', 'Bachelor of Science in Entrepreneurial Management (BSEM)', '', '', 'sample interest', '', '', 'Dancing/Singing', '', '', '2023-02-12 03:02:15'),
-(16, 'lebbraumjayce@gmail.com', 'qjpo3975', '2023-02-14', 'ABM', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Mathematics', 'Travelling', 'Videography', 'Communicating', 'Writing', 'Gaming', '2023-02-13 15:04:29');
+(16, 'lebbraumjayce@gmail.com', 'qjpo3975', '2023-02-14', 'ABM', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Mathematics', 'Travelling', 'Videography', 'Communicating', 'Writing', 'Gaming', '2023-02-13 15:04:29'),
+(17, 'user@gmail.com', 'wbor3824', '2023-02-14', 'STEM', 'Bachelor of Science in Criminology (BSCrim)', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Information System (BSIS)', 'problem solving', 'analyzing', 'accounting', 'Self Studying', 'Videography', 'Broadcasting', '2023-02-13 21:06:42');
 
 -- --------------------------------------------------------
 
@@ -240,6 +240,39 @@ INSERT INTO `hobbies` (`hob_id`, `hobby`) VALUES
 (24, 'Programming/Coding'),
 (25, 'Web Development'),
 (26, 'Designing');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interests`
+--
+
+CREATE TABLE `interests` (
+  `id` int(11) NOT NULL,
+  `interest` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `interests`
+--
+
+INSERT INTO `interests` (`id`, `interest`) VALUES
+(1, 'problem solving'),
+(2, 'analyzing'),
+(3, 'numbers'),
+(4, 'accounting'),
+(5, 'education'),
+(6, 'mathematics'),
+(7, 'information gathering'),
+(8, 'computation'),
+(9, 'law'),
+(10, 'english'),
+(11, 'technology'),
+(12, 'systematic'),
+(13, 'government'),
+(14, 'management'),
+(15, 'collaboration'),
+(16, 'politics');
 
 -- --------------------------------------------------------
 
@@ -399,6 +432,12 @@ ALTER TABLE `hobbies`
   ADD PRIMARY KEY (`hob_id`);
 
 --
+-- Indexes for table `interests`
+--
+ALTER TABLE `interests`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `logic_questionnaire`
 --
 ALTER TABLE `logic_questionnaire`
@@ -460,13 +499,19 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
 --
 ALTER TABLE `hobbies`
   MODIFY `hob_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `interests`
+--
+ALTER TABLE `interests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `logic_questionnaire`
