@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2023 at 02:07 PM
+-- Generation Time: Feb 13, 2023 at 08:41 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -196,7 +196,7 @@ CREATE TABLE `generated_codes` (
 
 INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `interest`, `secondary_interest`, `tertiary_interest`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
 (16, 'lebbraumjayce@gmail.com', 'qjpo3975', '2023-02-14', 'ABM', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Mathematics', 'Travelling', 'Videography', 'Communicating', 'Writing', 'Gaming', '2023-02-13 15:04:29'),
-(17, 'user@gmail.com', 'wbor3824', '2023-02-14', 'STEM', 'Bachelor of Science in Criminology (BSCrim)', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Information System (BSIS)', 'problem solving', 'analyzing', 'accounting', 'Self Studying', 'Videography', 'Broadcasting', '2023-02-13 21:06:42');
+(18, 'user@gmail.com', 'nkvo5168', '2023-02-14', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Bachelor in Public Administration (BPA)', 'problem solving', 'analyzing', 'numbers', 'Broadcasting', 'Watching', 'Photography', '2023-02-13 21:14:47');
 
 -- --------------------------------------------------------
 
@@ -359,6 +359,94 @@ INSERT INTO `science_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_exam_subjects`
+--
+
+CREATE TABLE `tbl_exam_subjects` (
+  `subj_id` int(11) NOT NULL,
+  `subj_name` varchar(255) NOT NULL,
+  `subj_desc` varchar(255) NOT NULL,
+  `subj_status` int(11) NOT NULL,
+  `subj_timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_exam_subjects`
+--
+
+INSERT INTO `tbl_exam_subjects` (`subj_id`, `subj_name`, `subj_desc`, `subj_status`, `subj_timestamp`) VALUES
+(1, 'English', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:21:08'),
+(2, 'Filipino', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:34:17'),
+(3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_exam_topics`
+--
+
+CREATE TABLE `tbl_exam_topics` (
+  `topic_id` int(11) NOT NULL,
+  `topic_name` varchar(255) NOT NULL,
+  `topic_desc` varchar(255) NOT NULL,
+  `topic_duration` int(11) NOT NULL,
+  `topic_stat` int(11) NOT NULL,
+  `topic_stamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `topic_subj` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_exam_topics`
+--
+
+INSERT INTO `tbl_exam_topics` (`topic_id`, `topic_name`, `topic_desc`, `topic_duration`, `topic_stat`, `topic_stamp`, `topic_subj`) VALUES
+(1, 'Verbal Test', 'This includes sentence and grammar construction', 60, 1, '2023-02-11 14:59:31', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_que_answers`
+--
+
+CREATE TABLE `tbl_que_answers` (
+  `ans_id` int(11) NOT NULL,
+  `que_id` int(11) NOT NULL,
+  `ans_desc` varchar(255) NOT NULL,
+  `correct` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_que_answers`
+--
+
+INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
+(1, 1, 'verb', 1),
+(2, 1, 'noun', 0),
+(3, 1, 'pronoun', 0),
+(4, 1, 'adjective', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_topic_questions`
+--
+
+CREATE TABLE `tbl_topic_questions` (
+  `que_id` int(11) NOT NULL,
+  `que_desc` varchar(255) NOT NULL,
+  `que_topic` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_topic_questions`
+--
+
+INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
+(1, 'A word used to describe an action, state, or occurrence, and forming the main part of the predicate of a sentence', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -456,6 +544,30 @@ ALTER TABLE `science_questionnaire`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_exam_subjects`
+--
+ALTER TABLE `tbl_exam_subjects`
+  ADD PRIMARY KEY (`subj_id`);
+
+--
+-- Indexes for table `tbl_exam_topics`
+--
+ALTER TABLE `tbl_exam_topics`
+  ADD PRIMARY KEY (`topic_id`);
+
+--
+-- Indexes for table `tbl_que_answers`
+--
+ALTER TABLE `tbl_que_answers`
+  ADD PRIMARY KEY (`ans_id`);
+
+--
+-- Indexes for table `tbl_topic_questions`
+--
+ALTER TABLE `tbl_topic_questions`
+  ADD PRIMARY KEY (`que_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -499,7 +611,7 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
@@ -530,6 +642,30 @@ ALTER TABLE `math_questionnaire`
 --
 ALTER TABLE `science_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbl_exam_subjects`
+--
+ALTER TABLE `tbl_exam_subjects`
+  MODIFY `subj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_exam_topics`
+--
+ALTER TABLE `tbl_exam_topics`
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_que_answers`
+--
+ALTER TABLE `tbl_que_answers`
+  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_topic_questions`
+--
+ALTER TABLE `tbl_topic_questions`
+  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
