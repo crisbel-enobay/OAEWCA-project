@@ -160,8 +160,14 @@
                           <th scope="col">EXAM KEY</th>
                           <th scope="col">EXAM DATE</th>
                           <th scope="col">PREFFERED COURSE</th>
+                          <th scope="col">PREFFERED SECOND COURSE</th>
+                          <th scope="col">PREFFERED THIRD COURSE</th>
                           <th scope="col">INTEREST</th>
-                          <th scope="col">HOBBIES</th>
+                          <th scope="col">SECOND INTEREST</th>
+                          <th scope="col">THIRD INTEREST</th>
+                          <th scope="col">HOBBY</th>
+                          <th scope="col">SECOND HOBBY</th>
+                          <th scope="col">THIRD HOBBY</th>
                           <th scope="col">EXAM KEY CREATED AT</th>
                         </tr>
                       </thead>
@@ -175,17 +181,29 @@
                           $exam_key = $row["exam_key"];
                           $exam_date = $row["exam_date"];
                           $pref_course = $row["pref_course"];
+                          $pref_second_course = $row["pref_secondary_course"];
+                          $pref_third_course = $row["pref_tertiary_course"];
                           $interest = $row["interest"];
-                          $hobbies = $row["hobbies"];
+                          $second_interest = $row["secondary_interest"];
+                          $third_interest = $row["tertiary_interest"];
+                          $hobby1 = $row["hobby"];
+                          $hobby2 = $row["secondary_hobby"];
+                          $hobby3 = $row["tertiary_hobby"];
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
                           echo "<td>" . $row["id"] . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
                           echo "<td>" . $row["exam_key"] . "</td>";
                           echo "<td>" . $row["exam_date"] . "</td>";
-                          echo "<td>" . $row["pref_course"] . "</td>";
+                          echo "<td>" . $pref_course . "</td>";
+                          echo "<td>" . $pref_second_course . "</td>";
+                          echo "<td>" . $pref_third_course . "</td>";
                           echo "<td>" . $row["interest"] . "</td>";
-                          echo "<td>" . $row["hobbies"] . "</td>";
+                          echo "<td>" . $second_interest . "</td>";
+                          echo "<td>" . $third_interest . "</td>";
+                          echo "<td>" .  $hobby1 . "</td>";
+                          echo "<td>" .  $hobby2 . "</td>";
+                          echo "<td>" .  $hobby3 . "</td>";
                           echo "<td>" . $row["exam_key_created_at"] . "</td>";
                           // echo      "<td>". "<div class='d-flex '>
                           //       <form method='POST' action='../forms/delete_bus.php'>
@@ -213,14 +231,33 @@
                   <div class="modal-content">
 
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Exam Schedule</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Add Your Exam Schedule</h5>
                     </div>
 
                     <form method="POST">
                       <div class="modal-body p-5">
                         <div class="mb-3">
-                          <label>Select Date</label>
-                          <input type="date" value="<?= date('Y-m-d') ?>" name="date" id="schedule date"  class="form-control" required>
+                        <div class="form-group">
+                              <?php 
+                              include '../forms/database.php';
+                                  $query1 ="SELECT exam_date FROM admin_schedule";
+                                  $result = $conn->query($query1);
+                                  if($result->num_rows> 0){
+                                    $date_options= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                  }
+                              ?>
+                                <label> Select Date </label>
+                                 <select required name="exam_date" class="form-control">
+                                 <option value="">-- select date --</option>
+                                 <?php 
+                                    foreach ($date_options as $option) {
+                                    ?>
+                                      <option><?php echo $option['exam_date']; ?> </option>
+                                      <?php 
+                                      }
+                                    ?>
+                                </select> 
+                              </div>
                         </div>
                         <div class="mb-3">
                           <label>Select Strand</label>
@@ -237,79 +274,266 @@
                         <div class="mb-3">
                         <label>Preffered Course</label>
                         <div class="form-group">
-                              <?php 
-                              include '../forms/database.php';
-                                  $query2 ="SELECT course FROM courses";
-                                  $result = $conn->query($query2);
-                                  $array=[];
-                                  while ($row = mysqli_fetch_array($result)) {
-                                  $array[] = $row['course'];
-                             }
-                              ?>
-                                 <select required name="course_opt" class="form-control">
-                                 <option value="">-- select course --</option>
-                                 <?php 
-                                    foreach ($array as $arr) {
-                                    ?>
-                                      <option><?php print($arr); ?> </option>
-                                      <?php 
-                                      }
-                                    ?>
-                                </select> 
+                        <?php
+                        include '../forms/database.php';
+                        $selected_course_options = array();
+                        $query2 ="SELECT course FROM courses";
+                        $result = $conn->query($query2);
+
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['course'],$selected_course_options)) {
+                            $selected_course_options[] = $row['course'];
+                          }
+                        }
+                        ?>
+                        <select required name="course_opt1" class="form-control">
+                          <option value="">-- select course --</option>
+                          <?php
+                          foreach ($selected_course_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select> 
                               </div>
                                     </div>
                                     <div class="mb-3">
-                          <label>Select Interest</label>
+                          <label>Select second preffered course</label>
                           <div class="form-group">
-                              <?php 
-                             
-                                  $query2 ="SELECT related_hobbies FROM courses";
-                                  $result = $conn->query($query2);
-                                  $array=[];
-                                  while ($row = mysqli_fetch_array($result)) {
-                                  $array[] = $row['related_hobbies'];
-                             }
-                              ?>
-                                 <select required name="related_interest_opt" class="form-control">
-                                 <option value="">-- select interest --</option>
-                                 <?php 
-                                    foreach ($array as $arr) {
-                                    ?>
-                                      <option><?php //print($arr); ?>sample interest </option>
-                                      <?php 
-                                      }
-                                    ?>
-                                </select> 
+                          <?php
+                        include '../forms/database.php';
+                        $selected_course_options = array();                   
+                        $query2 ="SELECT course FROM courses";
+                        $result = $conn->query($query2);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['course'], $selected_course_options)) {
+                            $selected_course_options[] = $row['course'];
+                          }
+                        }
+                        ?>
+                        <select required name="course_opt2" class="form-control">
+                          <option value="">-- select course --</option>
+                          <?php
+                          foreach ($selected_course_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        
+                        <!-- repeat this for other select tags -->
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Select Hobbies</label>
+                          <label>Select third preffered course</label>
                           <div class="form-group">
-                              <?php 
-                             
-                                  $query2 ="SELECT hobby FROM hobbies";
-                                  $result = $conn->query($query2);
-                                  $array=[];
-                                  while ($row = mysqli_fetch_array($result)) {
-                                  $array[] = $row['hobby'];
-                             }
-                              ?>
-                                 <select required name="related_hobbies_opt" class="form-control">
-                                 <option value="">-- select hobbies --</option>
-                                 <?php 
-                                    foreach ($array as $arr) {
-                                    ?>
-                                      <option><?php print($arr); ?> </option>
-                                      <?php 
-                                      }
-                                    ?>
-                                </select> 
+                          <?php
+                        include '../forms/database.php';
+                        $selected_course_options = array();                   
+                        $query2 ="SELECT course FROM courses";
+                        $result = $conn->query($query2);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['course'], $selected_course_options)) {
+                            $selected_course_options[] = $row['course'];
+                          }
+                        }
+                        ?>
+                        <select required name="course_opt3" class="form-control">
+                          <option value="">-- select course --</option>
+                          <?php
+                          foreach ($selected_course_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        
+                        <!-- repeat this for other select tags -->
+                              </div>
+                        </div>
+                        <div class="mb-3">
+                          <label>Select Interest</label>
+                          <div class="form-group">
+                          <?php
+                        include '../forms/database.php';
+                        $selected_interest_options = array();                   
+                        $query2 ="SELECT hobby FROM hobbies";
+                        $result = $conn->query($query2);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['hobby'], $selected_interest_options)) {
+                            $selected_interest_options[] = $row['hobby'];
+                          }
+                        }
+                        ?>
+                        <select required name="related_interest_opt1" class="form-control">
+                          <option value="">-- select interest --</option>
+                          <?php
+                          foreach ($selected_interest_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        
+                        <!-- repeat this for other select tags -->
+                              </div>
+                        </div>
+                        <div class="mb-3">
+                          <label>Select second interest</label>
+                          <div class="form-group">
+                          <?php
+                        include '../forms/database.php';
+                        $selected_interest_options = array();                   
+                        $query2 ="SELECT hobby FROM hobbies";
+                        $result = $conn->query($query2);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['hobby'], $selected_interest_options)) {
+                            $selected_interest_options[] = $row['hobby'];
+                          }
+                        }
+                        ?>
+                        <select required name="related_interest_opt2" class="form-control">
+                          <option value="">-- select interest --</option>
+                          <?php
+                          foreach ($selected_interest_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        
+                        <!-- repeat this for other select tags -->
+                              </div>
+                        </div>
+                        <div class="mb-3">
+                          <label>Select third interest</label>
+                          <div class="form-group">
+                          <?php
+                        include '../forms/database.php';
+                        $selected_interest_options = array();                   
+                        $query2 ="SELECT hobby FROM hobbies";
+                        $result = $conn->query($query2);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['hobby'], $selected_interest_options)) {
+                            $selected_interest_options[] = $row['hobby'];
+                          }
+                        }
+                        ?>
+                        <select required name="related_interest_opt3" class="form-control">
+                          <option value="">-- select interest --</option>
+                          <?php
+                          foreach ($selected_interest_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        
+                        <!-- repeat this for other select tags -->
+                              </div>
+                        </div>
+                        <div class="mb-3">
+                          <label>Select Hobby</label>
+                          <div class="form-group">
+                          <?php
+                        include '../forms/database.php';
+                        $selected_hobbies_options = array();                   
+                        $query2 ="SELECT hobby FROM hobbies";
+                        $result = $conn->query($query2);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['hobby'], $selected_hobbies_options)) {
+                            $selected_hobbies_options[] = $row['hobby'];
+                          }
+                        }
+                        ?>
+                        <select required name="related_hobbies_opt1" class="form-control">
+                          <option value="">-- select hobbies --</option>
+                          <?php
+                          foreach ($selected_hobbies_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        
+                        <!-- repeat this for other select tags -->
+                              </div>
+                        </div>
+                        <div class="mb-3">
+                          <label>Select Hobby</label>
+                          <div class="form-group">
+                          <?php
+                        include '../forms/database.php';
+                        $selected_hobbies_options = array();                   
+                        $query2 ="SELECT hobby FROM hobbies";
+                        $result = $conn->query($query2);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['hobby'], $selected_hobbies_options)) {
+                            $selected_hobbies_options[] = $row['hobby'];
+                          }
+                        }
+                        ?>
+                        <select required name="related_hobbies_opt2" class="form-control">
+                          <option value="">-- select hobbies --</option>
+                          <?php
+                          foreach ($selected_hobbies_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        
+                        <!-- repeat this for other select tags -->
+                              </div>
+                        </div>
+                        <div class="mb-3">
+                          <label>Select Hobby</label>
+                          <div class="form-group">
+                          <?php
+                        include '../forms/database.php';
+                        $selected_hobbies_options = array();                   
+                        $query2 ="SELECT hobby FROM hobbies";
+                        $result = $conn->query($query2);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['hobby'], $selected_hobbies_options)) {
+                            $selected_hobbies_options[] = $row['hobby'];
+                          }
+                        }
+                        ?>
+                        <select required name="related_hobbies_opt3" class="form-control">
+                          <option value="">-- select hobbies --</option>
+                          <?php
+                          foreach ($selected_hobbies_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        
+                        <!-- repeat this for other select tags -->
                               </div>
                         </div>
                       
                     
                       <div class="modal-footer">
-                        <input type="submit" name="exam_schedule_date" class="btn btn-primary" id="btnAdd" value="Add"/>
+                        <input disabled type="submit" name="exam_schedule_date" class="btn btn-primary" id="btnAdd" value="Add"/>
                         <?php
                              if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           // if (isset($_POST['Add'])){
@@ -339,11 +563,17 @@
                           $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
                           $last = substr(str_shuffle("1234567890"), 0, 4);
                           $exam_code = $first . $last;       
-                          $date = $_POST['date'];                      
+                          $date = $_POST['exam_date'];                      
                           $strand = $_POST['strand_opt'];                      
-                          $pref_course = $_POST['course_opt'];                      
-                          $related_hobbies = $_POST['related_hobbies_opt'];                      
-                          $related_interest = $_POST['related_interest_opt'];     
+                          $pref_course = $_POST['course_opt1'];  
+                          $pref_secondary_course = $_POST['course_opt2'];  
+                          $pref_tertiary_course = $_POST['course_opt3'];                                       
+                          $related_interest1 = $_POST['related_interest_opt1'];  
+                          $related_interest2 = $_POST['related_interest_opt2']; 
+                          $related_interest3 = $_POST['related_interest_opt3']; 
+                          $related_hobbies1 = $_POST['related_hobbies_opt1']; 
+                          $related_hobbies2 = $_POST['related_hobbies_opt2'];         
+                          $related_hobbies3 = $_POST['related_hobbies_opt3']; 
                               // Connect to the database
                             $conn = mysqli_connect("localhost", "root", "", "project");
 
@@ -372,7 +602,7 @@
 
                             // Insert the new data
                             $insert_result = mysqli_query($conn,
-                            "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
+                            "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course. "', '".$pref_secondary_course."', '".$pref_tertiary_course."',  '".$related_interest1."', '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
                             ");
 
                             if ($insert_result) {
@@ -440,7 +670,7 @@
     <script>
         <?php include '../assets/js/jquery.js' ?>
     </script>
-     <script>
+       <script>
   const form = document.querySelector("form");
   const submitBtn = form.querySelector("input[type='submit']");
   const selects = form.querySelectorAll("select");
@@ -523,5 +753,24 @@
       });
     });*/
   </script>
+  <script> const allSelects = document.querySelectorAll("select");
+
+for (let i = 0; i < allSelects.length; i++) {
+  allSelects[i].addEventListener("change", function() {
+    const selectedValue = this.value;
+    for (let j = 0; j < allSelects.length; j++) {
+      if (i !== j) {
+        const options = allSelects[j].querySelectorAll("option");
+        for (let k = 0; k < options.length; k++) {
+          if (options[k].value === selectedValue) {
+            options[k].disabled = true;
+          }
+        }
+      }
+    }
+  });
+}
+</script>
+
   </body>
 </html>
