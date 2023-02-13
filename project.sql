@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2023 at 12:52 PM
+-- Generation Time: Feb 13, 2023 at 08:13 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -179,8 +179,14 @@ CREATE TABLE `generated_codes` (
   `exam_date` varchar(255) NOT NULL,
   `strand` varchar(255) NOT NULL,
   `pref_course` varchar(255) NOT NULL,
+  `pref_secondary_course` varchar(255) NOT NULL,
+  `pref_tertiary_course` varchar(255) NOT NULL,
   `interest` varchar(255) NOT NULL,
-  `hobbies` varchar(255) NOT NULL,
+  `secondary_interest` varchar(255) NOT NULL,
+  `tertiary_interest` varchar(255) NOT NULL,
+  `hobby` varchar(255) NOT NULL,
+  `secondary_hobby` varchar(255) NOT NULL,
+  `tertiary_hobby` varchar(255) NOT NULL,
   `exam_key_created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -188,9 +194,9 @@ CREATE TABLE `generated_codes` (
 -- Dumping data for table `generated_codes`
 --
 
-INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `interest`, `hobbies`, `exam_key_created_at`) VALUES
-(3, 'lebbraumjayce@gmail.com', 'bphn4601', '2023-02-10', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'sample interest', 'Mathematics', '2023-02-11 17:27:19'),
-(8, 'user@gmail.com', 'ixdu8925', '2023-02-11', 'GAS', 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'sample interest', 'Dancing/Singing', '2023-02-12 03:02:15');
+INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `interest`, `secondary_interest`, `tertiary_interest`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
+(8, 'user@gmail.com', 'ixdu8925', '2023-02-11', 'GAS', 'Bachelor of Science in Entrepreneurial Management (BSEM)', '', '', 'sample interest', '', '', 'Dancing/Singing', '', '', '2023-02-12 03:02:15'),
+(16, 'lebbraumjayce@gmail.com', 'qjpo3975', '2023-02-14', 'ABM', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Mathematics', 'Travelling', 'Videography', 'Communicating', 'Writing', 'Gaming', '2023-02-13 15:04:29');
 
 -- --------------------------------------------------------
 
@@ -341,7 +347,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
 (1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
-(2, 'marvs', 'lebbraumjayce@gmail.com', '$2y$10$eDjtuM20eBruJDwSy0N2COBc8U9Ush9g4p/nkz09hAcyG8QzO1j3C', 0, '253435', '2023-02-11 17:24:39', '', ''),
+(2, 'marvs', 'lebbraumjayce@gmail.com', '$2y$10$YeI9rdAyfqt/bic10Mli2uUsWvHU7ZlQJsnuuvQ6URVlxGnziaGYi', 0, '253435', '2023-02-11 17:24:39', '', ''),
 (3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
 
 --
@@ -454,7 +460,7 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
