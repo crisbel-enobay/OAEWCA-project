@@ -273,12 +273,12 @@
                               <?php
                         include '../forms/database.php';
                         $selected_interest_options = array();                   
-                        $query2 ="SELECT hobby FROM hobbies";
+                        $query2 ="SELECT interest FROM interests";
                         $result = $conn->query($query2);
                         
                         while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobby'], $selected_interest_options)) {
-                            $selected_interest_options[] = $row['hobby'];
+                          if (!in_array($row['interest'], $selected_interest_options)) {
+                            $selected_interest_options[] = $row['interest'];
                           }
                         }
                         ?>
@@ -304,12 +304,12 @@
                               <?php
                         include '../forms/database.php';
                         $selected_interest_options = array();                   
-                        $query2 ="SELECT hobby FROM hobbies";
+                        $query2 ="SELECT interest FROM interests";
                         $result = $conn->query($query2);
                         
                         while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobby'], $selected_interest_options)) {
-                            $selected_interest_options[] = $row['hobby'];
+                          if (!in_array($row['interest'], $selected_interest_options)) {
+                            $selected_interest_options[] = $row['interest'];
                           }
                         }
                         ?>
@@ -335,12 +335,12 @@
                               <?php
                         include '../forms/database.php';
                         $selected_interest_options = array();                   
-                        $query2 ="SELECT hobby FROM hobbies";
+                        $query2 ="SELECT interest FROM interests";
                         $result = $conn->query($query2);
                         
                         while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobby'], $selected_interest_options)) {
-                            $selected_interest_options[] = $row['hobby'];
+                          if (!in_array($row['interest'], $selected_interest_options)) {
+                            $selected_interest_options[] = $row['interest'];
                           }
                         }
                         ?>
