@@ -9,7 +9,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Category-Questions</title>
+    <title>Category-Subjects</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -149,30 +149,39 @@
               <div class="col-md-9 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                  <form class="forms-sample">
-                      <div class="form-group row">
-                        <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Examination Type</label>
-                        <div class="col-sm-9">
-                                  <select class="form-control">
-                                    <option>Multiple Choice</option>
-                                    <option>True/False</option>
-                                  </select>
-                        </div>
-                      </div>
+                  <form class="forms-sample" method="POST">
                       <div class="form-group row">
                         <label for="subject-name" class="col-sm-3 col-form-label">Subject Name</label>
                         <div class="col-sm-9">
-                          <input type="email" class="form-control" id="subject-name" placeholder="Subject Name">
+                          <input type="text" class="form-control" name="subject_name" placeholder="Subject Name">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="subject-description" class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-9">
-                        <textarea placeholder="Subject Description..." name="nquestion" class="form-control" id="subject-description" rows="5" cols="45" required></textarea>
+                        <textarea placeholder="Subject Description..." name="subject_description" class="form-control" id="subject-description" rows="5" cols="45" required></textarea>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                      <button class="btn btn-light">Cancel</button>
+                      <input type="submit" name='add' class="btn btn-primary mr-2" value='Submit'>
+                      <input type="reset" class="btn btn-light" value='Clear'>
+                      <?php
+                        if (isset($_POST['add'])){
+                          $url = 'localhost';
+                          $username = 'root';
+                          $password = '';                                 
+                          $sname = $_POST['subject_name'];                
+                          $sdesc = $_POST['subject_description'];           
+                          $edtrightoption = $_POST['edtright'];                
+                          $conn = new mysqli($url, $username, $password, 'project');
+                          if ($conn->connect_error) {
+                              die("Connection failed!:" . $conn->connect_error);
+                          }
+                            $sql = mysqli_query($conn,
+                          " INSERT INTO tbl_exam_subjects (subj_name, subj_desc, subj_status) VALUES ('".$sname."', '".$sdesc."', 1)
+                          ");
+                              echo "<script> window.location = 'manage-subjects.php' </script>";
+                          }
+                      ?>
                     </form>
                   </div> 
                 </div>

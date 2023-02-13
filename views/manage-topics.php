@@ -9,7 +9,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Category-Questions</title>
+    <title>Manage Subjects</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -23,6 +23,7 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="../assets/css/style-admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
   </head>
@@ -100,18 +101,6 @@
                 </ul>
               </div>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="../views/admin-answer.php">
-                <span class="menu-title">Answer</span>
-                <i class="icon-chart menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../views/admin-schedule.php">
-                <span class="menu-title">Schedule</span>
-                <i class="icon-globe menu-icon"></i>
-              </a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-topics" aria-expanded="false" aria-controls="ui-topics">
                 <span class="menu-title">Topics</span>
@@ -145,8 +134,9 @@
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Topic Listing</li>
-                <li class="breadcrumb-item"><a href="../views/new-topic.php">New Topic</a></li>
+                <li class="breadcrumb-item active">Topics listing</li>
+                <li class="breadcrumb-item"><a href="../views/new-subject.php">New Subject</a></li>
+                <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>
                 <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
               </ol>
             </nav>
@@ -162,41 +152,66 @@
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
-                          <th scope="col">Name</th>
-                          <th scope="col">Subject</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Duration</th>
-                          <th scope="col">Questions</th>
-                          <th scope="col">Action</th>
+                          <th scope="col">TOPIC</th>
+                          <th scope="col">SUBJECT</th>
+                          <th scope="col">STATUS</th>
+                          <th scope="col">QUESTIONS</th>
+                          <th scope="col">ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
-                        $rows = getEnglish();
+                        $rows = getTopics();
                         $i = 0;
                         while ($i < count($rows)) {   //Creates a loop to loop through results
                           $row = $rows[$i];
-                          $id = $row['id'];
-                          $question = $row['question'];
-                          $optA = $row['optionA'];
-                          $optB = $row['optionB'];
-                          $optC = $row['optionC'];
-                          $optD = $row['optionD'];
-                          $right = $row['correctAnswer'];
+                          $id = $row['topic_id'];
+                          $name = $row['topic_name'];
+                          $state = $row['topic_stat'];
+                          $desc = $row['topic_desc'];
+                          $duration = $row['topic_duration'];
+                          $subj = $row['topic_subj'];
+                          $stamp = $row['topic_stamp'];
+                          if ($state == 1){ $status = "Active";}
+                          else if ($state == 0) { $status = "Inactive";}
+                          $url = 'localhost';
+                          $username = 'root';
+                          $password = '';              
+                          $conn = new mysqli($url, $username, $password, 'project');
+                          if ($conn->connect_error) {
+                            die("Connection failed!:" . $conn->connect_error);
+                        }
+                        
+                        $sql = "select * from tbl_exam_subjects where subj_id = '".$subj."'";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                          $subject = $row['subj_name'];
+                        
                           echo "<tr>
-                                    <td>" . $id . "</td>
-                                    <td>" . $question . "</td>
-                                    <td>" . $optA . "</td>
-                                    <td>" . $optB . "</td>
-                                    <td>" . $optC . "</td>
-                                    <td>" . $optD . "</td>
-                                    <td>" . $right . "</td>
+                                    <td>" . $name . "</td>
+                                    <td>" . $subject . "</td>
+                                    <td>" . $status . "</td>
                                     <td>" .
                             "<div class='d-flex '>
-                              <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-ID='$id' data-question='$question' data-optA='$optA' data-optB='$optB' data-optC='$optC' data-optD='$optD' data-right='$right' onClick='editCourse(this)'>EDIT</button>
-                                      </form>" .
-                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+                                <form method='POST'>
+                                <button type='button' id='addbutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#addModal' data-editid='$id' data-editName='$name' onClick='addQuestion(this)'>
+                                Add New Question
+                               </button>
+                                <input type='submit' class = 'btn btn-primary editbtn' name='editQuestions' value='Manage Questions' />
+                                </form>" .
+                            "</div>" .
+                            "</td>" .
+                            "<td>" .
+                            "<div class='d-flex '>
+                                <form method='POST'>
+                                <button type='button' id='expandbutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#expandmodal' data-exname='$name' data-exStatus='$state' data-exSubj='$subject' data-dura='$duration' data-exDesc='$desc' data-exTime='$stamp' onClick='expand(this)'>
+                                <i class='fa fa-search-plus'></i>
+                               </button>
+                                <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-editid='$id' data-editName='$name' data-dura='$duration data-status='$state' data-description='$desc' onClick='editSubject(this)'>
+                                <i class='fa fa-pencil'></i>
+                                </button>
+                                
+                            <button type='button' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' data-question='$name' onClick='archiveCourse(this)'><i class='fa fa-trash-o'></i></button> </form>" .
                             "</div>" .
                             "</td>" .
                             "</td>
@@ -206,117 +221,52 @@
                         ?>
                       </tbody>
                     </table>
+                      </div>
                   </div>
-                  <div>
-                    <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Question</button>
-                  </div>
-                </div>
               </div>
-              <!-- Add-->
-              <div class="card">
-              <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+              <!-- Add Bus-->
+              <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-centered">
                   <div class="modal-content">
+
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add a Question</h5>
+                      <h5 class="modal-title" id="addModalLabel">Add a Question</h5>
                     </div>
+
                     <form method="POST">
-                      <div class="modal-body p-sm-3">
-                        <div class="row">
-                        <div class="col-md-2 py-2">
-                                <small>Subject</small>
-                          </div>
-                          <div class="col-md-4 mx-md-n3 px-lg-2">
-                              <div class="form-group">
-                                <select class="form-control">
-                                  <option>English</option>
-                                  <option>Filipino</option>
-                                  <option>Math</option>
-                                  <option>Science</option>
-                                  <option>Logic</option>
-                                </select>
-                              </div>
-                          </div> 
-                          <!--
-                          <div class="col-md-2 py-2 px-lg-4">
-                                <small>Type</small>
-                          </div>
-                          <div class="col-md-4  mx-sm-0 mx-lg-n4">
-                              <div class="form-group">
-                                <select class="form-control" onchange="toggleDiv(this.value)">
-                                  <option value="1">Multiple Choice</option>
-                                  <option value="2">True/False</option>
-                                </select>
-                              </div>
-                          </div>
-                        
-                        -->
+                          <input type="hidden" name="new_id" id="new_id" />
+                      <div class="modal-body p-5">
+                        <div class="mb-3">
+                          <label>Question</label>
+                          <textarea name="question" class="form-control" id="question" rows="5" cols="45" required> </textarea>
                         </div>
                         <div class="mb-3">
-                          <small>Question</small>
-                          <textarea placeholder="Insert Question..." name="nquestion" class="form-control" id="question" rows="5" cols="45" required></textarea>
+                          <label>Option A</label>
+                          <input type="text" name="opta" class="form-control" id="optA" placeholder="Enter an option" required  />
                         </div>
-
-                        <div id="multiChoice">
-                            <div class="row">
-                              <div class="mb-3 col-md-4">
-                              <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
-                                  <i class="icon-picture"></i>
-                                </button>
-                                <small class="text-muted">Add image</small>
-                              </div>
-                              <div class="mb-3 col-md-4">
-                              <button type="button" onclick="hideOrShow()" class="btn btn-inverse-success btn-icon">
-                                  <i class="icon-plus"></i>
-                                </button>
-                                <small class="text-muted" >Add option</small>
-                              </div>
-                            </div>
-                            <div id="theDIV" style="display: none;">
-                              <div class="row">
-                                <div class="mb-3 col-md-11">
-                                <input type="text" name="nopta" class="form-control" id="eng" placeholder="Option 1" required  />
-                                </div>
-                                <div class="mb-3 mx-sm-0 mx-lg-n2">
-                                
-                                  <div class="input-group-append">
-                                    <button type="button" placeholder="add option" class="btn btn-inverse-success btn-icon">
-                                    <i class="icon-picture icon-sm"></i>
-                                  </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="mb-3">
-                              <small>Correct Answer</small>
-                              <select name="right" class="form-control" id="right" required>
-                                <option value="X">-Select a Letter-</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                              </select>
-                            </div>
+                        <div class="mb-3">
+                          <label>Option B</label>
+                          <input type="text" name="optb" class="form-control" id="optB" placeholder="Enter an option" required  />
                         </div>
-                        
-                        <!--
-                        <div id="TF" style="display: none;">
-                          <div class="col-md-6" >
-                          <small class="text-muted">Choose Correct Answer</small>
-                            <div class="form-group">
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> True <i class="input-helper"></i></label>
-                              </div>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value=""> False <i class="input-helper"></i></label>
-                              </div>
-                            </div>
-                          </div>
+                        <div class="mb-3">
+                          <label>Option C</label>
+                          <input type="text" name="optc" class="form-control" id="optC" placeholder="Enter an option" required  />
                         </div>
-                      -->
-                        
+                        <div class="mb-3">
+                          <label>Option D</label>
+                          <input type="text" name="optd" class="form-control" id="optD" placeholder="Enter an option" required  />
+                        </div>
+                        <div class="mb-3">
+                          <label>Correct Answer</label>
+                          <select name="rightopt" class="form-control" id="rightopt" required>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            
+                          </select>
+                        </div>
                         </div>
                       <div class="modal-footer">
                         <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
@@ -324,32 +274,79 @@
                           if (isset($_POST['Add'])){
                           $url = 'localhost';
                           $username = 'root';
-                          $password = '';                     
-                          $newQS = $_POST['nquestion'];                      
-                          $newA= $_POST['nopta'];                      
-                          $newB = $_POST['noptb'];                      
-                          $newC = $_POST['noptc'];                      
-                          $newD = $_POST['noptd'];                      
-                          $newright = $_POST['right'];                  
+                          $password = '';
+                          $qId = $_POST['new_id'];
+                          $newQS = $_POST['question'];                      
+                          $newA= $_POST['opta'];                      
+                          $newB = $_POST['optb'];                      
+                          $newC = $_POST['optc'];                      
+                          $newD = $_POST['optd'];                      
+                          $newright = $_POST['rightopt'];                  
                           $conn = new mysqli($url, $username, $password, 'project');
                           if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
-                          $sql = mysqli_query($conn,
-                          "INSERT INTO english_questionnaire(question, optionA, optionB, optionC, optionD, correctAnswer) VALUES ('".$newQS."','".$newA."', '".$newB."', '".$newC."', '".$newD."', '".$newright."')
+                          $addQuestion = mysqli_query($conn,
+                          "INSERT INTO tbl_topic_questions(que_desc, que_topic) VALUES ('".$newQS."', '".$qId."')
                           ");
-                              echo "<script> window.location = 'subject-english.php' </script>";
+                          $search = mysqli_query($conn,
+                          "select * from tbl_topic_questions where que_desc='".$newQS."'
+                          ");
+                          while($row = $search->fetch_assoc()) {
+                            $qidd = $row['que_id'];
+                          }
+                          $aright = 0; $bright = 0; $cright = 0; $dright = 0;
+                          if ($newright == "A") {$aright = 1;}
+                          else if ($newright == "B") {$bright = 1;}
+                          else if ($newright == "C") {$cright = 1;}
+                          else if ($newright == "D") {$dright = 1;}
+                          $addA = mysqli_query($conn,
+                          "INSERT INTO tbl_que_answers(que_id, ans_desc, correct) VALUES (".$qidd.", '".$newA."', ".$aright.")
+                          ");
+                          $addB = mysqli_query($conn,
+                          "INSERT INTO tbl_que_answers(que_id, ans_desc, correct) VALUES (".$qidd.", '".$newB."', ".$bright.")
+                          ");
+                          $addC = mysqli_query($conn,
+                          "INSERT INTO tbl_que_answers(que_id, ans_desc, correct) VALUES (".$qidd.", '".$newC."', ".$cright.")
+                          ");
+                          $addD = mysqli_query($conn,
+                          "INSERT INTO tbl_que_answers(que_id, ans_desc, correct) VALUES (".$qidd.", '".$newD."', ".$dright.")
+                          ");
+                              echo "<script> window.location = 'manage-topics.php' </script>";
                           }
                         ?>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
                     </form>
-                    </div>
                   </div>
                 </div>
               </div>
-              <!-- End Add-->
+              <!-- End Add Bus-->
 
+              <!-- View Modal-->
+              <div class="modal fade" id="expandmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Subject Description</h5>
+                      </div>
+                      
+                        <div class="modal-body">
+                          
+                          <h4 id = "topicName">Name:</h4>
+                          <h4 id = "topicSubj">Subject:</h4>
+                          <h4 id = "topicDesc">Description:</h4>
+                          <h4 id = "topicDuration">Duration: -- minutes</h4>
+                          <h4 id = "topicStatus">Status:</h4>
+                          <h4 id = "topicTime">Date Created:</h4>
+
+                          </div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                  </div>
+
+              <!-- End View Modal -->
+            
                 <!-- Edit Modal-->
                 <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -361,33 +358,22 @@
                         <div class="modal-body">
                           <input type="hidden" name="edit_id" id="edit_id" />
                           <div class="mb-3">
-                            <label>Question</label>
-                          <textarea name="edtquestion" class="form-control" id="edtquestion" rows="5" cols="45" required> </textarea>
+                            <label>Name</label>
+                          <input name="edtquestion" class="form-control" id="edtquestion" required/> 
                           </div>
                           <div class="mb-3">
-                            <label>Option A</label>
-                            <input type="text" name="edtA" id="edtA" class="form-control" required />
+                            <label>Description</label>
+                            <textarea type="text" name="edtA" id="edtA" class="form-control" rows="5" cols="45" required ></textarea>
                           </div>
                           <div class="mb-3">
-                            <label>Option B</label>
-                            <input type="text" name="edtB" id="edtB" class="form-control" required />
+                            <label>Duration (Minutes)</label>
+                            <input type="number" name="edtB" id="edtB" class="form-control" required />
                           </div>
                           <div class="mb-3">
-                            <label>Option C</label>
-                            <input type="text" name="edtC" id="edtC" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Option D</label>
-                            <input type="text" name="edtD" id="edtD" class="form-control" required />
-                          </div>
-                          <div class="mb-3">
-                            <label>Correct Answer</label>
+                            <label>Status</label>
                           <select name="edtright" class="form-control" id="edtright" required>
-                            <option value="X">-Select a Letter-</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
+                            <option value="1">ActiVe</option>
+                            <option value="0">Inactive</option>
                             
                           </select>
                           </div>
@@ -402,19 +388,17 @@
                           $password = '';                     
                           $edtid = $_POST['edit_id'];                      
                           $edtQuestion = $_POST['edtquestion'];                
-                          $edtoptionA = $_POST['edtA'];                
-                          $edtoptionB = $_POST['edtB'];                
-                          $edtoptionC = $_POST['edtC'];                
-                          $edtoptionD = $_POST['edtD'];                
+                          $edtoptionA = $_POST['edtA'];           
+                          $edtoptionB = $_POST['edtB'];           
                           $edtrightoption = $_POST['edtright'];                
                           $conn = new mysqli($url, $username, $password, 'project');
                           if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
                             $sql = mysqli_query($conn,
-                          "UPDATE english_questionnaire SET question='".$edtQuestion."', optionA='".$edtoptionA."', optionB='".$edtoptionB."', optionC='".$edtoptionC."', optionD='".$edtoptionD."', correctAnswer='".$edtrightoption."' WHERE id= ".$edtid."
+                          "UPDATE tbl_exam_topics SET topic_name='".$edtQuestion."' , topic_duration='".$edtoptionB."', topic_desc='".$edtoptionA."', topic_status='".$edtrightoption."', topic_timestamp = now() WHERE topic_id= ".$edtid."
                           ");
-                              echo "<script> window.location = 'subject-english.php' </script>";
+                              echo "<script> window.location = 'manage-subjects.php' </script>";
                           }
                         ?>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -435,7 +419,7 @@
                       <form  method="POST">
                         <div class="modal-body">
                           <input type="hidden" name="rem_course_id" id="course_id" />
-                          <h4>Are you sure you want to remove this??</h4>
+                          <h4 id = "rem_name">Are you sure you want to remove this??</h4>
                         </div>
                         <div class="modal-footer">
                           <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
@@ -450,9 +434,9 @@
                                   die("Connection failed!:" . $conn->connect_error);
                               }
                               $sql = mysqli_query($conn,
-                              "DELETE FROM english_questionnaire WHERE id = ".$delid."
+                              "DELETE FROM tbl_exam_subjects WHERE id = ".$delid."
                               ");
-                              echo "<script> window.location = 'subject-english.php' </script>";
+                              echo "<script> window.location = 'manage-subjects.php' </script>";
                               }
                           ?>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
@@ -544,17 +528,57 @@
             }
         </script>
 
-     <script>
-    function editCourse(value) {
-      let courseID = value.getAttribute("data-ID");
-      let courseName = value.getAttribute("data-hobname");
-      document.querySelector("#edit_id").value = courseID;
-      document.querySelector("#edithobName").value = courseName;
+    <script>
+    function addQuestion(value) {
+      const topname = document.getElementById("addModalLabel");
+      let edtid = value.getAttribute("data-editid");
+      let name = value.getAttribute("data-editName");
+      topname.innerHTML = 'Add a Question for ' + name ;
+      document.querySelector("#new_id").value = edtid;
+    }
+
+    function editSubject(value) {
+      let edtid = value.getAttribute("data-editid");
+      let subject = value.getAttribute("data-editName");
+      let desc = value.getAttribute("data-description");
+      let dura = value.getAttribute("data-dura");
+      
+      document.querySelector("#edit_id").value = edtid;
+      document.querySelector("#edtquestion").value = subject;
+      document.querySelector("#edtA").value = desc;
+      document.querySelector("#edtB").value = parseInt(dura);
+    }
+
+    function expand(value) {
+      const topname = document.getElementById("topicName");
+      const topsubj = document.getElementById("topicSubj");
+      const topdesc = document.getElementById("topicDesc");
+      const topstat = document.getElementById("topicStatus");
+      const topdura = document.getElementById("topicDuration");
+      const topstmp = document.getElementById("topicTime");
+      let name = value.getAttribute("data-exName");
+      let subj = value.getAttribute("data-exSubj");
+      let desc = value.getAttribute("data-exDesc");
+      let dura = value.getAttribute("data-dura");
+      let status = value.getAttribute("data-exStatus");
+      let stamp = value.getAttribute("data-exTime");
+      let state = "";
+      if (status == 1) {state = "Active";}
+      if (status == 0) {state = "Inactive";}
+      topname.innerHTML = 'Name: ' + name ;
+      topsubj.innerHTML = 'Subj: ' + subj ;
+      topdesc.innerHTML = 'Description: ' + desc ;
+      topdura.innerHTML = 'Duration: ' + dura + " minutes";
+      topstat.innerHTML = 'Status: ' + state ;
+      topstmp.innerHTML = 'Date Created: ' + stamp ;
     }
 
     function archiveCourse(value) {
+      const element = document.getElementById("rem_name");
       let courseID = value.getAttribute("data-courseid");
+      let name = value.getAttribute("data-question");
       document.querySelector("#course_id").value = courseID;
+      element.innerHTML = 'Are you sure you want to remove '+ '"' + name + '"' + '?';
     }
 
     /* check duplicate similar values
