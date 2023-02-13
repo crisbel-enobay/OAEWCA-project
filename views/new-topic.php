@@ -139,7 +139,7 @@
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../views/manage-topics.php">Topic Listing</a></li>
+                <li class="breadcrumb-item"><a href="../views/manage-topics.php">Topics Listing</a></li>
                 <li class="breadcrumb-item active">New Topic</li>
                 <li class="breadcrumb-item"><a href="../views/archived_topic.php">Archives</a></li>
               </ol>

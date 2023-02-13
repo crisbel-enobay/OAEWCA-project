@@ -101,7 +101,7 @@
                 </ul>
               </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" data-toggle="collapse" href="#ui-topics" aria-expanded="false" aria-controls="ui-topics">
                 <span class="menu-title">Topics</span>
                 <i class="icon-layers menu-icon"></i>
@@ -140,10 +140,10 @@
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Topics listing</li>
-                <li class="breadcrumb-item"><a href="../views/new-subject.php">New Subject</a></li>
+                <li class="breadcrumb-item"><a href="../views/manage-topics.php">Topics listing</a></li>
+                <li class="breadcrumb-item"><a href="../views/new-topic.php">New Topic</a></li>
                <!-- <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>-->
-                <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
+                <li class="breadcrumb-item active">Archives</li>
               </ol>
             </nav>
           </div>
@@ -152,7 +152,7 @@
             <div class="col-md-12 grid-margin">
               <div class="card">
                   <div class="card-header d-block d-md-flex">
-                    <p class="lead mb-0 ">Archive - Manage Topics</p>
+                    <p class="lead mb-0 ">Archive - Topics</p>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
