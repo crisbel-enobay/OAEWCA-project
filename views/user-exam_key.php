@@ -159,9 +159,9 @@
                           <th scope="col">EMAIL</th>
                           <th scope="col">EXAM KEY</th>
                           <th scope="col">EXAM DATE</th>
-                          <th scope="col">PREFFERED COURSE</th>
-                          <th scope="col">PREFFERED SECOND COURSE</th>
-                          <th scope="col">PREFFERED THIRD COURSE</th>
+                          <th scope="col">PREFERRED COURSE</th>
+                          <th scope="col">PREFERRED SECOND COURSE</th>
+                          <th scope="col">PREFERRED THIRD COURSE</th>
                           <th scope="col">INTEREST</th>
                           <th scope="col">SECOND INTEREST</th>
                           <th scope="col">THIRD INTEREST</th>
@@ -272,7 +272,7 @@
                                 </div>
                         </div>
                         <div class="mb-3">
-                        <label>Preffered Course</label>
+                        <label>preferred Course</label>
                         <div class="form-group">
                         <?php
                         include '../forms/database.php';
@@ -299,7 +299,7 @@
                               </div>
                                     </div>
                                     <div class="mb-3">
-                          <label>Select second preffered course</label>
+                          <label>Select second preferred course</label>
                           <div class="form-group">
                           <?php
                         include '../forms/database.php';
@@ -328,7 +328,7 @@
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Select third preffered course</label>
+                          <label>Select third preferred course</label>
                           <div class="form-group">
                           <?php
                         include '../forms/database.php';
