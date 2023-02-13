@@ -12,7 +12,44 @@ function getPaidTransactions() {
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
-// get all paid transactions
+function getGeneratedCodes() {
+    /*include 'database.php';
+    $sql = mysqli_query($conn,
+    "SELECT obrs_sample.id, course, dept, availability
+    FROM obrs_sample
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);*/
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id,email,exam_key,exam_date,strand,pref_course,interest,hobbies,exam_key_created_at
+    FROM generated_codes
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+//exam dates
+function getExamDates() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id,exam_date, exam_date_created
+    FROM admin_schedule
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+// get all courses
 function getCourses() {
     /*include 'database.php';
     $sql = mysqli_query($conn,
@@ -31,6 +68,38 @@ function getCourses() {
     $sql = mysqli_query($conn,
     "SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic
     FROM courses
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+// get subjects
+function getSubjects() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT *
+    FROM tbl_exam_subjects
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+// get topics
+function getTopics() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT *
+    FROM tbl_exam_topics
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
@@ -53,28 +122,6 @@ function getArchivedCourses() {
     $sql = mysqli_query($conn,
     "SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic
     FROM archived_courses
-    ");
-    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
-}
-// get generated codes
-function getGeneratedCodes() {
-    /*include 'database.php';
-    $sql = mysqli_query($conn,
-    "SELECT obrs_sample.id, course, dept, availability
-    FROM obrs_sample
-    ");
-    return mysqli_fetch_all($sql, MYSQLI_ASSOC);*/
-    $url = 'localhost';
-    $username = 'root';
-    $password = '';
-
-    $conn = new mysqli($url, $username, $password, 'project');
-    if ($conn->connect_error) {
-        die("Connection failed!:" . $conn->connect_error);
-    }
-    $sql = mysqli_query($conn,
-    "SELECT id,email,exam_key,exam_date,strand,pref_course,interest,hobbies,exam_key_created_at
-    FROM generated_codes
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }

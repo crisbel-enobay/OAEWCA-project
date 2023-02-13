@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2023 at 08:13 AM
+-- Generation Time: Feb 13, 2023 at 08:18 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -38,8 +38,7 @@ CREATE TABLE `admin_schedule` (
 --
 
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_date_created`) VALUES
-(37, '2023-02-10', '2023-01-25 08:50:19'),
-(38, '2023-02-14', '2023-02-12 19:43:49');
+(37, '2023-02-10', '2023-01-25 08:50:19');
 
 -- --------------------------------------------------------
 
@@ -142,6 +141,18 @@ INSERT INTO `english_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `exam_key`
+--
+
+CREATE TABLE `exam_key` (
+  `id` int(11) NOT NULL,
+  `exam_key` varchar(255) NOT NULL,
+  `exam_key_created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `filipino_questionnaire`
 --
 
@@ -176,7 +187,7 @@ CREATE TABLE `generated_codes` (
   `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `exam_key` varchar(255) NOT NULL,
-  `exam_date` varchar(255) NOT NULL,
+  `exam_date` date NOT NULL,
   `strand` varchar(255) NOT NULL,
   `pref_course` varchar(255) NOT NULL,
   `pref_secondary_course` varchar(255) NOT NULL,
@@ -187,16 +198,8 @@ CREATE TABLE `generated_codes` (
   `hobby` varchar(255) NOT NULL,
   `secondary_hobby` varchar(255) NOT NULL,
   `tertiary_hobby` varchar(255) NOT NULL,
-  `exam_key_created_at` datetime NOT NULL
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `generated_codes`
---
-
-INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `interest`, `secondary_interest`, `tertiary_interest`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
-(8, 'user@gmail.com', 'ixdu8925', '2023-02-11', 'GAS', 'Bachelor of Science in Entrepreneurial Management (BSEM)', '', '', 'sample interest', '', '', 'Dancing/Singing', '', '', '2023-02-12 03:02:15'),
-(16, 'lebbraumjayce@gmail.com', 'qjpo3975', '2023-02-14', 'ABM', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Mathematics', 'Travelling', 'Videography', 'Communicating', 'Writing', 'Gaming', '2023-02-13 15:04:29');
 
 -- --------------------------------------------------------
 
@@ -326,12 +329,99 @@ INSERT INTO `science_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_exam_subjects`
+--
+
+CREATE TABLE `tbl_exam_subjects` (
+  `subj_id` int(11) NOT NULL,
+  `subj_name` varchar(255) NOT NULL,
+  `subj_desc` varchar(255) NOT NULL,
+  `subj_status` int(11) NOT NULL,
+  `subj_timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_exam_subjects`
+--
+
+INSERT INTO `tbl_exam_subjects` (`subj_id`, `subj_name`, `subj_desc`, `subj_status`, `subj_timestamp`) VALUES
+(1, 'English', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:21:08'),
+(2, 'Filipino', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:34:17'),
+(3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_exam_topics`
+--
+
+CREATE TABLE `tbl_exam_topics` (
+  `topic_id` int(11) NOT NULL,
+  `topic_name` varchar(255) NOT NULL,
+  `topic_desc` varchar(255) NOT NULL,
+  `topic_duration` int(11) NOT NULL,
+  `topic_stat` int(11) NOT NULL,
+  `topic_stamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `topic_subj` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_exam_topics`
+--
+
+INSERT INTO `tbl_exam_topics` (`topic_id`, `topic_name`, `topic_desc`, `topic_duration`, `topic_stat`, `topic_stamp`, `topic_subj`) VALUES
+(1, 'Verbal Test', 'This includes sentence and grammar construction', 60, 1, '2023-02-11 14:59:31', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_que_answers`
+--
+
+CREATE TABLE `tbl_que_answers` (
+  `ans_id` int(11) NOT NULL,
+  `que_id` int(11) NOT NULL,
+  `ans_desc` varchar(255) NOT NULL,
+  `correct` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_que_answers`
+--
+
+INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
+(1, 1, 'verb', 1),
+(2, 1, 'noun', 0),
+(3, 1, 'pronoun', 0),
+(4, 1, 'adjective', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_topic_questions`
+--
+
+CREATE TABLE `tbl_topic_questions` (
+  `que_id` int(11) NOT NULL,
+  `que_desc` varchar(255) NOT NULL,
+  `que_topic` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_topic_questions`
+--
+
+INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
+(1, 'A word used to describe an action, state, or occurrence, and forming the main part of the predicate of a sentence', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `Fullname` varchar(30) NOT NULL,
+  `fullname` varchar(30) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `type` int(11) NOT NULL,
@@ -345,10 +435,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
-(1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
-(2, 'marvs', 'lebbraumjayce@gmail.com', '$2y$10$YeI9rdAyfqt/bic10Mli2uUsWvHU7ZlQJsnuuvQ6URVlxGnziaGYi', 0, '253435', '2023-02-11 17:24:39', '', ''),
-(3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
+INSERT INTO `users` (`fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
+('admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
+('marvin caharop', 'lebbraumjayce@gmail.com', '$2y$10$LLqTF71mFh0BDayI8yCWk.dwLcnnlZoIZSc7SAmjPD4Qr1OFwI59m', 0, '113398', '2023-01-04 21:29:46', 'd41d8cd98f00b204e9800998ecf8427e7892', '2023-01-05 14:31:25'),
+('student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
 
 --
 -- Indexes for dumped tables
@@ -371,13 +461,18 @@ ALTER TABLE `archived_courses`
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`crs_id`),
-  ADD UNIQUE KEY `crs_id` (`crs_id`);
+  ADD PRIMARY KEY (`crs_id`);
 
 --
 -- Indexes for table `english_questionnaire`
 --
 ALTER TABLE `english_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `exam_key`
+--
+ALTER TABLE `exam_key`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -417,10 +512,34 @@ ALTER TABLE `science_questionnaire`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_exam_subjects`
+--
+ALTER TABLE `tbl_exam_subjects`
+  ADD PRIMARY KEY (`subj_id`);
+
+--
+-- Indexes for table `tbl_exam_topics`
+--
+ALTER TABLE `tbl_exam_topics`
+  ADD PRIMARY KEY (`topic_id`);
+
+--
+-- Indexes for table `tbl_que_answers`
+--
+ALTER TABLE `tbl_que_answers`
+  ADD PRIMARY KEY (`ans_id`);
+
+--
+-- Indexes for table `tbl_topic_questions`
+--
+ALTER TABLE `tbl_topic_questions`
+  ADD PRIMARY KEY (`que_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`fullname`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -430,7 +549,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_schedule`
 --
 ALTER TABLE `admin_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `archived_courses`
@@ -448,7 +567,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `english_questionnaire`
 --
 ALTER TABLE `english_questionnaire`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `exam_key`
+--
+ALTER TABLE `exam_key`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `filipino_questionnaire`
@@ -460,7 +585,7 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
@@ -487,10 +612,28 @@ ALTER TABLE `science_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT for table `tbl_exam_subjects`
 --
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `tbl_exam_subjects`
+  MODIFY `subj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_exam_topics`
+--
+ALTER TABLE `tbl_exam_topics`
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_que_answers`
+--
+ALTER TABLE `tbl_que_answers`
+  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_topic_questions`
+--
+ALTER TABLE `tbl_topic_questions`
+  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
