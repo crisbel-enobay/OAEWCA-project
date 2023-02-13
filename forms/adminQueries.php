@@ -28,7 +28,7 @@ function getGeneratedCodes() {
         die("Connection failed!:" . $conn->connect_error);
     }
     $sql = mysqli_query($conn,
-    "SELECT id,email,exam_key,exam_date,strand,pref_course,interest,hobbies,exam_key_created_at
+    "SELECT id,email,exam_key,exam_date, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at
     FROM generated_codes
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);

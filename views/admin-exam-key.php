@@ -183,53 +183,71 @@
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
-                        <tr>
-                          <th scope="col">CODE ID</th>
+                      <tr>
+                          <th scope="col">ID</th>
                           <th scope="col">EMAIL</th>
                           <th scope="col">EXAM KEY</th>
                           <th scope="col">EXAM DATE</th>
-                          <th scope="col">PREFFERED COURSE</th>
+                          <th scope="col">PREFERRED COURSE</th>
+                          <th scope="col">PREFERRED SECOND COURSE</th>
+                          <th scope="col">PREFERRED THIRD COURSE</th>
                           <th scope="col">INTEREST</th>
-                          <th scope="col">HOBBIES</th>
+                          <th scope="col">SECOND INTEREST</th>
+                          <th scope="col">THIRD INTEREST</th>
+                          <th scope="col">HOBBY</th>
+                          <th scope="col">SECOND HOBBY</th>
+                          <th scope="col">THIRD HOBBY</th>
                           <th scope="col">EXAM KEY CREATED AT</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php
+                      <?php
                         $rows = getGeneratedCodes();
                         $i = 0;
-                        while ($i < count($rows)) {   //Creates a loop to loop through results
+                        while ($i < count($rows)) {   //Creates a loop to loop through results {
                           $row = $rows[$i];
-                          $id = $row['id'];
-                          $email = $row['email'];
-                          $exam_key = $row['exam_key'];
-                          $exam_date = $row['exam_date'];
-                          $pref_course = $row['pref_course'];
-                          $interest = $row['interest'];
-                          $hobbies = $row['hobbies'];
-                          $exam_key_created_at = $row['exam_key_created_at'];
-                          echo "<tr>
-                                    <td>" . $id . "</td>
-                                    <td>" . $email . "</td>
-                                    <td>" . $exam_key . "</td>
-                                    <td>" . $exam_date . "</td>
-                                    <td>" . $pref_course . "</td>
-                                    <td>" . $interest . "</td>
-                                    <td>" . $hobbies . "</td>
-                                    <td>" . $exam_key_created_at . "</td>
-                                    <td>" .
-                            "<div class='d-flex '>
-                              <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
-                                      </form>" .
-                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
-                            "</div>" .
-                            "</td>" .
-                            "</td>
-                                  </tr>";  //$row['index'] the index here is a field name
-                          $i++; 
+                          $id = $row["id"];
+                          $email = ($_SESSION['email']);
+                          $exam_key = $row["exam_key"];
+                          $exam_date = $row["exam_date"];
+                          $pref_course = $row["pref_course"];
+                          $pref_second_course = $row["pref_secondary_course"];
+                          $pref_third_course = $row["pref_tertiary_course"];
+                          $interest = $row["interest"];
+                          $second_interest = $row["secondary_interest"];
+                          $third_interest = $row["tertiary_interest"];
+                          $hobby1 = $row["hobby"];
+                          $hobby2 = $row["secondary_hobby"];
+                          $hobby3 = $row["tertiary_hobby"];
+                          $exam_key_created_at = $row["exam_key_created_at"];
+                          echo "<tr>";
+                          echo "<td>" . $row["id"] . "</td>";
+                          echo "<td>" . $row["email"] . "</td>";
+                          echo "<td>" . $row["exam_key"] . "</td>";
+                          echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" . $pref_course . "</td>";
+                          echo "<td>" . $pref_second_course . "</td>";
+                          echo "<td>" . $pref_third_course . "</td>";
+                          echo "<td>" . $row["interest"] . "</td>";
+                          echo "<td>" . $second_interest . "</td>";
+                          echo "<td>" . $third_interest . "</td>";
+                          echo "<td>" .  $hobby1 . "</td>";
+                          echo "<td>" .  $hobby2 . "</td>";
+                          echo "<td>" .  $hobby3 . "</td>";
+                          echo "<td>" . $row["exam_key_created_at"] . "</td>";
+                          // echo      "<td>". "<div class='d-flex '>
+                          //       <form method='POST' action='../forms/delete_bus.php'>
+                          //                 <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
+                          //               </form>" .
+                          //     "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+                          //     "</div>" .
+                          //     "</td>" .
+                               "</tr>";
+                               $i++;
                         }
-                        ?>
+                        
+                        mysqli_close($conn);
+                      ?>
                       </tbody>
                     </table>
                   </div>
