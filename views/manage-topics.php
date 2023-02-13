@@ -184,8 +184,12 @@
                         
                         $sql = "select * from tbl_exam_subjects where subj_id = '".$subj."'";
                         $result = $conn->query($sql);
-                        $row = $result->fetch_assoc();
-                          $subject = $row['subj_name'];
+                        $check = $result->fetch_assoc();
+                          $subject = $check['subj_name'];
+                        $lqs = "select count(*) as total from tbl_topic_questions where Que_topic = '".$id."'";
+                        $count = $conn->query($lqs);
+                        $recheck = $count->fetch_assoc();
+                          $que_count = $recheck['total'];
                         
                           echo "<tr>
                                     <td>" . $name . "</td>
@@ -197,8 +201,11 @@
                                 <button type='button' id='addbutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#addModal' data-editid='$id' data-editName='$name' onClick='addQuestion(this)'>
                                 Add New Question
                                </button>
-                                <input type='submit' class = 'btn btn-primary editbtn' name='editQuestions' value='Manage Questions' />
-                                </form>" .
+                               <button type='button' id='managebutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#manageModal' data-manageid='$id' data-manageCount='$que_count' data-manageName='$name' onClick='manageQuestion(this)'>
+                               Manage Questions
+                              </button>";
+                            
+                          echo "</form>" .
                             "</div>" .
                             "</td>" .
                             "<td>" .
@@ -346,6 +353,34 @@
                   </div>
 
               <!-- End View Modal -->
+
+              <!-- Manage Modal -->
+              <div class="modal fade" id="manageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Manage Questions</h5>
+                      </div>
+                      <form  method="POST">
+                        <div class="modal-body">
+                          <input type="hidden" name="manage_id" id="manage_id" />
+                          <h4 id = "manage_text">There are currently xx questions for xxxx.</h4>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" name="Manage" class="btn btn-success" value="Manage" />
+                          <?php
+                            if (isset($_POST['Manage'])){
+                            $_SESSION['topics_id'] = $_POST['manage_id'];
+                            echo "<script> window.location = 'manage-question.php' </script>";
+                              }
+                          ?>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Manage Modal -->
             
                 <!-- Edit Modal-->
                 <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -535,6 +570,15 @@
       let name = value.getAttribute("data-editName");
       topname.innerHTML = 'Add a Question for ' + name ;
       document.querySelector("#new_id").value = edtid;
+    }
+
+    function manageQuestion(value) {
+      const confirmtext = document.getElementById("manage_text");
+      let manageid = value.getAttribute("data-manageid");
+      let count = value.getAttribute("data-manageCount");
+      let name = value.getAttribute("data-manageName");
+      confirmtext.innerHTML = 'There are currently ' + count + ' question(s) on ' + name;
+      document.querySelector("#manage_id").value = manageid;
     }
 
     function editSubject(value) {
