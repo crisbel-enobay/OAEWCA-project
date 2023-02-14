@@ -78,7 +78,7 @@ if (isset($_POST["submit"])){
                           showConfirmButton: false,
                           timer: 1500
                         }).then(function() {
-                          window.location = '../views/admin.php';
+                          window.location = '../views/user-dashboard.php';
                         });
                       }, 100);
                     </script>";
