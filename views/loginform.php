@@ -39,6 +39,7 @@ while ($row = $result->fetch_assoc()) {
   }
 }
 $message = "Invalid credentials";
+
 // header must be called before any other output
 }
 ?>
@@ -128,9 +129,6 @@ $message = "Invalid credentials";
                       <div class="col-12">
                           <input class="btn btn-primary w-100" type="submit" name="submit" value="Login">
                           <div class="col 12 lead small" style="color: red; padding: 8px; font-size: 13px; ">
-                            <?php if (isset($_POST["submit"])){
-                            echo $message;
-                          } ?>
                           </div>
                         </div>
                         <div class="col-12">
@@ -167,6 +165,18 @@ $message = "Invalid credentials";
 
   <!-- Vendor JS Files -->
   <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+<?php if ($message === "Invalid credentials") { ?>
+Swal.fire({
+  title: 'Error',
+  text: '<?php echo $message; ?>',
+  icon: 'error',
+  confirmButtonText: 'Ok'
+});
+<?php } ?>
+</script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
