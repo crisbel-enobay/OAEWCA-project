@@ -214,8 +214,8 @@
                               die("Connection failed!:" . $conn->connect_error);
                           }
                             $sql = mysqli_query($conn,
-                          " INSERT INTO tbl_exam_topics (topic_name, topic_desc, topic_stat, topic_subj) 
-                          VALUES ('".$tname."', '".$tdesc."', 1, '".$tsubj."')
+                          " INSERT INTO tbl_exam_topics (topic_name, topic_desc, topic_stat, topic_duration, topic_subj) 
+                          VALUES ('".$tname."', '".$tdesc."', 1, '".$tdura."', '".$tsubj."')
                           ");
                               echo "<script> window.location = 'manage-topics.php' </script>";
                           }
