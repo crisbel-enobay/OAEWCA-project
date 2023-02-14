@@ -255,7 +255,7 @@
                           </form>
                       </div>
                       <div class="signup-image">
-                          <figure><img src="../assets/img/signup-image.jpg" class="sign-img" alt="sing up image"></figure>
+                          <figure><img src="../assets/img/home.png" class="sign-img" width="500" height="500" alt="sing up image"></figure>
                           <a href="../views/loginform.php" class="signup-image-link">I am already member</a>
                       </div>
                   </div>

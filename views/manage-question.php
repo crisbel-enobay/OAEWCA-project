@@ -168,7 +168,7 @@
                         include 'conn.php';
                         $sql = mysqli_query($conn,
                         "SELECT *
-                        FROM tbl_topic_questions
+                        FROM tbl_topic_questions where que_topic = ".$_SESSION['topics_id']."
                         ");
                         $sqlrows = mysqli_fetch_all($sql, MYSQLI_ASSOC);
                         $rows = $sqlrows;
