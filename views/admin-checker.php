@@ -5,7 +5,7 @@
     }
      if ($_SESSION['type'] != 'admin'){
         //  echo "<script> window.location = '../index.php' </script>";
-        echo "<script> window.location = '../index.php' </script>";
+        echo "<script> window.location = '../views/loginform.php' </script>";
      }
      else{
         // include "file/session.php";
