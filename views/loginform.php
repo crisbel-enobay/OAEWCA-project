@@ -2,45 +2,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+  if(session_status() !== PHP_SESSION_ACTIVE) 
+  {
+   session_start();
+  }
+   if (isset($_SESSION['valid'])){
+   if ($_SESSION['valid'] == true){
+       if ($_SESSION['type'] == 'admin'){
+            echo "<script> window.location = 'admin.php' </script>";
+       }
+       else if ($_SESSION['type'] == 'student'){
+            echo "<script> window.location = 'user-dashboard.php' </script>";
+       }
+   }
+}
+
 if (isset($_POST["submit"])){
   mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // enable exceptions
-$conn = mysqli_connect('localhost', "root", "", "project");
-$log_email = $_POST['your_name'];
-$log_password = $_POST['your_pass'];
-$_SESSION['valid'] = false;
-include "../file/session.php";
+  $conn = mysqli_connect('localhost', "root", "", "project");
+  $log_email = $_POST['your_name'];
+  $log_password = $_POST['your_pass'];
+  $_SESSION['valid'] = false;
+  include "../file/session.php";
 
-$sql = "SELECT email, fullname, password, verified_date, type FROM users WHERE email=?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('s', $log_email);
-$stmt->execute();
-$result = $stmt->get_result();
+  $sql = "SELECT email, fullname, password, verified_date, type FROM users WHERE email=?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param('s', $log_email);
 
-while ($row = $result->fetch_assoc()) {
-  if (password_verify($log_password, $row['password'])) {
-      $message = "ok";
-      // header must be called before any other output
-      if ($row['verified_date'] == null){
-          header("Location: ../views/email-ui.php?email=" . $log_email . "");
-      }
-      else{ 
-        $_SESSION['valid'] = true;
-        $_SESSION['fullname'] = $row['fullname'];
-        $_SESSION['email'] = $row['email'];
-          if ($row['type'] == '1'){
-              $_SESSION['type'] = 'admin';
-              echo "<script> window.location = '../views/admin.php' </script>";
-            }
-            else if ($row['type'] == '0'){
-              $_SESSION['type'] = 'student';
-              echo "<script> window.location = '../views/user-dashboard.php' </script>";
-            }
+  $check_email = "SELECT COUNT(*) as count FROM users WHERE email=?";
+  $stmt_email = $conn->prepare($check_email);
+  $stmt_email->bind_param('s', $log_email);
+  $stmt_email->execute();
+  $email_count = $stmt_email->get_result()->fetch_assoc()['count'];
+
+  if($email_count > 0){
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      $row = $result->fetch_assoc();
+      if ($row && password_verify($log_password, $row['password'])) {
+          $message = "ok";
+          // header must be called before any other output
+          if ($row['verified_date'] == null){
+              header("Location: ../views/email-ui.php?email=" . $log_email . "");
           }
+          else{ 
+              $_SESSION['valid'] = true;
+              $_SESSION['fullname'] = $row['fullname'];
+              $_SESSION['email'] = $row['email'];
+              if ($row['type'] == '1'){
+                $_SESSION['type'] = 'admin';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                    <script> 
+                      setTimeout(function() {
+                        Swal.fire({
+                          title: 'Login successful',
+                          icon: 'success',
+                          showConfirmButton: false,
+                          timer: 1500
+                        }).then(function() {
+                          window.location = '../views/admin.php';
+                        });
+                      }, 100);
+                    </script>";
+              }
+              
+              else if ($row['type'] == '0'){
+                  $_SESSION['type'] = 'student';
+                  echo "<script> window.location = '../views/user-dashboard.php' </script>";
+              }
+          }
+      }
+      else { ?>
+      <?php
+         $_SESSION['type'] = '';
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                    <script> 
+                      setTimeout(function() {
+                        Swal.fire({
+                          title: 'Error',
+                          icon: 'error',
+                          text: 'Invalid password',
+                          showConfirmButton: true,
+                          timer: 1500
+                        }).then(function() {
+                          window.location = '../views/admin.php';
+                        });
+                      }, 100);
+                    </script>";
+                    }
   }
-}
-$message = "Invalid credentials";
-
-// header must be called before any other output
+  else { ?>
+        <?php
+         $_SESSION['type'] = '';
+         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+             <script> 
+               setTimeout(function() {
+                 Swal.fire({
+                   title: 'Error',
+                   icon: 'error',
+                   text: 'Email does not exist in the database',
+                   showConfirmButton: true,
+                   timer: 1500
+                 }).then(function() {
+                   window.location = '../views/loginform.php';
+                 });
+               }, 100);
+             </script>";
+  }
 }
 ?>
 <head>
@@ -165,18 +234,6 @@ $message = "Invalid credentials";
 
   <!-- Vendor JS Files -->
   <script src="../assets/vendor/aos/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-<script>
-<?php if ($message === "Invalid credentials") { ?>
-Swal.fire({
-  title: 'Error',
-  text: '<?php echo $message; ?>',
-  icon: 'error',
-  confirmButtonText: 'Ok'
-});
-<?php } ?>
-</script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
