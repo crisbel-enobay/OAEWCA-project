@@ -82,6 +82,27 @@
             // echo 'Message has been sent';
  
             $encrypted_password = password_hash($reg_password, PASSWORD_DEFAULT);
+              if (!isset($_POST['agree-term'])) {
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                    <script> 
+                      setTimeout(function() {
+                        Swal.fire({
+                          title: 'Error',
+                          icon: 'error',
+                          text: 'Check agree terms',
+                          showConfirmButton: true,
+                          timer: 1500
+                        }).then(function() {
+                          window.location = '../views/register.php';
+                        });
+                      }, 100);
+                    </script>";
+              } else {
+                  // process the form submission
+                  // ...
+             
+      
+          
  
             if ($reg_password == $reg_password2) {
               // Connect to the database
@@ -113,11 +134,22 @@
             // exit();
           }
           else {
-            function cantSignup(){
-              $cantSignup_message = "Passwords do not match. Registration failed.";
-              return $cantSignup_message;
-            }
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+             <script> 
+               setTimeout(function() {
+                 Swal.fire({
+                   title: 'Error',
+                   icon: 'error',
+                   text: 'Password must be matched',
+                   showConfirmButton: true,
+                   timer: 1500
+                 }).then(function() {
+                   window.location = '../views/register.php';
+                 });
+               }, 100);
+             </script>";
           }
+        }
        } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
@@ -165,14 +197,6 @@
 </head>
 
 <body>
-<?php
-    include("../forms/alert.php");
-
-    $status = (isset($_GET['status']) ? $_GET['status'] : '');
-    if ($_GET) {
-      alert($status);
-    }
-    ?>
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
@@ -222,13 +246,8 @@
                                   <input type="password" name="password2" id="re_pass" placeholder="Repeat your password" required/>
                               </div>
                               <div class="form-group">
-                                  <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required/>
+                                  <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
                                   <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                                  <?php 
-                                    if (isset($_POST["signup"])){
-                                        echo cantSignup();
-                                    }
-                                    ?>
                                 </div>
                               <div class="form-group form-button">
                                   <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
