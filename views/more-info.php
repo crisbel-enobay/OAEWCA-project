@@ -1,5 +1,6 @@
 <?php
 include '../file/logout-function.php';
+include '../views/student-checker.php';
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +29,8 @@ include '../file/logout-function.php';
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
-      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+       <!-- partial:partials/_navbar.html -->
+       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="../views/admin.php">
             <img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" class="logo-dark" />
@@ -36,14 +38,14 @@ include '../file/logout-function.php';
           <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome Student!</h5>
+          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?> </h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-               <span class="font-weight-normal"> Student user </span></a>
+               <span class="font-weight-normal"> <?php echo ($_SESSION['fullname']); ?></span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <p class="mb-1 mt-3">Student user</p>
+                  <p class="mb-1 mt-3"><?php echo ($_SESSION['fullname']); ?></p>
                   <p class="font-weight-light text-muted mb-0"><?php echo ($_SESSION['email']); ?></p>
                 </div>
                 <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
