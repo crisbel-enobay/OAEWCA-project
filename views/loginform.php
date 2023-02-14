@@ -69,7 +69,19 @@ if (isset($_POST["submit"])){
               
               else if ($row['type'] == '0'){
                   $_SESSION['type'] = 'student';
-                  echo "<script> window.location = '../views/user-dashboard.php' </script>";
+                  echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                    <script> 
+                      setTimeout(function() {
+                        Swal.fire({
+                          title: 'Login successful',
+                          icon: 'success',
+                          showConfirmButton: false,
+                          timer: 1500
+                        }).then(function() {
+                          window.location = '../views/admin.php';
+                        });
+                      }, 100);
+                    </script>";
               }
           }
       }

@@ -91,7 +91,6 @@
                           icon: 'error',
                           text: 'Check agree terms',
                           showConfirmButton: true,
-                          timer: 1500
                         }).then(function() {
                           window.location = '../views/register.php';
                         });
@@ -116,7 +115,19 @@
             // check email
             $duplicate_email = mysqli_query($conn, "SELECT email, password, verified_date, type FROM users WHERE email= '$reg_email'");
 		          if (mysqli_num_rows($duplicate_email) > 0) {
-		          	header ("Location: ../views/register.php?status=user_exists");
+		          	echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                    <script> 
+                      setTimeout(function() {
+                        Swal.fire({
+                          title: 'Error',
+                          icon: 'error',
+                          text: 'Email already exist',
+                          showConfirmButton: true,
+                        }).then(function() {
+                          window.location = '../views/register.php';
+                        });
+                      }, 100);
+                    </script>";
     	          exit;
 		          }else{
 			          $ins = mysqli_query($conn, "INSERT INTO `users` (fullname, email, password, type, verification_code, verified_date) VALUES ('$reg_fullname','$reg_email','$encrypted_password', 0 ,'$verification_code', NULL )");
