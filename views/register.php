@@ -128,7 +128,6 @@
                         });
                       }, 100);
                     </script>";
-    	          exit;
 		          }else{
 			          $ins = mysqli_query($conn, "INSERT INTO `users` (fullname, email, password, type, verification_code, verified_date) VALUES ('$reg_fullname','$reg_email','$encrypted_password', 0 ,'$verification_code', NULL )");
 			        if ($ins) {
