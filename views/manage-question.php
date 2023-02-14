@@ -101,7 +101,7 @@
                 </ul>
               </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" data-toggle="collapse" href="#ui-topics" aria-expanded="false" aria-controls="ui-topics">
                 <span class="menu-title">Topics</span>
                 <i class="icon-layers menu-icon"></i>
