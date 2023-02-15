@@ -27,6 +27,34 @@
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
     <!-- SweetAlert JS -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+ <style>
+  table {
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #F48A54; /* orange */
+    color: white;
+    font-weight: bold;
+  }
+  th.status {
+    background-color: #333; /* dark gray */
+    color: white;
+  }
+  td.status_message {
+    background-color: #ffd54f; /* light orange */
+    font-weight: bold;
+    text-align: center;
+  }
+
+</style>
   </head>
   <body>
     <div class="container-scroller">
@@ -156,6 +184,7 @@
                       <thead>
                         <tr>
                           <th scope="col">ID</th>
+                          <th class="status" scope="col">STATUS</th>
                           <th scope="col">EMAIL</th>
                           <th scope="col">EXAM KEY</th>
                           <th scope="col">EXAM DATE</th>
@@ -180,6 +209,7 @@
                           $id = $row["id"];
                           $exam_key = $row["exam_key"];
                           $exam_date = $row["exam_date"];
+                          $status = $row["status"];
                           $pref_course = $row["pref_course"];
                           $pref_second_course = $row["pref_secondary_course"];
                           $pref_third_course = $row["pref_tertiary_course"];
@@ -192,6 +222,7 @@
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
                           echo "<td>" . $row["id"] . "</td>";
+                          echo "<td class=\"status_message\">" . $status . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
                           echo "<td>" . $row["exam_key"] . "</td>";
                           echo "<td>" . $row["exam_date"] . "</td>";
@@ -581,8 +612,7 @@
                             if (!$conn) {
                                 die("Connection failed: " . mysqli_connect_error());
                             }
-
-                            
+                            else{
 
                             // Check if the email address already exists in the database
                             $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
@@ -593,26 +623,41 @@
                                 $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
                                 $delete_result = mysqli_query($conn, $delete_query);
 
-                                if ($delete_result) {                                    
-                                } else {
-                                    
-                                }
-                            }
-                        
-
-                            // Insert the new data
-                            $insert_result = mysqli_query($conn,
-                            "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course. "', '".$pref_secondary_course."', '".$pref_tertiary_course."',  '".$related_interest1."', '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                                if ($delete_result) {   
+                                  //process of modifying profiling
+                                  $insert_result = mysqli_query($conn,
+                            "INSERT INTO generated_codes(email,exam_key,exam_date, status, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','pending','".$strand."', '".$pref_course. "', '".$pref_secondary_course."', '".$pref_tertiary_course."', '".$related_interest1."', '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
                             ");
 
                             if ($insert_result) {
                               echo "<script> window.location = '../views/user-exam_key.php' </script>";
                             } else {
+                              
                             }
 
                             // Close the database connection
                             mysqli_close($conn);  
-                          }    
+                          }
+                           } 
+                            
+                            else{ 
+
+                            // Insert the new profiling data
+                            $insert_result = mysqli_query($conn,
+                            "INSERT INTO generated_codes(email,exam_key,exam_date, status, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','pending','".$strand."', '".$pref_course. "', '".$pref_secondary_course."', '".$pref_tertiary_course."', '".$related_interest1."', '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                            ");
+
+                            if ($insert_result) {
+                              echo "<script> window.location = '../views/user-exam_key.php' </script>";
+                            } else {
+
+                            }
+
+                            // Close the database connection
+                            mysqli_close($conn);  
+                          }
+                        }
+                        }  
                         ?>          
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
