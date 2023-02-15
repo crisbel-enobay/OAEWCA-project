@@ -25,6 +25,7 @@ include "../views/student-checker.php";
     <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -148,8 +149,10 @@ include "../views/student-checker.php";
                         
                             <form id ="myForm"method="POST">
                            
-                                  <button type="submit"name="submit" class="btn btn-outline-primary btn-fw">Submit</button>                  
-                                  <div id="message" style="display: none;"></div>
+                            <div style="display: flex; justify-content: center;">
+                            <button type="submit" name="submit" class="btn btn-outline-primary btn-fw">Submit</button>                        
+                          </div>
+                          <div id="message" style="display: none;"></div>
                               
                             </form>
                           </div>
@@ -184,8 +187,6 @@ $(document).ready(function() {
     e.preventDefault(); // prevent the form from submitting
 
     var inputkey = $("#inputkey").val();
-    var response1 = "Your key is expired.";
-    var response2 = "invalid key";
 
     // make an AJAX request to submit the form data
     $.ajax({
@@ -193,12 +194,20 @@ $(document).ready(function() {
       url: "../forms/insert-key.php",
       data: { inputkey: inputkey },
       success: function(response) {
-        // show the response from the server in the message div
-  
-          $("#message").text(response).show();     
-        if (response == 'valid') {
-      window.location.href = 'exam-english.php';
-    } 
+        if (response == 'Your key is valid this date and has been approved. you can take the exam') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: response,
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false
+          }).then((result) => {
+            window.location.href = 'exam-english.php';
+          });
+        } else {
+          $("#message").text(response).show();
+        }
       }
     });
   });
