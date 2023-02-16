@@ -179,7 +179,8 @@
                           <th class="font-weight-bold" scope="col">EMAIL</th>
                           <th class="font-weight-bold" scope="col">EXAM KEY</th>
                           <th class="font-weight-bold" scope="col">EXAM DATE</th>
-                          <th class="font-weight-bold" scope="col">EXAM TIME</th>
+                          <th class="font-weight-bold" scope="col">START TIME</th>
+                          <th class="font-weight-bold" scope="col">END TIME</th>
                           <th class="font-weight-bold" scope="col">PREFERRED COURSE</th>
                           <th class="font-weight-bold" scope="col">PREFERRED SECOND COURSE</th>
                           <th class="font-weight-bold" scope="col">PREFERRED THIRD COURSE</th>
@@ -202,6 +203,7 @@
                           $exam_key = $row["exam_key"];
                           $exam_date = $row["exam_date"];
                           $formattedTime = date('h:i A', strtotime($row['exam_time']));
+                          $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                           $status = $row["status"];
                           $pref_course = $row["pref_course"];
                           $pref_second_course = $row["pref_secondary_course"];
@@ -219,7 +221,8 @@
                           echo "<td>" . $row["email"] . "</td>";
                           echo "<td>" . $row["exam_key"] . "</td>";
                           echo "<td>" . $row["exam_date"] . "</td>";
-                          echo "<td>" .  $formattedTime . "</td>";
+                          echo "<td>" . $formattedTime . "</td>";
+                          echo "<td>" . $formattedTime2 . "</td>";
                           echo "<td>" . $pref_course . "</td>";
                           echo "<td>" . $pref_second_course . "</td>";
                           echo "<td>" . $pref_third_course . "</td>";
@@ -268,11 +271,11 @@
                               <?php
                                 // PHP code to generate option tags
                                 include '../forms/database.php';
-                                $query = "SELECT exam_date, exam_time FROM admin_schedule";
+                                $query = "SELECT exam_date, exam_time, exam_time_end FROM admin_schedule";
                                 $result = mysqli_query($conn, $query);
                                 if (mysqli_num_rows($result) > 0) {
                                   while ($row = mysqli_fetch_assoc($result)) {
-                                    $optionValue = $row['exam_date'] . ' ' . $row['exam_time'];
+                                    $optionValue = $row['exam_date'] . ' ' . $row['exam_time'] . ' ' . $row['exam_time_end'];
                                     echo '<option value="' . $optionValue . '">' . $optionValue . '</option>';
                                   }
                                 } 
@@ -585,7 +588,7 @@
                           $last = substr(str_shuffle("1234567890"), 0, 4);
                           $exam_code = $first . $last;         
                           $examDatetime = $_POST['exam_datetime']; 
-                          list($examDate, $examTime) = explode(' ', $examDatetime);   
+                          list($examDate, $examTime, $examtimeend) = explode(' ', $examDatetime);
                           $strand = $_POST['strand_opt'];                      
                           $pref_course = $_POST['course_opt1'];  
                           $pref_secondary_course = $_POST['course_opt2'];  
@@ -634,11 +637,11 @@
 
                                   if ($delete_result) {   
                                       //process of modifying profiling
-                                      $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time, status, 
+                                      $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
                                       strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
                                        secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
                                        exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
-                                       '".$examDate."','". $examTime."','pending','".$strand."',
+                                       '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                         '".$pref_course. "', '".$pref_secondary_course."',
                                          '".$pref_tertiary_course."', '".$related_interest1."', 
                                          '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
@@ -649,6 +652,9 @@
                                           echo "<script> window.location = '../views/user-exam_key.php' </script>";
                                       } else {
                                           // Handle the error
+                                          printf("Error: %s\n", mysqli_error($conn));
+                                          echo "SQL query: " . $sql;
+                                          exit();
                                       }
                                   } else {
                                       // Handle the error
@@ -663,12 +669,11 @@
                             else{ 
 
                             // Insert the new profiling data
-                            $insert_result = mysqli_query($conn,
-                            "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time, status, 
+                            $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
                             strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
                              secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
                              exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
-                             '".$examDate."','".$examTime."','pending','".$strand."',
+                             '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                               '".$pref_course. "', '".$pref_secondary_course."',
                                '".$pref_tertiary_course."', '".$related_interest1."', 
                                '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
