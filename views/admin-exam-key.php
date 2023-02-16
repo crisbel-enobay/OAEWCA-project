@@ -185,6 +185,7 @@
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                       <tr>
+                          <th scope="col">STATUS</th>
                           <th scope="col">ID</th>
                           <th scope="col">EMAIL</th>
                           <th scope="col">EXAM KEY</th>
@@ -222,6 +223,7 @@
                           $hobby3 = $row["tertiary_hobby"];
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
+                          echo "<td>" . $row["status"] . "</td>";
                           echo "<td>" . $row["id"] . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
                           echo "<td>" . $row["exam_key"] . "</td>";
