@@ -205,8 +205,56 @@ $(document).ready(function() {
           }).then((result) => {
             window.location.href = 'exam-english.php';
           });
-        } else {
-          $("#message").text(response).show();
+        }
+        else if (response == 'Your key is valid but it has not been approved yet.') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Sorry',
+            text: response,
+            showConfirmButton: true
+          }).then((result) => {
+            window.location.href = 'user-exam.php';
+          });
+        }
+        else if (response == 'Your key is not valid at this time. Please wait until the exam starts.') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Sorry',
+            text: response,
+            showConfirmButton: true
+          }).then((result) => {
+            window.location.href = 'user-exam.php';
+          });
+        }
+        else if (response == 'Your key is not valid at this time. The exam has already ended.') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Sorry',
+            text: response,
+            showConfirmButton: true
+          }).then((result) => {
+            window.location.href = 'user-exam.php';
+          });
+        }
+        else if (response == 'Your key is not valid at this time.') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Sorry',
+            text: response,
+            showConfirmButton: true
+          }).then((result) => {
+            window.location.href = 'user-exam.php';
+          });
+        }
+        else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Sorry',
+            text: response,
+            showConfirmButton: true
+          }).then((result) => {
+            window.location.href = 'user-exam.php';
+          });
         }
       }
     });
