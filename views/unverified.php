@@ -1,6 +1,45 @@
 <?php 
+include '../forms/adminQueries.php';
 include '../file/logout-function.php';
 include "admin-checker.php";
+?>
+
+<?php
+
+// Assume we have a database connection called $conn
+include '../forms/database.php';
+
+if (isset($_POST['approve'])) {
+  $userIds = $_POST['user_ids'];
+  
+  foreach ($userIds as $userId) {
+    // Generate a new reset link token
+    $status = "active";
+  
+    // Update the database with the new token
+    $sql = "UPDATE generated_codes SET status='".$status."' WHERE id='".$userId."'";
+    mysqli_query($conn, $sql);
+
+    // Check if any rows were updated
+    if (mysqli_affected_rows($conn) > 0) {
+      // Display SweetAlert and redirect to a certain page
+      echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+      <script> 
+        setTimeout(function() {
+          Swal.fire({
+            title: 'Approve Successful',
+            icon: 'success',
+            showConfirmButton: true,
+            text: '',
+          }).then(function() {
+            window.location = '../views/unverified.php';
+          });
+        }, 100);
+      </script>";
+    }
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +47,7 @@ include "admin-checker.php";
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>History</title>
+    <title>Unverified</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -24,6 +63,25 @@ include "admin-checker.php";
     <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
+    <style>
+  table {
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    
+  }
+  th {
+    color: black;
+    font-weight: bold;
+  }
+ 
+
+</style>
   </head>
   <body>
     <div class="container-scroller">
@@ -149,88 +207,98 @@ include "admin-checker.php";
           <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
+              <form id="myform" action="" method="POST">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
                   <p class="lead mb-0 ">Unverified Students</p>
                   </div>
-                  <div class="table-responsive border rounded p-1">
-                    <table class="table">
+                  <div class="table-responsive border rounded p-1">    
+                      <table class="table table-hover text-nowrap datatable">
                       <thead>
-                        <tr>
-                          <th class="font-weight-bold">ID</th>
-                          <th class="font-weight-bold">Student Name</th>
-                          <th class="font-weight-bold">Course</th>
-                          <th class="font-weight-bold">Sample</th>
-                          <th class="font-weight-bold">Score</th>
-                          <th class="font-weight-bold">Status</th>
+                      <tr>
+                          <th class="font-weight-bold" scope="col">SELECT</th>
+                          <th class="font-weight-bold" id="status" scope="col" >STATUS</th>
+                          <th class="font-weight-bold" scope="col">ID</th>
+                          <th class="font-weight-bold" scope="col">EMAIL</th>
+                          <th class="font-weight-bold" scope="col">EXAM KEY</th>
+                          <th class="font-weight-bold" scope="col">EXAM DATE</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED COURSE</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED SECOND COURSE</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED THIRD COURSE</th>
+                          <th class="font-weight-bold" scope="col">INTEREST</th>
+                          <th class="font-weight-bold" scope="col">SECOND INTEREST</th>
+                          <th class="font-weight-bold" scope="col">THIRD INTEREST</th>
+                          <th class="font-weight-bold" scope="col">HOBBY</th>
+                          <th class="font-weight-bold" scope="col">SECOND HOBBY</th>
+                          <th class="font-weight-bold" scope="col">THIRD HOBBY</th>
+                          <th class="font-weight-bold" scope="col">EXAM KEY CREATED AT</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>Crisbel Enobay</td>
-                          <td>BSCS</td>
-                          <td>Sample</td>
-                          <td>85/100</td>
-                          <td>
-                            <div class="badge badge-success p-2">Passed</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>Lorence Lactud</td>
-                          <td>BSIT</td>
-                          <td>Sample</td>
-                          <td>75/100</td>
-                          <td>
-                            <div class="badge badge-warning p-2">Pending</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>Grace Cortex</td>
-                          <td>BSIS</td>
-                          <td>Sample</td>
-                          <td>70/100</td>
-                          <td>
-                            <div class="badge badge-danger p-2">Failed</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>Marvin Caharop</td>
-                          <td>BSCS</td>
-                          <td>Sample</td>
-                          <td>90/100</td>
-                          <td>
-                            <div class="badge badge-success p-2">Passed</div>
-                          </td>
-                        </tr>
+                      <?php
+                         // Create connection
+                         $conn = new mysqli('localhost', 'root', '', 'project');
+                         // Check connection
+                         if ($conn->connect_error) {
+                           die("Connection failed: " . $conn->connect_error);
+                         }
+                        $rows = getUnapprovedStudent();
+                        $i = 0;
+                        while ($i < count($rows)) {   //Creates a loop to loop through results {
+                           $row = $rows[$i];
+                          $status = $row["status"];
+                          $id = $row["id"];
+                          $email = ($_SESSION['email']);
+                          $exam_key = $row["exam_key"];
+                          $exam_date = $row["exam_date"];
+                          $pref_course = $row["pref_course"];
+                          $pref_second_course = $row["pref_secondary_course"];
+                          $pref_third_course = $row["pref_tertiary_course"];
+                          $interest = $row["interest"];
+                          $second_interest = $row["secondary_interest"];
+                          $third_interest = $row["tertiary_interest"];
+                          $hobby1 = $row["hobby"];
+                          $hobby2 = $row["secondary_hobby"];
+                          $hobby3 = $row["tertiary_hobby"];
+                          $exam_key_created_at = $row["exam_key_created_at"];
+                          echo "<tr>";
+                          echo "<td><input type='checkbox' name='user_ids[]' value='".$row['id']."'></td>";
+                          echo "<td><div class='badge badge-danger p-2'>" . $status . "</div></td>";
+                          echo "<td>" . $row["id"] . "</td>";
+                          echo "<td>" . $row["email"] . "</td>";
+                          echo "<td>" . $row["exam_key"] . "</td>";
+                          echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" . $row["pref_course"] . "</td>";
+                          echo "<td>" .$row["pref_secondary_course"] . "</td>";
+                          echo "<td>" .  $row["pref_tertiary_course"] . "</td>";
+                          echo "<td>" . $row["interest"] . "</td>";
+                          echo "<td>" . $row["secondary_interest"] . "</td>";
+                          echo "<td>" . $row["tertiary_interest"] . "</td>";
+                          echo "<td>" .  $row["hobby"] . "</td>";
+                          echo "<td>" .  $row["secondary_hobby"] . "</td>";
+                          echo "<td>" .  $row["tertiary_hobby"] . "</td>";
+                          echo "<td>" . $row["exam_key_created_at"] . "</td>";
+                          // echo      "<td>". "<div class='d-flex '>
+                          //       <form method='POST' action='../forms/delete_bus.php'>
+                          //                 <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
+                          //               </form>" .
+                          //     "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+                          //     "</div>" .
+                          //     "</td>" .
+                               "</tr>";
+                               $i++;
+                        }
+                        
+                        mysqli_close($conn);
+                      ?>
                       </tbody>
                     </table>
                   </div>
-                  <div class="d-flex mt-4 flex-wrap">
-                    <p class="text-muted">Showing 1 to 10 of 57 entries</p>
-                    <nav class="ml-auto">
-                      <ul class="pagination separated pagination-info">
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                      </ul>
-                    </nav>
-                  </div>
+                  <div>
+                <button type="submit" name="approve" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">approve selected students</button>
+              </div>
                 </div>
+               </form>
               </div>
             </div>
           
@@ -256,6 +324,11 @@ include "admin-checker.php";
     <script src="../vendors/moment/moment.min.js"></script>
     <script src="../vendors/daterangepicker/daterangepicker.js"></script>
     <script src="../vendors/chartist/chartist.min.js"></script>
+     <!-- Vendor JS Files -->
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="../js/off-canvas.js"></script>
@@ -264,5 +337,42 @@ include "admin-checker.php";
     <!-- Custom js for this page -->
     <script src="../js/dashboard.js"></script>
     <!-- End custom js for this page -->
+
+    <!-- Template Main JS File -->
+    <script src="../assets/js/main2.js"></script>
+    <!-- Other Custom JS -->
+    <script>
+   // Assume the form has an ID of "myForm"
+const form = document.getElementById("myForm");
+const submitButton = form.querySelector("button[name='approve']");
+
+submitButton.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  const selectedRows = form.querySelectorAll("input[type='checkbox']:checked");
+  const selectedIds = [];
+
+  selectedRows.forEach((row) => {
+    selectedIds.push(row.value);
+  });
+
+  const formData = new FormData(form);
+  selectedIds.forEach((id) => {
+    formData.append("user_ids[]", id);
+  });
+
+  fetch("../forms/approved.php", {
+    method: "POST",
+    body: formData
+  })
+  .then((response) => response.text())
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+});
+</script>
   </body>
 </html>
