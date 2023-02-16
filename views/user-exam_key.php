@@ -27,7 +27,6 @@
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
     <!-- SweetAlert JS -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
  <style>
   table {
     border-collapse: collapse;
@@ -38,21 +37,13 @@
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+    
   }
   th {
-    background-color: #F48A54; /* orange */
-    color: white;
+    color: black;
     font-weight: bold;
   }
-  th.status {
-    background-color: #333; /* dark gray */
-    color: white;
-  }
-  td.status_message {
-    background-color: #ffd54f; /* light orange */
-    font-weight: bold;
-    text-align: center;
-  }
+ 
 
 </style>
   </head>
@@ -170,34 +161,35 @@
 
               </ol>
             </nav>
-          </div>
+          </div> 
           <!-- Quick Action Toolbar Starts-->
           <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Existing Exam Schedule</h5>
+                    <h5 class="mb-0">Existing exam schedule</h5>
                   </div>
                   <div class="table-responsive border rounded p-1">
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
-                          <th scope="col">ID</th>
-                          <th class="status" scope="col">STATUS</th>
-                          <th scope="col">EMAIL</th>
-                          <th scope="col">EXAM KEY</th>
-                          <th scope="col">EXAM DATE</th>
-                          <th scope="col">PREFERRED COURSE</th>
-                          <th scope="col">PREFERRED SECOND COURSE</th>
-                          <th scope="col">PREFERRED THIRD COURSE</th>
-                          <th scope="col">INTEREST</th>
-                          <th scope="col">SECOND INTEREST</th>
-                          <th scope="col">THIRD INTEREST</th>
-                          <th scope="col">HOBBY</th>
-                          <th scope="col">SECOND HOBBY</th>
-                          <th scope="col">THIRD HOBBY</th>
-                          <th scope="col">EXAM KEY CREATED AT</th>
+                          <th class="font-weight-bold" id="status" scope="col" >STATUS</th>
+                          <th class="font-weight-bold" scope="col">ID</th>                     
+                          <th class="font-weight-bold" scope="col">EMAIL</th>
+                          <th class="font-weight-bold" scope="col">EXAM KEY</th>
+                          <th class="font-weight-bold" scope="col">EXAM DATE</th>
+                          <th class="font-weight-bold" scope="col">EXAM TIME</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED COURSE</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED SECOND COURSE</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED THIRD COURSE</th>
+                          <th class="font-weight-bold" scope="col">INTEREST</th>
+                          <th class="font-weight-bold" scope="col">SECOND INTEREST</th>
+                          <th class="font-weight-bold" scope="col">THIRD INTEREST</th>
+                          <th class="font-weight-bold" scope="col">HOBBY</th>
+                          <th class="font-weight-bold" scope="col">SECOND HOBBY</th>
+                          <th class="font-weight-bold" scope="col">THIRD HOBBY</th>
+                          <th class="font-weight-bold" scope="col">EXAM KEY CREATED AT</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -209,6 +201,7 @@
                           $id = $row["id"];
                           $exam_key = $row["exam_key"];
                           $exam_date = $row["exam_date"];
+                          $formattedTime = date('h:i A', strtotime($row['exam_time']));
                           $status = $row["status"];
                           $pref_course = $row["pref_course"];
                           $pref_second_course = $row["pref_secondary_course"];
@@ -221,11 +214,12 @@
                           $hobby3 = $row["tertiary_hobby"];
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
+                          echo "<td><div class='badge badge-danger p-2'>" . $status . "</div></td>";  
                           echo "<td>" . $row["id"] . "</td>";
-                          echo "<td class=\"status_message\">" . $status . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
                           echo "<td>" . $row["exam_key"] . "</td>";
                           echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" .  $formattedTime . "</td>";
                           echo "<td>" . $pref_course . "</td>";
                           echo "<td>" . $pref_second_course . "</td>";
                           echo "<td>" . $pref_third_course . "</td>";
@@ -268,26 +262,22 @@
                     <form method="POST">
                       <div class="modal-body p-5">
                         <div class="mb-3">
+                        <label> Select Date and Time </label>
                         <div class="form-group">
-                              <?php 
-                              include '../forms/database.php';
-                                  $query1 ="SELECT exam_date FROM admin_schedule";
-                                  $result = $conn->query($query1);
-                                  if($result->num_rows> 0){
-                                    $date_options= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                              <select name="exam_datetime" id="exam_datetime">
+                              <?php
+                                // PHP code to generate option tags
+                                include '../forms/database.php';
+                                $query = "SELECT exam_date, exam_time FROM admin_schedule";
+                                $result = mysqli_query($conn, $query);
+                                if (mysqli_num_rows($result) > 0) {
+                                  while ($row = mysqli_fetch_assoc($result)) {
+                                    $optionValue = $row['exam_date'] . ' ' . $row['exam_time'];
+                                    echo '<option value="' . $optionValue . '">' . $optionValue . '</option>';
                                   }
+                                } 
                               ?>
-                                <label> Select Date </label>
-                                 <select required name="exam_date" class="form-control">
-                                 <option value="">-- select date --</option>
-                                 <?php 
-                                    foreach ($date_options as $option) {
-                                    ?>
-                                      <option><?php echo $option['exam_date']; ?> </option>
-                                      <?php 
-                                      }
-                                    ?>
-                                </select> 
+                            </select>
                               </div>
                         </div>
                         <div class="mb-3">
@@ -593,8 +583,9 @@
                           $email = ($_SESSION['email']);   
                           $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
                           $last = substr(str_shuffle("1234567890"), 0, 4);
-                          $exam_code = $first . $last;       
-                          $date = $_POST['exam_date'];                      
+                          $exam_code = $first . $last;         
+                          $examDatetime = $_POST['exam_datetime']; 
+                          list($examDate, $examTime) = explode(' ', $examDatetime);   
                           $strand = $_POST['strand_opt'];                      
                           $pref_course = $_POST['course_opt1'];  
                           $pref_secondary_course = $_POST['course_opt2'];  
@@ -614,37 +605,74 @@
                             }
                             else{
 
-                            // Check if the email address already exists in the database
-                            $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
-                            $check_result = mysqli_query($conn, $check_query);
+                          // Check if the email address already exists in the database
+                          $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
+                          $check_result = mysqli_query($conn, $check_query);
 
-                            if (mysqli_num_rows($check_result) > 0) {
-                                // Delete the existing data
-                                $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
-                                $delete_result = mysqli_query($conn, $delete_query);
+                          if (mysqli_num_rows($check_result) > 0) {
+                              $row = mysqli_fetch_array($check_result);
 
-                                if ($delete_result) {   
-                                  //process of modifying profiling
-                                  $insert_result = mysqli_query($conn,
-                            "INSERT INTO generated_codes(email,exam_key,exam_date, status, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','pending','".$strand."', '".$pref_course. "', '".$pref_secondary_course."', '".$pref_tertiary_course."', '".$related_interest1."', '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
-                            ");
+                              // Check if the status is already approved
+                              if ($row['status'] == 'active') {
+                                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                <script> 
+                                  setTimeout(function() {
+                                    Swal.fire({
+                                      title: 'Exam Schedule already approved',
+                                      icon: 'error',
+                                      showConfirmButton: true,
+                                      text: 'cannot be modified again',
+                                    }).then(function() {
+                                      window.location = '../views/user-exam_key.php';
+                                    });
+                                  }, 100);
+                                </script>";
+                              } else {
+                                  // Delete the existing data
+                                  $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
+                                  $delete_result = mysqli_query($conn, $delete_query);
 
-                            if ($insert_result) {
-                              echo "<script> window.location = '../views/user-exam_key.php' </script>";
-                            } else {
-                              
-                            }
+                                  if ($delete_result) {   
+                                      //process of modifying profiling
+                                      $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time, status, 
+                                      strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
+                                       secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
+                                       exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                                       '".$examDate."','". $examTime."','pending','".$strand."',
+                                        '".$pref_course. "', '".$pref_secondary_course."',
+                                         '".$pref_tertiary_course."', '".$related_interest1."', 
+                                         '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
+                                         '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                                      ");
 
-                            // Close the database connection
-                            mysqli_close($conn);  
+                                      if ($insert_result) {
+                                          echo "<script> window.location = '../views/user-exam_key.php' </script>";
+                                      } else {
+                                          // Handle the error
+                                      }
+                                  } else {
+                                      // Handle the error
+                                  }
+
+                                  // Close the database connection
+                                  mysqli_close($conn);
+                              }
                           }
-                           } 
+
                             
                             else{ 
 
                             // Insert the new profiling data
                             $insert_result = mysqli_query($conn,
-                            "INSERT INTO generated_codes(email,exam_key,exam_date, status, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','pending','".$strand."', '".$pref_course. "', '".$pref_secondary_course."', '".$pref_tertiary_course."', '".$related_interest1."', '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                            "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time, status, 
+                            strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
+                             secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
+                             exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                             '".$examDate."','".$examTime."','pending','".$strand."',
+                              '".$pref_course. "', '".$pref_secondary_course."',
+                               '".$pref_tertiary_course."', '".$related_interest1."', 
+                               '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
+                               '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
                             ");
 
                             if ($insert_result) {
