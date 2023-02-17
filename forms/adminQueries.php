@@ -66,7 +66,7 @@ function getCourses() {
         die("Connection failed!:" . $conn->connect_error);
     }
     $sql = mysqli_query($conn,
-    "SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic
+    "SELECT *
     FROM courses
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);

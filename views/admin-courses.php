@@ -185,12 +185,6 @@
                         <tr>
                           <th scope="col">COURSE ID</th>
                           <th scope="col">COURSES</th>
-                          <th scope="col">RELATED HOBBIES</th>
-                          <th scope="col">ENGLISH</th>
-                          <th scope="col">MATH</th>
-                          <th scope="col">FILIPINO</th>
-                          <th scope="col">SCIENCE</th>
-                          <th scope="col">LOGIC</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -201,21 +195,9 @@
                           $row = $rows[$i];
                           $id = $row['crs_id'];
                           $courseName = $row['course'];
-                          $hobbies = $row['related_hobbies'];
-                          $eng = $row['English'];
-                          $mat = $row['Math'];
-                          $fil = $row['Filipino'];
-                          $sci = $row['Science'];
-                          $log = $row['Logic'];
                           echo "<tr>
                                     <td>" . $id . "</td>
                                     <td>" . $courseName . "</td>
-                                    <td>" . $hobbies . "</td>
-                                    <td>" . $eng . "</td>
-                                    <td>" . $mat . "</td>
-                                    <td>" . $fil . "</td>
-                                    <td>" . $sci . "</td>
-                                    <td>" . $log . "</td>
                                     <td>" .
                             "<div class='d-flex '>
                               <form method='POST' action='../forms/delete_bus.php'>

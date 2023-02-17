@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2023 at 08:41 PM
+-- Generation Time: Feb 17, 2023 at 11:31 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -68,44 +68,44 @@ CREATE TABLE `courses` (
   `crs_id` int(11) NOT NULL,
   `course` varchar(255) NOT NULL,
   `related_hobbies` varchar(255) NOT NULL,
-  `English` int(11) NOT NULL,
-  `Math` int(11) NOT NULL,
-  `Filipino` int(11) NOT NULL,
-  `Science` int(11) NOT NULL,
-  `Logic` int(11) NOT NULL
+  `secondary_hobbies` varchar(255) NOT NULL,
+  `related_interest` varchar(255) NOT NULL,
+  `secondary_interest` varchar(255) NOT NULL,
+  `strand` varchar(255) NOT NULL,
+  `average_score` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`crs_id`, `course`, `related_hobbies`, `English`, `Math`, `Filipino`, `Science`, `Logic`) VALUES
-(1, 'Bachelor of Science in Mathematics (BSMath)', 'Mathematics', 3, 4, 3, 3, 4),
-(2, 'Bachelor of Science in Psychology (BSPsych)', 'Communicating', 3, 2, 2, 4, 3),
-(3, 'Bachelor of Science in Criminology (BSCrim)', 'Volunteering', 3, 3, 2, 3, 3),
-(4, 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Programming/Coding', 2, 3, 3, 2, 4),
-(5, 'Bachelor of Science in Information System (BSIS)', 'Programming/Coding', 2, 3, 3, 2, 3),
-(6, 'Bachelor of Science in Information Technology (BSIT)', 'Programming/Coding', 2, 3, 3, 2, 3),
-(7, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Programming/Coding', 2, 3, 3, 2, 3),
-(8, 'Bachelor of Arts in Political Science (ABPS/ABPolSci)', 'Volunteering', 3, 2, 2, 2, 3),
-(9, 'Bachelor of Arts in Communication (BAComm)', 'Communicating', 4, 2, 3, 2, 2),
-(10, 'Bachelor of Arts in Behavioral Science: Organizational and Social Systems Development (ABBS-OSSD)', 'Communicating', 3, 2, 3, 2, 3),
-(11, 'Bachelor in Public Administration (BPA)', 'Communicating', 3, 2, 3, 2, 2),
-(12, 'Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 'Researching', 3, 4, 2, 2, 3),
-(13, 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 'Researching', 3, 4, 2, 2, 3),
-(14, 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 'Researching', 3, 4, 2, 2, 3),
-(15, 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Researching', 3, 4, 2, 2, 3),
-(16, 'Bachelor of Science in Accountancy (BSA)', 'Researching', 3, 4, 2, 2, 3),
-(17, 'Bachelor of Science in Accounting Information System (BSAIS)', 'Researching', 3, 4, 2, 2, 3),
-(18, 'Bachelor of Science in Office Administration (BSOAd)', 'Researching', 3, 4, 2, 2, 3),
-(19, 'Bachelor of Science in Tourism Management (BSTM)', 'Travelling', 4, 2, 2, 2, 2),
-(20, 'Bachelor of Science in Hotel and Restaurant Management (BSHRM)', 'House Keeping', 2, 2, 2, 2, 2),
-(21, 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 'House Keeping', 2, 2, 2, 2, 2),
-(22, 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', '', 3, 3, 3, 3, 3),
-(23, 'Bachelor in Secondary Education: Science (BSEd-Sci)', 'Researching', 3, 3, 2, 4, 3),
-(24, 'Bachelor in Secondary Education: English (BSEd-Eng)', 'Writing', 4, 2, 2, 2, 2),
-(25, 'Bachelor in Secondary Education: English-Chinese (BSEd-EngChi)', 'Writing', 4, 2, 2, 2, 2),
-(26, 'Bachelor in Secondary Education: BTLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)', 'Assembling/Disassembling', 2, 2, 2, 2, 2);
+INSERT INTO `courses` (`crs_id`, `course`, `related_hobbies`, `secondary_hobbies`, `related_interest`, `secondary_interest`, `strand`, `average_score`) VALUES
+(1, 'Bachelor of Science in Mathematics (BSMath)', 'Mathematics', '0', '0', '0', '0', 0),
+(2, 'Bachelor of Science in Psychology (BSPsych)', 'Communicating', '0', '0', '0', '0', 0),
+(3, 'Bachelor of Science in Criminology (BSCrim)', 'Volunteering', '0', '0', '0', '0', 0),
+(4, 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Programming/Coding', '0', '0', '0', '0', 0),
+(5, 'Bachelor of Science in Information System (BSIS)', 'Programming/Coding', '0', '0', '0', '0', 0),
+(6, 'Bachelor of Science in Information Technology (BSIT)', 'Programming/Coding', '0', '0', '0', '0', 0),
+(7, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Programming/Coding', '0', '0', '0', '0', 0),
+(8, 'Bachelor of Arts in Political Science (ABPS/ABPolSci)', 'Volunteering', '0', '0', '0', '0', 0),
+(9, 'Bachelor of Arts in Communication (BAComm)', 'Communicating', '0', '0', '0', '0', 0),
+(10, 'Bachelor of Arts in Behavioral Science: Organizational and Social Systems Development (ABBS-OSSD)', 'Communicating', '0', '0', '0', '0', 0),
+(11, 'Bachelor in Public Administration (BPA)', 'Communicating', '0', '0', '0', '0', 0),
+(12, 'Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 'Researching', '0', '0', '0', '0', 0),
+(13, 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 'Researching', '0', '0', '0', '0', 0),
+(14, 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 'Researching', '0', '0', '0', '0', 0),
+(15, 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Researching', '0', '0', '0', '0', 0),
+(16, 'Bachelor of Science in Accountancy (BSA)', 'Researching', '0', '0', '0', '0', 0),
+(17, 'Bachelor of Science in Accounting Information System (BSAIS)', 'Researching', '0', '0', '0', '0', 0),
+(18, 'Bachelor of Science in Office Administration (BSOAd)', 'Researching', '0', '0', '0', '0', 0),
+(19, 'Bachelor of Science in Tourism Management (BSTM)', 'Travelling', '0', '0', '0', '0', 0),
+(20, 'Bachelor of Science in Hotel and Restaurant Management (BSHRM)', 'House Keeping', '0', '0', '0', '0', 0),
+(21, 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 'House Keeping', '0', '0', '0', '0', 0),
+(22, 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', '', '0', '0', '0', '0', 0),
+(23, 'Bachelor in Secondary Education: Science (BSEd-Sci)', 'Researching', '0', '0', '0', '0', 0),
+(24, 'Bachelor in Secondary Education: English (BSEd-Eng)', 'Writing', '0', '0', '0', '0', 0),
+(25, 'Bachelor in Secondary Education: English-Chinese (BSEd-EngChi)', 'Writing', '0', '0', '0', '0', 0),
+(26, 'Bachelor in Secondary Education: BTLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)', 'Assembling/Disassembling', '0', '0', '0', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -376,7 +376,7 @@ CREATE TABLE `tbl_exam_subjects` (
 
 INSERT INTO `tbl_exam_subjects` (`subj_id`, `subj_name`, `subj_desc`, `subj_status`, `subj_timestamp`) VALUES
 (1, 'English', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:21:08'),
-(2, 'Filipino', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:34:17'),
+(2, 'Science', 'This includes general knowledge in science', 1, '2023-02-17 22:16:36'),
 (3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48');
 
 -- --------------------------------------------------------
@@ -400,7 +400,9 @@ CREATE TABLE `tbl_exam_topics` (
 --
 
 INSERT INTO `tbl_exam_topics` (`topic_id`, `topic_name`, `topic_desc`, `topic_duration`, `topic_stat`, `topic_stamp`, `topic_subj`) VALUES
-(1, 'Verbal Test', 'This includes sentence and grammar construction', 60, 1, '2023-02-11 14:59:31', 1);
+(1, 'Vocabulary', 'one of the four words or phrases given a choices means almost SAME as the capitalized word in the preceding sentence. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 21:44:02', 1),
+(2, 'Basic Math Problems', 'This is a test of your ability to think out solution to quantitative problems in Basic Mathematics. Analyze and solve each problem carefully. Choose the letter that corresponds to your answer.\r\n', 45, 1, '2023-02-17 21:56:12', 3),
+(3, 'General Science', 'This is a test of your proficiency in General Science. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 22:17:18', 2);
 
 -- --------------------------------------------------------
 
@@ -420,10 +422,66 @@ CREATE TABLE `tbl_que_answers` (
 --
 
 INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
-(1, 1, 'verb', 1),
-(2, 1, 'noun', 0),
-(3, 1, 'pronoun', 0),
-(4, 1, 'adjective', 0);
+(13, 4, 'winding', 1),
+(14, 4, 'straight', 0),
+(15, 4, 'climbing', 0),
+(16, 4, 'rocky', 0),
+(17, 5, 'beach', 0),
+(18, 5, 'lakeside', 0),
+(19, 5, 'quench', 1),
+(20, 5, 'dessert', 0),
+(21, 6, 'operation', 0),
+(22, 6, 'alleviate', 1),
+(23, 6, 'gesture', 0),
+(24, 6, 'aggravate', 0),
+(25, 7, 'heavy', 0),
+(26, 7, 'menial', 1),
+(27, 7, 'challenging', 0),
+(28, 7, 'meticulous', 0),
+(29, 8, 'nourish', 1),
+(30, 8, 'keep', 0),
+(31, 8, 'race', 0),
+(32, 8, 'jeopardize', 0),
+(33, 9, '2 minutes', 0),
+(34, 9, '45 minutes', 0),
+(35, 9, '2 hours', 1),
+(36, 9, '6 hours', 0),
+(37, 10, '₱ 500 000', 1),
+(38, 10, '₱ 250 000', 0),
+(39, 10, '₱ 1 250 000', 0),
+(40, 10, '₱ 1 500 000', 0),
+(41, 12, '3 days', 0),
+(42, 12, '4 days', 0),
+(43, 12, '5 days', 1),
+(44, 12, '6 days', 0),
+(45, 13, 'a² + c', 1),
+(46, 13, 'a² - c²', 0),
+(47, 13, 'c² - a²', 0),
+(48, 13, '(c - a)²', 0),
+(49, 14, '90 kph', 1),
+(50, 14, '120 kph', 0),
+(51, 14, '130 kph', 0),
+(52, 14, '150 kph', 0),
+(53, 15, 'Mammal', 0),
+(54, 15, 'Amphibian', 1),
+(55, 15, 'Reptile', 0),
+(56, 15, 'Avian', 0),
+(57, 16, 'hydrogen', 1),
+(58, 16, 'oxygen', 0),
+(59, 16, 'nitrogen', 0),
+(60, 16, 'helium', 0),
+(61, 17, 'milimeter', 0),
+(62, 17, 'centimeter', 0),
+(63, 17, 'nanometer', 1),
+(64, 17, 'micrometer', 0),
+(65, 18, 'Coriolis Effect', 0),
+(66, 18, 'Carbon Cycle', 0),
+(67, 18, 'Greenhouse Effect', 1),
+(68, 18, 'Global Warming', 0),
+(69, 19, 'Mitochondria', 1),
+(70, 19, 'Nucleus', 0),
+(71, 19, 'Cytoplasm', 0),
+(72, 19, 'Cell Membrane', 0);
 
 -- --------------------------------------------------------
 
@@ -442,7 +500,21 @@ CREATE TABLE `tbl_topic_questions` (
 --
 
 INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
-(1, 'A word used to describe an action, state, or occurrence, and forming the main part of the predicate of a sentence', 1);
+(4, ' The SINUOUS road curve narrowly up the mountain.', 1),
+(5, ' When we reached the oasis, we were able to SLAKE our thirst.', 1),
+(6, 'The knowledge that Harold\'s surgery ha been successful MITIGATED his family\'s fear.', 1),
+(7, 'The easiest time to let imagination roam is when you\'re doing MUNDANE jobs.', 1),
+(8, ' When Jessie brings us a young rabbit, we NURTURE it carefully.', 1),
+(9, 'A man rowed 16km upstream in 4 hours. If the river flowed with a current of 2 kph, how long did the man\'s return trip take?', 2),
+(10, 'Mr. Guevarra had ₱ 2 000 000.00 to invest. He invested part of it at 5% per year and the remainder at 4% per year. After one year, his investment grew to ₱ 2 095 000.00. How much of the original investment was invested at 5%?\r\n', 2),
+(12, 'If 6 workers can complete 9 identical jobs in 3 days, how long will it take 4 workers to complete 10 such jobs? ', 2),
+(13, 'In a right triangle, sides a, b, c have values such that a > b > c. Which of the following expresses the value of b²? ', 2),
+(14, 'A train went 300 km from Province A to Province B at an average rate of 180 kph. At what speed did it travel on the way back if its average speed for the whole trip was 120 kph?', 2),
+(15, 'Animals which live on land but return to the water to breed.', 3),
+(16, 'The sun is mostly made of which gas?', 3),
+(17, 'Of the following metric units which one is the smallest?', 3),
+(18, 'A rise in atmosphere temperature due to an increase in carbon dioxide, methane and other gases that trap heat in the atmosphere is called _____.', 3),
+(19, 'The powerhouse of the cell.', 3);
 
 -- --------------------------------------------------------
 
@@ -653,19 +725,19 @@ ALTER TABLE `tbl_exam_subjects`
 -- AUTO_INCREMENT for table `tbl_exam_topics`
 --
 ALTER TABLE `tbl_exam_topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_que_answers`
 --
 ALTER TABLE `tbl_que_answers`
-  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `tbl_topic_questions`
 --
 ALTER TABLE `tbl_topic_questions`
-  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`

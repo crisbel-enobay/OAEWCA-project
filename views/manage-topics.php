@@ -252,7 +252,7 @@
                       <div class="modal-body p-5">
                         <div class="mb-3">
                           <label>Question</label>
-                          <textarea name="question" class="form-control" id="question" rows="5" cols="45" required> </textarea>
+                          <textarea name="question" class="form-control" id="question" rows="5" cols="45" required></textarea>
                         </div>
                         <div class="mb-3">
                           <label>Option A</label>
@@ -289,7 +289,7 @@
                           $username = 'root';
                           $password = '';
                           $qId = $_POST['new_id'];
-                          $newQS = $_POST['question'];                      
+                          
                           $newA= $_POST['opta'];                      
                           $newB = $_POST['optb'];                      
                           $newC = $_POST['optc'];                      
@@ -299,6 +299,7 @@
                           if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
+                          $newQS = mysqli_real_escape_string($conn, $_POST['question']);
                           $addQuestion = mysqli_query($conn,
                           "INSERT INTO tbl_topic_questions(que_desc, que_topic) VALUES ('".$newQS."', '".$qId."')
                           ");
@@ -424,22 +425,17 @@
                           <input type="submit" name="Update" class="btn btn-primary"/>
                           <?php
                           if (isset($_POST['Update'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
+                          include 'conn.php';                    
                           $edtid = $_POST['edit_id'];                      
-                          $edtQuestion = $_POST['edtquestion'];                
+                          $edtname = $_POST['edtquestion'];                
                           $edtoptionA = $_POST['edtA'];           
                           $edtoptionB = $_POST['edtB'];           
                           $edtrightoption = $_POST['edtright'];                
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
+                        
                             $sql = mysqli_query($conn,
-                          "UPDATE tbl_exam_topics SET topic_name='".$edtQuestion."' , topic_duration='".$edtoptionB."', topic_desc='".$edtoptionA."', topic_status='".$edtrightoption."', topic_timestamp = now() WHERE topic_id= ".$edtid."
+                          "UPDATE tbl_exam_topics SET topic_name='".$edtname."' , topic_duration=".$edtoptionB.", topic_desc='".$edtoptionA."', topic_stat='".$edtrightoption."', topic_stamp = now() WHERE topic_id= ".$edtid."
                           ");
-                              echo "<script> window.location = 'manage-subjects.php' </script>";
+                              echo "<script> window.location = 'manage-topics.php' </script>";
                           }
                         ?>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
