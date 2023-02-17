@@ -193,8 +193,10 @@
                                     <td>" .
                             "<div class='d-flex '>
                                 <form method='POST'>
-                                <button type='button' id='addbutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#addModal' data-editid='$id' data-editName='$name'
-                                data-optA_id='".$ansID[0]."' data-optB_id='".$ansID[1]."' 
+                                <button type='button' id='addbutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#addModal' data-editid='$id'";
+                                echo 'data-editName="'.$name.'"';
+                                
+                                echo " data-optA_id='".$ansID[0]."' data-optB_id='".$ansID[1]."' 
                                 data-optC_id='".$ansID[2]."' data-optD_id='".$ansID[3]."' 
                                 data-optA='".$answers[0]."' data-optB='".$answers[1]."' 
                                 data-optC='".$answers[2]."' data-optD='".$answers[3]."' 
@@ -209,7 +211,9 @@
                             "<div class='d-flex '>
                                 <form method='POST'>
                                 
-                            <button type='button' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' data-question='$name' onClick='archiveCourse(this)'><i class='fa fa-trash-o'></i></button> </form>" .
+                            <button type='button' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id'";
+                            echo 'data-question="'.$name.'"' ;
+                             echo "onClick='archiveCourse(this)'><i class='fa fa-trash-o'></i></button> </form>" .
                             "</div>" .
                             "</td>" .
                             "</td>
@@ -273,50 +277,54 @@
                       <div class="modal-footer">
                         <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Update"/>
                         <?php
-                          /*
+                          
                           if (isset($_POST['Add'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';
-                          $qId = $_POST['new_id'];
-                          $newQS = $_POST['question'];                      
-                          $newA= $_POST['opta'];                      
-                          $newB = $_POST['optb'];                      
-                          $newC = $_POST['optc'];                      
-                          $newD = $_POST['optd'];                      
-                          $newright = $_POST['rightopt'];                  
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
+                          include 'conn.php';
+                          $qId = $_POST['edt_id'];
+                          $edtQS = mysqli_real_escape_string($conn, $_POST['question']);           
+                          $edtA = mysqli_real_escape_string($conn, $_POST['opta']);                      
+                          $edtB = mysqli_real_escape_string($conn, $_POST['optb']);                      
+                          $edtC = mysqli_real_escape_string($conn, $_POST['optc']);                      
+                          $edtD = mysqli_real_escape_string($conn, $_POST['optd']);
+                          $edtAId= $_POST['optA_id'];                      
+                          $edtBId = $_POST['optB_id'];                      
+                          $edtCId = $_POST['optC_id'];                      
+                          $edtDId = $_POST['optD_id'];                       
+                          $edtright = $_POST['rightopt'];                  
+                          
                           $addQuestion = mysqli_query($conn,
-                          "INSERT INTO tbl_topic_questions(que_desc, que_topic) VALUES ('".$newQS."', '".$qId."')
+                          "UPDATE tbl_topic_questions SET que_desc = '".$edtQS."' 
+                          WHERE que_id = ".$qId."
                           ");
                           $search = mysqli_query($conn,
-                          "select * from tbl_topic_questions where que_desc='".$newQS."'
+                          "select * from tbl_topic_questions where que_desc='".$edtQS."'
                           ");
                           while($row = $search->fetch_assoc()) {
                             $qidd = $row['que_id'];
                           }
                           $aright = 0; $bright = 0; $cright = 0; $dright = 0;
-                          if ($newright == "A") {$aright = 1;}
-                          else if ($newright == "B") {$bright = 1;}
-                          else if ($newright == "C") {$cright = 1;}
-                          else if ($newright == "D") {$dright = 1;}
+                          if ($edtright == "A") {$aright = 1;}
+                          else if ($edtright == "B") {$bright = 1;}
+                          else if ($edtright == "C") {$cright = 1;}
+                          else if ($edtright == "D") {$dright = 1;}
                           $addA = mysqli_query($conn,
-                          "INSERT INTO tbl_que_answers(que_id, ans_desc, correct) VALUES (".$qidd.", '".$newA."', ".$aright.")
+                          "update tbl_que_answers SET ans_desc='".$edtA."', correct=".$aright." 
+                          WHERE ans_id=".$edtAId."
                           ");
                           $addB = mysqli_query($conn,
-                          "INSERT INTO tbl_que_answers(que_id, ans_desc, correct) VALUES (".$qidd.", '".$newB."', ".$bright.")
+                          "update tbl_que_answers SET ans_desc='".$edtB."', correct=".$bright." 
+                          WHERE ans_id=".$edtBId."
                           ");
                           $addC = mysqli_query($conn,
-                          "INSERT INTO tbl_que_answers(que_id, ans_desc, correct) VALUES (".$qidd.", '".$newC."', ".$cright.")
+                          "update tbl_que_answers SET ans_desc='".$edtC."', correct=".$cright." 
+                          WHERE ans_id=".$edtCId."
                           ");
                           $addD = mysqli_query($conn,
-                          "INSERT INTO tbl_que_answers(que_id, ans_desc, correct) VALUES (".$qidd.", '".$newD."', ".$dright.")
+                          "update tbl_que_answers SET ans_desc='".$edtD."', correct=".$dright." 
+                          WHERE ans_id=".$edtDId."
                           ");
-                              echo "<script> window.location = 'manage-topics.php' </script>";
-                          }*/
+                              echo "<script> window.location = 'manage-question.php' </script>";
+                          }
                         ?>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
@@ -350,10 +358,13 @@
                               if ($conn->connect_error) {
                                   die("Connection failed!:" . $conn->connect_error);
                               }
-                              $sql = mysqli_query($conn,
-                              "DELETE FROM tbl_exam_subjects WHERE id = ".$delid."
+                              $deleteque = mysqli_query($conn,
+                              "DELETE FROM tbl_topic_questions WHERE que_id = ".$delid."
                               ");
-                              echo "<script> window.location = 'manage-subjects.php' </script>";
+                              $deleteans = mysqli_query($conn,
+                              "DELETE FROM tbl_que_answers WHERE que_id = ".$delid."
+                              ");
+                              echo "<script> window.location = 'manage-question.php' </script>";
                               }
                           ?>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
@@ -453,11 +464,11 @@
       let optionA_id = value.getAttribute("data-optA_id");
       let optionB_id = value.getAttribute("data-optB_id");
       let optionC_id = value.getAttribute("data-optC_id");
-      let optionD_id = value.getAttribute("data-optC_id");
+      let optionD_id = value.getAttribute("data-optD_id");
       let optionA = value.getAttribute("data-optA");
       let optionB = value.getAttribute("data-optB");
       let optionC = value.getAttribute("data-optC");
-      let optionD = value.getAttribute("data-optC");
+      let optionD = value.getAttribute("data-optD");
 
       topname.innerHTML = 'Manage Content';
       document.querySelector("#edt_id").value = edtid;
