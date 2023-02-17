@@ -135,6 +135,7 @@ include "../views/student-checker.php";
                       <button id="keyPass" type="submit" class="btn btn-outline-primary btn-fw" data-bs-toggle="modal" data-bs-target="#transactionModal">Take Examination</button>
                   </div>
                    <!-- Insert keyPass -->
+                   <form id ="myForm"method="POST">
                   <div class="modal fade" id="transactionModal" tabindex="-1"role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role ="document">
                       <div class="modal-content">
@@ -147,7 +148,7 @@ include "../views/student-checker.php";
                           </div>
                           <div class="d-flex align-items-center justify-content-center">
                         
-                            <form id ="myForm"method="POST">
+                          
                            
                             <div style="display: flex; justify-content: center;">
                             <button type="submit" name="submit" class="btn btn-outline-primary btn-fw">Submit</button>                        
@@ -190,79 +191,105 @@ $(document).ready(function() {
 
     // make an AJAX request to submit the form data
     $.ajax({
-      type: "POST",
-      url: "../forms/insert-key.php",
-      data: { inputkey: inputkey },
-      success: function(response) {
-        
-         if (response == 'Your key is not valid at this time. Please wait until the exam starts.') {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Sorry',
-            text: response,
-            showConfirmButton: true
-          }).then((result) => {
-            window.location.href = 'user-exam.php';
-          });
-        }
-        else if (response == 'Your key is not valid at this time. The exam has already ended.') {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Sorry',
-            text: response,
-            showConfirmButton: true
-          }).then((result) => {
-            window.location.href = 'user-exam.php';
-          });
-        }
-        else if (response == 'Your key is not valid at this time.') {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Sorry',
-            text: response,
-            showConfirmButton: true
-          }).then((result) => {
-            window.location.href = 'user-exam.php';
-          });
-        }
-
-        else if (response == 'Your key is valid but it has not been approved yet.') {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Sorry',
-            text: response,
-            showConfirmButton: true
-          }).then((result) => {
-            window.location.href = 'user-exam.php';
-          });
-        }
-
-        // if (response == 'Your key is valid this date and has been approved. you can take the exam') {
-        //   Swal.fire({
-        //     icon: 'success',
-        //     title: 'Success',
-        //     text: response,
-        //     timer: 3000,
-        //     timerProgressBar: true,
-        //     showConfirmButton: false
-        //   }).then((result) => {
-        //     window.location.href = 'exam-english.php';
-        //   });
-        // }
-        else {
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: response,
-            timer: 3000,
-            timerProgressBar: true,
-            showConfirmButton: false
-          }).then((result) => {
-            window.location.href = 'exam-english.php';
-          });
-        }
-      }
-    });
+  type: "POST",
+  url: "../forms/insert-key.php",
+  data: { inputkey: inputkey },
+  success: function(response) {
+    if (response.trim().toLowerCase() == 'valid') {
+        setTimeout(function() {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Your key is valid and has been approved. You can take the exam',
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false
+        }).then((result) => {
+          window.location.href = 'exam-english.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'invalid') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is not valid. Please try again.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } 
+    else if (response.trim().toLowerCase() == 'invaliddate') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is not valid at this time',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    }
+    else if (response.trim().toLowerCase() == 'pending') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is valid but it has not been approved yet.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'expired') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key has expired. Please contact the administrator for assistance.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'started') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Sorry',
+          text: 'Your key is not valid at this time. Please wait until the exam starts.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'ended') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is not valid at this time. The exam has already ended.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred. Please try again later.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    }
+  }
+});
   });
 });
 </script>

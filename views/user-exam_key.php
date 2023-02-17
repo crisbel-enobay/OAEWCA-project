@@ -250,7 +250,7 @@
                   </div>
               <!-- Add Bus-->
               <div>
-                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add/Edit Exam Schedule and Profile</button>
+                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>
               </div>
 
               <!-- Add Bus-->
@@ -267,7 +267,8 @@
                         <div class="mb-3">
                         <label> Select Date and Time </label>
                         <div class="form-group">
-                              <select name="exam_datetime" id="exam_datetime">
+                              <select class="form-control" name="exam_datetime" id="exam_datetime">
+                                <option value="">-- select date and time --</option>
                               <?php
                                 // PHP code to generate option tags
                                 include '../forms/database.php';
@@ -649,7 +650,19 @@
                                       ");
 
                                       if ($insert_result) {
-                                          echo "<script> window.location = '../views/user-exam_key.php' </script>";
+                                        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                        <script> 
+                                          setTimeout(function() {
+                                            Swal.fire({
+                                              title: 'Success',
+                                              icon: 'success',
+                                              showConfirmButton: true,
+                                              text: 'Exam schedule and profile modified',
+                                            }).then(function() {
+                                              window.location = '../views/user-exam_key.php';
+                                            });
+                                          }, 100);
+                                        </script>";     
                                       } else {
                                           // Handle the error
                                           printf("Error: %s\n", mysqli_error($conn));
