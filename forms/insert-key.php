@@ -3,7 +3,7 @@
  {
   session_start();
  }
-  // Create connection
+
                                   // Create connection
                                   $conn = new mysqli('localhost', 'root', '', 'project');
                                   // Check connection
@@ -32,21 +32,22 @@
                                   // Key and email exist, check if the key is expired
                                   $row = $result->fetch_assoc();
                                   $status = $row['status'];
-                                  $exam_date = date('Y-m-d', strtotime($row['exam_date']));
-                                  $exam_start_time = strtotime($row["exam_time"]);
-                                  $exam_end_time = strtotime($row["exam_time_end"]);
+                                  $exam_date = $row['exam_date'];
+                                  $exam_start_time = ($row["exam_time"]);
+                                  $exam_end_time = ($row["exam_time_end"]);
                                   $current_date_time = date('Y-m-d H:i:s'); // Include time in the current date
                                   $current_date = date('Y-m-d');
+                                  date_default_timezone_set('Asia/Manila');
                                   $current_time = date('H:i:s');
 
                                   // Check if the exam is available for the current date and time
                                   if ($current_date === $exam_date) {
-                                    if ($current_time < date('H:i:s', $exam_start_time)) {
+                                    if ($current_time < $exam_start_time) {
                                       // Exam is not yet available
-                                      echo "Your key is not valid at this time. Please wait until the exam starts.";
-                                    } else if ($current_time >= date('H:i:s', $exam_start_time) && $current_time <= date('H:i:s', $exam_end_time)) {
+                                      echo  "Your key is not valid at this time. Please wait until the exam starts.";
+                                    } else if ($current_time >= $exam_start_time && $current_time <= $exam_end_time) {
                                       // Exam is available
-                                      if ($status == "approved") {
+                                      if ($status == "active") {
                                         // Status is approved
                                         echo "Your key is valid this date and has been approved. you can take the exam";
                                       } else {

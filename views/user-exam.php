@@ -194,29 +194,8 @@ $(document).ready(function() {
       url: "../forms/insert-key.php",
       data: { inputkey: inputkey },
       success: function(response) {
-        if (response == 'Your key is valid this date and has been approved. you can take the exam') {
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: response,
-            timer: 3000,
-            timerProgressBar: true,
-            showConfirmButton: false
-          }).then((result) => {
-            window.location.href = 'exam-english.php';
-          });
-        }
-        else if (response == 'Your key is valid but it has not been approved yet.') {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Sorry',
-            text: response,
-            showConfirmButton: true
-          }).then((result) => {
-            window.location.href = 'user-exam.php';
-          });
-        }
-        else if (response == 'Your key is not valid at this time. Please wait until the exam starts.') {
+        
+         if (response == 'Your key is not valid at this time. Please wait until the exam starts.') {
           Swal.fire({
             icon: 'warning',
             title: 'Sorry',
@@ -246,14 +225,40 @@ $(document).ready(function() {
             window.location.href = 'user-exam.php';
           });
         }
-        else {
+
+        else if (response == 'Your key is valid but it has not been approved yet.') {
           Swal.fire({
-            icon: 'error',
+            icon: 'warning',
             title: 'Sorry',
             text: response,
             showConfirmButton: true
           }).then((result) => {
             window.location.href = 'user-exam.php';
+          });
+        }
+
+        // if (response == 'Your key is valid this date and has been approved. you can take the exam') {
+        //   Swal.fire({
+        //     icon: 'success',
+        //     title: 'Success',
+        //     text: response,
+        //     timer: 3000,
+        //     timerProgressBar: true,
+        //     showConfirmButton: false
+        //   }).then((result) => {
+        //     window.location.href = 'exam-english.php';
+        //   });
+        // }
+        else {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: response,
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false
+          }).then((result) => {
+            window.location.href = 'exam-english.php';
           });
         }
       }
