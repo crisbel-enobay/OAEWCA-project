@@ -179,7 +179,7 @@ include '../forms/adminQueries.php';
                       <table class="table table-hover text-nowrap datatable">
                       <thead>
                       <tr>
-                          <th class="font-weight-bold" scope="col">SELECT</th>
+                          <!-- <th class="font-weight-bold" scope="col">SELECT</th> -->
                           <th class="font-weight-bold" id="status" scope="col" >STATUS</th>
                           <th class="font-weight-bold" scope="col">ID</th>
                           <th class="font-weight-bold" scope="col">EMAIL</th>
@@ -229,7 +229,7 @@ include '../forms/adminQueries.php';
                           $hobby3 = $row["tertiary_hobby"];
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
-                          echo "<td><input type='checkbox' name='user_ids[]' value='".$row['id']."'></td>";
+                          // echo "<td><input type='checkbox' name='user_ids[]' value='".$row['id']."'></td>";
                           echo "<td><div class='badge badge-danger p-2'>" . $status . "</div></td>";
                           echo "<td>" . $row["id"] . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
