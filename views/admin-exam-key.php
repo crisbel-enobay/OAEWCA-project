@@ -185,10 +185,13 @@
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                       <tr>
+                          <th scope="col">STATUS</th>
                           <th scope="col">ID</th>
                           <th scope="col">EMAIL</th>
                           <th scope="col">EXAM KEY</th>
                           <th scope="col">EXAM DATE</th>
+                          <th scope="col">START TIME</th>
+                          <th scope="col">END TIME</th>
                           <th scope="col">PREFERRED COURSE</th>
                           <th scope="col">PREFERRED SECOND COURSE</th>
                           <th scope="col">PREFERRED THIRD COURSE</th>
@@ -211,6 +214,8 @@
                           $email = ($_SESSION['email']);
                           $exam_key = $row["exam_key"];
                           $exam_date = $row["exam_date"];
+                          $formattedTime = date('h:i A', strtotime($row['exam_time']));
+                          $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                           $pref_course = $row["pref_course"];
                           $pref_second_course = $row["pref_secondary_course"];
                           $pref_third_course = $row["pref_tertiary_course"];
@@ -222,10 +227,13 @@
                           $hobby3 = $row["tertiary_hobby"];
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
+                          echo "<td>" . $row["status"] . "</td>";
                           echo "<td>" . $row["id"] . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
                           echo "<td>" . $row["exam_key"] . "</td>";
                           echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" . $formattedTime . "</td>";
+                          echo "<td>" . $formattedTime2 . "</td>";
                           echo "<td>" . $pref_course . "</td>";
                           echo "<td>" . $pref_second_course . "</td>";
                           echo "<td>" . $pref_third_course . "</td>";

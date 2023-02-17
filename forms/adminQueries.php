@@ -28,10 +28,55 @@ function getGeneratedCodes() {
         die("Connection failed!:" . $conn->connect_error);
     }
     $sql = mysqli_query($conn,
-    "SELECT id,email,exam_key,exam_date, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at
+    "SELECT id,status,email,exam_key,exam_date,exam_time,exam_time_end, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at
     FROM generated_codes
     ");
+     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+    //get unapproved students
+    function getUnapprovedStudent() {
+        /*include 'database.php';
+        $sql = mysqli_query($conn,
+        "SELECT obrs_sample.id, course, dept, availability
+        FROM obrs_sample
+        ");
+        return mysqli_fetch_all($sql, MYSQLI_ASSOC);*/
+        $url = 'localhost';
+        $username = 'root';
+        $password = '';
+    
+        $conn = new mysqli($url, $username, $password, 'project');
+        if ($conn->connect_error) {
+            die("Connection failed!:" . $conn->connect_error);
+        }
+        $sql = mysqli_query($conn,
+        "SELECT id,status,email,exam_key,exam_date,exam_time,exam_time_end, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at
+        FROM generated_codes WHERE status != 'active'
+        ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+
+ //get approved students
+function getApprovedStudent() {
+    /*include 'database.php';
+    $sql = mysqli_query($conn,
+    "SELECT obrs_sample.id, course, dept, availability
+    FROM obrs_sample
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);*/
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT id,status,email,exam_key,exam_date,exam_time,exam_time_end, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at
+    FROM generated_codes WHERE status = 'active'
+    ");
+return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
 //exam dates
 function getExamDates() {
@@ -44,7 +89,7 @@ function getExamDates() {
         die("Connection failed!:" . $conn->connect_error);
     }
     $sql = mysqli_query($conn,
-    "SELECT id,exam_date, exam_date_created
+    "SELECT id,exam_date,exam_time,exam_time_end,exam_date_created
     FROM admin_schedule
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);

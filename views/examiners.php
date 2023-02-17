@@ -1,6 +1,7 @@
 <?php 
 include '../file/logout-function.php';
 include "admin-checker.php";
+include '../forms/adminQueries.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +25,25 @@ include "admin-checker.php";
     <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
+    <style>
+  table {
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    
+  }
+  th {
+    color: black;
+    font-weight: bold;
+  }
+ 
+
+</style>
   </head>
   <body>
     <div class="container-scroller">
@@ -146,91 +166,108 @@ include "admin-checker.php";
             </nav>
           </div>
           <!-- Quick Action Toolbar Starts-->
-          <div class="row quick-action-toolbar">
+         <!-- Quick Action Toolbar Starts-->
+         <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
+              <form id="myform" action="" method="POST">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <p class="lead mb-0 ">Examiners</p>
+                  <p class="lead mb-0 ">Unverified Students</p>
                   </div>
-                  <div class="table-responsive border rounded p-1">
-                    <table class="table">
+                  <div class="table-responsive border rounded p-1">    
+                      <table class="table table-hover text-nowrap datatable">
                       <thead>
-                        <tr>
-                          <th class="font-weight-bold">ID</th>
-                          <th class="font-weight-bold">Student Name</th>
-                          <th class="font-weight-bold">Course</th>
-                          <th class="font-weight-bold">Sample</th>
-                          <th class="font-weight-bold">Score</th>
-                          <th class="font-weight-bold">Status</th>
+                      <tr>
+                          <!-- <th class="font-weight-bold" scope="col">SELECT</th> -->
+                          <th class="font-weight-bold" id="status" scope="col" >STATUS</th>
+                          <th class="font-weight-bold" scope="col">ID</th>
+                          <th class="font-weight-bold" scope="col">EMAIL</th>
+                          <th class="font-weight-bold" scope="col">EXAM KEY</th>
+                          <th class="font-weight-bold" scope="col">EXAM DATE</th>
+                          <th class="font-weight-bold" scope="col">START TIME</th>
+                          <th class="font-weight-bold" scope="col">END TIME</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED COURSE</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED SECOND COURSE</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED THIRD COURSE</th>
+                          <th class="font-weight-bold" scope="col">INTEREST</th>
+                          <th class="font-weight-bold" scope="col">SECOND INTEREST</th>
+                          <th class="font-weight-bold" scope="col">THIRD INTEREST</th>
+                          <th class="font-weight-bold" scope="col">HOBBY</th>
+                          <th class="font-weight-bold" scope="col">SECOND HOBBY</th>
+                          <th class="font-weight-bold" scope="col">THIRD HOBBY</th>
+                          <th class="font-weight-bold" scope="col">EXAM KEY CREATED AT</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>Crisbel Enobay</td>
-                          <td>BSCS</td>
-                          <td>Sample</td>
-                          <td>85/100</td>
-                          <td>
-                            <div class="badge badge-success p-2">Passed</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>Lorence Lactud</td>
-                          <td>BSIT</td>
-                          <td>Sample</td>
-                          <td>75/100</td>
-                          <td>
-                            <div class="badge badge-warning p-2">Pending</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>Grace Cortex</td>
-                          <td>BSIS</td>
-                          <td>Sample</td>
-                          <td>70/100</td>
-                          <td>
-                            <div class="badge badge-danger p-2">Failed</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>Marvin Caharop</td>
-                          <td>BSCS</td>
-                          <td>Sample</td>
-                          <td>90/100</td>
-                          <td>
-                            <div class="badge badge-success p-2">Passed</div>
-                          </td>
-                        </tr>
+                      <?php
+                         // Create connection
+                         $conn = new mysqli('localhost', 'root', '', 'project');
+                         // Check connection
+                         if ($conn->connect_error) {
+                           die("Connection failed: " . $conn->connect_error);
+                         }
+                        $rows = getApprovedStudent();
+                        $i = 0;
+                        while ($i < count($rows)) {   //Creates a loop to loop through results {
+                           $row = $rows[$i];
+                          $status = $row["status"];
+                          $id = $row["id"];
+                          $email = ($_SESSION['email']);
+                          $exam_key = $row["exam_key"];
+                          $exam_date = $row["exam_date"];
+                          $formattedTime = date('h:i A', strtotime($row['exam_time']));
+                          $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
+                          $pref_course = $row["pref_course"];
+                          $pref_second_course = $row["pref_secondary_course"];
+                          $pref_third_course = $row["pref_tertiary_course"];
+                          $interest = $row["interest"];
+                          $second_interest = $row["secondary_interest"];
+                          $third_interest = $row["tertiary_interest"];
+                          $hobby1 = $row["hobby"];
+                          $hobby2 = $row["secondary_hobby"];
+                          $hobby3 = $row["tertiary_hobby"];
+                          $exam_key_created_at = $row["exam_key_created_at"];
+                          echo "<tr>";
+                          // echo "<td><input type='checkbox' name='user_ids[]' value='".$row['id']."'></td>";
+                          echo "<td><div class='badge badge-danger p-2'>" . $status . "</div></td>";
+                          echo "<td>" . $row["id"] . "</td>";
+                          echo "<td>" . $row["email"] . "</td>";
+                          echo "<td>" . $row["exam_key"] . "</td>";
+                          echo "<td>" . $formattedTime . "</td>";
+                          echo "<td>" . $formattedTime2 . "</td>";
+                          echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" . $row["pref_course"] . "</td>";
+                          echo "<td>" .$row["pref_secondary_course"] . "</td>";
+                          echo "<td>" .  $row["pref_tertiary_course"] . "</td>";
+                          echo "<td>" . $row["interest"] . "</td>";
+                          echo "<td>" . $row["secondary_interest"] . "</td>";
+                          echo "<td>" . $row["tertiary_interest"] . "</td>";
+                          echo "<td>" .  $row["hobby"] . "</td>";
+                          echo "<td>" .  $row["secondary_hobby"] . "</td>";
+                          echo "<td>" .  $row["tertiary_hobby"] . "</td>";
+                          echo "<td>" . $row["exam_key_created_at"] . "</td>";
+                          // echo      "<td>". "<div class='d-flex '>
+                          //       <form method='POST' action='../forms/delete_bus.php'>
+                          //                 <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
+                          //               </form>" .
+                          //     "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+                          //     "</div>" .
+                          //     "</td>" .
+                               "</tr>";
+                               $i++;
+                        }
+                        
+                        mysqli_close($conn);
+                      ?>
                       </tbody>
                     </table>
                   </div>
-                  <div class="d-flex mt-4 flex-wrap">
-                    <p class="text-muted">Showing 1 to 10 of 57 entries</p>
-                    <nav class="ml-auto">
-                      <ul class="pagination separated pagination-info">
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                      </ul>
-                    </nav>
-                  </div>
+                  <div>
+                <button type="submit" hidden name="approve" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">approve selected students</button>
+              </div>
                 </div>
+               </form>
               </div>
             </div>
           

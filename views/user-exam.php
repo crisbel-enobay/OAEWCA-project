@@ -25,6 +25,7 @@ include "../views/student-checker.php";
     <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -134,6 +135,7 @@ include "../views/student-checker.php";
                       <button id="keyPass" type="submit" class="btn btn-outline-primary btn-fw" data-bs-toggle="modal" data-bs-target="#transactionModal">Take Examination</button>
                   </div>
                    <!-- Insert keyPass -->
+                   <form id ="myForm"method="POST">
                   <div class="modal fade" id="transactionModal" tabindex="-1"role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role ="document">
                       <div class="modal-content">
@@ -146,10 +148,12 @@ include "../views/student-checker.php";
                           </div>
                           <div class="d-flex align-items-center justify-content-center">
                         
-                            <form id ="myForm"method="POST">
+                          
                            
-                                  <button type="submit"name="submit" class="btn btn-outline-primary btn-fw">Submit</button>                  
-                                  <div id="message" style="display: none;"></div>
+                            <div style="display: flex; justify-content: center;">
+                            <button type="submit" name="submit" class="btn btn-outline-primary btn-fw">Submit</button>                        
+                          </div>
+                          <div id="message" style="display: none;"></div>
                               
                             </form>
                           </div>
@@ -184,23 +188,108 @@ $(document).ready(function() {
     e.preventDefault(); // prevent the form from submitting
 
     var inputkey = $("#inputkey").val();
-    var response1 = "Your key is expired.";
-    var response2 = "invalid key";
 
     // make an AJAX request to submit the form data
     $.ajax({
-      type: "POST",
-      url: "../forms/insert-key.php",
-      data: { inputkey: inputkey },
-      success: function(response) {
-        // show the response from the server in the message div
-  
-          $("#message").text(response).show();     
-        if (response == 'valid') {
-      window.location.href = 'exam-english.php';
+  type: "POST",
+  url: "../forms/insert-key.php",
+  data: { inputkey: inputkey },
+  success: function(response) {
+    if (response.trim().toLowerCase() == 'valid') {
+        setTimeout(function() {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Your key is valid and has been approved. You can take the exam',
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false
+        }).then((result) => {
+          window.location.href = 'exam-english.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'invalid') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is not valid. Please try again.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
     } 
-      }
-    });
+    else if (response.trim().toLowerCase() == 'invaliddate') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is not valid at this time',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    }
+    else if (response.trim().toLowerCase() == 'pending') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is valid but it has not been approved yet.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'expired') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key has expired. Please contact the administrator for assistance.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'started') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Sorry',
+          text: 'Your key is not valid at this time. Please wait until the exam starts.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'ended') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is not valid at this time. The exam has already ended.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred. Please try again later.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    }
+  }
+});
   });
 });
 </script>

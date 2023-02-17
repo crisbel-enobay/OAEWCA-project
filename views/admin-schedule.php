@@ -28,6 +28,10 @@
     <!-- SweetAlert JS -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
+  <style>
+
+
+  </style>
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->
@@ -185,11 +189,13 @@
                   <table class="table table-hover text-nowrap datatable">
                         <thead>
                             <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">EXAM DATE</th>
-                          <th scope="col">EXAM DATE CREATED</th>
-                          <th scope="col">ACTION</th>
-                        </thead>
+                            <th class="font-weight-bold" scope="col">ID</th>
+                            <th class="font-weight-bold" scope="col">EXAM DATE</th>
+                            <th class="font-weight-bold" scope="col">START TIME</th>
+                            <th class="font-weight-bold" scope="col">END TIME</th>
+                            <th class="font-weight-bold" scope="col">EXAM DATE CREATED AT</th>
+                            <th class="font-weight-bold" scope="col">ACTION</th>
+                          </thead>
                         <tbody>
 
                             <?php
@@ -198,11 +204,15 @@
                                 while ($i < count($rows)) {   //Creates a loop to loop through results
                                     $row = $rows[$i];
                                     $id = $row['id'];
+                                    $formattedTime = date('h:i A', strtotime($row['exam_time']));
+                                    $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                                     $exam_date = $row['exam_date'];
                                     $datecreated = $row['exam_date_created'];                      
                                     echo "<tr>
                                     <td>" . $id . "</td>
                                     <td>" .$exam_date . "</td>
+                                    <td>" . $formattedTime . "</td>
+                                    <td>" . $formattedTime2 . "</td>
                                     <td>" . $datecreated . "</td>
                                     <td>" .
                                   "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-dateid='$id' onClick='deleteSchedule(this)'>Delete</button>" .
@@ -234,6 +244,50 @@
                           <label>Select Date</label>
                           <input type="date" value="<?= date('Y-m-d') ?>" name="date" id="schedule date"  class="form-control" required>
                         </div>
+                        <div class="mb-3">
+                          <label>Select Time</label>
+                          <select name="start_time" id="time">
+                              <option value="06:00:00">06:00 AM</option>
+                              <option value="07:00:00">07:00 AM</option>
+                              <option value="08:00:00">08:00 AM</option>
+                              <option value="09:00:00">09:00 AM</option>
+                              <option value="10:00:00">10:00 AM</option>
+                              <option value="11:00:00">11:00 AM</option>
+                              <option value="12:00:00">12:00 PM</option>
+                              <option value="13:00:00">01:00 PM</option>
+                              <option value="14:00:00">02:00 PM</option>
+                              <option value="15:00:00">03:00 PM</option>
+                              <option value="16:00:00">04:00 PM</option>
+                              <option value="17:00:00">05:00 PM</option>
+                              <option value="18:00:00">06:00 PM</option>
+                              <option value="19:00:00">07:00 PM</option>
+                              <option value="20:00:00">08:00 PM</option>
+                              <option value="21:00:00">09:00 PM</option>
+                              <option value="22:00:00">10:00 PM</option>
+                              <option value="23:00:00">11:00 PM</option>
+                        </select>
+                        <label>Select Time</label>
+                          <select name="end_time" id="time">
+                              <option value="06:00:00">06:00 AM</option>
+                              <option value="07:00:00">07:00 AM</option>
+                              <option value="08:00:00">08:00 AM</option>
+                              <option value="09:00:00">09:00 AM</option>
+                              <option value="10:00:00">10:00 AM</option>
+                              <option value="11:00:00">11:00 AM</option>
+                              <option value="12:00:00">12:00 PM</option>
+                              <option value="13:00:00">01:00 PM</option>
+                              <option value="14:00:00">02:00 PM</option>
+                              <option value="15:00:00">03:00 PM</option>
+                              <option value="16:00:00">04:00 PM</option>
+                              <option value="17:00:00">05:00 PM</option>
+                              <option value="18:00:00">06:00 PM</option>
+                              <option value="19:00:00">07:00 PM</option>
+                              <option value="20:00:00">08:00 PM</option>
+                              <option value="21:00:00">09:00 PM</option>
+                              <option value="22:00:00">10:00 PM</option>
+                              <option value="23:00:00">11:00 PM</option>
+                        </select>
+                        </div>
                     
                       <div class="modal-footer">
                         <input type="submit" name="exam_schedule_date" class="btn btn-primary" id="btnAdd" value="Add"/>
@@ -244,12 +298,20 @@
                             }
                             $con = mysqli_connect("localhost","root","","project");
 
-                            if(isset($_POST['exam_schedule_date']))
-                            {
-                                $ExamDate = date('Y-m-d', strtotime($_POST['date']));
-
-                                $query = "INSERT INTO admin_schedule (exam_date,exam_date_created) VALUES ('$ExamDate',NOW())";
-                                $query_run= mysqli_query($con, $query);
+                            if (isset($_POST['exam_schedule_date'])) {
+                              $ExamDate = date('Y-m-d', strtotime($_POST['date']));
+                              // Get the selected time value from the form
+                              $start_time = $_POST['start_time'];
+                              $end_time = $_POST['end_time'];
+                          
+                              // Convert the selected value into a PHP time string
+                              $start_timeString = date('H:i:s', strtotime($start_time));
+                              $end_timeString = date('H:i:s', strtotime($end_time));
+                          
+                              $query = "INSERT INTO admin_schedule (exam_date, exam_time,exam_time_end, exam_date_created) 
+                                        VALUES ('$ExamDate', TIME(' $start_timeString'), TIME('$end_timeString'), NOW())";
+                              $query_run = mysqli_query($con, $query);
+                          
                                 
                                 if($query_run)
                                 {
@@ -265,8 +327,8 @@
                          
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
+                      </div>
                     </form>
-                    </div>
                   </div>
                 </div>
               </div>

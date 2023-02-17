@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Feb 17, 2023 at 11:31 PM
+=======
+-- Generation Time: Feb 17, 2023 at 09:41 PM
+>>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -30,6 +34,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin_schedule` (
   `id` int(11) NOT NULL,
   `exam_date` varchar(255) NOT NULL,
+  `exam_time` time NOT NULL,
+  `exam_time_end` time NOT NULL,
   `exam_date_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,6 +46,9 @@ CREATE TABLE `admin_schedule` (
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_date_created`) VALUES
 (37, '2023-02-10', '2023-01-25 08:50:19'),
 (38, '2023-02-14', '2023-02-12 19:43:49');
+INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_time`, `exam_time_end`, `exam_date_created`) VALUES
+(56, '2023-02-16', '21:00:00', '23:00:00', '2023-02-16 20:39:55'),
+(58, '2023-02-18', '15:00:00', '16:00:00', '2023-02-16 20:39:55');
 
 -- --------------------------------------------------------
 
@@ -177,6 +186,9 @@ CREATE TABLE `generated_codes` (
   `email` varchar(255) NOT NULL,
   `exam_key` varchar(255) NOT NULL,
   `exam_date` varchar(255) NOT NULL,
+  `exam_time` time NOT NULL,
+  `exam_time_end` time NOT NULL,
+  `status` varchar(255) NOT NULL,
   `strand` varchar(255) NOT NULL,
   `pref_course` varchar(255) NOT NULL,
   `pref_secondary_course` varchar(255) NOT NULL,
@@ -197,6 +209,9 @@ CREATE TABLE `generated_codes` (
 INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `interest`, `secondary_interest`, `tertiary_interest`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
 (16, 'lebbraumjayce@gmail.com', 'qjpo3975', '2023-02-14', 'ABM', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Mathematics', 'Travelling', 'Videography', 'Communicating', 'Writing', 'Gaming', '2023-02-13 15:04:29'),
 (18, 'user@gmail.com', 'nkvo5168', '2023-02-14', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Bachelor in Public Administration (BPA)', 'problem solving', 'analyzing', 'numbers', 'Broadcasting', 'Watching', 'Photography', '2023-02-13 21:14:47');
+INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `interest`, `secondary_interest`, `tertiary_interest`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
+(45, 'user@gmail.com', 'walx2386', '2023-02-18', '04:00:00', '06:33:00', 'active', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Criminology (BSCrim)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'analyzing', 'information gathering', 'problem solving', 'Self Studying', 'Videography', 'Writing', '2023-02-18 02:10:54'),
+(46, 'lebbraumjayce@gmail.com', 'pgxc1279', '2023-02-16', '21:00:00', '23:00:00', 'pending', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'numbers', 'analyzing', 'problem solving', 'Self Studying', 'Videography', 'Travelling', '2023-02-18 04:32:30');
 
 -- --------------------------------------------------------
 
@@ -400,9 +415,15 @@ CREATE TABLE `tbl_exam_topics` (
 --
 
 INSERT INTO `tbl_exam_topics` (`topic_id`, `topic_name`, `topic_desc`, `topic_duration`, `topic_stat`, `topic_stamp`, `topic_subj`) VALUES
+<<<<<<< HEAD
 (1, 'Vocabulary', 'one of the four words or phrases given a choices means almost SAME as the capitalized word in the preceding sentence. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 21:44:02', 1),
 (2, 'Basic Math Problems', 'This is a test of your ability to think out solution to quantitative problems in Basic Mathematics. Analyze and solve each problem carefully. Choose the letter that corresponds to your answer.\r\n', 45, 1, '2023-02-17 21:56:12', 3),
 (3, 'General Science', 'This is a test of your proficiency in General Science. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 22:17:18', 2);
+=======
+(1, 'Verbal Test', 'This includes sentence and grammar construction', 60, 1, '2023-02-11 14:59:31', 1),
+(2, 'fafea', 'faefwaf', 0, 1, '2023-02-14 05:37:30', 1),
+(3, 'afa', 'fawfaw', 0, 1, '2023-02-14 06:25:22', 3);
+>>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 -- --------------------------------------------------------
 
@@ -422,6 +443,7 @@ CREATE TABLE `tbl_que_answers` (
 --
 
 INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
+<<<<<<< HEAD
 (13, 4, 'winding', 1),
 (14, 4, 'straight', 0),
 (15, 4, 'climbing', 0),
@@ -482,6 +504,28 @@ INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
 (70, 19, 'Nucleus', 0),
 (71, 19, 'Cytoplasm', 0),
 (72, 19, 'Cell Membrane', 0);
+=======
+(1, 1, 'verb', 1),
+(2, 1, 'noun', 0),
+(3, 1, 'pronoun', 0),
+(4, 1, 'adjective', 0),
+(5, 2, '%% 6minutes', 0),
+(6, 2, '%% 6minutes', 0),
+(7, 2, '%% 6minutes', 1),
+(8, 2, '%% 6minutes', 0),
+(9, 3, '%', 1),
+(10, 3, '$%', 0),
+(11, 3, '%', 0),
+(12, 3, '%', 0),
+(13, 4, '2 minutes', 1),
+(14, 4, '2 minutes', 0),
+(15, 4, '2 minutes', 0),
+(16, 4, '2 minutes', 0),
+(17, 5, 'eaf', 0),
+(18, 5, '2 !@', 1),
+(19, 5, '2 !@', 0),
+(20, 5, '2 !@', 0);
+>>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 -- --------------------------------------------------------
 
@@ -500,6 +544,7 @@ CREATE TABLE `tbl_topic_questions` (
 --
 
 INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
+<<<<<<< HEAD
 (4, ' The SINUOUS road curve narrowly up the mountain.', 1),
 (5, ' When we reached the oasis, we were able to SLAKE our thirst.', 1),
 (6, 'The knowledge that Harold\'s surgery ha been successful MITIGATED his family\'s fear.', 1),
@@ -515,6 +560,13 @@ INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
 (17, 'Of the following metric units which one is the smallest?', 3),
 (18, 'A rise in atmosphere temperature due to an increase in carbon dioxide, methane and other gases that trap heat in the atmosphere is called _____.', 3),
 (19, 'The powerhouse of the cell.', 3);
+=======
+(1, 'A word used to describe an action, state, or occurrence, and forming the main part of the predicate of a sentence', 1),
+(2, ' fafeafaefaenfafae %%6 kim', 2),
+(3, ' %', 2),
+(4, ' 2 minutes', 2),
+(5, ' afeafa 2 !@', 2);
+>>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 -- --------------------------------------------------------
 
@@ -542,6 +594,8 @@ INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verificatio
 (1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
 (2, 'marvs', 'lebbraumjayce@gmail.com', '$2y$10$YeI9rdAyfqt/bic10Mli2uUsWvHU7ZlQJsnuuvQ6URVlxGnziaGYi', 0, '253435', '2023-02-11 17:24:39', '', ''),
 (3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
+(3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
+(7, 'student name sample', 'user2@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
 
 --
 -- Indexes for dumped tables
@@ -654,6 +708,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `admin_schedule`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `archived_courses`
@@ -683,7 +738,7 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
@@ -731,19 +786,28 @@ ALTER TABLE `tbl_exam_topics`
 -- AUTO_INCREMENT for table `tbl_que_answers`
 --
 ALTER TABLE `tbl_que_answers`
+<<<<<<< HEAD
   MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+=======
+  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+>>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 --
 -- AUTO_INCREMENT for table `tbl_topic_questions`
 --
 ALTER TABLE `tbl_topic_questions`
+<<<<<<< HEAD
   MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+=======
+  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+>>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
