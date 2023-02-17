@@ -3,7 +3,6 @@
  {
   session_start();
  }
-
                                   // Create connection
                                   $conn = new mysqli('localhost', 'root', '', 'project');
                                   // Check connection
@@ -30,51 +29,50 @@
 
                                 if ($result->num_rows > 0) {
                                   // Key and email exist, check if the key is expired
+                                  date_default_timezone_set('Asia/Manila');
                                   $row = $result->fetch_assoc();
                                   $status = $row['status'];
                                   $exam_date = $row['exam_date'];
                                   $exam_start_time = ($row["exam_time"]);
                                   $exam_end_time = ($row["exam_time_end"]);
-                                  $current_date_time = date('Y-m-d H:i:s'); // Include time in the current date
                                   $current_date = date('Y-m-d');
-                                  date_default_timezone_set('Asia/Manila');
                                   $current_time = date('H:i:s');
-
+                                  
                                   // Check if the exam is available for the current date and time
                                   if ($current_date === $exam_date) {
                                     if ($current_time < $exam_start_time) {
-                                      // Exam is not yet available
-                                      echo  "Your key is not valid at this time. Please wait until the exam starts.";
+                                      // Exam date is today but the exam is not started yet
+                                      echo  "started";
                                     } else if ($current_time >= $exam_start_time && $current_time <= $exam_end_time) {
                                       // Exam is available
                                       if ($status == "active") {
                                         // Status is approved
-                                        echo "Your key is valid this date and has been approved. you can take the exam";
+                                        echo "valid";
                                       } else {
                                         // Status is not approved
-                                        echo "Your key is valid but it has not been approved yet.";
+                                        echo "pending";
                                       }
                                     } else {
                                       // Exam is over
-                                      echo "Your key is not valid at this time. The exam has already ended.";
+                                      echo 'ended';
                                     }
                                   } else {
                                     // Exam is not available
-                                    echo "Your key is not valid at this time.";
+                                    echo "invaliddate";
                                   }
                                 } else {
                                   // Key and email do not exist
-                                  echo "Invalid key";
+                                  echo "invalid";
                                 }
 
                                 
                                   mysqli_free_result($result);
                                    
-                                 // else if (time() < $exam_start_time && $current_date_time == $exam_date){
-                                      //   echo "Exam still not going";
-                                      // }
-                                      // else if (time() >  $exam_end_time){
-                                      //   echo "Exam has been finished";
-                                      // }
+                                // //  else if (time() < $exam_start_time && $current_date_time == $exam_date){
+                                // //         echo "Exam still not going";
+                                // //       }
+                                // //       else if (time() >  $exam_end_time){
+                                // //         echo "Exam has been finished";
+                                // //       }
                                   ?>
                                    

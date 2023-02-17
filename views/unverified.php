@@ -222,6 +222,8 @@ if (isset($_POST['approve'])) {
                           <th class="font-weight-bold" scope="col">EMAIL</th>
                           <th class="font-weight-bold" scope="col">EXAM KEY</th>
                           <th class="font-weight-bold" scope="col">EXAM DATE</th>
+                          <th class="font-weight-bold" scope="col">START TIME</th>
+                          <th class="font-weight-bold" scope="col">END TIME</th>
                           <th class="font-weight-bold" scope="col">PREFERRED COURSE</th>
                           <th class="font-weight-bold" scope="col">PREFERRED SECOND COURSE</th>
                           <th class="font-weight-bold" scope="col">PREFERRED THIRD COURSE</th>
@@ -251,6 +253,8 @@ if (isset($_POST['approve'])) {
                           $email = ($_SESSION['email']);
                           $exam_key = $row["exam_key"];
                           $exam_date = $row["exam_date"];
+                          $formattedTime = date('h:i A', strtotime($row['exam_time']));
+                          $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                           $pref_course = $row["pref_course"];
                           $pref_second_course = $row["pref_secondary_course"];
                           $pref_third_course = $row["pref_tertiary_course"];
@@ -268,6 +272,8 @@ if (isset($_POST['approve'])) {
                           echo "<td>" . $row["email"] . "</td>";
                           echo "<td>" . $row["exam_key"] . "</td>";
                           echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" . $formattedTime . "</td>";
+                          echo "<td>" . $formattedTime2 . "</td>";
                           echo "<td>" . $row["pref_course"] . "</td>";
                           echo "<td>" .$row["pref_secondary_course"] . "</td>";
                           echo "<td>" .  $row["pref_tertiary_course"] . "</td>";

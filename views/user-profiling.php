@@ -136,23 +136,22 @@
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2">
                               <div class="form-group">
-                              <?php 
-                              include '../forms/database.php';
-                                  $query1 ="SELECT exam_date FROM admin_schedule";
-                                  $result = $conn->query($query1);
-                                  if($result->num_rows> 0){
-                                    $date_options= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                              
+                                 <select name="exam_datetime" class="form-control" id="exam_datetime">
+                                 <option value="">-- select date and time --</option>
+                              <?php
+                                // PHP code to generate option tags
+                                include '../forms/database.php';
+                                $query = "SELECT exam_date, exam_time, exam_time_end FROM admin_schedule";
+                                $result = mysqli_query($conn, $query);
+                                if (mysqli_num_rows($result) > 0) {
+                                  while ($row = mysqli_fetch_assoc($result)) {
+                                    $optionValue = $row['exam_date'] . ' ' . $row['exam_time'] . ' ' . $row['exam_time_end'];
+                                    echo '<option value="' . $optionValue . '">' . $optionValue . '</option>';
                                   }
+                                } 
                               ?>
-                                 <select required name="exam_date" class="form-control">
-                                 <option value="">-- select date --</option>
-                                 <?php 
-                                    foreach ($date_options as $option) {
-                                    ?>
-                                      <option><?php echo $option['exam_date']; ?> </option>
-                                      <?php 
-                                      }
-                                    ?>
+                            </select>
                                 </select> 
                               </div>
                           </div>
@@ -486,8 +485,9 @@
                           $email = ($_SESSION['email']);   
                           $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
                           $last = substr(str_shuffle("1234567890"), 0, 4);
-                          $exam_code = $first . $last;       
-                          $date = $_POST['exam_date'];                      
+                          $exam_code = $first . $last; 
+                          $examDatetime = $_POST['exam_datetime']; 
+                          list($examDate, $examTime, $examtimeend) = explode(' ', $examDatetime);                       
                           $strand = $_POST['strand_opt'];                      
                           $pref_course = $_POST['course_opt1'];  
                           $pref_secondary_course = $_POST['course_opt2'];  
@@ -513,27 +513,103 @@
                             $check_result = mysqli_query($conn, $check_query);
 
                             if (mysqli_num_rows($check_result) > 0) {
+                              $row = mysqli_fetch_assoc($check_result);   
+                               // Check if the status is already approved
+                               if ($row['status'] == 'active') {
+                                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                <script> 
+                                  setTimeout(function() {
+                                    Swal.fire({
+                                      title: 'Exam Schedule already approved',
+                                      icon: 'error',
+                                      showConfirmButton: true,
+                                      text: 'cannot be modified again',
+                                    }).then(function() {
+                                      window.location = '../views/user-exam_key.php';
+                                    });
+                                  }, 100);
+                                </script>";
+                              }
+                              else { 
+
                                 // Delete the existing data
                                 $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
                                 $delete_result = mysqli_query($conn, $delete_query);
 
-                                if ($delete_result) {                                    
-                                } else {
-                                    
+                                if ($delete_result) {   
+                                    //process of modifying profiling
+                                    $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                                    strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
+                                     secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
+                                     exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                                     '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                      '".$pref_course. "', '".$pref_secondary_course."',
+                                       '".$pref_tertiary_course."', '".$related_interest1."', 
+                                       '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
+                                       '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                                    ");
+                                    if ($insert_result) {
+                                      echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                        <script> 
+                                          setTimeout(function() {
+                                            Swal.fire({
+                                              title: 'Success',
+                                              icon: 'success',
+                                              showConfirmButton: true,
+                                              text: 'Exam schedule and profile modified',
+                                            }).then(function() {
+                                              window.location = '../views/user-exam_key.php';
+                                            });
+                                          }, 100);
+                                        </script>";  
+                                    } else {
+                                        // Handle the error
+                                        printf("Error: %s\n", mysqli_error($conn));
+                                        echo "SQL query: " . $sql;
+                                        exit();
+                                    }
+                                                                
+                                } 
+                                
+                                else {  
+                                  
+                                     
                                 }
                             }
-                        
+                          }
 
-                            // Insert the new data
-                            $insert_result = mysqli_query($conn,
-                            "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course. "', '".$pref_secondary_course."', '".$pref_tertiary_course."',  '".$related_interest1."', '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
-                            ");
+                            else{
+                              // Insert the new data
+                              $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                              strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
+                               secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
+                               exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                               '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                '".$pref_course. "', '".$pref_secondary_course."',
+                                 '".$pref_tertiary_course."', '".$related_interest1."', 
+                                 '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
+                                 '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                              ");
 
                             if ($insert_result) {
-                             
-                            } else {
+                              echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                <script> 
+                                  setTimeout(function() {
+                                    Swal.fire({
+                                      title: 'Success',
+                                      icon: 'success',
+                                      showConfirmButton: true,
+                                      text: 'Add exam schedule complete',
+                                    }).then(function() {
+                                      window.location = '../views/user-exam_key.php';
+                                    });
+                                  }, 100);
+                                </script>";   
+                            } 
+                            
+                            else {
                             }
-
+                          }
                             // Close the database connection
                             mysqli_close($conn);  
                           }    
