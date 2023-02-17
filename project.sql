@@ -43,9 +43,6 @@ CREATE TABLE `admin_schedule` (
 -- Dumping data for table `admin_schedule`
 --
 
-INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_date_created`) VALUES
-(37, '2023-02-10', '2023-01-25 08:50:19'),
-(38, '2023-02-14', '2023-02-12 19:43:49');
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_time`, `exam_time_end`, `exam_date_created`) VALUES
 (56, '2023-02-16', '21:00:00', '23:00:00', '2023-02-16 20:39:55'),
 (58, '2023-02-18', '15:00:00', '16:00:00', '2023-02-16 20:39:55');
@@ -206,9 +203,6 @@ CREATE TABLE `generated_codes` (
 -- Dumping data for table `generated_codes`
 --
 
-INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `interest`, `secondary_interest`, `tertiary_interest`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
-(16, 'lebbraumjayce@gmail.com', 'qjpo3975', '2023-02-14', 'ABM', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Mathematics', 'Travelling', 'Videography', 'Communicating', 'Writing', 'Gaming', '2023-02-13 15:04:29'),
-(18, 'user@gmail.com', 'nkvo5168', '2023-02-14', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Bachelor in Public Administration (BPA)', 'problem solving', 'analyzing', 'numbers', 'Broadcasting', 'Watching', 'Photography', '2023-02-13 21:14:47');
 INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `interest`, `secondary_interest`, `tertiary_interest`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
 (45, 'user@gmail.com', 'walx2386', '2023-02-18', '04:00:00', '06:33:00', 'active', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Criminology (BSCrim)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'analyzing', 'information gathering', 'problem solving', 'Self Studying', 'Videography', 'Writing', '2023-02-18 02:10:54'),
 (46, 'lebbraumjayce@gmail.com', 'pgxc1279', '2023-02-16', '21:00:00', '23:00:00', 'pending', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'numbers', 'analyzing', 'problem solving', 'Self Studying', 'Videography', 'Travelling', '2023-02-18 04:32:30');
@@ -593,7 +587,6 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
 (1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
 (2, 'marvs', 'lebbraumjayce@gmail.com', '$2y$10$YeI9rdAyfqt/bic10Mli2uUsWvHU7ZlQJsnuuvQ6URVlxGnziaGYi', 0, '253435', '2023-02-11 17:24:39', '', ''),
-(3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
 (3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
 (7, 'student name sample', 'user2@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
 
@@ -707,7 +700,6 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_schedule`
 --
 ALTER TABLE `admin_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
@@ -806,7 +798,6 @@ ALTER TABLE `tbl_topic_questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
