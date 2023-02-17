@@ -289,7 +289,7 @@
                           $username = 'root';
                           $password = '';
                           $qId = $_POST['new_id'];
-                          $newQS = $_POST['question'];                      
+                          
                           $newA= $_POST['opta'];                      
                           $newB = $_POST['optb'];                      
                           $newC = $_POST['optc'];                      
@@ -299,6 +299,7 @@
                           if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
+                          $newQS = mysqli_real_escape_string($conn, $_POST['question']);
                           $addQuestion = mysqli_query($conn,
                           "INSERT INTO tbl_topic_questions(que_desc, que_topic) VALUES ('".$newQS."', '".$qId."')
                           ");
