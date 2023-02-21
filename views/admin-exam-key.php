@@ -310,12 +310,12 @@ p {
                   </div>
                 </div>
               </div>
-
+            <div>
                 <button hidden type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Course</button>
               </div>
 
               <!-- Add Bus-->
-              <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <!-- <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-centered">
                   <div class="modal-content">
 
@@ -336,40 +336,40 @@ p {
                     
                     
                       <div class="modal-footer">
-                        <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
+                        <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/> -->
                         <?php
-                          if (isset($_POST['Add'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $newcrs = $_POST['courseName'];                      
-                          $newhob= $_POST['relhobby'];                      
-                          $newen = $_POST['neng'];                      
-                          $newmt = $_POST['nmat'];                      
-                          $newfl = $_POST['nfil'];                      
-                          $newsc = $_POST['nsci'];                      
-                          $newlg = $_POST['nlog'];                      
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                          $sql = mysqli_query($conn,
-                          "INSERT INTO courses(course, related_hobbies, English, Math, Filipino, Science, Logic) VALUES ('".$newcrs."','".$newhob."', ".$newen.", ".$newmt.", ".$newfl.", ".$newsc.", ".$newlg.")
-                          ");
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                          }
+                          // if (isset($_POST['Add'])){
+                          // $url = 'localhost';
+                          // $username = 'root';
+                          // $password = '';                     
+                          // $newcrs = $_POST['courseName'];                      
+                          // $newhob= $_POST['relhobby'];                      
+                          // $newen = $_POST['neng'];                      
+                          // $newmt = $_POST['nmat'];                      
+                          // $newfl = $_POST['nfil'];                      
+                          // $newsc = $_POST['nsci'];                      
+                          // $newlg = $_POST['nlog'];                      
+                          // $conn = new mysqli($url, $username, $password, 'project');
+                          // if ($conn->connect_error) {
+                          //     die("Connection failed!:" . $conn->connect_error);
+                          // }
+                          // $sql = mysqli_query($conn,
+                          // "INSERT INTO courses(course, related_hobbies, English, Math, Filipino, Science, Logic) VALUES ('".$newcrs."','".$newhob."', ".$newen.", ".$newmt.", ".$newfl.", ".$newsc.", ".$newlg.")
+                          // ");
+                          //     echo "<script> window.location = 'admin-courses.php' </script>";
+                          // }
                         ?>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
                     </form>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <!-- End Add Bus-->
 
                 <!-- Edit Modal-->
-                <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -385,64 +385,64 @@ p {
                           <div class="mb-3">
                           <label>Related Hobbies</label>
                           <select name="relhob" class="form-control" id="edithob" required>
-                            <option value="0">-No Changes-</option>
+                            <option value="0">-No Changes-</option> -->
                             <?php
-                            $conn = new mysqli('localhost', 'root', '', 'project');
-                            if ($conn->connect_error) {
-                                die("Connection failed!:" . $conn->connect_error);
-                            }
-                            $find = "select * from hobbies";
-                            $list = $conn->query($find);
-                            while($row = $list->fetch_assoc()){
-                              echo '<option value="'.$row['hob_id'].'">'.$row['hobby'].'</option>';
-                            }
+                            // $conn = new mysqli('localhost', 'root', '', 'project');
+                            // if ($conn->connect_error) {
+                            //     die("Connection failed!:" . $conn->connect_error);
+                            // }
+                            // $find = "select * from hobbies";
+                            // $list = $conn->query($find);
+                            // while($row = $list->fetch_assoc()){
+                            //   echo '<option value="'.$row['hob_id'].'">'.$row['hobby'].'</option>';
+                            // }
                             ?>
-                          </select>
+                          <!-- </select>
                         </div>
                         </div>
                         <div class="modal-footer">
-                          <input type="submit" name="Update" class="btn btn-primary"/>
+                          <input type="submit" name="Update" class="btn btn-primary"/> -->
                           <?php
-                          if (isset($_POST['Update'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $edtid = $_POST['edit_id'];                      
-                          $edtcrs = $_POST['editcourseName'];                      
-                          $edten = $_POST['editeng'];                      
-                          $edtmt = $_POST['editmat'];                      
-                          $edtfl = $_POST['editfil'];                      
-                          $edtsc = $_POST['editsci'];                      
-                          $edtlg = $_POST['editlog'];                      
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                          if ($_POST['relhob'] == '0'){
-                            $sql = mysqli_query($conn,
-                          "UPDATE courses SET course='".$edtcrs."' , English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
-                          ");
-                          }
-                          else {
-                          $findhob = "select * from hobbies where hob_id = ".$_POST['relhob']." ";
-                            $showhob = $conn->query($findhob);                 
-                            $changedhob = $showhob->fetch_assoc();
-                          $sql = mysqli_query($conn,
-                          "UPDATE courses SET course='".$edtcrs."',related_hobbies='".$changedhob['hobby']."',English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
-                          ");}
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                          }
+                          // if (isset($_POST['Update'])){
+                          // $url = 'localhost';
+                          // $username = 'root';
+                          // $password = '';                     
+                          // $edtid = $_POST['edit_id'];                      
+                          // $edtcrs = $_POST['editcourseName'];                      
+                          // $edten = $_POST['editeng'];                      
+                          // $edtmt = $_POST['editmat'];                      
+                          // $edtfl = $_POST['editfil'];                      
+                          // $edtsc = $_POST['editsci'];                      
+                          // $edtlg = $_POST['editlog'];                      
+                          // $conn = new mysqli($url, $username, $password, 'project');
+                          // if ($conn->connect_error) {
+                          //     die("Connection failed!:" . $conn->connect_error);
+                          // }
+                          // if ($_POST['relhob'] == '0'){
+                          //   $sql = mysqli_query($conn,
+                          // "UPDATE courses SET course='".$edtcrs."' , English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
+                          // ");
+                          // }
+                          // else {
+                          // $findhob = "select * from hobbies where hob_id = ".$_POST['relhob']." ";
+                          //   $showhob = $conn->query($findhob);                 
+                          //   $changedhob = $showhob->fetch_assoc();
+                          // $sql = mysqli_query($conn,
+                          // "UPDATE courses SET course='".$edtcrs."',related_hobbies='".$changedhob['hobby']."',English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
+                          // ");}
+                          //     echo "<script> window.location = 'admin-courses.php' </script>";
+                          // }
                         ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                       </form>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- End Edit Modal -->
 
                 <!-- Archive Modal -->
-                <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -454,39 +454,39 @@ p {
                           <h4>Are you sure you want to remove this course??</h4>
                         </div>
                         <div class="modal-footer">
-                          <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
+                          <input type="submit" name="Archive" class="btn btn-danger" value="Yes" /> -->
                           <?php
-                            if (isset($_POST['Archive'])){
-                              $url = 'localhost';
-                              $username = 'root';
-                              $password = '';                     
-                              $delid = $_POST['rem_course_id'];                   
-                              $conn = new mysqli($url, $username, $password, 'project');
-                              if ($conn->connect_error) {
-                                  die("Connection failed!:" . $conn->connect_error);
-                              }
-                              // $sql = mysqli_query($conn,
-                              // "DELETE FROM courses WHERE crs_id = ".$delid."
-                              // ");
-                              $sql = mysqli_query($conn,
-                              "INSERT archived_courses
-                              (crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic)
-                              SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic FROM courses
-                              WHERE crs_id = ". $delid ."
-                              ");
-                              $sql2 = mysqli_query($conn,
-                              "DELETE FROM courses
-                              WHERE crs_id = ". $delid ."
-                              ");
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                              }
+                            // if (isset($_POST['Archive'])){
+                            //   $url = 'localhost';
+                            //   $username = 'root';
+                            //   $password = '';                     
+                            //   $delid = $_POST['rem_course_id'];                   
+                            //   $conn = new mysqli($url, $username, $password, 'project');
+                            //   if ($conn->connect_error) {
+                            //       die("Connection failed!:" . $conn->connect_error);
+                            //   }
+                            //   // $sql = mysqli_query($conn,
+                            //   // "DELETE FROM courses WHERE crs_id = ".$delid."
+                            //   // ");
+                            //   $sql = mysqli_query($conn,
+                            //   "INSERT archived_courses
+                            //   (crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic)
+                            //   SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic FROM courses
+                            //   WHERE crs_id = ". $delid ."
+                            //   ");
+                            //   $sql2 = mysqli_query($conn,
+                            //   "DELETE FROM courses
+                            //   WHERE crs_id = ". $delid ."
+                            //   ");
+                            //   echo "<script> window.location = 'admin-courses.php' </script>";
+                            //   }
                           ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                         </div>
                       </form>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- End Archive Modal -->
 
               </div>
@@ -593,7 +593,7 @@ p {
  $(document).on("click", ".view-btn", function () {
     var id = $(this).data('id');
     $.ajax({
-        url: "../forms/get_unapproved_student.php",
+        url: "../forms/get_generated_codes.php",
         type: "POST",
         data: {id: id},
         success: function (data) {
