@@ -195,11 +195,6 @@
                           $row = $rows[$i];
                           $id = $row['crs_id'];
                           $courseName = $row['course'];
-                          $eng = $row['English'];
-                          $fil = $row['Filipino'];
-                          $mat = $row['Math'];
-                          $sci = $row['Science'];
-                          $log = $row['Logic'];
                           echo "<tr>
                                     <td>" . $id . "</td>
                                     <td>" . $courseName . "</td>

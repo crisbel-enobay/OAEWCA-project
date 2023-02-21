@@ -63,58 +63,24 @@ if (isset($_POST['approve'])) {
     <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
-  <style>
+    <style>
   table {
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     width: 100%;
   }
-  
-  .badge-custom{
-    padding: 5px;
-  }
-
   th, td {
     border: 1px solid #ddd;
-    text-align: center;
+    padding: 8px;
+    text-align: left;
+    
   }
   th {
     color: black;
     font-weight: bold;
   }
-.modal-content {
-  border-radius: 10px;
-}
+ 
 
-.modal-header {
-  background-color: #5bc0de;
-  color: #fff;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.modal-title {
-  font-weight: bold;
-}
-
-.close {
-  color: #fff;
-}
-
-.modal-body {
-  font-size: 16px;
-  padding: 10px;
-}
-
-#viewProfile p {
-  margin-bottom: 5px;
-}
-p {
-  font-weight: bold;
-}
-.view-btn{
-  padding:5px;
-}
 </style>
   </head>
   <body>
@@ -250,15 +216,24 @@ p {
                       <table class="table table-hover text-nowrap datatable">
                       <thead>
                       <tr>
-                          <th class="font-weight-bold text-center" scope="col">SELECT</th>
-                          <th class="font-weight-bold text-center" id="status" scope="col" >STATUS</th>
-                          <th class="font-weight-bold text-center" scope="col">ID</th>
-                          <th class="font-weight-bold text-center" scope="col">EMAIL</th>
-                          <th class="font-weight-bold text-center" scope="col">EXAM DATE</th>
-                          <th class="font-weight-bold text-center" scope="col">EXAM KEY</th>
-                          <th class="font-weight-bold text-center" scope="col">START TIME</th>
-                          <th class="font-weight-bold text-center" scope="col">END TIME</th>
-                          <th class="font-weight-bold text-center" scope="col">ACTIONS</th>
+                          <th class="font-weight-bold" scope="col">SELECT</th>
+                          <th class="font-weight-bold" id="status" scope="col" >STATUS</th>
+                          <th class="font-weight-bold" scope="col">ID</th>
+                          <th class="font-weight-bold" scope="col">EMAIL</th>
+                          <th class="font-weight-bold" scope="col">EXAM KEY</th>
+                          <th class="font-weight-bold" scope="col">EXAM DATE</th>
+                          <th class="font-weight-bold" scope="col">START TIME</th>
+                          <th class="font-weight-bold" scope="col">END TIME</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED COURSE</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED SECOND COURSE</th>
+                          <th class="font-weight-bold" scope="col">PREFERRED THIRD COURSE</th>
+                          <th class="font-weight-bold" scope="col">INTEREST</th>
+                          <th class="font-weight-bold" scope="col">SECOND INTEREST</th>
+                          <th class="font-weight-bold" scope="col">THIRD INTEREST</th>
+                          <th class="font-weight-bold" scope="col">HOBBY</th>
+                          <th class="font-weight-bold" scope="col">SECOND HOBBY</th>
+                          <th class="font-weight-bold" scope="col">THIRD HOBBY</th>
+                          <th class="font-weight-bold" scope="col">EXAM KEY CREATED AT</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -275,7 +250,7 @@ p {
                            $row = $rows[$i];
                           $status = $row["status"];
                           $id = $row["id"];
-                          $email = $row['email'];
+                          $email = ($_SESSION['email']);
                           $exam_key = $row["exam_key"];
                           $exam_date = $row["exam_date"];
                           $formattedTime = date('h:i A', strtotime($row['exam_time']));
@@ -283,6 +258,9 @@ p {
                           $pref_course = $row["pref_course"];
                           $pref_second_course = $row["pref_secondary_course"];
                           $pref_third_course = $row["pref_tertiary_course"];
+                          $interest = $row["interest"];
+                          $second_interest = $row["secondary_interest"];
+                          $third_interest = $row["tertiary_interest"];
                           $hobby1 = $row["hobby"];
                           $hobby2 = $row["secondary_hobby"];
                           $hobby3 = $row["tertiary_hobby"];
@@ -292,12 +270,20 @@ p {
                           echo "<td><div class='badge badge-danger p-2'>" . $status . "</div></td>";
                           echo "<td>" . $row["id"] . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
-                          echo "<td>" . $row["exam_date"] . "</td>";
                           echo "<td>" . $row["exam_key"] . "</td>";
+                          echo "<td>" . $row["exam_date"] . "</td>";
                           echo "<td>" . $formattedTime . "</td>";
                           echo "<td>" . $formattedTime2 . "</td>";
-                          echo "<td><div class='text-center'><button name='btnmodal' type='button' class='btn btn-primary view-btn' data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>View Profiling</div></button></td>";
-                    
+                          echo "<td>" . $row["pref_course"] . "</td>";
+                          echo "<td>" .$row["pref_secondary_course"] . "</td>";
+                          echo "<td>" .  $row["pref_tertiary_course"] . "</td>";
+                          echo "<td>" . $row["interest"] . "</td>";
+                          echo "<td>" . $row["secondary_interest"] . "</td>";
+                          echo "<td>" . $row["tertiary_interest"] . "</td>";
+                          echo "<td>" .  $row["hobby"] . "</td>";
+                          echo "<td>" .  $row["secondary_hobby"] . "</td>";
+                          echo "<td>" .  $row["tertiary_hobby"] . "</td>";
+                          echo "<td>" . $row["exam_key_created_at"] . "</td>";
                           // echo      "<td>". "<div class='d-flex '>
                           //       <form method='POST' action='../forms/delete_bus.php'>
                           //                 <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
@@ -305,7 +291,7 @@ p {
                           //     "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
                           //     "</div>" .
                           //     "</td>" .
-                          echo "</tr>";
+                               "</tr>";
                                $i++;
                         }
                         
@@ -315,22 +301,6 @@ p {
                     </table>
                   </div>
                   <div>
-                                  <!-- View Modal -->
-              <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="viewModalLabel">View Profiling</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div id="viewProfile"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
                 <button type="submit" name="approve" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">approve selected students</button>
               </div>
                 </div>
@@ -408,19 +378,6 @@ submitButton.addEventListener("click", (event) => {
   .catch((error) => {
     console.error(error);
   });
-});
-</script>
-<script>
- $(document).on("click", ".view-btn", function () {
-    var id = $(this).data('id');
-    $.ajax({
-        url: "../forms/get_unapproved_student.php",
-        type: "POST",
-        data: {id: id},
-        success: function (data) {
-            $('#viewProfile').html(data);
-        }
-    });
 });
 </script>
   </body>
