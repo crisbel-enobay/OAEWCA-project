@@ -71,44 +71,44 @@ CREATE TABLE `courses` (
   `crs_id` int(11) NOT NULL,
   `course` varchar(255) NOT NULL,
   `related_hobbies` varchar(255) NOT NULL,
-  `English` int(11) NOT NULL,
-  `Math` int(11) NOT NULL,
-  `Filipino` int(11) NOT NULL,
-  `Science` int(11) NOT NULL,
-  `Logic` int(11) NOT NULL
+  `secondary_hobbies` varchar(255) NOT NULL,
+  `related_interest` varchar(255) NOT NULL,
+  `secondary_interest` varchar(255) NOT NULL,
+  `strand` varchar(255) NOT NULL,
+  `average_score` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`crs_id`, `course`, `related_hobbies`, `English`, `Math`, `Filipino`, `Science`, `Logic`) VALUES
-(1, 'Bachelor of Science in Mathematics (BSMath)', 'Mathematics', 3, 4, 3, 3, 4),
-(2, 'Bachelor of Science in Psychology (BSPsych)', 'Communicating', 3, 2, 2, 4, 3),
-(3, 'Bachelor of Science in Criminology (BSCrim)', 'Volunteering', 3, 3, 2, 3, 3),
-(4, 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Programming/Coding', 2, 3, 3, 2, 4),
-(5, 'Bachelor of Science in Information System (BSIS)', 'Programming/Coding', 2, 3, 3, 2, 3),
-(6, 'Bachelor of Science in Information Technology (BSIT)', 'Programming/Coding', 2, 3, 3, 2, 3),
-(7, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Programming/Coding', 2, 3, 3, 2, 3),
-(8, 'Bachelor of Arts in Political Science (ABPS/ABPolSci)', 'Volunteering', 3, 2, 2, 2, 3),
-(9, 'Bachelor of Arts in Communication (BAComm)', 'Communicating', 4, 2, 3, 2, 2),
-(10, 'Bachelor of Arts in Behavioral Science: Organizational and Social Systems Development (ABBS-OSSD)', 'Communicating', 3, 2, 3, 2, 3),
-(11, 'Bachelor in Public Administration (BPA)', 'Communicating', 3, 2, 3, 2, 2),
-(12, 'Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 'Researching', 3, 4, 2, 2, 3),
-(13, 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 'Researching', 3, 4, 2, 2, 3),
-(14, 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 'Researching', 3, 4, 2, 2, 3),
-(15, 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Researching', 3, 4, 2, 2, 3),
-(16, 'Bachelor of Science in Accountancy (BSA)', 'Researching', 3, 4, 2, 2, 3),
-(17, 'Bachelor of Science in Accounting Information System (BSAIS)', 'Researching', 3, 4, 2, 2, 3),
-(18, 'Bachelor of Science in Office Administration (BSOAd)', 'Researching', 3, 4, 2, 2, 3),
-(19, 'Bachelor of Science in Tourism Management (BSTM)', 'Travelling', 4, 2, 2, 2, 2),
-(20, 'Bachelor of Science in Hotel and Restaurant Management (BSHRM)', 'House Keeping', 2, 2, 2, 2, 2),
-(21, 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 'House Keeping', 2, 2, 2, 2, 2),
-(22, 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', '', 3, 3, 3, 3, 3),
-(23, 'Bachelor in Secondary Education: Science (BSEd-Sci)', 'Researching', 3, 3, 2, 4, 3),
-(24, 'Bachelor in Secondary Education: English (BSEd-Eng)', 'Writing', 4, 2, 2, 2, 2),
-(25, 'Bachelor in Secondary Education: English-Chinese (BSEd-EngChi)', 'Writing', 4, 2, 2, 2, 2),
-(26, 'Bachelor in Secondary Education: BTLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)', 'Assembling/Disassembling', 2, 2, 2, 2, 2);
+INSERT INTO `courses` (`crs_id`, `course`, `related_hobbies`, `secondary_hobbies`, `related_interest`, `secondary_interest`, `strand`, `average_score`) VALUES
+(1, 'Bachelor of Science in Mathematics (BSMath)', 'Mathematics', '0', '0', '0', '0', 0),
+(2, 'Bachelor of Science in Psychology (BSPsych)', 'Communicating', '0', '0', '0', '0', 0),
+(3, 'Bachelor of Science in Criminology (BSCrim)', 'Volunteering', '0', '0', '0', '0', 0),
+(4, 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Programming/Coding', '0', '0', '0', '0', 0),
+(5, 'Bachelor of Science in Information System (BSIS)', 'Programming/Coding', '0', '0', '0', '0', 0),
+(6, 'Bachelor of Science in Information Technology (BSIT)', 'Programming/Coding', '0', '0', '0', '0', 0),
+(7, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Programming/Coding', '0', '0', '0', '0', 0),
+(8, 'Bachelor of Arts in Political Science (ABPS/ABPolSci)', 'Volunteering', '0', '0', '0', '0', 0),
+(9, 'Bachelor of Arts in Communication (BAComm)', 'Communicating', '0', '0', '0', '0', 0),
+(10, 'Bachelor of Arts in Behavioral Science: Organizational and Social Systems Development (ABBS-OSSD)', 'Communicating', '0', '0', '0', '0', 0),
+(11, 'Bachelor in Public Administration (BPA)', 'Communicating', '0', '0', '0', '0', 0),
+(12, 'Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 'Researching', '0', '0', '0', '0', 0),
+(13, 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 'Researching', '0', '0', '0', '0', 0),
+(14, 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 'Researching', '0', '0', '0', '0', 0),
+(15, 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Researching', '0', '0', '0', '0', 0),
+(16, 'Bachelor of Science in Accountancy (BSA)', 'Researching', '0', '0', '0', '0', 0),
+(17, 'Bachelor of Science in Accounting Information System (BSAIS)', 'Researching', '0', '0', '0', '0', 0),
+(18, 'Bachelor of Science in Office Administration (BSOAd)', 'Researching', '0', '0', '0', '0', 0),
+(19, 'Bachelor of Science in Tourism Management (BSTM)', 'Travelling', '0', '0', '0', '0', 0),
+(20, 'Bachelor of Science in Hotel and Restaurant Management (BSHRM)', 'House Keeping', '0', '0', '0', '0', 0),
+(21, 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 'House Keeping', '0', '0', '0', '0', 0),
+(22, 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', '', '0', '0', '0', '0', 0),
+(23, 'Bachelor in Secondary Education: Science (BSEd-Sci)', 'Researching', '0', '0', '0', '0', 0),
+(24, 'Bachelor in Secondary Education: English (BSEd-Eng)', 'Writing', '0', '0', '0', '0', 0),
+(25, 'Bachelor in Secondary Education: English-Chinese (BSEd-EngChi)', 'Writing', '0', '0', '0', '0', 0),
+(26, 'Bachelor in Secondary Education: BTLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)', 'Assembling/Disassembling', '0', '0', '0', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -359,7 +359,7 @@ CREATE TABLE `tbl_exam_subjects` (
 
 INSERT INTO `tbl_exam_subjects` (`subj_id`, `subj_name`, `subj_desc`, `subj_status`, `subj_timestamp`) VALUES
 (1, 'English', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:21:08'),
-(2, 'Filipino', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:34:17'),
+(2, 'Science', 'This includes general knowledge in science', 1, '2023-02-17 22:16:36'),
 (3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48');
 
 -- --------------------------------------------------------
