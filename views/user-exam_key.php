@@ -196,94 +196,95 @@ p {
               </ol>
             </nav>
           </div> 
-          <!-- Quick Action Toolbar Starts-->
-          <div class="row quick-action-toolbar">
-  <div class="col-md-12 grid-margin">
-    <div class="card">
-      <div class="card-body">
-        <div class="card-header d-block d-md-flex">
-          <h5 class="mb-0">Existing exam schedule</h5>
-        </div>
-        <!-- Table -->
-        <table class="table table-hover text-nowrap datatable">
-          <thead>
-            <tr>
-              <th class="font-weight-bold text-center" id="status" scope="col">STATUS</th>
-              <th class="font-weight-bold text-center" scope="col">ID</th>     
-              <th class="font-weight-bold text-center" scope="col">EMAIL</th>
-              <th class="font-weight-bold text-center" scope="col">EXAM DATE</th>
-              <th class="font-weight-bold text-center" scope="col">EXAM KEY</th>
-              <th class="font-weight-bold text-center" scope="col">START TIME</th>
-              <th class="font-weight-bold text-center" scope="col">END TIME</th>
-              <th class="font-weight-bold text-center" scope="col">ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-              $conn = mysqli_connect("localhost", "root", "", "project");
-              $email = ($_SESSION['email']);
-              $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE email = '$email'");
-              while($row = mysqli_fetch_assoc($result)) {
-                $id = $row["id"];
-                $exam_date = $row["exam_date"];
-                $formattedTime = date('h:i A', strtotime($row['exam_time']));
-                $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
-                $status = $row["status"];
-                echo "<tr>";
-                echo "<td class ='text-center'><div class='badge badge-danger p-2 badge-custom'>" . $status . "</div></td>";  
-                echo "<td class ='tdclass'>" . $row["id"] . "</td>";
-                echo "<td class ='tdclass'>" . $row["email"] . "</td>";
-                echo "<td class ='tdclass'>" . $row["exam_date"] . "</td>";
-                echo "<td class ='tdclass'>" . $row["exam_key"] . "</td>";
-                echo "<td class ='tdclass'>" . $formattedTime . "</td>";
-                echo "<td class ='tdclass'>" . $formattedTime2 . "</td>";
-                echo "<td><div class='text-center'><button type='button' class='btn btn-primary view-btn' data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>View Profiling</div></button></td>";
-                echo "</tr>";
-              }
-              mysqli_close($conn);
-            ?>
-          </tbody>
-        </table>
-      </div>
-      </div>
+         <!-- Quick Action Toolbar Starts-->
+         <div class="row quick-action-toolbar">
+            <div class="col-md-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="card-header d-block d-md-flex">
+                  <p class="lead mb-0 ">Verified Students</p>
+                  </div>
+                  <div class="table-responsive border rounded p-1">    
+                      <table class="table table-hover text-nowrap datatable">
+                      <thead>
+                      <tr>
+                          <!-- <th class="font-weight-bold text-center" scope="col">SELECT</th> -->
+                          <th class="font-weight-bold text-center" id="status" scope="col" >STATUS</th>
+                          <th class="font-weight-bold text-center" scope="col">ID</th>
+                          <th class="font-weight-bold text-center" scope="col">EMAIL</th>
+                          <th class="font-weight-bold text-center" scope="col">EXAM KEY</th>
+                          <th class="font-weight-bold text-center" scope="col">EXAM DATE</th>
+                          <th class="font-weight-bold text-center" scope="col">START TIME</th>
+                          <th class="font-weight-bold text-center" scope="col">END TIME</th>
+                          <th class="font-weight-bold text-center" scope="col">ACTIONS</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $conn = mysqli_connect("localhost", "root", "", "project");
+                        $email = ($_SESSION['email']);
+                        $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE email = '$email'");
+                        while($row = mysqli_fetch_assoc($result)) {
+                          $id = $row["id"];
+                          $exam_date = $row["exam_date"];
+                          $formattedTime = date('h:i A', strtotime($row['exam_time']));
+                          $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
+                          $status = $row["status"];
+                          echo "<tr>";
+                          echo "<td class ='text-center'><div class='badge badge-danger p-2 badge-custom'>" . $status . "</div></td>";  
+                          echo "<td class ='tdclass'>" . $row["id"] . "</td>";
+                          echo "<td class ='tdclass'>" . $row["email"] . "</td>";
+                          echo "<td class ='tdclass'>" . $row["exam_date"] . "</td>";
+                          echo "<td class ='tdclass'>" . $row["exam_key"] . "</td>";
+                          echo "<td class ='tdclass'>" . $formattedTime . "</td>";
+                          echo "<td class ='tdclass'>" . $formattedTime2 . "</td>";
+                          echo "<td><div class='text-center'><button type='button' class='btn btn-primary view-btn' data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>View Profiling</div></button></td>";
+                          echo "</tr>";
+                        }
+                        mysqli_close($conn);
+                      ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
 
-<!-- View Modal -->
-<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="viewModalLabel">View Profiling</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="viewProfile"><?php
-            $conn = mysqli_connect("localhost", "root", "", "project");
-            $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE email = '$email'");
-            if (mysqli_num_rows($result) > 0) {
-              $row = mysqli_fetch_assoc($result);
-              echo "<p>Preferred Course: </p>" . $row['pref_course'] . "";
-              echo "<p>Second Preferred Course: </p>" . $row['pref_secondary_course'] . "";
-              echo "<p>Third Preferred Course: </p>" . $row['pref_tertiary_course'] . "";
-              echo "<p>Hobby: </p>" . $row['hobby'] . "";
-              echo "<p>Second Hobby: </p>" . $row['secondary_hobby'] . "";
-              echo "<p>Third Hobby: </p>" . $row['tertiary_hobby'] . "";
-              echo "<p>Exam Key Created At: </p>" . $row['exam_key_created_at'] . "";
-            }
-          ?></div>
-      </div>
-    </div>
-  </div>
-</div>
+                  <!-- View Modal -->
+                <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="viewModalLabel">View Profiling</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div id="viewProfile">
+                        <?php
+                        $conn = mysqli_connect("localhost", "root", "", "project");
+                        $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE id = '$id'");
+                        if (mysqli_num_rows($result) > 0) {
+                          $row = mysqli_fetch_assoc($result);
+                          echo "<p>Preferred Course: </p>" . $row['pref_course'] . "";
+                          echo "<p>Second Preferred Course: </p>" . $row['pref_secondary_course'] . "";
+                          echo "<p>Third Preferred Course: </p>" . $row['pref_tertiary_course'] . "";
+                          echo "<p>Hobby: </p>" . $row['hobby'] . "";
+                          echo "<p>Second Hobby: </p>" . $row['secondary_hobby'] . "";
+                          echo "<p>Third Hobby: </p>" . $row['tertiary_hobby'] . "";
+                          echo "<p>Exam Key Created At: </p>" . $row['exam_key_created_at'] . "";
+                        }
+                       ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-              <!-- Add Bus-->
-              <div>
+                <div>
                 <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>
               </div>
-
-              <!-- Add Bus-->
-              <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <!-- Add Bus-->
+               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-centered">
                   <div class="modal-content">
 
@@ -411,17 +412,46 @@ p {
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Select Hobby</label>
+                          <label>Hobbies/Interest</label>
                           <div class="form-group">
                           <?php
                         include '../forms/database.php';
                         $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobby FROM hobbies";
+                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
                         $result = $conn->query($query2);
                         
                         while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobby'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobby'];
+                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
+                            $selected_hobbies_options[] = $row['hobbies_interests'];
+                          }
+                        }
+                        ?>
+                        <select required name="related_hobbies_opt1" class="form-control">
+                          <option value="">-- select hobbies --</option>
+                          <?php
+                          foreach ($selected_hobbies_options as $arr) {
+                          ?>
+                            <option><?php print($arr); ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        
+                        <!-- repeat this for other select tags -->
+                              </div>
+                        </div>
+                        <div class="mb-3">
+                          <label>Second Hobbies/Interest</label>
+                          <div class="form-group">
+                          <?php
+                        include '../forms/database.php';
+                        $selected_hobbies_options = array();                   
+                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
+                        $result = $conn->query($query2);
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
+                            $selected_hobbies_options[] = $row['hobbies_interests'];
                           }
                         }
                         ?>
@@ -440,17 +470,17 @@ p {
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Select Hobby</label>
+                          <label>Third Hobbies/Interest</label>
                           <div class="form-group">
                           <?php
                         include '../forms/database.php';
                         $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobby FROM hobbies";
+                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
                         $result = $conn->query($query2);
                         
                         while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobby'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobby'];
+                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
+                            $selected_hobbies_options[] = $row['hobbies_interests'];
                           }
                         }
                         ?>
@@ -468,11 +498,9 @@ p {
                         <!-- repeat this for other select tags -->
                               </div>
                         </div>
-                      
-                    
                       <div class="modal-footer">
-                        <input disabled type="submit" name="exam_schedule_date" class="btn btn-primary" id="btnAdd" value="Add"/>
-                        <?php
+                        <input type="submit" disabled name="Add" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="myBtn" value="Add"/>       
+<?php
                              if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           // if (isset($_POST['Add'])){
                           // $url = 'localhost';
@@ -495,21 +523,18 @@ p {
                           // "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
                           // ");
                           // }         
-                          
+                   
                           // Get the email address from the form or wherever it is coming from 
                           $email = ($_SESSION['email']);   
                           $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
                           $last = substr(str_shuffle("1234567890"), 0, 4);
-                          $exam_code = $first . $last;         
+                          $exam_code = $first . $last; 
                           $examDatetime = $_POST['exam_datetime']; 
-                          list($examDate, $examTime, $examtimeend) = explode(' ', $examDatetime);
+                          list($examDate, $examTime, $examtimeend) = explode(' ', $examDatetime);                       
                           $strand = $_POST['strand_opt'];                      
                           $pref_course = $_POST['course_opt1'];  
                           $pref_secondary_course = $_POST['course_opt2'];  
                           $pref_tertiary_course = $_POST['course_opt3'];                                       
-                          $related_interest1 = $_POST['related_interest_opt1'];  
-                          $related_interest2 = $_POST['related_interest_opt2']; 
-                          $related_interest3 = $_POST['related_interest_opt3']; 
                           $related_hobbies1 = $_POST['related_hobbies_opt1']; 
                           $related_hobbies2 = $_POST['related_hobbies_opt2'];         
                           $related_hobbies3 = $_POST['related_hobbies_opt3']; 
@@ -520,17 +545,17 @@ p {
                             if (!$conn) {
                                 die("Connection failed: " . mysqli_connect_error());
                             }
-                            else{
 
-                          // Check if the email address already exists in the database
-                          $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
-                          $check_result = mysqli_query($conn, $check_query);
+                            
 
-                          if (mysqli_num_rows($check_result) > 0) {
-                              $row = mysqli_fetch_array($check_result);
+                            // Check if the email address already exists in the database
+                            $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
+                            $check_result = mysqli_query($conn, $check_query);
 
-                              // Check if the status is already approved
-                              if ($row['status'] == 'active') {
+                            if (mysqli_num_rows($check_result) > 0) {
+                              $row = mysqli_fetch_assoc($check_result);   
+                               // Check if the status is already approved
+                               if ($row['status'] == 'active') {
                                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
                                 <script> 
                                   setTimeout(function() {
@@ -544,26 +569,25 @@ p {
                                     });
                                   }, 100);
                                 </script>";
-                              } else {
-                                  // Delete the existing data
-                                  $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
-                                  $delete_result = mysqli_query($conn, $delete_query);
+                              }
+                              else { 
 
-                                  if ($delete_result) {   
-                                      //process of modifying profiling
-                                      $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                                      strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
-                                       secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
-                                       exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
-                                       '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
-                                        '".$pref_course. "', '".$pref_secondary_course."',
-                                         '".$pref_tertiary_course."', '".$related_interest1."', 
-                                         '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
-                                         '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
-                                      ");
+                                // Delete the existing data
+                                $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
+                                $delete_result = mysqli_query($conn, $delete_query);
 
-                                      if ($insert_result) {
-                                        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                if ($delete_result) {   
+                                    //process of modifying profiling
+                                    $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                                    strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
+                                     exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                                     '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                      '".$pref_course. "', '".$pref_secondary_course."',
+                                       '".$pref_tertiary_course."','".$related_hobbies1."', 
+                                       '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                                    ");
+                                    if ($insert_result) {
+                                      echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
                                         <script> 
                                           setTimeout(function() {
                                             Swal.fire({
@@ -575,58 +599,69 @@ p {
                                               window.location = '../views/user-exam_key.php';
                                             });
                                           }, 100);
-                                        </script>";     
-                                      } else {
-                                          // Handle the error
-                                          printf("Error: %s\n", mysqli_error($conn));
-                                          echo "SQL query: " . $sql;
-                                          exit();
-                                      }
-                                  } else {
-                                      // Handle the error
-                                  }
-
-                                  // Close the database connection
-                                  mysqli_close($conn);
-                              }
+                                        </script>";  
+                                    } else {
+                                        // Handle the error
+                                        printf("Error: %s\n", mysqli_error($conn));
+                                        echo "SQL query: " . $sql;
+                                        exit();
+                                    }
+                                                                
+                                } 
+                                
+                                else {  
+                                  
+                                     
+                                }
+                            }
                           }
 
-                            
-                            else{ 
-
-                            // Insert the new profiling data
-                            $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                            strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
-                             secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
-                             exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
-                             '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
-                              '".$pref_course. "', '".$pref_secondary_course."',
-                               '".$pref_tertiary_course."', '".$related_interest1."', 
-                               '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
-                               '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
-                            ");
+                            else{
+                              // Insert the new data
+                              $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                              strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
+                               exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                               '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                '".$pref_course. "', '".$pref_secondary_course."',
+                                 '".$pref_tertiary_course."','".$related_hobbies1."', 
+                                 '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                              ");
 
                             if ($insert_result) {
-                              echo "<script> window.location = '../views/user-exam_key.php' </script>";
-                            } else {
-
+                              echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                <script> 
+                                  setTimeout(function() {
+                                    Swal.fire({
+                                      title: 'Success',
+                                      icon: 'success',
+                                      showConfirmButton: true,
+                                      text: 'Add exam schedule complete',
+                                    }).then(function() {
+                                      window.location = '../views/user-exam_key.php';
+                                    });
+                                  }, 100);
+                                </script>";   
+                            } 
+                            
+                            else {
                             }
-
+                          }
                             // Close the database connection
                             mysqli_close($conn);  
-                          }
-                        }
-                        }  
-                        ?>          
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      </div>
+                          }    
+                        ?>                  
+                          </div>
+                        </div>
                     </form>
-                    </div>
+                  
                   </div>
                 </div>
               </div>
-              <!-- End Add Bus-->
-          </div>
+              <!-- End Bus-->
+
+              </div>
+            </div>
+          
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
