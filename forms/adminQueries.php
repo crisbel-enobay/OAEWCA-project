@@ -28,7 +28,7 @@ function getGeneratedCodes() {
         die("Connection failed!:" . $conn->connect_error);
     }
     $sql = mysqli_query($conn,
-    "SELECT id,status,email,exam_key,exam_date,exam_time,exam_time_end, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at
+    "SELECT *
     FROM generated_codes
     ");
      return mysqli_fetch_all($sql, MYSQLI_ASSOC);
@@ -50,7 +50,7 @@ function getGeneratedCodes() {
             die("Connection failed!:" . $conn->connect_error);
         }
         $sql = mysqli_query($conn,
-        "SELECT id,status,email,exam_key,exam_date,exam_time,exam_time_end, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at
+        "SELECT *
         FROM generated_codes WHERE status != 'active'
         ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
@@ -73,7 +73,7 @@ function getApprovedStudent() {
         die("Connection failed!:" . $conn->connect_error);
     }
     $sql = mysqli_query($conn,
-    "SELECT id,status,email,exam_key,exam_date,exam_time,exam_time_end, strand, pref_course,pref_secondary_course,pref_tertiary_course, interest, secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,exam_key_created_at
+    "SELECT *
     FROM generated_codes WHERE status = 'active'
     ");
 return mysqli_fetch_all($sql, MYSQLI_ASSOC);
