@@ -27,6 +27,59 @@
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
     <!-- SweetAlert JS -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+  table {
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    width: 100%;
+  }
+  
+  .badge-custom{
+    padding: 5px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  th {
+    color: black;
+    font-weight: bold;
+  }
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: #5bc0de;
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.close {
+  color: #fff;
+}
+
+.modal-body {
+  font-size: 16px;
+  padding: 10px;
+}
+
+#viewProfile p {
+  margin-bottom: 5px;
+}
+p {
+  font-weight: bold;
+}
+.view-btn{
+  padding:5px;
+}
+</style>
   </head>
   <body>
     <div class="container-scroller">
@@ -185,23 +238,14 @@
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                       <tr>
-                          <th scope="col">STATUS</th>
-                          <th scope="col">ID</th>
-                          <th scope="col">EMAIL</th>
-                          <th scope="col">EXAM KEY</th>
-                          <th scope="col">EXAM DATE</th>
-                          <th scope="col">START TIME</th>
-                          <th scope="col">END TIME</th>
-                          <th scope="col">PREFERRED COURSE</th>
-                          <th scope="col">PREFERRED SECOND COURSE</th>
-                          <th scope="col">PREFERRED THIRD COURSE</th>
-                          <th scope="col">INTEREST</th>
-                          <th scope="col">SECOND INTEREST</th>
-                          <th scope="col">THIRD INTEREST</th>
-                          <th scope="col">HOBBY</th>
-                          <th scope="col">SECOND HOBBY</th>
-                          <th scope="col">THIRD HOBBY</th>
-                          <th scope="col">EXAM KEY CREATED AT</th>
+                          <th class="font-weight-bold text-center" scope="col">STATUS</th>
+                          <th class="font-weight-bold text-center" scope="col">ID</th>
+                          <th class="font-weight-bold text-center" scope="col">EMAIL</th>
+                          <th class="font-weight-bold text-center" scope="col">EXAM DATE</th>
+                          <th class="font-weight-bold text-center" scope="col">EXAM KEY</th>
+                          <th class="font-weight-bold text-center" scope="col">START TIME</th>
+                          <th class="font-weight-bold text-center" scope="col">END TIME</th>
+                          <th class="font-weight-bold text-center" scope="col">ACTIONS</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -219,31 +263,19 @@
                           $pref_course = $row["pref_course"];
                           $pref_second_course = $row["pref_secondary_course"];
                           $pref_third_course = $row["pref_tertiary_course"];
-                          $interest = $row["interest"];
-                          $second_interest = $row["secondary_interest"];
-                          $third_interest = $row["tertiary_interest"];
                           $hobby1 = $row["hobby"];
                           $hobby2 = $row["secondary_hobby"];
                           $hobby3 = $row["tertiary_hobby"];
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
-                          echo "<td>" . $row["status"] . "</td>";
+                          echo "<td><div class='badge badge-danger p-2'>" . $row['status'] . "</div></td>";
                           echo "<td>" . $row["id"] . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
-                          echo "<td>" . $row["exam_key"] . "</td>";
                           echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" . $row["exam_key"] . "</td>";
                           echo "<td>" . $formattedTime . "</td>";
                           echo "<td>" . $formattedTime2 . "</td>";
-                          echo "<td>" . $pref_course . "</td>";
-                          echo "<td>" . $pref_second_course . "</td>";
-                          echo "<td>" . $pref_third_course . "</td>";
-                          echo "<td>" . $row["interest"] . "</td>";
-                          echo "<td>" . $second_interest . "</td>";
-                          echo "<td>" . $third_interest . "</td>";
-                          echo "<td>" .  $hobby1 . "</td>";
-                          echo "<td>" .  $hobby2 . "</td>";
-                          echo "<td>" .  $hobby3 . "</td>";
-                          echo "<td>" . $row["exam_key_created_at"] . "</td>";
+                          echo "<td><div class='text-center'><button name='btnmodal' type='button' class='btn btn-primary view-btn' data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>View Profiling</div></button></td>";
                           // echo      "<td>". "<div class='d-flex '>
                           //       <form method='POST' action='../forms/delete_bus.php'>
                           //                 <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
@@ -261,11 +293,29 @@
                     </table>
                   </div>
               <div>
+
+              <!-- View Modal -->
+              <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="viewModalLabel">View Profiling</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div id="viewProfile"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div>
                 <button hidden type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Course</button>
               </div>
 
               <!-- Add Bus-->
-              <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <!-- <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-centered">
                   <div class="modal-content">
 
@@ -286,40 +336,40 @@
                     
                     
                       <div class="modal-footer">
-                        <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/>
+                        <input type="submit" name="Add" class="btn btn-primary" id="btnAdd" value="Add"/> -->
                         <?php
-                          if (isset($_POST['Add'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $newcrs = $_POST['courseName'];                      
-                          $newhob= $_POST['relhobby'];                      
-                          $newen = $_POST['neng'];                      
-                          $newmt = $_POST['nmat'];                      
-                          $newfl = $_POST['nfil'];                      
-                          $newsc = $_POST['nsci'];                      
-                          $newlg = $_POST['nlog'];                      
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                          $sql = mysqli_query($conn,
-                          "INSERT INTO courses(course, related_hobbies, English, Math, Filipino, Science, Logic) VALUES ('".$newcrs."','".$newhob."', ".$newen.", ".$newmt.", ".$newfl.", ".$newsc.", ".$newlg.")
-                          ");
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                          }
+                          // if (isset($_POST['Add'])){
+                          // $url = 'localhost';
+                          // $username = 'root';
+                          // $password = '';                     
+                          // $newcrs = $_POST['courseName'];                      
+                          // $newhob= $_POST['relhobby'];                      
+                          // $newen = $_POST['neng'];                      
+                          // $newmt = $_POST['nmat'];                      
+                          // $newfl = $_POST['nfil'];                      
+                          // $newsc = $_POST['nsci'];                      
+                          // $newlg = $_POST['nlog'];                      
+                          // $conn = new mysqli($url, $username, $password, 'project');
+                          // if ($conn->connect_error) {
+                          //     die("Connection failed!:" . $conn->connect_error);
+                          // }
+                          // $sql = mysqli_query($conn,
+                          // "INSERT INTO courses(course, related_hobbies, English, Math, Filipino, Science, Logic) VALUES ('".$newcrs."','".$newhob."', ".$newen.", ".$newmt.", ".$newfl.", ".$newsc.", ".$newlg.")
+                          // ");
+                          //     echo "<script> window.location = 'admin-courses.php' </script>";
+                          // }
                         ?>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
                     </form>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <!-- End Add Bus-->
 
                 <!-- Edit Modal-->
-                <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -335,64 +385,64 @@
                           <div class="mb-3">
                           <label>Related Hobbies</label>
                           <select name="relhob" class="form-control" id="edithob" required>
-                            <option value="0">-No Changes-</option>
+                            <option value="0">-No Changes-</option> -->
                             <?php
-                            $conn = new mysqli('localhost', 'root', '', 'project');
-                            if ($conn->connect_error) {
-                                die("Connection failed!:" . $conn->connect_error);
-                            }
-                            $find = "select * from hobbies";
-                            $list = $conn->query($find);
-                            while($row = $list->fetch_assoc()){
-                              echo '<option value="'.$row['hob_id'].'">'.$row['hobby'].'</option>';
-                            }
+                            // $conn = new mysqli('localhost', 'root', '', 'project');
+                            // if ($conn->connect_error) {
+                            //     die("Connection failed!:" . $conn->connect_error);
+                            // }
+                            // $find = "select * from hobbies";
+                            // $list = $conn->query($find);
+                            // while($row = $list->fetch_assoc()){
+                            //   echo '<option value="'.$row['hob_id'].'">'.$row['hobby'].'</option>';
+                            // }
                             ?>
-                          </select>
+                          <!-- </select>
                         </div>
                         </div>
                         <div class="modal-footer">
-                          <input type="submit" name="Update" class="btn btn-primary"/>
+                          <input type="submit" name="Update" class="btn btn-primary"/> -->
                           <?php
-                          if (isset($_POST['Update'])){
-                          $url = 'localhost';
-                          $username = 'root';
-                          $password = '';                     
-                          $edtid = $_POST['edit_id'];                      
-                          $edtcrs = $_POST['editcourseName'];                      
-                          $edten = $_POST['editeng'];                      
-                          $edtmt = $_POST['editmat'];                      
-                          $edtfl = $_POST['editfil'];                      
-                          $edtsc = $_POST['editsci'];                      
-                          $edtlg = $_POST['editlog'];                      
-                          $conn = new mysqli($url, $username, $password, 'project');
-                          if ($conn->connect_error) {
-                              die("Connection failed!:" . $conn->connect_error);
-                          }
-                          if ($_POST['relhob'] == '0'){
-                            $sql = mysqli_query($conn,
-                          "UPDATE courses SET course='".$edtcrs."' , English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
-                          ");
-                          }
-                          else {
-                          $findhob = "select * from hobbies where hob_id = ".$_POST['relhob']." ";
-                            $showhob = $conn->query($findhob);                 
-                            $changedhob = $showhob->fetch_assoc();
-                          $sql = mysqli_query($conn,
-                          "UPDATE courses SET course='".$edtcrs."',related_hobbies='".$changedhob['hobby']."',English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
-                          ");}
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                          }
+                          // if (isset($_POST['Update'])){
+                          // $url = 'localhost';
+                          // $username = 'root';
+                          // $password = '';                     
+                          // $edtid = $_POST['edit_id'];                      
+                          // $edtcrs = $_POST['editcourseName'];                      
+                          // $edten = $_POST['editeng'];                      
+                          // $edtmt = $_POST['editmat'];                      
+                          // $edtfl = $_POST['editfil'];                      
+                          // $edtsc = $_POST['editsci'];                      
+                          // $edtlg = $_POST['editlog'];                      
+                          // $conn = new mysqli($url, $username, $password, 'project');
+                          // if ($conn->connect_error) {
+                          //     die("Connection failed!:" . $conn->connect_error);
+                          // }
+                          // if ($_POST['relhob'] == '0'){
+                          //   $sql = mysqli_query($conn,
+                          // "UPDATE courses SET course='".$edtcrs."' , English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
+                          // ");
+                          // }
+                          // else {
+                          // $findhob = "select * from hobbies where hob_id = ".$_POST['relhob']." ";
+                          //   $showhob = $conn->query($findhob);                 
+                          //   $changedhob = $showhob->fetch_assoc();
+                          // $sql = mysqli_query($conn,
+                          // "UPDATE courses SET course='".$edtcrs."',related_hobbies='".$changedhob['hobby']."',English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
+                          // ");}
+                          //     echo "<script> window.location = 'admin-courses.php' </script>";
+                          // }
                         ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                       </form>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- End Edit Modal -->
 
                 <!-- Archive Modal -->
-                <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -404,39 +454,39 @@
                           <h4>Are you sure you want to remove this course??</h4>
                         </div>
                         <div class="modal-footer">
-                          <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
+                          <input type="submit" name="Archive" class="btn btn-danger" value="Yes" /> -->
                           <?php
-                            if (isset($_POST['Archive'])){
-                              $url = 'localhost';
-                              $username = 'root';
-                              $password = '';                     
-                              $delid = $_POST['rem_course_id'];                   
-                              $conn = new mysqli($url, $username, $password, 'project');
-                              if ($conn->connect_error) {
-                                  die("Connection failed!:" . $conn->connect_error);
-                              }
-                              // $sql = mysqli_query($conn,
-                              // "DELETE FROM courses WHERE crs_id = ".$delid."
-                              // ");
-                              $sql = mysqli_query($conn,
-                              "INSERT archived_courses
-                              (crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic)
-                              SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic FROM courses
-                              WHERE crs_id = ". $delid ."
-                              ");
-                              $sql2 = mysqli_query($conn,
-                              "DELETE FROM courses
-                              WHERE crs_id = ". $delid ."
-                              ");
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                              }
+                            // if (isset($_POST['Archive'])){
+                            //   $url = 'localhost';
+                            //   $username = 'root';
+                            //   $password = '';                     
+                            //   $delid = $_POST['rem_course_id'];                   
+                            //   $conn = new mysqli($url, $username, $password, 'project');
+                            //   if ($conn->connect_error) {
+                            //       die("Connection failed!:" . $conn->connect_error);
+                            //   }
+                            //   // $sql = mysqli_query($conn,
+                            //   // "DELETE FROM courses WHERE crs_id = ".$delid."
+                            //   // ");
+                            //   $sql = mysqli_query($conn,
+                            //   "INSERT archived_courses
+                            //   (crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic)
+                            //   SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic FROM courses
+                            //   WHERE crs_id = ". $delid ."
+                            //   ");
+                            //   $sql2 = mysqli_query($conn,
+                            //   "DELETE FROM courses
+                            //   WHERE crs_id = ". $delid ."
+                            //   ");
+                            //   echo "<script> window.location = 'admin-courses.php' </script>";
+                            //   }
                           ?>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                         </div>
                       </form>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- End Archive Modal -->
 
               </div>
@@ -538,5 +588,20 @@
       });
     });*/
   </script>
+
+<script>
+ $(document).on("click", ".view-btn", function () {
+    var id = $(this).data('id');
+    $.ajax({
+        url: "../forms/get_generated_codes.php",
+        type: "POST",
+        data: {id: id},
+        success: function (data) {
+            $('#viewProfile').html(data);
+        }
+    });
+});
+</script>
+
   </body>
 </html>
