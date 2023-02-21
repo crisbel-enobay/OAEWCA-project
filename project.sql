@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-<<<<<<< HEAD
--- Generation Time: Feb 17, 2023 at 11:31 PM
-=======
--- Generation Time: Feb 17, 2023 at 09:41 PM
->>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
+-- Generation Time: Feb 21, 2023 at 12:20 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -45,7 +41,8 @@ CREATE TABLE `admin_schedule` (
 
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_time`, `exam_time_end`, `exam_date_created`) VALUES
 (56, '2023-02-16', '21:00:00', '23:00:00', '2023-02-16 20:39:55'),
-(58, '2023-02-18', '15:00:00', '16:00:00', '2023-02-16 20:39:55');
+(58, '2023-02-18', '15:00:00', '16:00:00', '2023-02-16 20:39:55'),
+(59, '2023-02-20', '14:00:00', '16:00:00', '2023-02-20 13:56:14');
 
 -- --------------------------------------------------------
 
@@ -190,9 +187,6 @@ CREATE TABLE `generated_codes` (
   `pref_course` varchar(255) NOT NULL,
   `pref_secondary_course` varchar(255) NOT NULL,
   `pref_tertiary_course` varchar(255) NOT NULL,
-  `interest` varchar(255) NOT NULL,
-  `secondary_interest` varchar(255) NOT NULL,
-  `tertiary_interest` varchar(255) NOT NULL,
   `hobby` varchar(255) NOT NULL,
   `secondary_hobby` varchar(255) NOT NULL,
   `tertiary_hobby` varchar(255) NOT NULL,
@@ -203,26 +197,26 @@ CREATE TABLE `generated_codes` (
 -- Dumping data for table `generated_codes`
 --
 
-INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `interest`, `secondary_interest`, `tertiary_interest`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
-(45, 'user@gmail.com', 'walx2386', '2023-02-18', '04:00:00', '06:33:00', 'active', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Criminology (BSCrim)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'analyzing', 'information gathering', 'problem solving', 'Self Studying', 'Videography', 'Writing', '2023-02-18 02:10:54'),
-(46, 'lebbraumjayce@gmail.com', 'pgxc1279', '2023-02-16', '21:00:00', '23:00:00', 'pending', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'numbers', 'analyzing', 'problem solving', 'Self Studying', 'Videography', 'Travelling', '2023-02-18 04:32:30');
+INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
+(46, 'lebbraumjayce@gmail.com', 'pgxc1279', '2023-02-16', '21:00:00', '23:00:00', 'active', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Self Studying', 'Videography', 'Travelling', '2023-02-18 04:32:30'),
+(47, 'user@gmail.com', 'trby3698', '2023-02-16', '21:00:00', '23:00:00', 'pending', 'HUMMS', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Criminology (BSCrim)', 'Bachelor of Science in Psychology (BSPsych)', 'Mathematics', 'Blogging', 'Videography', '2023-02-20 13:47:08');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hobbies`
+-- Table structure for table `hobbies_interests`
 --
 
-CREATE TABLE `hobbies` (
-  `hob_id` int(11) NOT NULL,
-  `hobby` varchar(255) NOT NULL
+CREATE TABLE `hobbies_interests` (
+  `id` int(11) NOT NULL,
+  `hobbies_interests` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `hobbies`
+-- Dumping data for table `hobbies_interests`
 --
 
-INSERT INTO `hobbies` (`hob_id`, `hobby`) VALUES
+INSERT INTO `hobbies_interests` (`id`, `hobbies_interests`) VALUES
 (1, 'Research'),
 (2, 'Mathematics'),
 (3, 'Assembling/Disassembling'),
@@ -248,40 +242,20 @@ INSERT INTO `hobbies` (`hob_id`, `hobby`) VALUES
 (23, 'Baking'),
 (24, 'Programming/Coding'),
 (25, 'Web Development'),
-(26, 'Designing');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `interests`
---
-
-CREATE TABLE `interests` (
-  `id` int(11) NOT NULL,
-  `interest` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `interests`
---
-
-INSERT INTO `interests` (`id`, `interest`) VALUES
-(1, 'problem solving'),
-(2, 'analyzing'),
-(3, 'numbers'),
-(4, 'accounting'),
-(5, 'education'),
-(6, 'mathematics'),
-(7, 'information gathering'),
-(8, 'computation'),
-(9, 'law'),
-(10, 'english'),
-(11, 'technology'),
-(12, 'systematic'),
-(13, 'government'),
-(14, 'management'),
-(15, 'collaboration'),
-(16, 'politics');
+(26, 'Teaching'),
+(27, 'Information Gathering'),
+(28, 'Computation'),
+(29, 'Law'),
+(30, 'English'),
+(31, 'Technology'),
+(32, 'Systematizing'),
+(33, 'Governing'),
+(34, 'Managing'),
+(35, 'Collaborating'),
+(36, 'Politics'),
+(37, 'Problem Solving'),
+(38, 'Analyzing'),
+(39, 'Accounting');
 
 -- --------------------------------------------------------
 
@@ -409,15 +383,9 @@ CREATE TABLE `tbl_exam_topics` (
 --
 
 INSERT INTO `tbl_exam_topics` (`topic_id`, `topic_name`, `topic_desc`, `topic_duration`, `topic_stat`, `topic_stamp`, `topic_subj`) VALUES
-<<<<<<< HEAD
 (1, 'Vocabulary', 'one of the four words or phrases given a choices means almost SAME as the capitalized word in the preceding sentence. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 21:44:02', 1),
 (2, 'Basic Math Problems', 'This is a test of your ability to think out solution to quantitative problems in Basic Mathematics. Analyze and solve each problem carefully. Choose the letter that corresponds to your answer.\r\n', 45, 1, '2023-02-17 21:56:12', 3),
 (3, 'General Science', 'This is a test of your proficiency in General Science. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 22:17:18', 2);
-=======
-(1, 'Verbal Test', 'This includes sentence and grammar construction', 60, 1, '2023-02-11 14:59:31', 1),
-(2, 'fafea', 'faefwaf', 0, 1, '2023-02-14 05:37:30', 1),
-(3, 'afa', 'fawfaw', 0, 1, '2023-02-14 06:25:22', 3);
->>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 -- --------------------------------------------------------
 
@@ -437,7 +405,6 @@ CREATE TABLE `tbl_que_answers` (
 --
 
 INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
-<<<<<<< HEAD
 (13, 4, 'winding', 1),
 (14, 4, 'straight', 0),
 (15, 4, 'climbing', 0),
@@ -498,28 +465,6 @@ INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
 (70, 19, 'Nucleus', 0),
 (71, 19, 'Cytoplasm', 0),
 (72, 19, 'Cell Membrane', 0);
-=======
-(1, 1, 'verb', 1),
-(2, 1, 'noun', 0),
-(3, 1, 'pronoun', 0),
-(4, 1, 'adjective', 0),
-(5, 2, '%% 6minutes', 0),
-(6, 2, '%% 6minutes', 0),
-(7, 2, '%% 6minutes', 1),
-(8, 2, '%% 6minutes', 0),
-(9, 3, '%', 1),
-(10, 3, '$%', 0),
-(11, 3, '%', 0),
-(12, 3, '%', 0),
-(13, 4, '2 minutes', 1),
-(14, 4, '2 minutes', 0),
-(15, 4, '2 minutes', 0),
-(16, 4, '2 minutes', 0),
-(17, 5, 'eaf', 0),
-(18, 5, '2 !@', 1),
-(19, 5, '2 !@', 0),
-(20, 5, '2 !@', 0);
->>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 -- --------------------------------------------------------
 
@@ -538,7 +483,6 @@ CREATE TABLE `tbl_topic_questions` (
 --
 
 INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
-<<<<<<< HEAD
 (4, ' The SINUOUS road curve narrowly up the mountain.', 1),
 (5, ' When we reached the oasis, we were able to SLAKE our thirst.', 1),
 (6, 'The knowledge that Harold\'s surgery ha been successful MITIGATED his family\'s fear.', 1),
@@ -554,13 +498,6 @@ INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
 (17, 'Of the following metric units which one is the smallest?', 3),
 (18, 'A rise in atmosphere temperature due to an increase in carbon dioxide, methane and other gases that trap heat in the atmosphere is called _____.', 3),
 (19, 'The powerhouse of the cell.', 3);
-=======
-(1, 'A word used to describe an action, state, or occurrence, and forming the main part of the predicate of a sentence', 1),
-(2, ' fafeafaefaenfafae %%6 kim', 2),
-(3, ' %', 2),
-(4, ' 2 minutes', 2),
-(5, ' afeafa 2 !@', 2);
->>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 -- --------------------------------------------------------
 
@@ -633,15 +570,9 @@ ALTER TABLE `generated_codes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hobbies`
+-- Indexes for table `hobbies_interests`
 --
-ALTER TABLE `hobbies`
-  ADD PRIMARY KEY (`hob_id`);
-
---
--- Indexes for table `interests`
---
-ALTER TABLE `interests`
+ALTER TABLE `hobbies_interests`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -700,19 +631,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_schedule`
 --
 ALTER TABLE `admin_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `archived_courses`
 --
 ALTER TABLE `archived_courses`
   MODIFY `crs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `courses`
---
-ALTER TABLE `courses`
-  MODIFY `crs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `english_questionnaire`
@@ -730,19 +655,13 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
--- AUTO_INCREMENT for table `hobbies`
+-- AUTO_INCREMENT for table `hobbies_interests`
 --
-ALTER TABLE `hobbies`
-  MODIFY `hob_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT for table `interests`
---
-ALTER TABLE `interests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+ALTER TABLE `hobbies_interests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `logic_questionnaire`
@@ -778,21 +697,13 @@ ALTER TABLE `tbl_exam_topics`
 -- AUTO_INCREMENT for table `tbl_que_answers`
 --
 ALTER TABLE `tbl_que_answers`
-<<<<<<< HEAD
   MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
-=======
-  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
->>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 --
 -- AUTO_INCREMENT for table `tbl_topic_questions`
 --
 ALTER TABLE `tbl_topic_questions`
-<<<<<<< HEAD
   MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-=======
-  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
->>>>>>> 50e16f8b973676df3bc3efc94ad1ba31bf9827de
 
 --
 -- AUTO_INCREMENT for table `users`
