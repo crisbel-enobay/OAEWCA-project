@@ -268,7 +268,13 @@ p {
                           $hobby3 = $row["tertiary_hobby"];
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
-                          echo "<td><div class='badge badge-danger p-2'>" . $row['status'] . "</div></td>";
+                          if ($row['status'] == 'active') {
+                              echo "<td><div class='badge badge-success p-2'>" . $row['status'] . "</div></td>";
+                          } elseif ($row['status'] == 'pending') {
+                              echo "<td><div class='badge badge-danger p-2'>" . $row['status'] . "</div></td>";
+                          } else {
+                              echo "<td><div class='badge badge-secondary p-2'>" . $row['status'] . "</div></td>";
+                          }
                           echo "<td>" . $row["id"] . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
                           echo "<td>" . $row["exam_date"] . "</td>";

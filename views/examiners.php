@@ -251,7 +251,7 @@ include '../forms/adminQueries.php';
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
                           // echo "<td><input type='checkbox' name='user_ids[]' value='".$row['id']."'></td>";
-                          echo "<td><div class='badge badge-danger p-2'>" . $status . "</div></td>";
+                          echo "<td><div class='badge badge-success p-2'>" . $status . "</div></td>";
                           echo "<td>" . $row["id"] . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
                           echo "<td>" . $row["exam_key"] . "</td>";

@@ -4,6 +4,7 @@
             $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE id = '$id'");
             if (mysqli_num_rows($result) > 0) {
               $row = mysqli_fetch_assoc($result);
+              echo "<p>Strand: </p>" . $row['strand'] . "";
               echo "<p>Preferred Course: </p>" . $row['pref_course'] . "";
               echo "<p>Second Preferred Course: </p>" . $row['pref_secondary_course'] . "";
               echo "<p>Third Preferred Course: </p>" . $row['pref_tertiary_course'] . "";
