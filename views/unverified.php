@@ -2,42 +2,146 @@
 include '../forms/adminQueries.php';
 include '../file/logout-function.php';
 include "admin-checker.php";
-?>
 
-<?php
+ //Import PHPMailer classes into the global namespace
+    //These must be at the top of your script, not inside a function
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+    //Load Composer's autoloader
+    require '../vendor/autoload.php';
+
 
 // Assume we have a database connection called $conn
 include '../forms/database.php';
 
 if (isset($_POST['approve'])) {
   $userIds = $_POST['user_ids'];
-  
   foreach ($userIds as $userId) {
-    // Generate a new reset link token
-    $status = "active";
-  
-    // Update the database with the new token
-    $sql = "UPDATE generated_codes SET status='".$status."' WHERE id='".$userId."'";
-    mysqli_query($conn, $sql);
+  $mail = new PHPMailer(true);
+ 
+        try {
+          $sql = "SELECT * FROM generated_codes WHERE id='".$userId."'"; 
+          $result = mysqli_query($conn, $sql);
+          if (mysqli_affected_rows($conn) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+              // access the columns by their name
+            $recipient_name = $row['fullname'];
+            $email = $row['email'];
+            $exam_key = $row['exam_key'];
+            $exam_date = $row['exam_date'];
+            $exam_time = date('h:i A', strtotime($row['exam_time']));
+            $exam_time_end = date('h:i A', strtotime($row['exam_time_end']));
+            //Enable verbose debug output
+            $mail->SMTPDebug = 0;//SMTP::DEBUG_SERVER;
+ 
+            //Send using SMTP
+            $mail->isSMTP();
+ 
+            //Set the SMTP server to send through
+            $mail->Host = 'smtp.gmail.com';
+ 
+            //Enable SMTP authentication
+            $mail->SMTPAuth = true;
+ 
+            //SMTP username
+            $mail->Username = 'lebbraumjayce3@gmail.com';
+ 
+            //SMTP password
+            $mail->Password = 'rnimmwsahakqkmmb';
+ 
+            //Enable TLS encryption;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+ 
+            //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->Port = 465;
+ 
+            //Recipients
+            $mail->setFrom('lebbraumjayce3@gmail.com', 'OAEWCA');
+ 
+            //Add a recipient
+            $mail->addAddress($email, $recipient_name);
+ 
+            //Set email format to HTML
+            $mail->isHTML(true);
+ 
+            $mail->Subject = 'Exam Schedule and Key Approved';
+            $mail->Body = '<html>
+  <head>
+    <style>
+      /* styles for the email body */
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        color: #333333;
+        line-height: 1.5;
+      }
+      h1 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      p {
+        margin-bottom: 10px;
+      }
+      /* styles for the key */
+      .key {
+        display: inline-block;
+        font-size: 30px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Exam Schedule and Key Approved</h1>
+    <p>Your Key is now valid on Exam Schedule:</p>
+    <p><strong>Date:</strong> ' . $exam_date . '</p>
+    <p><strong>Time:</strong> ' . $exam_time . ' - ' . $exam_time_end . '</p>
+    <p>Your key is:</p>
+    <p class="key">' . $exam_key . '</p>
+  </body>
+</html>';
+            $mail->send();
+            
 
-    // Check if any rows were updated
-    if (mysqli_affected_rows($conn) > 0) {
-      // Display SweetAlert and redirect to a certain page
-      echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
-      <script> 
-        setTimeout(function() {
-          Swal.fire({
-            title: 'Approve Successful',
-            icon: 'success',
-            showConfirmButton: true,
-            text: '',
-          }).then(function() {
-            window.location = '../views/unverified.php';
-          });
-        }, 100);
-      </script>";
-    }
-  }
+            // Generate a new reset link token
+            $status = "active";
+          
+            // Update the database with the new token
+            $sql = "UPDATE generated_codes SET status='".$status."' WHERE id='".$userId."'";
+            mysqli_query($conn, $sql);
+
+            // Check if any rows were updated
+            if (mysqli_affected_rows($conn) > 0) {
+              // Display SweetAlert and redirect to a certain page
+              echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+              <script> 
+                setTimeout(function() {
+                  Swal.fire({
+                    title: 'Approve Successful',
+                    icon: 'success',
+                    showConfirmButton: true,
+                    text: '',
+                  }).then(function() {
+                    window.location = '../views/unverified.php';
+                  });
+                }, 100);
+              </script>";
+            }
+          }
+        }
+        }
+          catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+        }
+        
+            
+          
 }
 
 ?>
