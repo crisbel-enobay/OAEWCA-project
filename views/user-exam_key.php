@@ -33,18 +33,52 @@
     font-family: Arial, sans-serif;
     width: 100%;
   }
+  
+  .badge-custom{
+    padding: 5px;
+  }
+
   th, td {
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    
+    text-align: center;
   }
   th {
     color: black;
     font-weight: bold;
   }
- 
+.modal-content {
+  border-radius: 10px;
+}
 
+.modal-header {
+  background-color: #5bc0de;
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.close {
+  color: #fff;
+}
+
+.modal-body {
+  font-size: 16px;
+  padding: 10px;
+}
+
+#viewProfile p {
+  margin-bottom: 5px;
+}
+p {
+  font-weight: bold;
+}
+.view-btn{
+  padding:5px;
+}
 </style>
   </head>
   <body>
@@ -162,35 +196,27 @@
               </ol>
             </nav>
           </div> 
-          <!-- Quick Action Toolbar Starts-->
-          <div class="row quick-action-toolbar">
+         <!-- Quick Action Toolbar Starts-->
+         <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Existing exam schedule</h5>
+                  <p class="lead mb-0 ">Verified Students</p>
                   </div>
-                  <div class="table-responsive border rounded p-1">
-                    <table class="table table-hover text-nowrap datatable">
+                  <div class="table-responsive border rounded p-1">    
+                      <table class="table table-hover text-nowrap datatable">
                       <thead>
-                        <tr>
-                          <th class="font-weight-bold" id="status" scope="col" >STATUS</th>
-                          <th class="font-weight-bold" scope="col">ID</th>                     
-                          <th class="font-weight-bold" scope="col">EMAIL</th>
-                          <th class="font-weight-bold" scope="col">EXAM KEY</th>
-                          <th class="font-weight-bold" scope="col">EXAM DATE</th>
-                          <th class="font-weight-bold" scope="col">START TIME</th>
-                          <th class="font-weight-bold" scope="col">END TIME</th>
-                          <th class="font-weight-bold" scope="col">PREFERRED COURSE</th>
-                          <th class="font-weight-bold" scope="col">PREFERRED SECOND COURSE</th>
-                          <th class="font-weight-bold" scope="col">PREFERRED THIRD COURSE</th>
-                          <th class="font-weight-bold" scope="col">INTEREST</th>
-                          <th class="font-weight-bold" scope="col">SECOND INTEREST</th>
-                          <th class="font-weight-bold" scope="col">THIRD INTEREST</th>
-                          <th class="font-weight-bold" scope="col">HOBBY</th>
-                          <th class="font-weight-bold" scope="col">SECOND HOBBY</th>
-                          <th class="font-weight-bold" scope="col">THIRD HOBBY</th>
-                          <th class="font-weight-bold" scope="col">EXAM KEY CREATED AT</th>
+                      <tr>
+                          <!-- <th class="font-weight-bold text-center" scope="col">SELECT</th> -->
+                          <th class="font-weight-bold text-center" id="status" scope="col" >STATUS</th>
+                          <th class="font-weight-bold text-center" scope="col">ID</th>
+                          <th class="font-weight-bold text-center" scope="col">EMAIL</th>
+                          <th class="font-weight-bold text-center" scope="col">EXAM KEY</th>
+                          <th class="font-weight-bold text-center" scope="col">EXAM DATE</th>
+                          <th class="font-weight-bold text-center" scope="col">START TIME</th>
+                          <th class="font-weight-bold text-center" scope="col">END TIME</th>
+                          <th class="font-weight-bold text-center" scope="col">ACTIONS</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -200,61 +226,72 @@
                         $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE email = '$email'");
                         while($row = mysqli_fetch_assoc($result)) {
                           $id = $row["id"];
-                          $exam_key = $row["exam_key"];
                           $exam_date = $row["exam_date"];
                           $formattedTime = date('h:i A', strtotime($row['exam_time']));
                           $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                           $status = $row["status"];
-                          $pref_course = $row["pref_course"];
-                          $pref_second_course = $row["pref_secondary_course"];
-                          $pref_third_course = $row["pref_tertiary_course"];
-                          $interest = $row["interest"];
-                          $second_interest = $row["secondary_interest"];
-                          $third_interest = $row["tertiary_interest"];
-                          $hobby1 = $row["hobby"];
-                          $hobby2 = $row["secondary_hobby"];
-                          $hobby3 = $row["tertiary_hobby"];
-                          $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
-                          echo "<td><div class='badge badge-danger p-2'>" . $status . "</div></td>";  
-                          echo "<td>" . $row["id"] . "</td>";
-                          echo "<td>" . $row["email"] . "</td>";
-                          echo "<td>" . $row["exam_key"] . "</td>";
-                          echo "<td>" . $row["exam_date"] . "</td>";
-                          echo "<td>" . $formattedTime . "</td>";
-                          echo "<td>" . $formattedTime2 . "</td>";
-                          echo "<td>" . $pref_course . "</td>";
-                          echo "<td>" . $pref_second_course . "</td>";
-                          echo "<td>" . $pref_third_course . "</td>";
-                          echo "<td>" . $row["interest"] . "</td>";
-                          echo "<td>" . $second_interest . "</td>";
-                          echo "<td>" . $third_interest . "</td>";
-                          echo "<td>" .  $hobby1 . "</td>";
-                          echo "<td>" .  $hobby2 . "</td>";
-                          echo "<td>" .  $hobby3 . "</td>";
-                          echo "<td>" . $row["exam_key_created_at"] . "</td>";
-                          // echo      "<td>". "<div class='d-flex '>
-                          //       <form method='POST' action='../forms/delete_bus.php'>
-                          //                 <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
-                          //               </form>" .
-                          //     "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
-                          //     "</div>" .
-                          //     "</td>" .
-                               "</tr>";
+                          if ($row['status'] == 'active') {
+                            echo "<td><div class='badge badge-success p-2'>" . $row['status'] . "</div></td>";
+                        } elseif ($row['status'] == 'pending') {
+                            echo "<td><div class='badge badge-danger p-2'>" . $row['status'] . "</div></td>";
+                        } else {
+                            echo "<td><div class='badge badge-secondary p-2'>" . $row['status'] . "</div></td>";
+                        }
+                          echo "<td class ='tdclass'>" . $row["id"] . "</td>";
+                          echo "<td class ='tdclass'>" . $row["email"] . "</td>";
+                          echo "<td class ='tdclass'>" . $row["exam_date"] . "</td>";
+                          echo "<td class ='tdclass'>" . $row["exam_key"] . "</td>";
+                          echo "<td class ='tdclass'>" . $formattedTime . "</td>";
+                          echo "<td class ='tdclass'>" . $formattedTime2 . "</td>";
+                          echo "<td><div class='text-center'><button type='button' class='btn btn-primary view-btn' data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>View Profiling</div></button></td>";
+                          echo "</tr>";
                         }
                         mysqli_close($conn);
                       ?>
-
                       </tbody>
                     </table>
                   </div>
-              <!-- Add Bus-->
-              <div>
+                </div>
+
+                  <!-- View Modal -->
+                <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="viewModalLabel">View Profiling</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div id="viewProfile">
+                        <?php
+                        $conn = mysqli_connect("localhost", "root", "", "project");
+                        $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE id = '$id'");
+                        if (mysqli_num_rows($result) > 0) {
+                          $row = mysqli_fetch_assoc($result);
+                          echo "<p>Strand: </p>" . $row['strand'] . "";
+                          echo "<p>Preferred Course: </p>" . $row['pref_course'] . "";
+                          echo "<p>Second Preferred Course: </p>" . $row['pref_secondary_course'] . "";
+                          echo "<p>Third Preferred Course: </p>" . $row['pref_tertiary_course'] . "";
+                          echo "<p>Hobby: </p>" . $row['hobby'] . "";
+                          echo "<p>Second Hobby: </p>" . $row['secondary_hobby'] . "";
+                          echo "<p>Third Hobby: </p>" . $row['tertiary_hobby'] . "";
+                          echo "<p>Exam Key Created At: </p>" . $row['exam_key_created_at'] . "";
+                        }
+                       ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
                 <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>
               </div>
-
-              <!-- Add Bus-->
-              <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <!-- Add Bus-->
+               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-centered">
                   <div class="modal-content">
 
@@ -382,104 +419,17 @@
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Select Interest</label>
-                          <div class="form-group">
-                          <?php
-                        include '../forms/database.php';
-                        $selected_interest_options = array();                   
-                        $query2 ="SELECT interest FROM interests";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['interest'], $selected_interest_options)) {
-                            $selected_interest_options[] = $row['interest'];
-                          }
-                        }
-                        ?>
-                        <select required name="related_interest_opt1" class="form-control">
-                          <option value="">-- select interest --</option>
-                          <?php
-                          foreach ($selected_interest_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
-                              </div>
-                        </div>
-                        <div class="mb-3">
-                          <label>Select second interest</label>
-                          <div class="form-group">
-                          <?php
-                        include '../forms/database.php';
-                        $selected_interest_options = array();                   
-                        $query2 ="SELECT interest FROM interests";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['interest'], $selected_interest_options)) {
-                            $selected_interest_options[] = $row['interest'];
-                          }
-                        }
-                        ?>
-                        <select required name="related_interest_opt2" class="form-control">
-                          <option value="">-- select interest --</option>
-                          <?php
-                          foreach ($selected_interest_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
-                              </div>
-                        </div>
-                        <div class="mb-3">
-                          <label>Select third interest</label>
-                          <div class="form-group">
-                          <?php
-                        include '../forms/database.php';
-                        $selected_interest_options = array();                   
-                        $query2 ="SELECT interest FROM interests";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['interest'], $selected_interest_options)) {
-                            $selected_interest_options[] = $row['interest'];
-                          }
-                        }
-                        ?>
-                        <select required name="related_interest_opt3" class="form-control">
-                          <option value="">-- select interest --</option>
-                          <?php
-                          foreach ($selected_interest_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
-                              </div>
-                        </div>
-                        <div class="mb-3">
-                          <label>Select Hobby</label>
+                          <label>Hobbies/Interest</label>
                           <div class="form-group">
                           <?php
                         include '../forms/database.php';
                         $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobby FROM hobbies";
+                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
                         $result = $conn->query($query2);
                         
                         while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobby'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobby'];
+                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
+                            $selected_hobbies_options[] = $row['hobbies_interests'];
                           }
                         }
                         ?>
@@ -498,17 +448,17 @@
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Select Hobby</label>
+                          <label>Second Hobbies/Interest</label>
                           <div class="form-group">
                           <?php
                         include '../forms/database.php';
                         $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobby FROM hobbies";
+                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
                         $result = $conn->query($query2);
                         
                         while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobby'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobby'];
+                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
+                            $selected_hobbies_options[] = $row['hobbies_interests'];
                           }
                         }
                         ?>
@@ -527,17 +477,17 @@
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Select Hobby</label>
+                          <label>Third Hobbies/Interest</label>
                           <div class="form-group">
                           <?php
                         include '../forms/database.php';
                         $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobby FROM hobbies";
+                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
                         $result = $conn->query($query2);
                         
                         while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobby'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobby'];
+                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
+                            $selected_hobbies_options[] = $row['hobbies_interests'];
                           }
                         }
                         ?>
@@ -555,11 +505,9 @@
                         <!-- repeat this for other select tags -->
                               </div>
                         </div>
-                      
-                    
                       <div class="modal-footer">
-                        <input disabled type="submit" name="exam_schedule_date" class="btn btn-primary" id="btnAdd" value="Add"/>
-                        <?php
+                        <input type="submit" disabled name="Add" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="myBtn" value="Add"/>       
+<?php
                              if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           // if (isset($_POST['Add'])){
                           // $url = 'localhost';
@@ -582,21 +530,18 @@
                           // "INSERT INTO generated_codes(email,exam_key,exam_date, strand, pref_course, hobbies, interest,exam_key_created_at) VALUES ('". $email . "','".$exam_code."','".$date."','".$strand."', '".$pref_course."', '".$related_hobbies."', '".$related_interest."', NOW() )
                           // ");
                           // }         
-                          
+                   
                           // Get the email address from the form or wherever it is coming from 
                           $email = ($_SESSION['email']);   
                           $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
                           $last = substr(str_shuffle("1234567890"), 0, 4);
-                          $exam_code = $first . $last;         
+                          $exam_code = $first . $last; 
                           $examDatetime = $_POST['exam_datetime']; 
-                          list($examDate, $examTime, $examtimeend) = explode(' ', $examDatetime);
+                          list($examDate, $examTime, $examtimeend) = explode(' ', $examDatetime);                       
                           $strand = $_POST['strand_opt'];                      
                           $pref_course = $_POST['course_opt1'];  
                           $pref_secondary_course = $_POST['course_opt2'];  
                           $pref_tertiary_course = $_POST['course_opt3'];                                       
-                          $related_interest1 = $_POST['related_interest_opt1'];  
-                          $related_interest2 = $_POST['related_interest_opt2']; 
-                          $related_interest3 = $_POST['related_interest_opt3']; 
                           $related_hobbies1 = $_POST['related_hobbies_opt1']; 
                           $related_hobbies2 = $_POST['related_hobbies_opt2'];         
                           $related_hobbies3 = $_POST['related_hobbies_opt3']; 
@@ -607,17 +552,17 @@
                             if (!$conn) {
                                 die("Connection failed: " . mysqli_connect_error());
                             }
-                            else{
 
-                          // Check if the email address already exists in the database
-                          $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
-                          $check_result = mysqli_query($conn, $check_query);
+                            
 
-                          if (mysqli_num_rows($check_result) > 0) {
-                              $row = mysqli_fetch_array($check_result);
+                            // Check if the email address already exists in the database
+                            $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
+                            $check_result = mysqli_query($conn, $check_query);
 
-                              // Check if the status is already approved
-                              if ($row['status'] == 'active') {
+                            if (mysqli_num_rows($check_result) > 0) {
+                              $row = mysqli_fetch_assoc($check_result);   
+                               // Check if the status is already approved
+                               if ($row['status'] == 'active') {
                                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
                                 <script> 
                                   setTimeout(function() {
@@ -631,26 +576,25 @@
                                     });
                                   }, 100);
                                 </script>";
-                              } else {
-                                  // Delete the existing data
-                                  $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
-                                  $delete_result = mysqli_query($conn, $delete_query);
+                              }
+                              else { 
 
-                                  if ($delete_result) {   
-                                      //process of modifying profiling
-                                      $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                                      strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
-                                       secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
-                                       exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
-                                       '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
-                                        '".$pref_course. "', '".$pref_secondary_course."',
-                                         '".$pref_tertiary_course."', '".$related_interest1."', 
-                                         '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
-                                         '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
-                                      ");
+                                // Delete the existing data
+                                $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
+                                $delete_result = mysqli_query($conn, $delete_query);
 
-                                      if ($insert_result) {
-                                        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                if ($delete_result) {   
+                                    //process of modifying profiling
+                                    $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                                    strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
+                                     exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                                     '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                      '".$pref_course. "', '".$pref_secondary_course."',
+                                       '".$pref_tertiary_course."','".$related_hobbies1."', 
+                                       '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                                    ");
+                                    if ($insert_result) {
+                                      echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
                                         <script> 
                                           setTimeout(function() {
                                             Swal.fire({
@@ -662,62 +606,69 @@
                                               window.location = '../views/user-exam_key.php';
                                             });
                                           }, 100);
-                                        </script>";     
-                                      } else {
-                                          // Handle the error
-                                          printf("Error: %s\n", mysqli_error($conn));
-                                          echo "SQL query: " . $sql;
-                                          exit();
-                                      }
-                                  } else {
-                                      // Handle the error
-                                  }
-
-                                  // Close the database connection
-                                  mysqli_close($conn);
-                              }
+                                        </script>";  
+                                    } else {
+                                        // Handle the error
+                                        printf("Error: %s\n", mysqli_error($conn));
+                                        echo "SQL query: " . $sql;
+                                        exit();
+                                    }
+                                                                
+                                } 
+                                
+                                else {  
+                                  
+                                     
+                                }
+                            }
                           }
 
-                            
-                            else{ 
-
-                            // Insert the new profiling data
-                            $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                            strand, pref_course,pref_secondary_course,pref_tertiary_course, interest,
-                             secondary_interest, tertiary_interest, hobby, secondary_hobby, tertiary_hobby ,
-                             exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
-                             '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
-                              '".$pref_course. "', '".$pref_secondary_course."',
-                               '".$pref_tertiary_course."', '".$related_interest1."', 
-                               '".$related_interest2."', '".$related_interest3."', '".$related_hobbies1."', 
-                               '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
-                            ");
+                            else{
+                              // Insert the new data
+                              $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                              strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
+                               exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                               '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                '".$pref_course. "', '".$pref_secondary_course."',
+                                 '".$pref_tertiary_course."','".$related_hobbies1."', 
+                                 '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                              ");
 
                             if ($insert_result) {
-                              echo "<script> window.location = '../views/user-exam_key.php' </script>";
-                            } else {
-
+                              echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                <script> 
+                                  setTimeout(function() {
+                                    Swal.fire({
+                                      title: 'Success',
+                                      icon: 'success',
+                                      showConfirmButton: true,
+                                      text: 'Add exam schedule complete',
+                                    }).then(function() {
+                                      window.location = '../views/user-exam_key.php';
+                                    });
+                                  }, 100);
+                                </script>";   
+                            } 
+                            
+                            else {
                             }
-
+                          }
                             // Close the database connection
                             mysqli_close($conn);  
-                          }
-                        }
-                        }  
-                        ?>          
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      </div>
+                          }    
+                        ?>                  
+                          </div>
+                        </div>
                     </form>
-                    </div>
+                  
                   </div>
                 </div>
               </div>
-              <!-- End Add Bus-->
-
-               
+              <!-- End Bus-->
 
               </div>
-          </div>
+            </div>
+          
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
@@ -862,6 +813,20 @@ for (let i = 0; i < allSelects.length; i++) {
   });
 }
 </script>
-
+<script>
+  $(document).ready(function() {
+    $('.view-btn').click(function() {
+      var id = $(this).data('id');
+      $.ajax({
+        url: 'get_profile.php',
+        type: 'POST',
+        data: { id: id },
+        success: function(response) {
+          $('#viewProfile').html(response);
+        }
+      });
+    });
+  });
+</script>
   </body>
 </html>
