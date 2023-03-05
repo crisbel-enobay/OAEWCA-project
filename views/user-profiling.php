@@ -388,6 +388,7 @@
                           // }         
                    
                           // Get the email address from the form or wherever it is coming from 
+                          $fullname = ($_SESSION['fullname']);
                           $email = ($_SESSION['email']);   
                           $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
                           $last = substr(str_shuffle("1234567890"), 0, 4);
@@ -441,9 +442,9 @@
 
                                 if ($delete_result) {   
                                     //process of modifying profiling
-                                    $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                                    $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
                                     strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
-                                     exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                                     exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                       '".$pref_course. "', '".$pref_secondary_course."',
                                        '".$pref_tertiary_course."','".$related_hobbies1."', 
@@ -481,9 +482,9 @@
 
                             else{
                               // Insert the new data
-                              $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                              $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
                               strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
-                               exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                               exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                 '".$pref_course. "', '".$pref_secondary_course."',
                                  '".$pref_tertiary_course."','".$related_hobbies1."', 
