@@ -85,30 +85,38 @@ while ($row = $result->fetch_assoc()) {
     <p>Please enter your information:</p>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <label for="traits">Personality Traits:</label><br>
-        <select id="traits" name="traits[]" multiple>
+        <select id="traits" name="traits[]" class="form-control" multiple>
     <?php
        include "../forms/database.php";
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // fetch distinct personality traits from the course table
-        $sql = "SELECT DISTINCT personality_traits FROM courses";
-        $result = $conn->query($sql);
+                  // fetch distinct personality traits from the course table
+            $sql = "SELECT DISTINCT personality_traits FROM courses";
+            $result = $conn->query($sql);
 
-        // populate the select options with the fetched traits
-        if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
-              // split the traits by commas into an array
-              $traits = explode(",", $row["personality_traits"]);
-              // loop through the traits and create a row for each one
-              foreach ($traits as $trait) {
-                  echo "<option value=\"$trait\">$trait</option>";
+            // create an empty array to store the traits
+            $traits_array = array();
+
+            // loop through the fetched rows and add the traits to the array
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                $traits = explode(",", $row["personality_traits"]);
+                foreach ($traits as $trait) {
+                  array_push($traits_array, $trait);
+                }
               }
-          }
-      }
+            }
 
-        $conn->close();
+            // sort the traits alphabetically
+            sort($traits_array);
+
+            // remove duplicates and create select options
+            $unique_traits = array_unique($traits_array);
+            foreach ($unique_traits as $trait) {
+              echo "<option value=\"$trait\">$trait</option>";
+            }
     ?>
 </select>
 
@@ -124,24 +132,32 @@ while ($row = $result->fetch_assoc()) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // fetch distinct personality traits from the course table
-        $sql = "SELECT DISTINCT interests FROM courses";
-        $result = $conn->query($sql);
+       // fetch distinct interests from the course table
+          $sql = "SELECT DISTINCT interests FROM courses";
+          $result = $conn->query($sql);
 
-        // populate the select options with the fetched traits
-        if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
-              // split the traits by commas into an array
-              $interests = explode(",", $row["interests"]);
-              
-              // loop through the traits and create a row for each one
-              foreach ($interests as $interest) {
-                  echo "<option value=\"$interest\">$interest</option>";
+          // create an empty array to store interests
+          $interests_array = array();
+
+          // loop through the results and add interests to the array
+          if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                  $interests = explode(",", $row["interests"]);
+                  $interests_array = array_merge($interests_array, $interests);
               }
           }
-      }
 
-        $conn->close();
+          // remove duplicates from the array and sort alphabetically
+          $interests_array = array_unique($interests_array);
+          sort($interests_array);
+
+          // loop through the sorted array and create an option for each interest
+          foreach ($interests_array as $interest) {
+              echo "<option value=\"$interest\">$interest</option>";
+          }
+
+          $conn->close();
+
     ?>
     </select>
   </div>
@@ -155,24 +171,34 @@ while ($row = $result->fetch_assoc()) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // fetch distinct personality traits from the course table
-        $sql = "SELECT DISTINCT skills FROM courses";
-        $result = $conn->query($sql);
+        // fetch distinct skills from the course table
+          $sql = "SELECT DISTINCT skills FROM courses";
+          $result = $conn->query($sql);
 
-        // populate the select options with the fetched traits
-        if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
-              // split the traits by commas into an array
-              $skills = explode(",", $row["skills"]);
-              
-              // loop through the traits and create a row for each one
-              foreach ($skills as $skill) {
-                  echo "<option value=\"$skill\">$skill</option>";
+          // create an array to store all the skills
+          $allSkills = array();
+
+          // loop through the results and add each skill to the array
+          if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                  $skills = explode(",", $row["skills"]);
+
+                  foreach ($skills as $skill) {
+                      array_push($allSkills, trim($skill));
+                  }
               }
           }
-      }
 
-        $conn->close();
+          // sort the array and remove duplicates
+          $allSkills = array_unique($allSkills);
+          sort($allSkills);
+
+          // populate the select options with the fetched skills
+          foreach ($allSkills as $skill) {
+              echo "<option value=\"$skill\">$skill</option>";
+          }
+
+          $conn->close();
     ?>
     </select>
   </div>
@@ -186,24 +212,35 @@ while ($row = $result->fetch_assoc()) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // fetch distinct personality traits from the course table
+        // fetch distinct career goals from the course table
         $sql = "SELECT DISTINCT career_goals FROM courses";
         $result = $conn->query($sql);
 
-        // populate the select options with the fetched traits
+        // create an array to store all the career goals
+        $allCareerGoals = array();
+
+        // loop through the results and add each career goal to the array
         if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
-              // split the traits by commas into an array
-              $career_goals = explode(",", $row["career_goals"]);
-              
-              // loop through the traits and create a row for each one
-              foreach ($career_goals as $career_goal) {
-                  echo "<option value=\"$career_goal\">$career_goal</option>";
-              }
-          }
-      }
+            while ($row = $result->fetch_assoc()) {
+                $careerGoals = explode(",", $row["career_goals"]);
+
+                foreach ($careerGoals as $goal) {
+                    array_push($allCareerGoals, trim($goal));
+                }
+            }
+        }
+
+        // sort the array and remove duplicates
+        $allCareerGoals = array_unique($allCareerGoals);
+        sort($allCareerGoals);
+
+        // populate the select options with the fetched career goals
+        foreach ($allCareerGoals as $goal) {
+            echo "<option value=\"$goal\">$goal</option>";
+        }
 
         $conn->close();
+
     ?>
 </select>
 
