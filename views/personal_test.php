@@ -43,6 +43,23 @@ while ($row = $result->fetch_assoc()) {
     );
 }
 
+$traits_query = "SELECT personality_trait FROM personality_traits";
+$traits_result = $conn->query($traits_query);
+
+// create an empty array to store the traits
+$traits_array = array();
+
+// loop through the fetched rows and add the traits to the array
+if ($traits_result->num_rows > 0) {
+    while ($row = $traits_result->fetch_assoc()) {
+        $traits = $row["personality_trait"];
+        array_push($traits_array, $traits);
+    }
+}
+// Initialize variables to store top 3 courses
+$first_course = '';
+$second_course = '';
+$third_course = '';
   // Retrieve user's input
   $traits = $_POST['traits'];
   $interests = $_POST['interests'];
@@ -51,37 +68,58 @@ while ($row = $result->fetch_assoc()) {
 
   // Calculate match score for each course based on user's input
   $match_scores = array();
-  foreach ($course_data as $course => $data) {
+foreach ($course_data as $course => $data) {
     $score = 0;
     foreach ($traits as $trait) {
-      if (in_array($trait, $data['personality_traits'])) {
-        $score++;
-      }
+        if (in_array($trait, $traits_array)) {
+            $score++;
+        }
     }
     if (in_array($interests, $data['interests'])) {
-      $score++;
+        $score++;
     }
     if (in_array($skills, $data['skills'])) {
-      $score++;
+        $score++;
     }
     if (in_array($career_goals, $data['career_goals'])) {
-      $score++;
+        $score+=2;
     }
-    $match_scores[$course] = $score;
-  }
+    // Add the score to an array for the current course
+    $match_scores[$course] = array(
+        'score' => $score,
+        'personality_traits' => $data['personality_traits']
+    );
+}
 
-  // Sort courses by match score and output top 3
-  arsort($match_scores);
-  $top_courses = array_slice($match_scores, 0, 3);
+// Sort courses by match score and output top 3
+arsort($match_scores);
+$top_courses = array_slice($match_scores, 0, 3);
 
-  echo "<h2>Top 3 Matching Courses:</h2>";
-  foreach ($top_courses as $course => $score) {
-    echo "<p>$course</p>";
-  }
+echo "<h2>Top 3 Matching Courses:</h2>";
+foreach ($top_courses as $course => $data) {
+    $score = $data['score'];
+    echo "<p>$course (Score: $score)</p>";
+    
+    // Store top 3 courses in separate variables
+    if ($score > 0 && $first_course == '') {
+        $first_course = $course;
+    } elseif ($score > 0 && $second_course == '') {
+        $second_course = $course;
+    } elseif ($score > 0 && $third_course == '') {
+        $third_course = $course;
+    }
+}
+
+// Output top 3 courses stored in variables
+echo "<h2>Top 3 Matching Courses (Stored in Variables):</h2>";
+echo "<p>1. $first_course</p>";
+echo "<p>2. $second_course</p>";
+echo "<p>3. $third_course</p>";
 }
 ?>
 
 <h1>Kurso-Nada</h1>
+<div>
     <p>Please enter your information:</p>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <label for="traits">Personality Traits:</label><br>
@@ -91,9 +129,8 @@ while ($row = $result->fetch_assoc()) {
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-
                   // fetch distinct personality traits from the course table
-            $sql = "SELECT DISTINCT personality_traits FROM courses";
+            $sql = "SELECT personality_trait FROM personality_traits";
             $result = $conn->query($sql);
 
             // create an empty array to store the traits
@@ -102,10 +139,8 @@ while ($row = $result->fetch_assoc()) {
             // loop through the fetched rows and add the traits to the array
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                $traits = explode(",", $row["personality_traits"]);
-                foreach ($traits as $trait) {
-                  array_push($traits_array, $trait);
-                }
+                $traits = $row["personality_trait"];
+                array_push($traits_array, $traits);
               }
             }
 
@@ -127,38 +162,25 @@ while ($row = $result->fetch_assoc()) {
     <select class="form-control" id="interests" name="interests">
     <option value="">Select Interest</option>
     <?php
-       include "../forms/database.php";
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+    include "../forms/database.php";
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // fetch distinct interests from the course table
+    $sql = "SELECT interest FROM interests ORDER BY interest ASC";
+    $result = $conn->query($sql);
+
+    // loop through the results and create an option for each interest
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $interest = $row["interest"];
+            echo "<option value=\"$interest\">$interest</option>";
         }
+    }
 
-       // fetch distinct interests from the course table
-          $sql = "SELECT DISTINCT interests FROM courses";
-          $result = $conn->query($sql);
-
-          // create an empty array to store interests
-          $interests_array = array();
-
-          // loop through the results and add interests to the array
-          if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                  $interests = explode(",", $row["interests"]);
-                  $interests_array = array_merge($interests_array, $interests);
-              }
-          }
-
-          // remove duplicates from the array and sort alphabetically
-          $interests_array = array_unique($interests_array);
-          sort($interests_array);
-
-          // loop through the sorted array and create an option for each interest
-          foreach ($interests_array as $interest) {
-              echo "<option value=\"$interest\">$interest</option>";
-          }
-
-          $conn->close();
-
-    ?>
+    $conn->close();
+?>
     </select>
   </div>
   <div class="form-group">
@@ -171,34 +193,18 @@ while ($row = $result->fetch_assoc()) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // fetch distinct skills from the course table
-          $sql = "SELECT DISTINCT skills FROM courses";
-          $result = $conn->query($sql);
+        $sql = "SELECT skill FROM skills ORDER BY skill ASC";
+    $result = $conn->query($sql);
 
-          // create an array to store all the skills
-          $allSkills = array();
+    // loop through the results and create an option for each interest
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $skill = $row["skill"];
+            echo "<option value=\"$skill\">$skill</option>";
+        }
+    }
 
-          // loop through the results and add each skill to the array
-          if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                  $skills = explode(",", $row["skills"]);
-
-                  foreach ($skills as $skill) {
-                      array_push($allSkills, trim($skill));
-                  }
-              }
-          }
-
-          // sort the array and remove duplicates
-          $allSkills = array_unique($allSkills);
-          sort($allSkills);
-
-          // populate the select options with the fetched skills
-          foreach ($allSkills as $skill) {
-              echo "<option value=\"$skill\">$skill</option>";
-          }
-
-          $conn->close();
+    $conn->close();
     ?>
     </select>
   </div>
@@ -207,40 +213,23 @@ while ($row = $result->fetch_assoc()) {
     <select class="form-control" id="career_goals" name="career_goals">
     <option value="">Select Career Goals</option>
     <?php
-       include "../forms/database.php";
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // fetch distinct career goals from the course table
-        $sql = "SELECT DISTINCT career_goals FROM courses";
-        $result = $conn->query($sql);
-
-        // create an array to store all the career goals
-        $allCareerGoals = array();
-
-        // loop through the results and add each career goal to the array
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $careerGoals = explode(",", $row["career_goals"]);
-
-                foreach ($careerGoals as $goal) {
-                    array_push($allCareerGoals, trim($goal));
-                }
-            }
-        }
-
-        // sort the array and remove duplicates
-        $allCareerGoals = array_unique($allCareerGoals);
-        sort($allCareerGoals);
-
-        // populate the select options with the fetched career goals
-        foreach ($allCareerGoals as $goal) {
-            echo "<option value=\"$goal\">$goal</option>";
-        }
-
-        $conn->close();
-
+         include "../forms/database.php";
+         if ($conn->connect_error) {
+             die("Connection failed: " . $conn->connect_error);
+         }
+ 
+         $sql = "SELECT career_goal FROM career_goals ORDER BY career_goal ASC";
+     $result = $conn->query($sql);
+ 
+     // loop through the results and create an option for each interest
+     if ($result->num_rows > 0) {
+         while ($row = $result->fetch_assoc()) {
+             $career_goal = $row["career_goal"];
+             echo "<option value=\"$career_goal\">$career_goal</option>";
+         }
+     }
+ 
+     $conn->close();
     ?>
 </select>
 

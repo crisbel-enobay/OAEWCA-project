@@ -200,161 +200,144 @@
                                 </select> 
                               </div>
                           </div>
-                          <div class="col-md-2 py-2 px-lg-4">
-                                <small>Second preferred course</small>
+                          </div>
+                          <div class="row">
+                          <div class="col-md-2 py-2">
+                                <small>Personality Traits</small>
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2">
                           <div class="form-group">
+                          <select id="traits" name="traits[]" class="form-control" multiple>
                           <?php
-                        include '../forms/database.php';
-                        $selected_course_options = array();                   
-                        $query2 ="SELECT course FROM courses";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['course'], $selected_course_options)) {
-                            $selected_course_options[] = $row['course'];
+                        include "../forms/database.php";
+                          if ($conn->connect_error) {
+                              die("Connection failed: " . $conn->connect_error);
                           }
-                        }
-                        ?>
-                        <select required name="course_opt2" class="form-control">
-                          <option value="">-- select course --</option>
-                          <?php
-                          foreach ($selected_course_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
+                                    // fetch distinct personality traits from the course table
+                              $sql = "SELECT personality_trait FROM personality_traits";
+                              $result = $conn->query($sql);
+
+                              // create an empty array to store the traits
+                              $traits_array = array();
+
+                              // loop through the fetched rows and add the traits to the array
+                              if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                  $traits = $row["personality_trait"];
+                                  array_push($traits_array, $traits);
+                                }
+                              }
+
+                              // sort the traits alphabetically
+                              sort($traits_array);
+
+                              // remove duplicates and create select options
+                              $unique_traits = array_unique($traits_array);
+                              foreach ($unique_traits as $trait) {
+                                echo "<option value=\"$trait\">$trait</option>";
+                              }
+                      ?>
                         </select>
                         
                         <!-- repeat this for other select tags -->
                               </div>
                               </div>
-                              </div>
-                             <div class="row">
-                             <div class="col-md-2 py-2">
-                                <small>Select third preferred Course</small>
+                             
+                             <div class="col-md-2 py-2 px-lg-4">
+                                <small>Interest</small>
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2"> 
                               <div class="form-group">
-                          <?php
-                        include '../forms/database.php';
-                        $selected_course_options = array();                   
-                        $query2 ="SELECT course FROM courses";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['course'], $selected_course_options)) {
-                            $selected_course_options[] = $row['course'];
-                          }
-                        }
-                        ?>
-                        <select required name="course_opt3" class="form-control">
-                          <option value="">-- select course --</option>
-                          <?php
-                          foreach ($selected_course_options as $arr) {
+                              <select class="form-control" id="interests" name="interests">
+                              <option value="">-- select interest --</option>
+                              <?php
+                              include "../forms/database.php";
+                              if ($conn->connect_error) {
+                                  die("Connection failed: " . $conn->connect_error);
+                              }
+
+                              // fetch distinct interests from the course table
+                              $sql = "SELECT interest FROM interests ORDER BY interest ASC";
+                              $result = $conn->query($sql);
+
+                              // loop through the results and create an option for each interest
+                              if ($result->num_rows > 0) {
+                                  while ($row = $result->fetch_assoc()) {
+                                      $interest = $row["interest"];
+                                      echo "<option value=\"$interest\">$interest</option>";
+                                  }
+                              }
+
+                              $conn->close();
                           ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                        </select>
+                         </select>
                         
                         <!-- repeat this for other select tags -->
                               </div>
                         </div>                 
+                        </div>
+                     
 
-                        <div class="col-md-2 py-2 px-lg-4">
-                                <small>Hobbies/Interests</small>
-                          </div>
-                          <div class="col-md-4 mx-md-n3 px-lg-2">
-                              <div class="form-group">
-                              <?php
-                        include '../forms/database.php';
-                        $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobbies_interests'];
-                          }
-                        }
-                        ?>
-                        <select required name="related_hobbies_opt1" class="form-control">
-                          <option value="">-- select hobbies --</option>
-                          <?php
-                          foreach ($selected_hobbies_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                                </select> 
-                              </div>
-                          </div>
-                          </div>
                           <div class="row">
                           <div class="col-md-2 py-2">
-                                <small>Second Hobbies/Interests</small>
+                                <small>Skills</small>
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2">
                               <div class="form-group">
-                              <?php
-                        include '../forms/database.php';
-                        $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobbies_interests'];
-                          }
+                              <select class="form-control" id="skills" name="skills">
+                        <option value="">-- select skills --</option>
+                        <?php
+                          include "../forms/database.php";
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+
+                            $sql = "SELECT skill FROM skills ORDER BY skill ASC";
+                        $result = $conn->query($sql);
+
+                        // loop through the results and create an option for each interest
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $skill = $row["skill"];
+                                echo "<option value=\"$skill\">$skill</option>";
+                            }
                         }
+
+                        $conn->close();
                         ?>
-                        <select required name="related_hobbies_opt2" class="form-control">
-                          <option value="">-- select hobbies --</option>
-                          <?php
-                          foreach ($selected_hobbies_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                                </select> 
+                      </select>
                               </div>
                           </div>
                          
                         
 
                           <div class="col-md-2 py-2 px-lg-4">
-                                <small>Third Hobbies/Interests</small>
+                                <small>Career Goals</small>
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2">
                               <div class="form-group">
-                              <?php
-                        include '../forms/database.php';
-                        $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobbies_interests'];
-                          }
-                        }
-                        ?>
-                        <select required name="related_hobbies_opt3" class="form-control">
-                          <option value="">-- select hobbies --</option>
+                              <select class="form-control" id="career_goals" name="career_goals">
+                          <option value="">-- select career goals --</option>
                           <?php
-                          foreach ($selected_hobbies_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
+                              include "../forms/database.php";
+                              if ($conn->connect_error) {
+                                  die("Connection failed: " . $conn->connect_error);
+                              }
+                      
+                              $sql = "SELECT career_goal FROM career_goals ORDER BY career_goal ASC";
+                          $result = $conn->query($sql);
+                      
+                          // loop through the results and create an option for each interest
+                          if ($result->num_rows > 0) {
+                              while ($row = $result->fetch_assoc()) {
+                                  $career_goal = $row["career_goal"];
+                                  echo "<option value=\"$career_goal\">$career_goal</option>";
+                              }
                           }
+                      
+                          $conn->close();
                           ?>
-                                </select> 
+                      </select> 
                               </div>
                           </div>   
                           </div>
@@ -397,17 +380,97 @@
                           list($examDate, $examTime, $examtimeend) = explode(' ', $examDatetime);                       
                           $strand = $_POST['strand_opt'];                      
                           $pref_course = $_POST['course_opt1'];  
-                          $pref_secondary_course = $_POST['course_opt2'];  
-                          $pref_tertiary_course = $_POST['course_opt3'];                                       
-                          $related_hobbies1 = $_POST['related_hobbies_opt1']; 
-                          $related_hobbies2 = $_POST['related_hobbies_opt2'];         
-                          $related_hobbies3 = $_POST['related_hobbies_opt3']; 
+                          $traits = $_POST['traits'];
+                          $traits_string = implode(',', $traits);
+                          $interests = $_POST['interests'];
+                          $skills = $_POST['skills'];
+                          $career_goals = $_POST['career_goals']; 
+
                               // Connect to the database
                             $conn = mysqli_connect("localhost", "root", "", "project");
 
                             // Check connection
                             if (!$conn) {
                                 die("Connection failed: " . mysqli_connect_error());
+                            }
+                            $query = "SELECT * FROM courses";
+                            $result = $conn->query($query);
+
+                            // Store fetched data in $course_data array
+                            $course_data = array();
+                            while ($row = $result->fetch_assoc()) {
+                                $course_data[$row['course']] = array(
+                                    'personality_traits' => explode(',', $row['personality_traits']),
+                                    'interests' => explode(',', $row['interests']),
+                                    'skills' => explode(',', $row['skills']),
+                                    'career_goals' => explode(',', $row['career_goals']),
+                                );
+                            }
+
+                            $traits_query = "SELECT personality_trait FROM personality_traits";
+                            $traits_result = $conn->query($traits_query);
+
+                            // create an empty array to store the traits
+                            $traits_array = array();
+
+                            // loop through the fetched rows and add the traits to the array
+                            if ($traits_result->num_rows > 0) {
+                                while ($row = $traits_result->fetch_assoc()) {
+                                    $traits = $row["personality_trait"];
+                                    array_push($traits_array, $traits);
+                                }
+                            }
+                            // Initialize variables to store top 3 courses
+                            $first_course = '';
+                            $second_course = '';
+                            $third_course = '';
+                              // Retrieve user's input
+                              $traits = $_POST['traits'];
+                              $interests = $_POST['interests'];
+                              $skills = $_POST['skills'];
+                              $career_goals = $_POST['career_goals'];
+
+                              // Calculate match score for each course based on user's input
+                              $match_scores = array();
+                            foreach ($course_data as $course => $data) {
+                                $score = 0;
+                                foreach ($traits as $trait) {
+                                    if (in_array($trait, $traits_array)) {
+                                        $score++;
+                                    }
+                                }
+                                if (in_array($interests, $data['interests'])) {
+                                    $score++;
+                                }
+                                if (in_array($skills, $data['skills'])) {
+                                    $score++;
+                                }
+                                if (in_array($career_goals, $data['career_goals'])) {
+                                    $score+=2;
+                                }
+                                // Add the score to an array for the current course
+                                $match_scores[$course] = array(
+                                    'score' => $score,
+                                    'personality_traits' => $data['personality_traits']
+                                );
+                            }
+
+                            // Sort courses by match score and output top 3
+                            arsort($match_scores);
+                            $top_courses = array_slice($match_scores, 0, 3);
+
+                            echo "<h2>Top 3 Matching Courses:</h2>";
+                            foreach ($top_courses as $course => $data) {
+                                $score = $data['score'];
+                                
+                                // Store top 3 courses in separate variables
+                                if ($score > 0 && $first_course == '') {
+                                    $first_course = $course;
+                                } elseif ($score > 0 && $second_course == '') {
+                                    $second_course = $course;
+                                } elseif ($score > 0 && $third_course == '') {
+                                    $third_course = $course;
+                                }
                             }
 
                             
@@ -443,13 +506,14 @@
                                 if ($delete_result) {   
                                     //process of modifying profiling
                                     $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                                    strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
+                                    strand, pref_course, traits, interest, skill, career_goal,f_course,s_course,t_course,
                                      exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
-                                      '".$pref_course. "', '".$pref_secondary_course."',
-                                       '".$pref_tertiary_course."','".$related_hobbies1."', 
-                                       '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
+                                      '".$pref_course. "', '".$traits_string. "',
+                                       '".$interests."','".$skills."', 
+                                       '".$career_goals."','".$first_course."','".$second_course."','".$third_course."', NOW() )
                                     ");
+                                    
                                     if ($insert_result) {
                                       echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
                                         <script> 
@@ -483,13 +547,14 @@
                             else{
                               // Insert the new data
                               $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                              strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
-                               exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
-                               '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
-                                '".$pref_course. "', '".$pref_secondary_course."',
-                                 '".$pref_tertiary_course."','".$related_hobbies1."', 
-                                 '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
-                              ");
+                                    strand, pref_course, traits, interest, skill, career_goal,f_course,s_course,t_course,
+                                     exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
+                                     '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                      '".$pref_course. "', '".$traits_string. "',
+                                       '".$interests."','".$skills."', 
+                                       '".$career_goals."','".$first_course."','".$second_course."','".$third_course."', NOW() )
+                                    ");
+                                  
 
                             if ($insert_result) {
                               echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>

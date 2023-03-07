@@ -1,15 +1,15 @@
 <?php
-    include '../forms/adminQueries.php';
-    include "student-checker.php";
-   include '../file/logout-function.php';
+ include "../views/student-checker.php";
+ include '../file/logout-function.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Category-Courses</title>
+    <title>Student Result</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -25,61 +25,6 @@
     <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
-    <!-- SweetAlert JS -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- <style>
-  table {
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-    width: 100%;
-  }
-  
-  .badge-custom{
-    padding: 5px;
-  }
-
-  th, td {
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  th {
-    color: black;
-    font-weight: bold;
-  }
-.modal-content {
-  border-radius: 10px;
-}
-
-.modal-header {
-  background-color: #5bc0de;
-  color: #fff;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.modal-title {
-  font-weight: bold;
-}
-
-.close {
-  color: #fff;
-}
-
-.modal-body {
-  font-size: 16px;
-  padding: 10px;
-}
-
-#viewProfile p {
-  margin-bottom: 5px;
-}
-p {
-  font-weight: bold;
-}
-.view-btn{
-  padding:5px;
-}
-</style>
   </head>
   <body>
     <div class="container-scroller">
@@ -99,26 +44,11 @@ p {
                <span class="font-weight-normal"> <?php echo ($_SESSION['fullname']); ?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
-                  <p class="mb-1 mt-3"><?php echo ($_SESSION['fullname']); ?></p>
+                  <p class="mb-1 mt-3"><?php echo ($_SESSION['fullname']); ?> </p>
                   <p class="font-weight-light text-muted mb-0"><?php echo ($_SESSION['email']); ?></p>
                 </div>
                 <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
-                
-                <?php
-                  function log_off() {
-                    $_SESSION['valid'] = false;
-                    unset($_SESSION['user']);
-                    unset($_SESSION['type']);
-                    unset($_SESSION['name']);
-                    echo "<script> window.location = './loginform.php' </script>";
-                  }
-                
-                  if (isset($_GET['off'])) {
-                    log_off();
-                  }
-                  ?>
-
             </li>
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -126,16 +56,6 @@ p {
           </button>
         </div>
       </nav>
-
-        <?php
-        include("../forms/database.php");
-        include("../forms/alert.php");
-
-        if ($_GET) {
-            $val = $_GET['status'];
-            alert($val);
-        }
-        ?>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
@@ -157,7 +77,7 @@ p {
               <span class="nav-link">Student Dashboard</span>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin.php">
+              <a class="nav-link" href="../views/user-dashboard.php">
                 <span class="menu-title">Dashboard</span>
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
@@ -175,130 +95,50 @@ p {
                 <i class="icon-globe menu-icon"></i>
               </a>
             </li>
+            </li>
             <li class="nav-item nav-category"><span class="nav-link">History</span></li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-results.php">
+              <a class="nav-link" href="../views/user-results.php">
                 <span class="menu-title">Results</span>
                 <i class="icon-chart menu-icon"></i>
               </a>
             </li>
           </ul>
         </nav>
-         <!-- partial -->
+       <!-- partial -->
        <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
           <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item "><a href="../views/user-profiling.php">Exam Schedule List</a></li>
-                <li class="breadcrumb-item active">Exam Keys</li>
-
+                <li class="breadcrumb-item active">Exam Schedule List</li>
+                <li class="breadcrumb-item "><a href="../views/user-exam_key.php">Exam Keys</a></li>
               </ol>
             </nav>
-          </div> 
-         <!-- Quick Action Toolbar Starts-->
-         <div class="row quick-action-toolbar">
+          </div>
+          <!-- Quick Action Toolbar Starts-->
+          <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                  <p class="lead mb-0 ">Verified Students</p>
+                    <h5 class="mb-0">Create Schedule</h5>
                   </div>
-                  <div class="table-responsive border rounded p-1">    
-                      <table class="table table-hover text-nowrap datatable">
-                      <thead>
-                      <tr>
-                          <!-- <th class="font-weight-bold text-center" scope="col">SELECT</th> -->
-                          <th class="font-weight-bold text-center" id="status" scope="col" >STATUS</th>
-                          <th class="font-weight-bold text-center" scope="col">ID</th>
-                          <th class="font-weight-bold text-center" scope="col">EMAIL</th>
-                          <th class="font-weight-bold text-center" scope="col">EXAM KEY</th>
-                          <th class="font-weight-bold text-center" scope="col">EXAM DATE</th>
-                          <th class="font-weight-bold text-center" scope="col">START TIME</th>
-                          <th class="font-weight-bold text-center" scope="col">END TIME</th>
-                          <th class="font-weight-bold text-center" scope="col">ACTIONS</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $conn = mysqli_connect("localhost", "root", "", "project");
-                        $email = ($_SESSION['email']);
-                        $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE email = '$email'");
-                        while($row = mysqli_fetch_assoc($result)) {
-                          $id = $row["id"];
-                          $exam_date = $row["exam_date"];
-                          $formattedTime = date('h:i A', strtotime($row['exam_time']));
-                          $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
-                          $status = $row["status"];
-                          echo "<tr>";
-                          echo "<td class ='text-center'><div class='badge badge-danger p-2 badge-custom'>" . $status . "</div></td>";  
-                          echo "<td class ='tdclass'>" . $row["id"] . "</td>";
-                          echo "<td class ='tdclass'>" . $row["email"] . "</td>";
-                          echo "<td class ='tdclass'>" . $row["exam_date"] . "</td>";
-                          echo "<td class ='tdclass'>" . $row["exam_key"] . "</td>";
-                          echo "<td class ='tdclass'>" . $formattedTime . "</td>";
-                          echo "<td class ='tdclass'>" . $formattedTime2 . "</td>";
-                          echo "<td><div class='text-center'><button type='button' class='btn btn-primary view-btn' data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>View Profiling</div></button></td>";
-                          echo "</tr>";
-                        }
-                        mysqli_close($conn);
-                      ?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                  <!-- View Modal -->
-                <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="viewModalLabel">View Profiling</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <div id="viewProfile">
-                        <?php
-                        $conn = mysqli_connect("localhost", "root", "", "project");
-                        $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE id = '$id'");
-                        if (mysqli_num_rows($result) > 0) {
-                          $row = mysqli_fetch_assoc($result);
-                          echo "<p>Preferred Course: </p>" . $row['pref_course'] . "";
-                          echo "<p>Strand: </p>" . $row['strand'] . "";
-                          echo "<p>Personality Traits: </p>" . $row['traits'] . "";
-                          echo "<p>Interest: </p>" . $row['interest'] . "";
-                          echo "<p>Skills: </p>" . $row['skill'] . "";
-                          echo "<p>Career Goal: </p>" . $row['career_goal'] . "";
-                          echo "<p>Exam Key Created At: </p>" . $row['exam_key_created_at'] . "";
-                        }
-                       ?>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>
-              </div>
-               <!-- Add Bus-->
-               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-md modal-dialog-centered">
-                  <div class="modal-content">
-
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Your Exam Schedule</h5>
-                    </div>
-
+                  <!-- Add Bus-->
+              <div class="col-md-12 grid-margin">
+              <div class="card">
+                  <div class="card body">
                     <form method="POST">
-                      <div class="modal-body p-5">
-                        <div class="mb-3">
-                        <label> Select Date and Time </label>
-                        <div class="form-group">
-                              <select class="form-control" name="exam_datetime" id="exam_datetime">
-                                <option value="">-- select date and time --</option>
+                      <div class="modal-body p-sm-3">
+                        <div class="row">
+                          <div class="col-md-2 py-2">
+                                <small>Date</small>
+                          </div>
+                          <div class="col-md-4 mx-md-n3 px-lg-2">
+                              <div class="form-group">
+                              
+                                 <select name="exam_datetime" class="form-control" id="exam_datetime">
+                                 <option value="">-- select date and time --</option>
                               <?php
                                 // PHP code to generate option tags
                                 include '../forms/database.php';
@@ -312,24 +152,31 @@ p {
                                 } 
                               ?>
                             </select>
+                                </select> 
                               </div>
-                        </div>
-                        <div class="mb-3">
-                          <label>Select Strand</label>
-                          <div class="form-group">
-                          <select required name="strand_opt" class="form-control" onchange="toggleDiv(this.value)">
+                          </div>
+                          <div class="col-md-2 py-2 px-lg-4">
+                                <small>Strand</small>
+                          </div>
+                          <div class="col-md-4  mx-sm-0 mx-lg-n4">
+                              <div class="form-group">
+                                <select required name="strand_opt" class="form-control" onchange="toggleDiv(this.value)">
                                   <option value="">-- select strand --</option>
                                   <option>STEM</option>
                                   <option>ABM</option>
                                   <option>HUMMS</option>
                                   <option>GAS</option>
                                 </select>
-                                </div>
+                              </div>
+                          </div>
                         </div>
-                        <div class="mb-3">
-                        <label>preferred Course</label>
-                        <div class="form-group">
-                        <?php
+                        <div class="row">
+                          <div class="col-md-2 py-2">
+                                <small>Preferred Course</small>
+                          </div>
+                          <div class="col-md-4 mx-md-n3 px-lg-2">
+                              <div class="form-group">
+                              <?php
                         include '../forms/database.php';
                         $selected_course_options = array();
                         $query2 ="SELECT course FROM courses";
@@ -350,11 +197,14 @@ p {
                           <?php
                           }
                           ?>
-                        </select> 
+                                </select> 
                               </div>
-                                    </div>
-                                    <div class="mb-3">
-                          <label>Select second preferred course</label>
+                          </div>
+                          </div>
+                          <div class="col-md-2 py-2 px-lg-4">
+                                <small>Personality Traits</small>
+                          </div>
+                          <div class="col-md-4 mx-md-n3 px-lg-2">
                           <div class="form-group">
                           <?php
                         include '../forms/database.php';
@@ -381,10 +231,14 @@ p {
                         
                         <!-- repeat this for other select tags -->
                               </div>
-                        </div>
-                        <div class="mb-3">
-                          <label>Select third preferred course</label>
-                          <div class="form-group">
+                              </div>
+                              
+                             <div class="row">
+                             <div class="col-md-2 py-2">
+                                <small>Select third preferred Course</small>
+                          </div>
+                          <div class="col-md-4 mx-md-n3 px-lg-2"> 
+                              <div class="form-group">
                           <?php
                         include '../forms/database.php';
                         $selected_course_options = array();                   
@@ -410,11 +264,14 @@ p {
                         
                         <!-- repeat this for other select tags -->
                               </div>
-                        </div>
-                        <div class="mb-3">
-                          <label>Hobbies/Interest</label>
-                          <div class="form-group">
-                          <?php
+                        </div>                 
+
+                        <div class="col-md-2 py-2 px-lg-4">
+                                <small>Hobbies/Interests</small>
+                          </div>
+                          <div class="col-md-4 mx-md-n3 px-lg-2">
+                              <div class="form-group">
+                              <?php
                         include '../forms/database.php';
                         $selected_hobbies_options = array();                   
                         $query2 ="SELECT hobbies_interests FROM hobbies_interests";
@@ -435,15 +292,17 @@ p {
                           <?php
                           }
                           ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
+                                </select> 
                               </div>
-                        </div>
-                        <div class="mb-3">
-                          <label>Second Hobbies/Interest</label>
-                          <div class="form-group">
-                          <?php
+                          </div>
+                          </div>
+                          <div class="row">
+                          <div class="col-md-2 py-2">
+                                <small>Second Hobbies/Interests</small>
+                          </div>
+                          <div class="col-md-4 mx-md-n3 px-lg-2">
+                              <div class="form-group">
+                              <?php
                         include '../forms/database.php';
                         $selected_hobbies_options = array();                   
                         $query2 ="SELECT hobbies_interests FROM hobbies_interests";
@@ -464,15 +323,18 @@ p {
                           <?php
                           }
                           ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
+                                </select> 
                               </div>
-                        </div>
-                        <div class="mb-3">
-                          <label>Third Hobbies/Interest</label>
-                          <div class="form-group">
-                          <?php
+                          </div>
+                         
+                        
+
+                          <div class="col-md-2 py-2 px-lg-4">
+                                <small>Third Hobbies/Interests</small>
+                          </div>
+                          <div class="col-md-4 mx-md-n3 px-lg-2">
+                              <div class="form-group">
+                              <?php
                         include '../forms/database.php';
                         $selected_hobbies_options = array();                   
                         $query2 ="SELECT hobbies_interests FROM hobbies_interests";
@@ -493,11 +355,13 @@ p {
                           <?php
                           }
                           ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
+                                </select> 
                               </div>
-                        </div>
+                          </div>   
+                          </div>
+                        
+               
+                      </div>
                       <div class="modal-footer">
                         <input type="submit" disabled name="Add" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="myBtn" value="Add"/>       
 <?php
@@ -525,6 +389,7 @@ p {
                           // }         
                    
                           // Get the email address from the form or wherever it is coming from 
+                          $fullname = ($_SESSION['fullname']);
                           $email = ($_SESSION['email']);   
                           $first = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 4);
                           $last = substr(str_shuffle("1234567890"), 0, 4);
@@ -578,9 +443,9 @@ p {
 
                                 if ($delete_result) {   
                                     //process of modifying profiling
-                                    $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                                    $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
                                     strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
-                                     exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                                     exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                       '".$pref_course. "', '".$pref_secondary_course."',
                                        '".$pref_tertiary_course."','".$related_hobbies1."', 
@@ -618,9 +483,9 @@ p {
 
                             else{
                               // Insert the new data
-                              $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                              $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
                               strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
-                               exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
+                               exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                 '".$pref_course. "', '".$pref_secondary_course."',
                                  '".$pref_tertiary_course."','".$related_hobbies1."', 
@@ -653,14 +518,16 @@ p {
                           </div>
                         </div>
                     </form>
-                  
+                    <h2 style="text-align: center"> <?php 
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                     echo "your exam key is: ".$exam_code; 
+                    }
+                  ?>
+                  </h2>
                   </div>
                 </div>
               </div>
-              <!-- End Bus-->
-
-              </div>
-            </div>
+              <!-- End Add Bus-->
           
         </div>
         <!-- content-wrapper ends -->
@@ -684,11 +551,6 @@ p {
     <script src="../vendors/moment/moment.min.js"></script>
     <script src="../vendors/daterangepicker/daterangepicker.js"></script>
     <script src="../vendors/chartist/chartist.min.js"></script>
-     <!-- Vendor JS Files -->
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="../js/off-canvas.js"></script>
@@ -696,16 +558,8 @@ p {
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="../js/dashboard.js"></script>
-    <!-- End custom js for this page -->
 
-    <!-- Template Main JS File -->
-    <script src="../assets/js/main2.js"></script>
-
-    <!-- Other JS Files -->
     <script>
-        <?php include '../assets/js/jquery.js' ?>
-    </script>
-       <script>
   const form = document.querySelector("form");
   const submitBtn = form.querySelector("input[type='submit']");
   const selects = form.querySelectorAll("select");
@@ -734,61 +588,7 @@ p {
     select.addEventListener("change", toggleSubmitBtn);
   });
 </script>
-     <script>
-    function editCourse(value) {
-      let courseID = value.getAttribute("data-courseID");
-      let courseName = value.getAttribute("data-coursename");
-      let english = value.getAttribute("data-eng");
-      let math = value.getAttribute("data-mat");
-      let filipino = value.getAttribute("data-fil");
-      let science = value.getAttribute("data-sci");
-      let logic = value.getAttribute("data-log");
-      document.querySelector("#edit_id").value = courseID;
-      document.querySelector("#editcourseName").value = courseName;
-      document.querySelector("#editeng").value = english;
-      document.querySelector("#editmat").value = math;
-      document.querySelector("#editfil").value = filipino;
-      document.querySelector("#editsci").value = science;
-      document.querySelector("#editlog").value = logic;
-    }
-
-    function archiveCourse(value) {
-      let courseID = value.getAttribute("data-courseid");
-      document.querySelector("#course_id").value = courseID;
-    }
-
-    /* check duplicate similar values
-    $(document).ready(function() {
-      $('#check_plateNo').keyup(function(e) {
-        var plateNum = $('#check_plateNo').val();
-        $.ajax({
-          type: "POST",
-          url: "../forms/manage_bus.php",
-          data: {
-            "check_plateNo_btn": 1,
-            "plateNo": plateNum,
-          },
-          success: function(response) {
-            var jsonData = JSON.parse(response);
-            $("#error_plateNo").removeClass();
-            if (jsonData.success == "1") {
-              $('#error_plateNo').text("Available");
-              $("#error_plateNo").addClass("text-success");
-              $("#btnAdd").prop('disabled', false);
-            } else {
-              $('#error_plateNo').text("Unavailable");
-              $("#error_plateNo").addClass("text-danger");
-              $("#btnAdd").prop('disabled', true);
-            }
-          },
-          error: function() {
-            alert('System Error. Calling ajax failed');
-          }
-        });
-      });
-    });*/
-  </script>
-  <script> const allSelects = document.querySelectorAll("select");
+<script> const allSelects = document.querySelectorAll("select");
 
 for (let i = 0; i < allSelects.length; i++) {
   allSelects[i].addEventListener("change", function() {
@@ -806,20 +606,7 @@ for (let i = 0; i < allSelects.length; i++) {
   });
 }
 </script>
-<script>
-  $(document).ready(function() {
-    $('.view-btn').click(function() {
-      var id = $(this).data('id');
-      $.ajax({
-        url: 'get_profile.php',
-        type: 'POST',
-        data: { id: id },
-        success: function(response) {
-          $('#viewProfile').html(response);
-        }
-      });
-    });
-  });
-</script>
+
+    <!-- End custom js for this page -->
   </body>
 </html>
