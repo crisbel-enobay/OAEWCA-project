@@ -46,7 +46,7 @@ include "file/session.php";
       <div class="logo">
         <a href="index.php" class="logo d-flex align-items-center">
           <span>
-            <img src="assets/img/OAEWCA-LOGO copy.png" alt="">
+            <img src="assets/img/OEEWCA.png" alt="">
           </span>
         </a>
         <!-- Uncomment below if you prefer to use an image logo -->
@@ -71,14 +71,14 @@ include "file/session.php";
     <div class="container">
       <div class="row gy-4">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1>Welcome to UCC-OAEW/CA!</h1>
+          <h1>Welcome to UCC-Kursonada!</h1>
           <h2>We are here to recommend courses and support your decisions.</h2>
           <div>
             <a href="views/loginform.php" class="btn-get-started scrollto">Get Started</a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 home-img">
-          <img src="assets/img/home.png" class="img-fluid animated" height="300" width="500" alt="">
+          <img src="assets/img/index1.svg" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
@@ -96,12 +96,12 @@ include "file/session.php";
   
           <div class="row justify-content-between">
             <div class="col-lg-5 d-flex align-items-center justify-content-center about-img">
-              <img src="assets/img/about-img.svg" class="img-fluid" alt="" data-aos="zoom-in">
+              <img src="assets/img/index2.svg" class="img-fluid" alt="" data-aos="zoom-in">
             </div>
             <div class="col-lg-6 pt-5 pt-lg-0">
-              <h3 data-aos="fade-up">UCC Online Admission Exam With Course Assessment (OAEW/CA)</h3>
+              <h3 data-aos="fade-up">UCC-Kursonada: Online Entrance Examination With Course Assessment</h3>
               <p data-aos="fade-up" data-aos-delay="100">
-                UCC-OAEW/CA is a system intended for freshmen, shifters, and inquirers of incoming student of University of Caloocan City to help them decide on the course most fitted for them.
+                UCC-Kursonado is a system intended for freshmen, shifters, and inquirers of incoming student of University of Caloocan City to help them decide on the course most fitted for them.
               </p>
               <div class="row">
                 <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
@@ -409,7 +409,7 @@ include "file/session.php";
         <div class="row">
                 <div class="col-lg-6 col-md-12 footer-info text-start text-md-center">
                   <br><br>
-                  <p class="p-3">Online Admission Exam With Course Assessment (OAEW/CA) offers incoming students a new way to take admission exam with course recommendation.</p>
+                  <p class="p-3">UCC-Kursonada: Online Entrance Examination With Course Assessment offers incoming students a new way to take admission exam with course recommendation.</p>
                 </div>
       
                 <div class="col-lg-6 col-md-12 footer-contact text-start text-md-center">

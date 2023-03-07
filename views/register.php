@@ -214,7 +214,7 @@
       <div class="logo">
         <a href="../index.php" class="logo d-flex align-items-center">
           <span>
-            <img src="../assets/img/OAEWCA-LOGO copy.png" alt="">
+            <img src="../assets/img/OEEWCA.png" alt="">
           </span>
         </a>
       </div>
@@ -259,14 +259,15 @@
                                   <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
                                   <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                                 </div>
+                                <a href="../views/loginform.php" class="signup-image-link term-service">I am already member</a>
+
                               <div class="form-group form-button">
                                   <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                               </div>
                           </form>
                       </div>
                       <div class="signup-image">
-                          <figure><img src="../assets/img/home.png" class="sign-img" width="500" height="500" alt="sing up image"></figure>
-                          <a href="../views/loginform.php" class="signup-image-link">I am already member</a>
+                          <figure><img src="../assets/img/signup1.svg" class="sign-img" alt="sing up image"></figure>
                       </div>
                   </div>
               </div>

@@ -171,7 +171,7 @@ if (isset($_POST["submit"])){
       <div class="logo">
         <a href="../index.php" class="logo d-flex align-items-center">
           <span>
-            <img src="../assets/img/OAEWCA-LOGO copy.png" alt="">
+            <img src="../assets/img/OEEWCA.png" alt="">
           </span>
         </a>
       </div>
@@ -193,9 +193,8 @@ if (isset($_POST["submit"])){
       <div class="container-sign">
           <div class="signin-content">
               <div class="signin-image">
-                  <figure><img src="../assets/img/signin-image.jpg" class="sign-img" alt="sing up image"></figure>
+                  <figure><img src="../assets/img/login.svg" class="sign-img" alt="sing up image"></figure>
               </div>
-
               <div class="signin-form">
                   <h2 class="form-title">Login</h2>
                   <form method="POST" class="register-form" id="login-form">
