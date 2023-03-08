@@ -397,15 +397,14 @@
                             $result = $conn->query($query);
 
                             // Store fetched data in $course_data array
-                            $course_data = array();
-                            while ($row = $result->fetch_assoc()) {
+                              while ($row = $result->fetch_assoc()) {
                                 $course_data[$row['course']] = array(
-                                    'personality_traits' => explode(',', $row['personality_traits']),
-                                    'interests' => explode(',', $row['interests']),
-                                    'skills' => explode(',', $row['skills']),
-                                    'career_goals' => explode(',', $row['career_goals']),
+                                    'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
+                                    'interests' => array_map('trim', explode(',', $row['interests'])),
+                                    'skills' => array_map('trim', explode(',', $row['skills'])),
+                                    'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
                                 );
-                            }
+                              }
 
                             $traits_query = "SELECT personality_trait FROM personality_traits";
                             $traits_result = $conn->query($traits_query);
@@ -446,7 +445,7 @@
                                     $score++;
                                 }
                                 if (in_array($career_goals, $data['career_goals'])) {
-                                    $score+=2;
+                                    $score++;
                                 }
                                 // Add the score to an array for the current course
                                 $match_scores[$course] = array(
@@ -458,8 +457,6 @@
                             // Sort courses by match score and output top 3
                             arsort($match_scores);
                             $top_courses = array_slice($match_scores, 0, 3);
-
-                            echo "<h2>Top 3 Matching Courses:</h2>";
                             foreach ($top_courses as $course => $data) {
                                 $score = $data['score'];
                                 
