@@ -33,29 +33,15 @@ $query = "SELECT * FROM courses";
 $result = $conn->query($query);
 
 // Store fetched data in $course_data array
-$course_data = array();
 while ($row = $result->fetch_assoc()) {
     $course_data[$row['course']] = array(
-        'personality_traits' => explode(',', $row['personality_traits']),
-        'interests' => explode(',', $row['interests']),
-        'skills' => explode(',', $row['skills']),
-        'career_goals' => explode(',', $row['career_goals']),
+        'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
+        'interests' => array_map('trim', explode(',', $row['interests'])),
+        'skills' => array_map('trim', explode(',', $row['skills'])),
+        'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
     );
 }
 
-$traits_query = "SELECT personality_trait FROM personality_traits";
-$traits_result = $conn->query($traits_query);
-
-// create an empty array to store the traits
-$traits_array = array();
-
-// loop through the fetched rows and add the traits to the array
-if ($traits_result->num_rows > 0) {
-    while ($row = $traits_result->fetch_assoc()) {
-        $traits = $row["personality_trait"];
-        array_push($traits_array, $traits);
-    }
-}
 // Initialize variables to store top 3 courses
 $first_course = '';
 $second_course = '';
@@ -71,24 +57,35 @@ $third_course = '';
 foreach ($course_data as $course => $data) {
     $score = 0;
     foreach ($traits as $trait) {
-        if (in_array($trait, $traits_array)) {
+        if (in_array($trait, $data['personality_traits'])) {
             $score++;
         }
     }
-    if (in_array($interests, $data['interests'])) {
-        $score++;
+    $data['score'] = $score;
+    echo "Course: $course\n";
+    echo "Score: " . $data['score'] . "\n";
+    echo "Matching Personality Traits: " . implode(', ', $data['personality_traits']) . "\n\n";
+    foreach ($interests as $interest) {
+        if (in_array($interest, $data['interests'])) {
+            $score++;
+        }
     }
-    if (in_array($skills, $data['skills'])) {
-        $score++;
+    foreach ($skills as $skill) {
+        if (in_array($skill, $data['skills'])) {
+            $score++;
+        }
     }
-    if (in_array($career_goals, $data['career_goals'])) {
-        $score+=2;
+    foreach ($career_goals as $career_goal) {
+        if (in_array($career_goal, $data['career_goals'])) {
+            $score++;
+        }
     }
     // Add the score to an array for the current course
     $match_scores[$course] = array(
         'score' => $score,
         'personality_traits' => $data['personality_traits']
     );
+
 }
 
 // Sort courses by match score and output top 3
@@ -96,9 +93,15 @@ arsort($match_scores);
 $top_courses = array_slice($match_scores, 0, 3);
 
 echo "<h2>Top 3 Matching Courses:</h2>";
-foreach ($top_courses as $course => $data) {
-    $score = $data['score'];
-    echo "<p>$course (Score: $score)</p>";
+// foreach ($top_courses as $course => $data) {
+//     $score = $data['score'];
+//     echo "<p>$course (Score: $score)</p>";
+foreach ($match_scores as $course => $data) {
+    echo "Course: $course\n";
+    echo "Score: " . $data['score'] . "\n";
+    echo "Personality Traits: " . implode(', ', $data['personality_traits']) . "\n\n";
+
+    
     
     // Store top 3 courses in separate variables
     if ($score > 0 && $first_course == '') {
@@ -109,13 +112,14 @@ foreach ($top_courses as $course => $data) {
         $third_course = $course;
     }
 }
+}
 
 // Output top 3 courses stored in variables
 echo "<h2>Top 3 Matching Courses (Stored in Variables):</h2>";
 echo "<p>1. $first_course</p>";
 echo "<p>2. $second_course</p>";
 echo "<p>3. $third_course</p>";
-}
+
 ?>
 
 <h1>Kurso-Nada</h1>
@@ -136,21 +140,12 @@ echo "<p>3. $third_course</p>";
             // create an empty array to store the traits
             $traits_array = array();
 
-            // loop through the fetched rows and add the traits to the array
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                $traits = $row["personality_trait"];
-                array_push($traits_array, $traits);
-              }
-            }
-
-            // sort the traits alphabetically
-            sort($traits_array);
-
-            // remove duplicates and create select options
-            $unique_traits = array_unique($traits_array);
-            foreach ($unique_traits as $trait) {
-              echo "<option value=\"$trait\">$trait</option>";
+             // loop through the results and create an option for each interest
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $personality_trait = $row["personality_trait"];
+                    echo "<option value=\"$personality_trait\">$personality_trait</option>";
+                }
             }
     ?>
 </select>
@@ -159,7 +154,7 @@ echo "<p>3. $third_course</p>";
   </div>
   <div class="form-group">
     <label for="interests">Interests:</label>
-    <select class="form-control" id="interests" name="interests">
+    <select class="form-control" id="interests" name="interests[]" multiple>
     <option value="">Select Interest</option>
     <?php
     include "../forms/database.php";
@@ -185,7 +180,7 @@ echo "<p>3. $third_course</p>";
   </div>
   <div class="form-group">
     <label for="skills">Skills:</label>
-    <select class="form-control" id="skills" name="skills">
+    <select class="form-control" id="skills" name="skills[]" multiple>
     <option value="">Select Skills</option>
     <?php
        include "../forms/database.php";
@@ -210,7 +205,7 @@ echo "<p>3. $third_course</p>";
   </div>
   <div class="form-group">
     <label for="career_goals">Career Goals:</label>
-    <select class="form-control" id="career_goals" name="career_goals">
+    <select class="form-control" id="career_goals" name="career_goals[]" multiple>
     <option value="">Select Career Goals</option>
     <?php
          include "../forms/database.php";

@@ -202,7 +202,7 @@ p {
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                  <p class="lead mb-0 ">Verified Students</p>
+                  <p class="lead mb-0 ">Exam Schedule</p>
                   </div>
                   <div class="table-responsive border rounded p-1">    
                       <table class="table table-hover text-nowrap datatable">

@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
+
   </head>
   <body>
     <div class="container-scroller">
@@ -137,7 +138,7 @@
                           <div class="col-md-4 mx-md-n3 px-lg-2">
                               <div class="form-group">
                               
-                                 <select name="exam_datetime" class="form-control" id="exam_datetime">
+                                 <select name="exam_datetime" class="form-control" id="exam_datetime" style="border: 0.4px solid #ffde73; background-color: #ffffff; color: #333333;"
                                  <option value="">-- select date and time --</option>
                               <?php
                                 // PHP code to generate option tags
@@ -160,7 +161,7 @@
                           </div>
                           <div class="col-md-4  mx-sm-0 mx-lg-n4">
                               <div class="form-group">
-                                <select required name="strand_opt" class="form-control" onchange="toggleDiv(this.value)">
+                                <select required name="strand_opt" class="form-control" onchange="toggleDiv(this.value)" style="border: 0.4px solid #ffde73; background-color: #ffffff; color: #333333;">
                                   <option value="">-- select strand --</option>
                                   <option>STEM</option>
                                   <option>ABM</option>
@@ -188,7 +189,7 @@
                           }
                         }
                         ?>
-                        <select required name="course_opt1" class="form-control">
+                        <select required name="course_opt1" class="form-control" style="border: 0.4px solid #ffde73; background-color: #ffffff; color: #333333;">
                           <option value="">-- select course --</option>
                           <?php
                           foreach ($selected_course_options as $arr) {
@@ -207,7 +208,8 @@
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2">
                           <div class="form-group">
-                          <select id="traits" name="traits[]" class="form-control" multiple>
+                          <select id="traits" name="traits[]" class="form-control" multiple style="border: 0.4px solid #ffde73; background-color: #ffffff; color: #333333;">
+                          <option value="">-- select personality traits --</option>
                           <?php
                         include "../forms/database.php";
                           if ($conn->connect_error) {
@@ -248,7 +250,7 @@
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2"> 
                               <div class="form-group">
-                              <select class="form-control" id="interests" name="interests">
+                              <select class="form-control" id="interests" name="interests[]" multiple style="border: 0.4px solid #ffde73; background-color: #ffffff; color: #333333;">
                               <option value="">-- select interest --</option>
                               <?php
                               include "../forms/database.php";
@@ -284,7 +286,7 @@
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2">
                               <div class="form-group">
-                              <select class="form-control" id="skills" name="skills">
+                              <select class="form-control" id="skills" name="skills[]" multiple style="border: 0.4px solid #ffde73; background-color: #ffffff; color: #333333;">
                         <option value="">-- select skills --</option>
                         <?php
                           include "../forms/database.php";
@@ -316,28 +318,28 @@
                           </div>
                           <div class="col-md-4 mx-md-n3 px-lg-2">
                               <div class="form-group">
-                              <select class="form-control" id="career_goals" name="career_goals">
-                          <option value="">-- select career goals --</option>
-                          <?php
-                              include "../forms/database.php";
-                              if ($conn->connect_error) {
-                                  die("Connection failed: " . $conn->connect_error);
+                              <select class="form-control" id="career_goals" name="career_goals[]" multiple style="border: 0.4px solid #ffde73; background-color: #ffffff; color: #333333;">
+                              <option value="">-- Select Career Goals --</option>
+                              <?php
+                                  include "../forms/database.php";
+                                  if ($conn->connect_error) {
+                                      die("Connection failed: " . $conn->connect_error);
+                                  }
+                          
+                                  $sql = "SELECT career_goal FROM career_goals ORDER BY career_goal ASC";
+                              $result = $conn->query($sql);
+                          
+                              // loop through the results and create an option for each interest
+                              if ($result->num_rows > 0) {
+                                  while ($row = $result->fetch_assoc()) {
+                                      $career_goal = $row["career_goal"];
+                                      echo "<option value=\"$career_goal\">$career_goal</option>";
+                                  }
                               }
-                      
-                              $sql = "SELECT career_goal FROM career_goals ORDER BY career_goal ASC";
-                          $result = $conn->query($sql);
-                      
-                          // loop through the results and create an option for each interest
-                          if ($result->num_rows > 0) {
-                              while ($row = $result->fetch_assoc()) {
-                                  $career_goal = $row["career_goal"];
-                                  echo "<option value=\"$career_goal\">$career_goal</option>";
-                              }
-                          }
-                      
-                          $conn->close();
-                          ?>
-                      </select> 
+                          
+                              $conn->close();
+                              ?>
+                          </select>
                               </div>
                           </div>   
                           </div>
@@ -383,8 +385,11 @@
                           $traits = $_POST['traits'];
                           $traits_string = implode(',', $traits);
                           $interests = $_POST['interests'];
+                          $interests_string = implode(',', $interests);
                           $skills = $_POST['skills'];
+                          $skills_string = implode(',', $skills);
                           $career_goals = $_POST['career_goals']; 
+                          $career_goals_string = implode(',', $career_goals);
 
                               // Connect to the database
                             $conn = mysqli_connect("localhost", "root", "", "project");
@@ -438,15 +443,21 @@
                                         $score++;
                                     }
                                 }
-                                if (in_array($interests, $data['interests'])) {
-                                    $score++;
-                                }
-                                if (in_array($skills, $data['skills'])) {
-                                    $score++;
-                                }
-                                if (in_array($career_goals, $data['career_goals'])) {
-                                    $score++;
-                                }
+                                foreach ($interests as $interest) {
+                                  if (in_array($interest, $data['interests'])) {
+                                      $score++;
+                                  }
+                              }
+                              foreach ($skills as $skill) {
+                                  if (in_array($skill, $data['skills'])) {
+                                      $score++;
+                                  }
+                              }
+                                foreach ($career_goals as $career_goal) {
+                                  if (in_array($career_goal, $data['career_goals'])) {
+                                      $score++;
+                                  }
+                              }
                                 // Add the score to an array for the current course
                                 $match_scores[$course] = array(
                                     'score' => $score,
@@ -507,8 +518,8 @@
                                      exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                       '".$pref_course. "', '".$traits_string. "',
-                                       '".$interests."','".$skills."', 
-                                       '".$career_goals."','".$first_course."','".$second_course."','".$third_course."', NOW() )
+                                       '".$interests_string."','".$skills_string."', 
+                                       '".$career_goals_string."','".$first_course."','".$second_course."','".$third_course."', NOW() )
                                     ");
                                     
                                     if ($insert_result) {
