@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 12:20 PM
+-- Generation Time: Mar 08, 2023 at 02:29 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,13 +64,100 @@ CREATE TABLE `archived_courses` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `career_goals`
+--
+
+CREATE TABLE `career_goals` (
+  `id` int(11) NOT NULL,
+  `career_goal` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `career_goals`
+--
+
+INSERT INTO `career_goals` (`id`, `career_goal`) VALUES
+(1, 'Actuary'),
+(2, 'Data analyst'),
+(3, 'Mathematician'),
+(4, 'Clinical psychologist'),
+(5, 'School psychologist'),
+(6, 'Social worker'),
+(7, 'FBI agent'),
+(8, 'Police officer'),
+(9, 'Criminologist'),
+(10, 'Software developer'),
+(11, 'Data scientist'),
+(12, 'Artificial intelligence specialist'),
+(13, 'Computer systems analyst\r\n'),
+(14, 'IT consultant'),
+(15, 'Business analyst'),
+(16, 'Database administrator'),
+(17, 'Network administrator '),
+(18, 'Cybersecurity specialist'),
+(20, 'Game designer'),
+(21, 'Animator'),
+(22, 'Video editor'),
+(23, 'Politician'),
+(24, 'Diplomat'),
+(26, 'Journalist'),
+(27, 'Public relations specialist'),
+(28, 'Advertising executive'),
+(30, 'Organizational development specialist '),
+(31, 'Human resources manager'),
+(32, 'Community development specialist'),
+(33, 'Government administrator'),
+(34, 'Nonprofit manager'),
+(35, 'Policy analyst'),
+(37, 'Training and development specialist'),
+(38, 'Organizational development consultant'),
+(39, 'Financial analyst'),
+(40, 'Investment banker'),
+(41, 'Risk manager'),
+(42, 'Marketing manager'),
+(43, 'Brand manager'),
+(45, 'Entrepreneur'),
+(46, 'Business owner'),
+(47, 'Business development manager'),
+(48, 'Certified Public Accountant'),
+(49, 'Tax accountant'),
+(50, 'Auditor'),
+(51, 'Accountant'),
+(54, 'Administrative assistant'),
+(55, 'Office manager'),
+(56, 'Customer service representative'),
+(57, 'Tourism manager'),
+(58, 'Travel agent'),
+(59, 'Event coordinator'),
+(60, 'Hotel manager'),
+(61, 'Restaurant manager'),
+(63, 'Early childhood educator'),
+(64, 'Preschool teacher'),
+(65, 'Daycare center director'),
+(66, 'Special education teacher'),
+(67, 'Disability advocate'),
+(68, 'Education consultant'),
+(69, 'Science teacher'),
+(70, 'Science curriculum developer'),
+(71, 'Science education researcher'),
+(72, 'English teacher'),
+(73, 'Curriculum developer'),
+(75, 'Bilingual teacher'),
+(76, 'Language teacher');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `courses`
 --
 
 CREATE TABLE `courses` (
   `crs_id` int(11) NOT NULL,
   `course` varchar(255) NOT NULL,
-  `related_hobbies` varchar(255) NOT NULL,
+  `personality_traits` varchar(255) NOT NULL,
+  `interests` varchar(255) NOT NULL,
+  `skills` varchar(255) NOT NULL,
+  `career_goals` varchar(255) NOT NULL,
   `English` int(11) NOT NULL,
   `Math` int(11) NOT NULL,
   `Filipino` int(11) NOT NULL,
@@ -82,33 +169,33 @@ CREATE TABLE `courses` (
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`crs_id`, `course`, `related_hobbies`, `English`, `Math`, `Filipino`, `Science`, `Logic`) VALUES
-(1, 'Bachelor of Science in Mathematics (BSMath)', 'Mathematics', 3, 4, 3, 3, 4),
-(2, 'Bachelor of Science in Psychology (BSPsych)', 'Communicating', 3, 2, 2, 4, 3),
-(3, 'Bachelor of Science in Criminology (BSCrim)', 'Volunteering', 3, 3, 2, 3, 3),
-(4, 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Programming/Coding', 2, 3, 3, 2, 4),
-(5, 'Bachelor of Science in Information System (BSIS)', 'Programming/Coding', 2, 3, 3, 2, 3),
-(6, 'Bachelor of Science in Information Technology (BSIT)', 'Programming/Coding', 2, 3, 3, 2, 3),
-(7, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Programming/Coding', 2, 3, 3, 2, 3),
-(8, 'Bachelor of Arts in Political Science (ABPS/ABPolSci)', 'Volunteering', 3, 2, 2, 2, 3),
-(9, 'Bachelor of Arts in Communication (BAComm)', 'Communicating', 4, 2, 3, 2, 2),
-(10, 'Bachelor of Arts in Behavioral Science: Organizational and Social Systems Development (ABBS-OSSD)', 'Communicating', 3, 2, 3, 2, 3),
-(11, 'Bachelor in Public Administration (BPA)', 'Communicating', 3, 2, 3, 2, 2),
-(12, 'Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 'Researching', 3, 4, 2, 2, 3),
-(13, 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 'Researching', 3, 4, 2, 2, 3),
-(14, 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 'Researching', 3, 4, 2, 2, 3),
-(15, 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Researching', 3, 4, 2, 2, 3),
-(16, 'Bachelor of Science in Accountancy (BSA)', 'Researching', 3, 4, 2, 2, 3),
-(17, 'Bachelor of Science in Accounting Information System (BSAIS)', 'Researching', 3, 4, 2, 2, 3),
-(18, 'Bachelor of Science in Office Administration (BSOAd)', 'Researching', 3, 4, 2, 2, 3),
-(19, 'Bachelor of Science in Tourism Management (BSTM)', 'Travelling', 4, 2, 2, 2, 2),
-(20, 'Bachelor of Science in Hotel and Restaurant Management (BSHRM)', 'House Keeping', 2, 2, 2, 2, 2),
-(21, 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 'House Keeping', 2, 2, 2, 2, 2),
-(22, 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', '', 3, 3, 3, 3, 3),
-(23, 'Bachelor in Secondary Education: Science (BSEd-Sci)', 'Researching', 3, 3, 2, 4, 3),
-(24, 'Bachelor in Secondary Education: English (BSEd-Eng)', 'Writing', 4, 2, 2, 2, 2),
-(25, 'Bachelor in Secondary Education: English-Chinese (BSEd-EngChi)', 'Writing', 4, 2, 2, 2, 2),
-(26, 'Bachelor in Secondary Education: BTLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)', 'Assembling/Disassembling', 2, 2, 2, 2, 2);
+INSERT INTO `courses` (`crs_id`, `course`, `personality_traits`, `interests`, `skills`, `career_goals`, `English`, `Math`, `Filipino`, `Science`, `Logic`) VALUES
+(1, 'Bachelor of Science in Mathematics (BSMath)', 'Analytical,Logical,Detail-oriented', 'Problem-solving, Research, Data analysis', 'Mathematical reasoning, Statistical analysis', 'Actuary, Data analyst, Mathematician', 3, 4, 3, 3, 4),
+(2, 'Bachelor of Science in Psychology (BSPsych)', 'Empathetic,Observant,Good listener', 'Counseling, Research, Mental health advocacy', 'Communication, Empathy, Research', 'Clinical psychologist, School psychologist, Social worker', 3, 2, 2, 4, 3),
+(3, 'Bachelor of Science in Criminology (BSCrim)', 'Detail-oriented,	\nObservant,Analytical', 'Forensic science, Law enforcement, Criminal justice research', 'Critical thinking, Investigation, Report writing', 'FBI agent, Police officer, Criminologist', 3, 3, 2, 3, 3),
+(4, 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Logical,Analytical,Detail-oriented', 'Programming, Software development, Artificial intelligence', 'Problem-solving, Programming languages, Data structures and algorithms', 'Software developer, Data scientist, Artificial intelligence specialist, Computer systems analyst\n', 2, 3, 3, 2, 4),
+(5, 'Bachelor of Science in Information System (BSIS)', 'Strategic,Technically adept,Detail-oriented', 'Technology, Business, Problem-solving', 'Project management, Systems analysis, Database management', 'IT consultant, Business analyst, Database administrator', 2, 3, 3, 2, 3),
+(6, 'Bachelor of Science in Information Technology (BSIT)', 'Innovativeo,Analytical,Detail-oriented', 'Technology, Programming, Cybersecurity', 'Programming languages, Network administration, Cybersecurity skills', 'Network administrator, Cybersecurity specialist, IT consultant', 2, 3, 3, 2, 3),
+(7, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Creative,Collaborative,Technically adept', 'Video production, Animation, Game development', 'Creative writing, Graphic design, Video editing', 'Game designer, Animator, Video editor', 2, 3, 3, 2, 3),
+(8, 'Bachelor of Arts in Political Science (ABPS/ABPolSci)', 'Analytical,Inquisitive,Persuasive', 'Politics, Public policy, Diplomacy', 'Research, Writing, Public speaking', 'Politician, Diplomat, Public policy analyst', 3, 2, 2, 2, 3),
+(9, 'Bachelor of Arts in Communication (BAComm)', 'Empathetic,Creative,Persuasive', 'Journalism, Public relations, Advertising', 'Writing, Public speaking, Graphic design', 'Journalist, Public relations specialist, Advertising executive', 4, 2, 3, 2, 2),
+(10, 'Bachelor of Arts in Behavioral Science: Organizational and Social Systems Development (ABBS-OSSD)', 'Analytical,Collaborative,Problem-solving', 'Organizational development, Human resources, Community development', 'Communication, Leadership, Conflict resolution', 'Organizational development specialist, Human resources manager, Community development specialist', 3, 2, 3, 2, 3),
+(11, 'Bachelor in Public Administration (BPA)', 'Strategic,Collaborative,Ethical', 'Public service, Public policy, Management', 'Leadership, Decision-making, Conflict resolution', 'Government administrator, Nonprofit manager, Policy analyst', 3, 2, 3, 2, 2),
+(12, 'Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 'Collaborative,Empathetic,Strategic', 'Human resources, Employee training and development, Organizational behavior', 'Training and development, Performance evaluation, Conflict resolution', 'Human resources manager, Training and development specialist, Organizational development consultant', 3, 4, 2, 2, 3),
+(13, 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 'Detail-oriented,Analytical,Strategic', 'Finance, Investment, Risk management', 'Financial analysis, Investment analysis, Risk assessment', 'Financial analyst, Investment banker, Risk manager', 3, 4, 2, 2, 3),
+(14, 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 'Creative,Collaborative,Persuasive', 'Detail-oriented, Analytical, Strategic', 'Market research, Branding, Campaign management', 'Marketing manager, Brand manager, Advertising executive', 3, 4, 2, 2, 3),
+(15, 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Innovative,Risk-taking,Strategic', 'Entrepreneurship, Innovation, Business development', 'Market research, Business planning, Financial management', 'Entrepreneur, Business owner, Business development manager', 3, 4, 2, 2, 3),
+(16, 'Bachelor of Science in Accountancy (BSA)', 'Detail-oriented,Analytical,Ethical', 'Accounting, Taxation, Auditing', 'Accounting, Financial analysis, Attention to detail', 'Certified Public Accountant, Tax accountant, Auditor', 3, 4, 2, 2, 3),
+(17, 'Bachelor of Science in Accounting Information System (BSAIS)', 'Detail-oriented,Analytical,Technically adept', 'Accounting, Information systems, Data analysis', 'Accounting principles, Database management, Information security', 'Accountant, Auditor, Financial analyst', 3, 4, 2, 2, 3),
+(18, 'Bachelor of Science in Office Administration (BSOAd)', 'Organized,Detail-oriented,Good communicator', 'Office management, Administrative support, Customer service', 'Time management, Record keeping, Customer service', 'Administrative assistant, Office manager, Customer service representative', 3, 4, 2, 2, 3),
+(19, 'Bachelor of Science in Tourism Management (BSTM)', 'Hospitable,Creative,Culturally sensitive', 'Travel, Hospitality, Event planning', 'Customer service, Marketing, Event planning', 'Tourism manager, Travel agent, Event coordinator', 4, 2, 2, 2, 2),
+(20, 'Bachelor of Science in Hotel and Restaurant Management (BSHRM)', 'Hospitable,Detail-oriented,Good communicator', 'Hospitality, Culinary arts, Hotel and restaurant operations', 'Customer service, Budget management, Event planning', 'Hotel manager, Restaurant manager, Event coordinator', 2, 2, 2, 2, 2),
+(21, 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 'Patient,Creative,Energetic', 'Child development, Teaching, Curriculum design', 'Classroom management, Lesson planning, Child assessment', 'Early childhood educator, Preschool teacher, Daycare center director', 2, 2, 2, 2, 2),
+(22, 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Patient,Empathetic,Resourceful', 'Special education, Disability advocacy, Teaching', 'Adaptability, Multitasking, Problem-solving', 'Special education teacher, Disability advocate, Education consultant', 3, 3, 3, 3, 3),
+(23, 'Bachelor in Secondary Education: Science (BSEd-Sci)', 'Inquisitive,Resourceful,Adaptable', 'Science, Education, Research', 'Lesson planning, Classroom management, Scientific research', 'Science teacher, Science curriculum developer, Science education researcher', 3, 3, 2, 4, 3),
+(24, 'Bachelor in Secondary Education: English (BSEd-Eng)', 'Creative,Articulate,Patient', 'English language, Literature, Education', 'Lesson planning, Classroom management, Communication', 'English teacher, Curriculum developer, Education consultant', 4, 2, 2, 2, 2),
+(25, 'Bachelor in Secondary Education: English-Chinese (BSEd-EngChi)', 'Bilingual,Cross-culturally competent,Adaptable', 'English language, Chinese language, Education', 'Lesson planning, Classroom management, Translation', 'Bilingual teacher, Language teacher, Education consultant', 4, 2, 2, 2, 2),
+(26, 'Bachelor in Secondary Education: BTLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)', 'Creative, Resourceful, Patient', 'Home economics, Education, Culinary arts', 'Lesson planning, Classroom management, Culinary skills', 'Home economics teacher, Culinary instructor, Education consultant', 2, 2, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -177,6 +264,7 @@ INSERT INTO `filipino_questionnaire` (`id`, `question`, `optionA`, `optionB`, `o
 
 CREATE TABLE `generated_codes` (
   `id` int(11) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `exam_key` varchar(255) NOT NULL,
   `exam_date` varchar(255) NOT NULL,
@@ -185,11 +273,13 @@ CREATE TABLE `generated_codes` (
   `status` varchar(255) NOT NULL,
   `strand` varchar(255) NOT NULL,
   `pref_course` varchar(255) NOT NULL,
-  `pref_secondary_course` varchar(255) NOT NULL,
-  `pref_tertiary_course` varchar(255) NOT NULL,
-  `hobby` varchar(255) NOT NULL,
-  `secondary_hobby` varchar(255) NOT NULL,
-  `tertiary_hobby` varchar(255) NOT NULL,
+  `traits` varchar(255) NOT NULL,
+  `interest` varchar(255) NOT NULL,
+  `skill` varchar(255) NOT NULL,
+  `career_goal` varchar(255) NOT NULL,
+  `f_course` varchar(255) NOT NULL,
+  `s_course` varchar(255) NOT NULL,
+  `t_course` varchar(255) NOT NULL,
   `exam_key_created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -197,9 +287,9 @@ CREATE TABLE `generated_codes` (
 -- Dumping data for table `generated_codes`
 --
 
-INSERT INTO `generated_codes` (`id`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `pref_secondary_course`, `pref_tertiary_course`, `hobby`, `secondary_hobby`, `tertiary_hobby`, `exam_key_created_at`) VALUES
-(46, 'lebbraumjayce@gmail.com', 'pgxc1279', '2023-02-16', '21:00:00', '23:00:00', 'active', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Self Studying', 'Videography', 'Travelling', '2023-02-18 04:32:30'),
-(47, 'user@gmail.com', 'trby3698', '2023-02-16', '21:00:00', '23:00:00', 'pending', 'HUMMS', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Criminology (BSCrim)', 'Bachelor of Science in Psychology (BSPsych)', 'Mathematics', 'Blogging', 'Videography', '2023-02-20 13:47:08');
+INSERT INTO `generated_codes` (`id`, `fullname`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `traits`, `interest`, `skill`, `career_goal`, `f_course`, `s_course`, `t_course`, `exam_key_created_at`) VALUES
+(46, '', 'lebbraumjayce@gmail.com', 'pgxc1279', '2023-02-16', '21:00:00', '23:00:00', 'active', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', '', '', '', '', '', '', '', '2023-02-18 04:32:30'),
+(74, 'student name sample', 'user@gmail.com', 'ucna9076', '2023-02-18', '15:00:00', '16:00:00', 'pending', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Analytical,Logical,Observant', 'Artificial intelligence,Counseling', 'Data structures and algorithms,Empathy', 'Clinical psychologist,Computer systems analyst\r\n', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information System (BSIS)', '2023-03-08 21:10:39');
 
 -- --------------------------------------------------------
 
@@ -260,6 +350,82 @@ INSERT INTO `hobbies_interests` (`id`, `hobbies_interests`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `interests`
+--
+
+CREATE TABLE `interests` (
+  `id` int(11) NOT NULL,
+  `interest` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `interests`
+--
+
+INSERT INTO `interests` (`id`, `interest`) VALUES
+(1, 'Problem-solving'),
+(2, 'Research'),
+(3, 'Data analysis'),
+(4, 'Counseling'),
+(5, 'Public relations'),
+(6, 'Mental health advocacy'),
+(7, 'Forensic science'),
+(8, 'Law enforcement'),
+(9, 'Criminal justice research'),
+(10, 'Programming'),
+(11, 'Software development'),
+(12, 'Artificial intelligence'),
+(13, 'Technology'),
+(14, 'Business'),
+(15, 'Cybersecurity'),
+(16, 'Journalism'),
+(17, 'Video production'),
+(18, 'Animation'),
+(19, 'Game development'),
+(20, 'Politics'),
+(21, 'Public policy'),
+(22, 'Diplomacy'),
+(26, 'Organizational development'),
+(27, 'Human resources'),
+(28, 'Community development'),
+(29, 'Public service'),
+(31, 'Management'),
+(32, 'Employee training and development'),
+(33, 'Organizational behavior'),
+(34, 'Finance'),
+(35, 'Investment'),
+(36, 'Risk management'),
+(37, 'Advertising'),
+(38, 'Marketing'),
+(39, 'Consumer behavior'),
+(40, 'Entrepreneurship'),
+(41, 'Innovation'),
+(42, 'Business development'),
+(43, 'Accounting'),
+(44, 'Taxation'),
+(45, 'Auditing'),
+(46, 'Office management'),
+(47, 'Administrative support'),
+(48, 'Customer service'),
+(49, 'Travel'),
+(50, 'Hospitality'),
+(51, 'Event planning'),
+(52, 'Culinary arts'),
+(53, 'Hotel and restaurant operations'),
+(54, 'Child development'),
+(56, 'Curriculum design'),
+(57, 'Special education'),
+(58, 'Disability advocacy'),
+(59, 'Teaching'),
+(60, 'Science'),
+(61, 'Education'),
+(63, 'English language'),
+(64, 'Literature'),
+(65, 'Chinese language');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `logic_questionnaire`
 --
 
@@ -315,6 +481,50 @@ INSERT INTO `math_questionnaire` (`id`, `question`, `optionA`, `optionB`, `optio
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `personality_traits`
+--
+
+CREATE TABLE `personality_traits` (
+  `id` int(11) NOT NULL,
+  `personality_trait` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `personality_traits`
+--
+
+INSERT INTO `personality_traits` (`id`, `personality_trait`) VALUES
+(1, 'Analytical'),
+(2, 'Logical'),
+(3, 'Detail-oriented'),
+(4, 'Empathetic'),
+(5, 'Observant'),
+(6, 'Good listener'),
+(7, 'Strategic'),
+(8, 'Technically adept'),
+(9, 'Innovative'),
+(10, 'Creative'),
+(11, 'Collaborative'),
+(12, 'Inquisitive'),
+(13, 'Persuasive'),
+(14, 'Problem-solving'),
+(15, 'Ethical'),
+(16, 'Risk-taking'),
+(17, 'Organized'),
+(18, 'Good communicator'),
+(19, 'Hospitable'),
+(20, 'Culturally sensitive'),
+(21, 'Patient'),
+(22, 'Energetic'),
+(23, 'Resourceful'),
+(24, 'Adaptable'),
+(25, 'Articulate'),
+(26, 'Bilingual'),
+(27, 'Cross-culturally competent');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `science_questionnaire`
 --
 
@@ -338,6 +548,73 @@ INSERT INTO `science_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 (3, ' 178.	Atoms of an element differ from those of all elements in ___________.', 'atomic number and electronic configuration', 'number of neutrons and number of valence electrons', 'atomic number and number of valence electrons', 'number of neutrons and electronic configuration', 'A'),
 (4, 'Which of the following is true about sub atomic particles, mass number and atomic number?', 'mass number is equal to the number of neutrons', 'proton plus electron is equal to the mass number', 'atomic number is equal to the number of protons', 'neutron number can be calculated given only the mass number', 'C'),
 (5, 'Why is a virus not a living organism?', 'It can never reproduce', 'It is simpler than bacteria', 'It is not a complete cell', 'All of the above', 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `skills`
+--
+
+CREATE TABLE `skills` (
+  `id` int(11) NOT NULL,
+  `skill` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `skills`
+--
+
+INSERT INTO `skills` (`id`, `skill`) VALUES
+(1, 'Mathematical reasoning'),
+(2, 'Statistical analysis'),
+(3, 'Communication'),
+(4, 'Empathy'),
+(5, 'Research'),
+(6, 'Critical thinking'),
+(7, 'Investigation'),
+(8, 'Report writing'),
+(9, 'Problem-solving'),
+(10, 'Programming languages'),
+(11, 'Data structures and algorithms'),
+(12, 'Project management'),
+(13, 'Systems analysis'),
+(14, 'Database management'),
+(15, 'Public speaking'),
+(16, 'Network administration'),
+(17, 'Cybersecurity skills'),
+(18, 'Creative writing'),
+(19, 'Graphic design'),
+(20, 'Video editing'),
+(21, 'Writing'),
+(26, 'Leadership'),
+(27, 'Conflict resolution'),
+(29, 'Decision-making'),
+(31, 'Training and development'),
+(32, 'Performance evaluation'),
+(34, 'Financial analysis'),
+(35, 'Investment analysis'),
+(36, 'Risk assessment'),
+(37, 'Market research'),
+(38, 'Branding'),
+(39, 'Campaign management'),
+(41, 'Business planning'),
+(42, 'Financial management'),
+(44, 'Attention to detail'),
+(45, 'Accounting principles'),
+(47, 'Information security'),
+(48, 'Time management'),
+(49, 'Record keeping'),
+(50, 'Customer service'),
+(52, 'Marketing'),
+(53, 'Event planning'),
+(54, 'Budget management'),
+(55, 'Classroom management'),
+(56, 'Lesson planning'),
+(57, 'Child assessment'),
+(58, 'Adaptability'),
+(59, 'Multitasking'),
+(61, 'Scientific research'),
+(63, 'Translation');
 
 -- --------------------------------------------------------
 
@@ -545,6 +822,12 @@ ALTER TABLE `archived_courses`
   ADD PRIMARY KEY (`crs_id`);
 
 --
+-- Indexes for table `career_goals`
+--
+ALTER TABLE `career_goals`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
@@ -576,6 +859,12 @@ ALTER TABLE `hobbies_interests`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `interests`
+--
+ALTER TABLE `interests`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `logic_questionnaire`
 --
 ALTER TABLE `logic_questionnaire`
@@ -588,9 +877,21 @@ ALTER TABLE `math_questionnaire`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `personality_traits`
+--
+ALTER TABLE `personality_traits`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `science_questionnaire`
 --
 ALTER TABLE `science_questionnaire`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `skills`
+--
+ALTER TABLE `skills`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -640,6 +941,12 @@ ALTER TABLE `archived_courses`
   MODIFY `crs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `career_goals`
+--
+ALTER TABLE `career_goals`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+
+--
 -- AUTO_INCREMENT for table `english_questionnaire`
 --
 ALTER TABLE `english_questionnaire`
@@ -655,13 +962,19 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `hobbies_interests`
 --
 ALTER TABLE `hobbies_interests`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `interests`
+--
+ALTER TABLE `interests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `logic_questionnaire`
@@ -676,10 +989,22 @@ ALTER TABLE `math_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `personality_traits`
+--
+ALTER TABLE `personality_traits`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
 -- AUTO_INCREMENT for table `science_questionnaire`
 --
 ALTER TABLE `science_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `skills`
+--
+ALTER TABLE `skills`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `tbl_exam_subjects`
