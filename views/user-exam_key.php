@@ -231,7 +231,13 @@ p {
                           $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                           $status = $row["status"];
                           echo "<tr>";
-                          echo "<td class ='text-center'><div class='badge badge-danger p-2 badge-custom'>" . $status . "</div></td>";  
+                          if ($row['status'] == 'active') {
+                            echo "<td><div class='badge badge-success p-2'>" . $row['status'] . "</div></td>";
+                        } elseif ($row['status'] == 'pending') {
+                            echo "<td><div class='badge badge-danger p-2'>" . $row['status'] . "</div></td>";
+                        } else {
+                            echo "<td><div class='badge badge-secondary p-2'>" . $row['status'] . "</div></td>";
+                        }
                           echo "<td class ='tdclass'>" . $row["id"] . "</td>";
                           echo "<td class ='tdclass'>" . $row["email"] . "</td>";
                           echo "<td class ='tdclass'>" . $row["exam_date"] . "</td>";
@@ -265,6 +271,7 @@ p {
                         $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE id = '$id'");
                         if (mysqli_num_rows($result) > 0) {
                           $row = mysqli_fetch_assoc($result);
+                          echo "<p>Strand: </p>" . $row['strand'] . "";
                           echo "<p>Preferred Course: </p>" . $row['pref_course'] . "";
                           echo "<p>Strand: </p>" . $row['strand'] . "";
                           echo "<p>Personality Traits: </p>" . $row['traits'] . "";

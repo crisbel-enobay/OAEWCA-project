@@ -636,7 +636,7 @@ CREATE TABLE `tbl_exam_subjects` (
 
 INSERT INTO `tbl_exam_subjects` (`subj_id`, `subj_name`, `subj_desc`, `subj_status`, `subj_timestamp`) VALUES
 (1, 'English', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:21:08'),
-(2, 'Filipino', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:34:17'),
+(2, 'Science', 'This includes general knowledge in science', 1, '2023-02-17 22:16:36'),
 (3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48');
 
 -- --------------------------------------------------------
