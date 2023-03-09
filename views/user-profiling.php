@@ -559,8 +559,8 @@
                                      exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                       '".$pref_course. "', '".$traits_string. "',
-                                       '".$interests."','".$skills."', 
-                                       '".$career_goals."','".$first_course."','".$second_course."','".$third_course."', NOW() )
+                                      '".$interests_string."','".$skills_string."', 
+                                      '".$career_goals_string."','".$first_course."','".$second_course."','".$third_course."', NOW() )
                                     ");
                                   
 
