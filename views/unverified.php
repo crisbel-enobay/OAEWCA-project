@@ -385,11 +385,10 @@ p {
                           $formattedTime = date('h:i A', strtotime($row['exam_time']));
                           $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                           $pref_course = $row["pref_course"];
-                          $pref_second_course = $row["pref_secondary_course"];
-                          $pref_third_course = $row["pref_tertiary_course"];
-                          $hobby1 = $row["hobby"];
-                          $hobby2 = $row["secondary_hobby"];
-                          $hobby3 = $row["tertiary_hobby"];
+                          $traits = $row["traits"];
+                          $interest = $row["interest"];
+                          $skill = $row["skill"];
+                          $career_goal = $row["career_goal"];
                           $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
                           echo "<td><input type='checkbox' name='user_ids[]' value='".$row['id']."'></td>";

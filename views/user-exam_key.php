@@ -220,11 +220,13 @@ p {
                         </tr>
                       </thead>
                       <tbody>
-                        <?php
-                        $conn = mysqli_connect("localhost", "root", "", "project");
-                        $email = ($_SESSION['email']);
-                        $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE email = '$email'");
-                        while($row = mysqli_fetch_assoc($result)) {
+                      <?php
+                      $conn = mysqli_connect("localhost", "root", "", "project");
+                      $email = $_SESSION['email'];
+                      $result = mysqli_query($conn, "SELECT * FROM generated_codes WHERE email = '$email'");
+                      $tableList = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                      if (count($tableList) > 0) {
+                        foreach ($tableList as $row) {
                           $id = $row["id"];
                           $exam_date = $row["exam_date"];
                           $formattedTime = date('h:i A', strtotime($row['exam_time']));
@@ -233,27 +235,30 @@ p {
                           echo "<tr>";
                           if ($row['status'] == 'active') {
                             echo "<td><div class='badge badge-success p-2'>" . $row['status'] . "</div></td>";
-                        } elseif ($row['status'] == 'pending') {
+                          } elseif ($row['status'] == 'pending') {
                             echo "<td><div class='badge badge-danger p-2'>" . $row['status'] . "</div></td>";
-                        } else {
+                          } else {
                             echo "<td><div class='badge badge-secondary p-2'>" . $row['status'] . "</div></td>";
-                        }
+                          }
                           echo "<td class ='tdclass'>" . $row["id"] . "</td>";
                           echo "<td class ='tdclass'>" . $row["email"] . "</td>";
-                          echo "<td class ='tdclass'>" . $row["exam_date"] . "</td>";
                           echo "<td class ='tdclass'>" . $row["exam_key"] . "</td>";
+                          echo "<td class ='tdclass'>" . $row["exam_date"] . "</td>";
                           echo "<td class ='tdclass'>" . $formattedTime . "</td>";
                           echo "<td class ='tdclass'>" . $formattedTime2 . "</td>";
                           echo "<td><div class='text-center'><button type='button' class='btn btn-primary view-btn' data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>View Profiling</div></button></td>";
                           echo "</tr>";
                         }
-                        mysqli_close($conn);
-                      ?>
+                      } else {
+                        echo "<tr><td colspan='8' class='text-center'>No entries found in the table.</td></tr>";
+                      }
+                      mysqli_close($conn);
+                    ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
-
+                
                   <!-- View Modal -->
                 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -288,7 +293,17 @@ p {
                 </div>
 
                 <div>
-                <button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>
+                <?php
+                // assume $tableList is an array of items in the table
+
+                if (count($tableList) > 0) {
+                  // render the modal button
+                  echo '<button type="button" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>';
+                } else {
+                  // render a disabled modal button
+                  echo '<button type="button" disabled class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>';
+                }
+                ?>
               </div>
                <!-- Add Bus-->
                <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -361,150 +376,127 @@ p {
                               </div>
                                     </div>
                                     <div class="mb-3">
-                          <label>Select second preferred course</label>
+                          <label>Select personality traits</label>
                           <div class="form-group">
+                          <select id="traits" name="traits[]" class="form-control" multiple >
+                          <option value="">-- select personality traits --</option>
                           <?php
-                        include '../forms/database.php';
-                        $selected_course_options = array();                   
-                        $query2 ="SELECT course FROM courses";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['course'], $selected_course_options)) {
-                            $selected_course_options[] = $row['course'];
+                        include "../forms/database.php";
+                          if ($conn->connect_error) {
+                              die("Connection failed: " . $conn->connect_error);
                           }
-                        }
-                        ?>
-                        <select required name="course_opt2" class="form-control">
-                          <option value="">-- select course --</option>
-                          <?php
-                          foreach ($selected_course_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
+                                    // fetch distinct personality traits from the course table
+                              $sql = "SELECT personality_trait FROM personality_traits";
+                              $result = $conn->query($sql);
+
+                              // create an empty array to store the traits
+                              $traits_array = array();
+
+                              // loop through the fetched rows and add the traits to the array
+                              if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                  $traits = $row["personality_trait"];
+                                  array_push($traits_array, $traits);
+                                }
+                              }
+
+                              // sort the traits alphabetically
+                              sort($traits_array);
+
+                              // remove duplicates and create select options
+                              $unique_traits = array_unique($traits_array);
+                              foreach ($unique_traits as $trait) {
+                                echo "<option value=\"$trait\">$trait</option>";
+                              }
+                      ?>
                         </select>
-                        
-                        <!-- repeat this for other select tags -->
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Select third preferred course</label>
+                          <label>Select interests</label>
                           <div class="form-group">
-                          <?php
-                        include '../forms/database.php';
-                        $selected_course_options = array();                   
-                        $query2 ="SELECT course FROM courses";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['course'], $selected_course_options)) {
-                            $selected_course_options[] = $row['course'];
-                          }
-                        }
-                        ?>
-                        <select required name="course_opt3" class="form-control">
-                          <option value="">-- select course --</option>
-                          <?php
-                          foreach ($selected_course_options as $arr) {
+                          <select class="form-control" id="interests" name="interests[]" multiple >
+                              <option value="">-- select interest --</option>
+                              <?php
+                              include "../forms/database.php";
+                              if ($conn->connect_error) {
+                                  die("Connection failed: " . $conn->connect_error);
+                              }
+
+                              // fetch distinct interests from the course table
+                              $sql = "SELECT interest FROM interests ORDER BY interest ASC";
+                              $result = $conn->query($sql);
+
+                              // loop through the results and create an option for each interest
+                              if ($result->num_rows > 0) {
+                                  while ($row = $result->fetch_assoc()) {
+                                      $interest = $row["interest"];
+                                      echo "<option value=\"$interest\">$interest</option>";
+                                  }
+                              }
+
+                              $conn->close();
                           ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
+                         </select>
+
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Hobbies/Interest</label>
+                          <label>Select skills</label>
                           <div class="form-group">
-                          <?php
-                        include '../forms/database.php';
-                        $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobbies_interests'];
-                          }
+                          <select class="form-control" id="skills" name="skills[]" multiple >
+                        <option value="">-- select skills --</option>
+                        <?php
+                          include "../forms/database.php";
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+
+                            $sql = "SELECT skill FROM skills ORDER BY skill ASC";
+                        $result = $conn->query($sql);
+
+                        // loop through the results and create an option for each interest
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $skill = $row["skill"];
+                                echo "<option value=\"$skill\">$skill</option>";
+                            }
                         }
+
+                        $conn->close();
                         ?>
-                        <select required name="related_hobbies_opt1" class="form-control">
-                          <option value="">-- select hobbies --</option>
-                          <?php
-                          foreach ($selected_hobbies_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
+                      </select>
+
                               </div>
                         </div>
                         <div class="mb-3">
-                          <label>Second Hobbies/Interest</label>
+                          <label>Select career goals</label>
                           <div class="form-group">
-                          <?php
-                        include '../forms/database.php';
-                        $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
-                        $result = $conn->query($query2);
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobbies_interests'];
-                          }
-                        }
-                        ?>
-                        <select required name="related_hobbies_opt2" class="form-control">
-                          <option value="">-- select hobbies --</option>
-                          <?php
-                          foreach ($selected_hobbies_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
+                          <select class="form-control" id="career_goals" name="career_goals[]" multiple >
+                              <option value="">-- Select Career Goals --</option>
+                              <?php
+                                  include "../forms/database.php";
+                                  if ($conn->connect_error) {
+                                      die("Connection failed: " . $conn->connect_error);
+                                  }
+                          
+                                  $sql = "SELECT career_goal FROM career_goals ORDER BY career_goal ASC";
+                              $result = $conn->query($sql);
+                          
+                              // loop through the results and create an option for each interest
+                              if ($result->num_rows > 0) {
+                                  while ($row = $result->fetch_assoc()) {
+                                      $career_goal = $row["career_goal"];
+                                      echo "<option value=\"$career_goal\">$career_goal</option>";
+                                  }
+                              }
+                          
+                              $conn->close();
+                              ?>
+                          </select>
                               </div>
                         </div>
-                        <div class="mb-3">
-                          <label>Third Hobbies/Interest</label>
-                          <div class="form-group">
-                          <?php
-                        include '../forms/database.php';
-                        $selected_hobbies_options = array();                   
-                        $query2 ="SELECT hobbies_interests FROM hobbies_interests";
-                        $result = $conn->query($query2);
                         
-                        while ($row = mysqli_fetch_array($result)) {
-                          if (!in_array($row['hobbies_interests'], $selected_hobbies_options)) {
-                            $selected_hobbies_options[] = $row['hobbies_interests'];
-                          }
-                        }
-                        ?>
-                        <select required name="related_hobbies_opt3" class="form-control">
-                          <option value="">-- select hobbies --</option>
-                          <?php
-                          foreach ($selected_hobbies_options as $arr) {
-                          ?>
-                            <option><?php print($arr); ?></option>
-                          <?php
-                          }
-                          ?>
-                        </select>
-                        
-                        <!-- repeat this for other select tags -->
-                              </div>
-                        </div>
                       <div class="modal-footer">
                         <input type="submit" disabled name="Add" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="myBtn" value="Add"/>       
 <?php
@@ -540,11 +532,14 @@ p {
                           list($examDate, $examTime, $examtimeend) = explode(' ', $examDatetime);                       
                           $strand = $_POST['strand_opt'];                      
                           $pref_course = $_POST['course_opt1'];  
-                          $pref_secondary_course = $_POST['course_opt2'];  
-                          $pref_tertiary_course = $_POST['course_opt3'];                                       
-                          $related_hobbies1 = $_POST['related_hobbies_opt1']; 
-                          $related_hobbies2 = $_POST['related_hobbies_opt2'];         
-                          $related_hobbies3 = $_POST['related_hobbies_opt3']; 
+                          $traits = $_POST['traits'];
+                          $traits_string = implode(',', $traits);
+                          $interests = $_POST['interests'];
+                          $interests_string = implode(',', $interests);
+                          $skills = $_POST['skills'];
+                          $skills_string = implode(',', $skills);
+                          $career_goals = $_POST['career_goals']; 
+                          $career_goals_string = implode(',', $career_goals);
                               // Connect to the database
                             $conn = mysqli_connect("localhost", "root", "", "project");
 
@@ -553,108 +548,193 @@ p {
                                 die("Connection failed: " . mysqli_connect_error());
                             }
 
-                            
+                            $query = "SELECT * FROM courses";
+                            $result = $conn->query($query);
 
-                            // Check if the email address already exists in the database
-                            $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
-                            $check_result = mysqli_query($conn, $check_query);
+                            // Store fetched data in $course_data array
+                            while ($row = $result->fetch_assoc()) {
+                              $course_data[$row['course']] = array(
+                                  'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
+                                  'interests' => array_map('trim', explode(',', $row['interests'])),
+                                  'skills' => array_map('trim', explode(',', $row['skills'])),
+                                  'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
+                              );
+                            }
 
-                            if (mysqli_num_rows($check_result) > 0) {
-                              $row = mysqli_fetch_assoc($check_result);   
-                               // Check if the status is already approved
-                               if ($row['status'] == 'active') {
-                                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
-                                <script> 
-                                  setTimeout(function() {
-                                    Swal.fire({
-                                      title: 'Exam Schedule already approved',
-                                      icon: 'error',
-                                      showConfirmButton: true,
-                                      text: 'cannot be modified again',
-                                    }).then(function() {
-                                      window.location = '../views/user-exam_key.php';
-                                    });
-                                  }, 100);
-                                </script>";
+                          $traits_query = "SELECT personality_trait FROM personality_traits";
+                          $traits_result = $conn->query($traits_query);
+
+                          // create an empty array to store the traits
+                          $traits_array = array();
+
+                          // loop through the fetched rows and add the traits to the array
+                          if ($traits_result->num_rows > 0) {
+                              while ($row = $traits_result->fetch_assoc()) {
+                                  $traits = $row["personality_trait"];
+                                  array_push($traits_array, $traits);
                               }
-                              else { 
+                          }
+                          // Initialize variables to store top 3 courses
+                          $first_course = '';
+                          $second_course = '';
+                          $third_course = '';
+                            // Retrieve user's input
+                            $traits = $_POST['traits'];
+                            $interests = $_POST['interests'];
+                            $skills = $_POST['skills'];
+                            $career_goals = $_POST['career_goals'];
 
-                                // Delete the existing data
-                                $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
-                                $delete_result = mysqli_query($conn, $delete_query);
-
-                                if ($delete_result) {   
-                                    //process of modifying profiling
-                                    $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                                    strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
-                                     exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
-                                     '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
-                                      '".$pref_course. "', '".$pref_secondary_course."',
-                                       '".$pref_tertiary_course."','".$related_hobbies1."', 
-                                       '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
-                                    ");
-                                    if ($insert_result) {
-                                      echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
-                                        <script> 
-                                          setTimeout(function() {
-                                            Swal.fire({
-                                              title: 'Success',
-                                              icon: 'success',
-                                              showConfirmButton: true,
-                                              text: 'Exam schedule and profile modified',
-                                            }).then(function() {
-                                              window.location = '../views/user-exam_key.php';
-                                            });
-                                          }, 100);
-                                        </script>";  
-                                    } else {
-                                        // Handle the error
-                                        printf("Error: %s\n", mysqli_error($conn));
-                                        echo "SQL query: " . $sql;
-                                        exit();
-                                    }
-                                                                
-                                } 
-                                
-                                else {  
-                                  
-                                     
+                            // Calculate match score for each course based on user's input
+                            $match_scores = array();
+                          foreach ($course_data as $course => $data) {
+                              $score = 0;
+                              foreach ($traits as $trait) {
+                                  if (in_array($trait, $traits_array)) {
+                                      $score++;
+                                  }
+                              }
+                              foreach ($interests as $interest) {
+                                if (in_array($interest, $data['interests'])) {
+                                    $score++;
                                 }
                             }
-                          }
-
-                            else{
-                              // Insert the new data
-                              $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                              strand, pref_course,pref_secondary_course,pref_tertiary_course, hobby, secondary_hobby, tertiary_hobby ,
-                               exam_key_created_at) VALUES ('". $email . "','".$exam_code."',
-                               '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
-                                '".$pref_course. "', '".$pref_secondary_course."',
-                                 '".$pref_tertiary_course."','".$related_hobbies1."', 
-                                 '".$related_hobbies2."', '".$related_hobbies3."', NOW() )
-                              ");
-
-                            if ($insert_result) {
-                              echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
-                                <script> 
-                                  setTimeout(function() {
-                                    Swal.fire({
-                                      title: 'Success',
-                                      icon: 'success',
-                                      showConfirmButton: true,
-                                      text: 'Add exam schedule complete',
-                                    }).then(function() {
-                                      window.location = '../views/user-exam_key.php';
-                                    });
-                                  }, 100);
-                                </script>";   
-                            } 
-                            
-                            else {
+                            foreach ($skills as $skill) {
+                                if (in_array($skill, $data['skills'])) {
+                                    $score++;
+                                }
                             }
+                              foreach ($career_goals as $career_goal) {
+                                if (in_array($career_goal, $data['career_goals'])) {
+                                    $score++;
+                                }
+                            }
+                              // Add the score to an array for the current course
+                              $match_scores[$course] = array(
+                                  'score' => $score,
+                                  'personality_traits' => $data['personality_traits']
+                              );
                           }
-                            // Close the database connection
-                            mysqli_close($conn);  
+
+                          // Sort courses by match score and output top 3
+                          arsort($match_scores);
+                          $top_courses = array_slice($match_scores, 0, 3);
+                          foreach ($top_courses as $course => $data) {
+                              $score = $data['score'];
+                              
+                              // Store top 3 courses in separate variables
+                              if ($score > 0 && $first_course == '') {
+                                  $first_course = $course;
+                              } elseif ($score > 0 && $second_course == '') {
+                                  $second_course = $course;
+                              } elseif ($score > 0 && $third_course == '') {
+                                  $third_course = $course;
+                              }
+                          }
+
+                          
+
+                          // Check if the email address already exists in the database
+                          $check_query = "SELECT * FROM generated_codes WHERE email = '$email'";
+                          $check_result = mysqli_query($conn, $check_query);
+
+                          if (mysqli_num_rows($check_result) > 0) {
+                            $row = mysqli_fetch_assoc($check_result);   
+                             // Check if the status is already approved
+                             if ($row['status'] == 'active') {
+                              echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                              <script> 
+                                setTimeout(function() {
+                                  Swal.fire({
+                                    title: 'Exam Schedule already approved',
+                                    icon: 'error',
+                                    showConfirmButton: true,
+                                    text: 'cannot be modified again',
+                                  }).then(function() {
+                                    window.location = '../views/user-exam_key.php';
+                                  });
+                                }, 100);
+                              </script>";
+                            }
+                            else { 
+
+                              // Delete the existing data
+                              $delete_query = "DELETE FROM generated_codes WHERE email = '$email'";
+                              $delete_result = mysqli_query($conn, $delete_query);
+
+                              if ($delete_result) {   
+                                  //process of modifying profiling
+                                  $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                                  strand, pref_course, traits, interest, skill, career_goal,f_course,s_course,t_course,
+                                   exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
+                                   '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                    '".$pref_course. "', '".$traits_string. "',
+                                     '".$interests_string."','".$skills_string."', 
+                                     '".$career_goals_string."','".$first_course."','".$second_course."','".$third_course."', NOW() )
+                                  ");
+                                  
+                                  if ($insert_result) {
+                                    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                                      <script> 
+                                        setTimeout(function() {
+                                          Swal.fire({
+                                            title: 'Success',
+                                            icon: 'success',
+                                            showConfirmButton: true,
+                                            text: 'Exam schedule and profile modified',
+                                          }).then(function() {
+                                            window.location = '../views/user-exam_key.php';
+                                          });
+                                        }, 100);
+                                      </script>";  
+                                  } else {
+                                      // Handle the error
+                                      printf("Error: %s\n", mysqli_error($conn));
+                                      echo "SQL query: " . $sql;
+                                      exit();
+                                  }
+                                                              
+                              } 
+                              
+                              else {  
+                                
+                                   
+                              }
+                          }
+                        }
+
+                          else{
+                            // Insert the new data
+                            $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
+                                  strand, pref_course, traits, interest, skill, career_goal,f_course,s_course,t_course,
+                                   exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
+                                   '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                    '".$pref_course. "', '".$traits_string. "',
+                                     '".$interests."','".$skills."', 
+                                     '".$career_goals."','".$first_course."','".$second_course."','".$third_course."', NOW() )
+                                  ");
+                                
+
+                          if ($insert_result) {
+                            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+                              <script> 
+                                setTimeout(function() {
+                                  Swal.fire({
+                                    title: 'Success',
+                                    icon: 'success',
+                                    showConfirmButton: true,
+                                    text: 'Add exam schedule complete',
+                                  }).then(function() {
+                                    window.location = '../views/user-exam_key.php';
+                                  });
+                                }, 100);
+                              </script>";   
+                          } 
+                          
+                          else {
+                          }
+                        }
+                          // Close the database connection
+                          mysqli_close($conn);  
                           }    
                         ?>                  
                           </div>
