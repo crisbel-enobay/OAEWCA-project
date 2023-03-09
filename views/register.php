@@ -214,7 +214,7 @@
       <div class="logo">
         <a href="../index.php" class="logo d-flex align-items-center">
           <span>
-            <img src="../assets/img/OEEWCA.png" alt="">
+            <img src="../assets/img/Kursonada.png" alt="">
           </span>
         </a>
       </div>

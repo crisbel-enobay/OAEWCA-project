@@ -46,7 +46,7 @@ include "file/session.php";
       <div class="logo">
         <a href="index.php" class="logo d-flex align-items-center">
           <span>
-            <img src="assets/img/OEEWCA.png" alt="">
+            <img src="assets/img/Kursonada.png" alt="">
           </span>
         </a>
         <!-- Uncomment below if you prefer to use an image logo -->

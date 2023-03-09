@@ -33,7 +33,7 @@ include "../views/student-checker.php";
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="../views/admin.php">
-            <img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" class="logo-dark" />
+            <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
           </a>
           <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
         </div>
