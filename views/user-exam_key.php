@@ -202,7 +202,7 @@ p {
               <div class="card">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                  <p class="lead mb-0 ">Verified Students</p>
+                  <p class="lead mb-0 ">Exam Schedule</p>
                   </div>
                   <div class="table-responsive border rounded p-1">    
                       <table class="table table-hover text-nowrap datatable">
@@ -273,11 +273,11 @@ p {
                           $row = mysqli_fetch_assoc($result);
                           echo "<p>Strand: </p>" . $row['strand'] . "";
                           echo "<p>Preferred Course: </p>" . $row['pref_course'] . "";
-                          echo "<p>Second Preferred Course: </p>" . $row['pref_secondary_course'] . "";
-                          echo "<p>Third Preferred Course: </p>" . $row['pref_tertiary_course'] . "";
-                          echo "<p>Hobby: </p>" . $row['hobby'] . "";
-                          echo "<p>Second Hobby: </p>" . $row['secondary_hobby'] . "";
-                          echo "<p>Third Hobby: </p>" . $row['tertiary_hobby'] . "";
+                          echo "<p>Strand: </p>" . $row['strand'] . "";
+                          echo "<p>Personality Traits: </p>" . $row['traits'] . "";
+                          echo "<p>Interest: </p>" . $row['interest'] . "";
+                          echo "<p>Skills: </p>" . $row['skill'] . "";
+                          echo "<p>Career Goal: </p>" . $row['career_goal'] . "";
                           echo "<p>Exam Key Created At: </p>" . $row['exam_key_created_at'] . "";
                         }
                        ?>
