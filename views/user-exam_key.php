@@ -9,7 +9,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Category-Courses</title>
+    <title>Your exam schedule</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -311,7 +311,7 @@ p {
                   <div class="modal-content">
 
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Your Exam Schedule</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Edit your Exam Schedule</h5>
                     </div>
 
                     <form method="POST">
