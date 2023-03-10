@@ -315,15 +315,15 @@
                           <select name="relhob" class="form-control" id="edithob" required>
                             <option value="0">-No Changes-</option>
                             <?php
-                            $conn = new mysqli('localhost', 'root', '', 'project');
-                            if ($conn->connect_error) {
-                                die("Connection failed!:" . $conn->connect_error);
-                            }
-                            $find = "select * from hobbies";
-                            $list = $conn->query($find);
-                            while($row = $list->fetch_assoc()){
-                              echo '<option value="'.$row['hob_id'].'">'.$row['hobby'].'</option>';
-                            }
+                            // $conn = new mysqli('localhost', 'root', '', 'project');
+                            // if ($conn->connect_error) {
+                            //     die("Connection failed!:" . $conn->connect_error);
+                            // }
+                            // $find = "select * from courses";
+                            // $list = $conn->query($find);
+                            // while($row = $list->fetch_assoc()){
+                            //   echo '<option value="'.$row['hob_id'].'">'.$row['hobby'].'</option>';
+                            // }
                             ?>
                           </select>
                         </div>
