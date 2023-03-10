@@ -121,46 +121,38 @@ include "../views/student-checker.php";
             <div class="col-md-12 grid-margin">
               <div class="card">
                   <div class="card-header d-block d-md-flex">
-                    <h5 class="mb-0">Admission Exam</h5>
-                    <p class="ml-auto mb-0"><a href="more-info.php">More information?</a><i class="icon-bulb"></i></p>
+                    <h5 class="mb-0">Exam (Subject Phase)</h5>
                   </div>
                   <div class="card-body d-flex align-items-center justify-content-center">
                     <blockquote class="blockquote blockquote-primary">
-                      <h4>Welcome to UCC-OAEW/CA!, before we proceed to examination there are few notes to be taken.</h4>
-</br>
-                      <h5>• Enter your exam key during the afformentioned date.</h5>
-                      <h5>• Each portion of exam has a time limit, reaching the time limit will cause to proceed forward.</h5>
-                      <h5>• DO NOT use "back" to navigate this will give you a penalty.</h5>
-                      
+                        <?php 
+                        include 'conn.php';
+                        if ($_SESSION['subjectexam'] == 0) { $subid = 1;}
+                        else {$subid = $_SESSION['subjectexam'];}
+                        $select = mysqli_query($conn,
+                        "SELECT *
+                        FROM tbl_exam_subjects where subj_id = ".$subid."
+                        ");
+                        
+                        $seek = $select->fetch_assoc();
+                        ?>
+                        <center><h1><?php echo $seek['subj_name']; ?></h1></center>
+                      <p><?php echo $seek['subj_desc']; ?></p>
                     </blockquote>
                   </div>
                   <div class="card-body d-flex align-items-center justify-content-center">
-                      <button id="keyPass" type="submit" class="btn btn-outline-primary btn-fw" data-bs-toggle="modal" data-bs-target="#transactionModal">Take Examination</button>
+                    <form method="POST">
+                      <input type="submit" class="btn btn-outline-primary btn-fw" name="submit" value="Proceed">
+                      <?php
+                      if (isset($_POST['submit'])){
+                        if ($_SESSION['topicexam'] == 0) { $_SESSION['topicexam']++;}
+                        echo "<script> window.location = 'user-exam-topic.php' </script>";
+
+                      }
+                      ?>
+                      </form>
                   </div>
-                   <!-- Insert keyPass -->
-                  <div class="modal fade" id="transactionModal" tabindex="-1"role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role ="document">
-                      <div class="modal-content">
-                        <div class="modal-body"> 
-                          <div class="col-md-12 d-flex align-items-center justify-content-center py-3 ">
-                            <h5 class="modal-title" id="exampleModalLabel">Insert Examination Keypass</h5>
-                          </div>
-                          <div class="form-group">
-                            <input type="text" id="inputkey" name="inputkey" placeholder="Input Key" class="form-control">
-                          </div>
-                          <div class="d-flex align-items-center justify-content-center">
-                        
-                            <form id ="myForm"method="POST">
-                           
-                                  <button type="submit"name="submit" class="btn btn-outline-primary btn-fw">Submit</button>                  
-                                  <div id="message" style="display: none;"></div>
-                              
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                   
               </div>
             </div>
           </div>
@@ -183,30 +175,7 @@ include "../views/student-checker.php";
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script>
-$(document).ready(function() {
-  $("#myForm").submit(function(e) {
-    e.preventDefault(); // prevent the form from submitting
 
-    var inputkey = $("#inputkey").val();
-    var response1 = "Your key is expired.";
-    var response2 = "invalid key";
-
-    // make an AJAX request to submit the form data
-    $.ajax({
-      type: "POST",
-      url: "../forms/insert-key.php",
-      data: { inputkey: inputkey },
-      success: function(response) {
-        // show the response from the server in the message div
-  
-          $("#message").text(response).show();     
-        if (response == 'valid') {
-      window.location.href = 'user-exam-subject.php';
-    } 
-      }
-    });
-  });
-});
 </script>
     <script src="../vendors/chart.js/Chart.min.js"></script>
     <script src="../vendors/moment/moment.min.js"></script>
