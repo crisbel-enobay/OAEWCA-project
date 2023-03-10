@@ -205,7 +205,7 @@ $(document).ready(function() {
           timerProgressBar: true,
           showConfirmButton: false
         }).then((result) => {
-          window.location.href = 'exam-english.php';
+          window.location.href = 'user-exam-question.php';
         });
       }, 100);
     } else if (response.trim().toLowerCase() == 'invalid') {
