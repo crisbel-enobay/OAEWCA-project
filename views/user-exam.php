@@ -25,6 +25,7 @@ include "../views/student-checker.php";
     <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -32,9 +33,9 @@ include "../views/student-checker.php";
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="../views/admin.php">
-            <img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" class="logo-dark" />
+            <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
           </a>
-          <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
@@ -126,18 +127,15 @@ include "../views/student-checker.php";
                   </div>
                   <div class="card-body d-flex align-items-center justify-content-center">
                     <blockquote class="blockquote blockquote-primary">
-                      <h4>Welcome to UCC-OAEW/CA!, before we proceed to examination there are few notes to be taken.</h4>
-</br>
-                      <h5>• Enter your exam key during the afformentioned date.</h5>
-                      <h5>• Each portion of exam has a time limit, reaching the time limit will cause to proceed forward.</h5>
-                      <h5>• DO NOT use "back" to navigate this will give you a penalty.</h5>
-                      
+                      <p>Welcome to UCC-OAEW/CA!, We are here to recommend courses and support your decisions.</p>
+                      <footer class="blockquote-footer">from the <cite title="Source Title">Developers</cite></footer>
                     </blockquote>
                   </div>
                   <div class="card-body d-flex align-items-center justify-content-center">
                       <button id="keyPass" type="submit" class="btn btn-outline-primary btn-fw" data-bs-toggle="modal" data-bs-target="#transactionModal">Take Examination</button>
                   </div>
                    <!-- Insert keyPass -->
+                   <form id ="myForm"method="POST">
                   <div class="modal fade" id="transactionModal" tabindex="-1"role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role ="document">
                       <div class="modal-content">
@@ -150,10 +148,12 @@ include "../views/student-checker.php";
                           </div>
                           <div class="d-flex align-items-center justify-content-center">
                         
-                            <form id ="myForm"method="POST">
+                          
                            
-                                  <button type="submit"name="submit" class="btn btn-outline-primary btn-fw">Submit</button>                  
-                                  <div id="message" style="display: none;"></div>
+                            <div style="display: flex; justify-content: center;">
+                            <button type="submit" name="submit" class="btn btn-outline-primary btn-fw">Submit</button>                        
+                          </div>
+                          <div id="message" style="display: none;"></div>
                               
                             </form>
                           </div>
@@ -188,23 +188,108 @@ $(document).ready(function() {
     e.preventDefault(); // prevent the form from submitting
 
     var inputkey = $("#inputkey").val();
-    var response1 = "Your key is expired.";
-    var response2 = "invalid key";
 
     // make an AJAX request to submit the form data
     $.ajax({
-      type: "POST",
-      url: "../forms/insert-key.php",
-      data: { inputkey: inputkey },
-      success: function(response) {
-        // show the response from the server in the message div
-  
-          $("#message").text(response).show();     
-        if (response == 'valid') {
-      window.location.href = 'user-exam-subject.php';
+  type: "POST",
+  url: "../forms/insert-key.php",
+  data: { inputkey: inputkey },
+  success: function(response) {
+    if (response.trim().toLowerCase() == 'valid') {
+        setTimeout(function() {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Your key is valid and has been approved. You can take the exam',
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false
+        }).then((result) => {
+          window.location.href = 'exam-english.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'invalid') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is not valid. Please try again.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
     } 
-      }
-    });
+    else if (response.trim().toLowerCase() == 'invaliddate') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is not valid at this time',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    }
+    else if (response.trim().toLowerCase() == 'pending') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is valid but it has not been approved yet.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'expired') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key has expired. Please contact the administrator for assistance.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'started') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Sorry',
+          text: 'Your key is not valid at this time. Please wait until the exam starts.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else if (response.trim().toLowerCase() == 'ended') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'Your key is not valid at this time. The exam has already ended.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    } else {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred. Please try again later.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    }
+  }
+});
   });
 });
 </script>
