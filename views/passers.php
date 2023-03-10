@@ -1,14 +1,157 @@
 <?php 
 include '../file/logout-function.php';
 include "admin-checker.php";
-?>
+include '../forms/adminQueries.php';
+
+ //Import PHPMailer classes into the global namespace
+    //These must be at the top of your script, not inside a function
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+    //Load Composer's autoloader
+    require '../vendor/autoload.php';
+
+
+// Assume we have a database connection called $conn
+include '../forms/database.php';
+
+if (isset($_POST['approve'])) {
+  try {
+    $sql = "SELECT * FROM passers"; // Select all rows in the table
+    $result = mysqli_query($conn, $sql);
+
+    while ($row = mysqli_fetch_assoc($result)) {
+      // access the columns by their name
+      $recipient_name = $row['fullname'];
+      $email = $row['email'];
+      $score = $row['score'];
+      $remarks = $row['remarks'];
+      $exam_date = $row['exam_date'];
+      $f_course = $row['f_course'];
+      $s_course = $row['s_course'];
+      $t_course = $row['t_course'];
+
+      $mail = new PHPMailer(true);
+      
+      try {
+        //Enable verbose debug output
+        $mail->SMTPDebug = 0;//SMTP::DEBUG_SERVER;
+
+        //Send using SMTP
+        $mail->isSMTP();
+
+        //Set the SMTP server to send through
+        $mail->Host = 'smtp.gmail.com';
+
+        //Enable SMTP authentication
+        $mail->SMTPAuth = true;
+
+        //SMTP username
+        $mail->Username = 'lebbraumjayce3@gmail.com';
+
+        //SMTP password
+        $mail->Password = 'rnimmwsahakqkmmb';
+
+        //Enable TLS encryption;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+
+        //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->Port = 465;
+
+        //Recipients
+        $mail->setFrom('lebbraumjayce3@gmail.com', 'OAEWCA');
+
+        //Add a recipient
+        $mail->addAddress($email, $recipient_name);
+
+        //Set email format to HTML
+        $mail->isHTML(true);
+
+        $mail->Subject = 'OAEWCA Results Released';
+        $mail->Body = '<html>
+        <head>
+          <style>
+            /* styles for the email body */
+            body {
+              font-family: Arial, sans-serif;
+              font-size: 14px;
+              color: #333333;
+              line-height: 1.5;
+            }
+            h1 {
+              font-size: 24px;
+              font-weight: bold;
+              margin-bottom: 20px;
+            }
+            p {
+              margin-bottom: 10px;
+            }
+            /* styles for the key */
+            .key {
+              display: inline-block;
+              font-size: 30px;
+              padding: 10px 20px;
+              background-color: #007bff;
+              color: #ffffff;
+              border-radius: 5px;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>OAEWCA Results Released</h1>
+          <p>Your Result is now released:</p>
+          <p><strong>Date:</strong> ' . $exam_date . '</p>
+          <p>Your score is:</p>
+          <p>' . $score . '</p>
+          <p>Your remarks is:</p>
+          <p>' . $remarks . '</p>
+          <p>Your top 3 Recommended course is:</p>
+          <p>' . $f_course . '</p>
+          <p>' . $s_course . '</p>
+          <p>' . $t_course . '</p>
+        </body>
+        </html>';
+        
+        $mail->send();
+
+        
+      // Update status column of the row
+      $update_sql = "UPDATE passers SET status='released' WHERE email='".$email."'";
+      mysqli_query($conn, $update_sql);
+        
+      } catch (Exception $e) {
+        echo "Message could not be sent for $email. Mailer Error: {$mail->ErrorInfo}";
+      }
+    }
+
+    // Display SweetAlert and redirect to a certain page
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
+    <script> 
+      setTimeout(function() {
+        Swal.fire({
+          title: 'Release Successful',
+          icon: 'success',
+          showConfirmButton: true,
+          text: '',
+          }).then(function() {
+          window.location = '../views/passers.php';
+          });
+          }, 100);
+          </script>";
+          } catch (Exception $e) {
+          echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+          }
+          }
+          
+          ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>History</title>
+    <title>Passers</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -24,6 +167,61 @@ include "admin-checker.php";
     <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
+
+    <style>
+  table {
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    width: 100%;
+  }
+  
+  .badge-custom{
+    padding: 5px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  th {
+    color: black;
+    font-weight: bold;
+  }
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: #5bc0de;
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.close {
+  color: #fff;
+}
+
+.modal-body {
+  font-size: 16px;
+  padding: 10px;
+}
+
+#viewProfile p {
+  margin-bottom: 5px;
+}
+p {
+  font-weight: bold;
+}
+.view-btn{
+  padding:5px;
+}
+</style>
+
   </head>
   <body>
     <div class="container-scroller">
@@ -125,7 +323,8 @@ include "admin-checker.php";
               </a>
               <div class="collapse" id="ui-applicants">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="../views/passers.php">Passers</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../views/passers.php">Passers</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/failures.php">Failures</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/examiners.php">Examiners</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/unverified.php">Unverified Applicants</a></li>
                 </ul>
@@ -150,88 +349,113 @@ include "admin-checker.php";
           <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
+              <form id="myform" action="" method="POST">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                  <p class="lead mb-0 ">Passers</p>
+                  <p class="lead mb-0 ">Passed Students</p>
                   </div>
-                  <div class="table-responsive border rounded p-1">
-                    <table class="table">
+                  <div class="table-responsive border rounded p-1">    
+                      <table class="table table-hover text-nowrap datatable">
                       <thead>
-                        <tr>
-                          <th class="font-weight-bold">ID</th>
-                          <th class="font-weight-bold">Student Name</th>
-                          <th class="font-weight-bold">Course</th>
-                          <th class="font-weight-bold">Sample</th>
-                          <th class="font-weight-bold">Score</th>
-                          <th class="font-weight-bold">Status</th>
+                      <tr>
+                          <th class="font-weight-bold text-center" id="status" scope="col" >STATUS</th>
+                          <th class="font-weight-bold text-center" scope="col">ID</th>
+                          <th class="font-weight-bold text-center" scope="col">STUDENT NAME</th>
+                          <th class="font-weight-bold text-center" scope="col">EMAIL</th>
+                          <th class="font-weight-bold text-center" scope="col">EXAM DATE</th>
+                          <th class="font-weight-bold text-center" scope="col">SCORE</th>
+                          <th class="font-weight-bold text-center" scope="col">REMARKS</th>
+                          <th class="font-weight-bold text-center" scope="col">ACTIONS</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>Crisbel Enobay</td>
-                          <td>BSCS</td>
-                          <td>Sample</td>
-                          <td>85/100</td>
-                          <td>
-                            <div class="badge badge-success p-2">Passed</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>Lorence Lactud</td>
-                          <td>BSIT</td>
-                          <td>Sample</td>
-                          <td>75/100</td>
-                          <td>
-                            <div class="badge badge-warning p-2">Pending</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>Grace Cortex</td>
-                          <td>BSIS</td>
-                          <td>Sample</td>
-                          <td>70/100</td>
-                          <td>
-                            <div class="badge badge-danger p-2">Failed</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>Marvin Caharop</td>
-                          <td>BSCS</td>
-                          <td>Sample</td>
-                          <td>90/100</td>
-                          <td>
-                            <div class="badge badge-success p-2">Passed</div>
-                          </td>
-                        </tr>
+                      <?php
+                         // Create connection
+                         $conn = new mysqli('localhost', 'root', '', 'project');
+                         // Check connection
+                         if ($conn->connect_error) {
+                           die("Connection failed: " . $conn->connect_error);
+                         }
+                        $rows = getPassedStudent();
+                        $i = 0;
+                        while ($i < count($rows)) {   //Creates a loop to loop through results {
+                           $row = $rows[$i];
+                          $status = $row["status"];
+                          $id = $row["id"];
+                          $email = $row['email'];
+                          // $exam_key = $row["exam_key"];
+                          $exam_date = $row["exam_date"];
+                          // $formattedTime = date('h:i A', strtotime($row['exam_time']));
+                          // $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
+                          // $pref_course = $row["pref_course"];
+                          // $traits = $row["traits"];
+                          // $interest = $row["interest"];
+                          // $skill = $row["skill"];
+                          // $career_goal = $row["career_goal"];
+                          // $exam_key_created_at = $row["exam_key_created_at"];
+                          echo "<tr>";
+                          // echo "<td><input type='checkbox' name='user_ids[]' value='".$row['id']."'></td>";
+                          if ($row['status'] == 'active') {
+                            echo "<td><div class='badge badge-success p-2'>" . $row['status'] . "</div></td>";
+                        } elseif ($row['status'] == 'pending') {
+                            echo "<td><div class='badge badge-danger p-2'>" . $row['status'] . "</div></td>";
+                        } else {
+                            echo "<td><div class='badge badge-secondary p-2'>" . $row['status'] . "</div></td>";
+                        }
+                          echo "<td>" . $row["id"] . "</td>";
+                          echo "<td>" . $row["fullname"] . "</td>";
+                          echo "<td>" . $row["email"] . "</td>";
+                          echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" . $row["score"] . "</td>";
+                          if ($row['remarks'] == 'passed') {
+                            echo "<td><div class='badge badge-success p-2'>" . $row['remarks'] . "</div></td>";
+                        } elseif ($row['remarks'] == 'failed') {
+                            echo "<td><div class='badge badge-danger p-2'>" . $row['remarks'] . "</div></td>";
+                        } else {
+                            echo "<td><div class='badge badge-secondary p-2'>" . $row['remarks'] . "</div></td>";
+                        }
+                          // echo "<td>" . $row["exam_key"] . "</td>";
+                          // echo "<td>" . $formattedTime . "</td>";
+                          // echo "<td>" . $formattedTime2 . "</td>";
+                          echo "<td><div class='text-center'><button name='btnmodal' type='button' class='btn btn-primary view-btn' data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>View Profiling</div></button></td>";
+                    
+                          // echo      "<td>". "<div class='d-flex '>
+                          //       <form method='POST' action='../forms/delete_bus.php'>
+                          //                 <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$email' data-eng='$exam_date' data-mat='$pref_course' data-fil='$interest' data-sci='$hobbies' onClick='editCourse(this)'>EDIT</button>
+                          //               </form>" .
+                          //     "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+                          //     "</div>" .
+                          //     "</td>" .
+                          echo "</tr>";
+                               $i++;
+                        }
+                        
+                        mysqli_close($conn);
+                      ?>
                       </tbody>
                     </table>
                   </div>
-                  <div class="d-flex mt-4 flex-wrap">
-                    <p class="text-muted">Showing 1 to 10 of 57 entries</p>
-                    <nav class="ml-auto">
-                      <ul class="pagination separated pagination-info">
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
-                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
-                      </ul>
-                    </nav>
+                  <div>
+                                  <!-- View Modal -->
+              <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="viewModalLabel">View Profiling</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div id="viewProfile"></div>
+                    </div>
                   </div>
                 </div>
+              </div>
+                <button type="submit" name="approve" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Release Results</button>
+              </div>
+                </div>
+               </form>
               </div>
             </div>
           
@@ -243,7 +467,7 @@ include "admin-checker.php";
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright BSCS4B Group 3</span>
           </div>
         </footer>
-      </div>
+        </div>
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
@@ -257,6 +481,11 @@ include "admin-checker.php";
     <script src="../vendors/moment/moment.min.js"></script>
     <script src="../vendors/daterangepicker/daterangepicker.js"></script>
     <script src="../vendors/chartist/chartist.min.js"></script>
+     <!-- Vendor JS Files -->
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="../js/off-canvas.js"></script>
@@ -265,5 +494,9 @@ include "admin-checker.php";
     <!-- Custom js for this page -->
     <script src="../js/dashboard.js"></script>
     <!-- End custom js for this page -->
+
+    <!-- Template Main JS File -->
+    <script src="../assets/js/main2.js"></script>
+    <!-- Other Custom JS -->
   </body>
 </html>

@@ -56,6 +56,29 @@ function getGeneratedCodes() {
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
 
+//get unapproved students
+function getPassedstudent() {
+    /*include 'database.php';
+    $sql = mysqli_query($conn,
+    "SELECT obrs_sample.id, course, dept, availability
+    FROM obrs_sample
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);*/
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT *
+    FROM passers WHERE remarks = 'passed'
+    ");
+return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+
  //get approved students
 function getApprovedStudent() {
     /*include 'database.php';

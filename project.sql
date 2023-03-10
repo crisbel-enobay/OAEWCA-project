@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2023 at 02:29 PM
+-- Generation Time: Mar 10, 2023 at 06:15 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,7 +42,7 @@ CREATE TABLE `admin_schedule` (
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_time`, `exam_time_end`, `exam_date_created`) VALUES
 (56, '2023-02-16', '21:00:00', '23:00:00', '2023-02-16 20:39:55'),
 (58, '2023-02-18', '15:00:00', '16:00:00', '2023-02-16 20:39:55'),
-(59, '2023-02-20', '14:00:00', '16:00:00', '2023-02-20 13:56:14');
+(62, '2023-03-09', '17:00:00', '19:00:00', '2023-03-09 17:10:09');
 
 -- --------------------------------------------------------
 
@@ -232,6 +232,23 @@ INSERT INTO `english_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `failures`
+--
+
+CREATE TABLE `failures` (
+  `id` int(11) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `score` int(11) NOT NULL,
+  `remarks` varchar(255) NOT NULL,
+  `f_course` varchar(255) NOT NULL,
+  `s_course` varchar(255) NOT NULL,
+  `t_course` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `filipino_questionnaire`
 --
 
@@ -288,8 +305,8 @@ CREATE TABLE `generated_codes` (
 --
 
 INSERT INTO `generated_codes` (`id`, `fullname`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `traits`, `interest`, `skill`, `career_goal`, `f_course`, `s_course`, `t_course`, `exam_key_created_at`) VALUES
-(46, '', 'lebbraumjayce@gmail.com', 'pgxc1279', '2023-02-16', '21:00:00', '23:00:00', 'active', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', '', '', '', '', '', '', '', '2023-02-18 04:32:30'),
-(74, 'student name sample', 'user@gmail.com', 'ucna9076', '2023-02-18', '15:00:00', '16:00:00', 'pending', 'STEM', 'Bachelor of Science in Psychology (BSPsych)', 'Analytical,Logical,Observant', 'Artificial intelligence,Counseling', 'Data structures and algorithms,Empathy', 'Clinical psychologist,Computer systems analyst\r\n', 'Bachelor of Science in Psychology (BSPsych)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information System (BSIS)', '2023-03-08 21:10:39');
+(80, '', 'lebbraumjayce@gmail.com', 'obmw4985', '2023-03-09', '17:00:00', '19:00:00', 'active', 'ABM', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Articulate,Collaborative,Creative', 'Auditing,Business development,Child development', 'Adaptability,Attention to detail', 'Actuary,Advertising executive,Artificial intelligence specialist', 'Bachelor of Science in Accountancy (BSA)', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', '2023-03-09 17:17:17'),
+(83, '', 'user@gmail.com', 'onhf4809', '2023-03-09', '17:00:00', '19:00:00', 'active', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bilingual,Creative', 'Accounting,Administrative support', 'Adaptability,Branding', 'Accountant', 'Bachelor of Science in Accounting Information System (BSAIS)', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Bachelor of Science in Office Administration (BSOAd)', '2023-03-09 18:33:28');
 
 -- --------------------------------------------------------
 
@@ -481,6 +498,33 @@ INSERT INTO `math_questionnaire` (`id`, `question`, `optionA`, `optionB`, `optio
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `passers`
+--
+
+CREATE TABLE `passers` (
+  `id` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `exam_date` varchar(255) NOT NULL,
+  `score` int(11) NOT NULL,
+  `remarks` varchar(255) NOT NULL,
+  `f_course` varchar(255) NOT NULL,
+  `s_course` varchar(255) NOT NULL,
+  `t_course` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `passers`
+--
+
+INSERT INTO `passers` (`id`, `status`, `fullname`, `email`, `exam_date`, `score`, `remarks`, `f_course`, `s_course`, `t_course`) VALUES
+(1, 'released', 'Marvin Caharop', 'lebbraumjayce@gmail.com', '2023-03-09', 90, 'passed', 'Bachelor of Science in Accounting Information System (BSAIS)', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Bachelor of Science in Office Administration (BSOAd)'),
+(2, 'released', 'Marvin Caharop', 'lebbraumjayce3@gmail.com', '2023-03-09', 86, 'passed', 'Bachelor of Science in Accounting Information System (BSAIS)', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Bachelor of Science in Office Administration (BSOAd)');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personality_traits`
 --
 
@@ -636,7 +680,7 @@ CREATE TABLE `tbl_exam_subjects` (
 
 INSERT INTO `tbl_exam_subjects` (`subj_id`, `subj_name`, `subj_desc`, `subj_status`, `subj_timestamp`) VALUES
 (1, 'English', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:21:08'),
-(2, 'Science', 'This includes general knowledge in science', 1, '2023-02-17 22:16:36'),
+(2, 'Filipino', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:34:17'),
 (3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48');
 
 -- --------------------------------------------------------
@@ -800,9 +844,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verification_code`, `verified_date`, `reset_link_token`, `expiry_reset_link_token`) VALUES
 (1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
-(2, 'marvs', 'lebbraumjayce@gmail.com', '$2y$10$YeI9rdAyfqt/bic10Mli2uUsWvHU7ZlQJsnuuvQ6URVlxGnziaGYi', 0, '253435', '2023-02-11 17:24:39', '', ''),
 (3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
-(7, 'student name sample', 'user2@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', '');
+(7, 'student name sample', 'user2@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
+(10, 'Marvin Caharop', 'lebbraumjayce@gmail.com', '$2y$10$fEkpaNryzW909nOmAM5aBOd/jloLGA8UNhjayhbbpXHJwIUSNES12', 0, '130507', '2023-03-09 16:55:48', '', '');
 
 --
 -- Indexes for dumped tables
@@ -877,6 +921,12 @@ ALTER TABLE `math_questionnaire`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `passers`
+--
+ALTER TABLE `passers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `personality_traits`
 --
 ALTER TABLE `personality_traits`
@@ -932,7 +982,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_schedule`
 --
 ALTER TABLE `admin_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `archived_courses`
@@ -962,7 +1012,7 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `hobbies_interests`
@@ -987,6 +1037,12 @@ ALTER TABLE `logic_questionnaire`
 --
 ALTER TABLE `math_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `passers`
+--
+ALTER TABLE `passers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `personality_traits`
@@ -1034,7 +1090,7 @@ ALTER TABLE `tbl_topic_questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
