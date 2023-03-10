@@ -57,7 +57,7 @@ function getGeneratedCodes() {
 }
 
 //get unapproved students
-function getPassedstudent() {
+function getResults() {
     /*include 'database.php';
     $sql = mysqli_query($conn,
     "SELECT obrs_sample.id, course, dept, availability
@@ -74,7 +74,7 @@ function getPassedstudent() {
     }
     $sql = mysqli_query($conn,
     "SELECT *
-    FROM passers WHERE remarks = 'passed'
+    FROM results
     ");
 return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }

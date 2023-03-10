@@ -18,7 +18,7 @@ include '../forms/database.php';
 
 if (isset($_POST['approve'])) {
   try {
-    $sql = "SELECT * FROM passers"; // Select all rows in the table
+    $sql = "SELECT * FROM results"; // Select all rows in the table
     $result = mysqli_query($conn, $sql);
 
     while ($row = mysqli_fetch_assoc($result)) {
@@ -69,56 +69,166 @@ if (isset($_POST['approve'])) {
         $mail->isHTML(true);
 
         $mail->Subject = 'OAEWCA Results Released';
+
+        if ($remarks == 'passed') {
         $mail->Body = '<html>
-        <head>
-          <style>
-            /* styles for the email body */
+    <head>
+        <meta charset="UTF-8">
+        <title>OAEWCA Results Released</title>
+        <style>
+            /* Styles for the email body */
             body {
-              font-family: Arial, sans-serif;
-              font-size: 14px;
-              color: #333333;
-              line-height: 1.5;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                color: #333333;
+                line-height: 1.5;
             }
             h1 {
-              font-size: 24px;
-              font-weight: bold;
-              margin-bottom: 20px;
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                text-align: center;
             }
-            p {
-              margin-bottom: 10px;
+            .container {
+                width: 80%;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f2f2f2;
+                border-radius: 5px;
             }
-            /* styles for the key */
-            .key {
-              display: inline-block;
-              font-size: 30px;
-              padding: 10px 20px;
-              background-color: #007bff;
-              color: #ffffff;
-              border-radius: 5px;
+            .score-container {
+                margin-top: 30px;
+                text-align: center;
             }
-          </style>
-        </head>
-        <body>
-          <h1>OAEWCA Results Released</h1>
-          <p>Your Result is now released:</p>
-          <p><strong>Date:</strong> ' . $exam_date . '</p>
-          <p>Your score is:</p>
-          <p>' . $score . '</p>
-          <p>Your remarks is:</p>
-          <p>' . $remarks . '</p>
-          <p>Your top 3 Recommended course is:</p>
-          <p>' . $f_course . '</p>
-          <p>' . $s_course . '</p>
-          <p>' . $t_course . '</p>
-        </body>
-        </html>';
-        
-        $mail->send();
-
-        
+            .score-heading {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .score {
+                font-size: 30px;
+                font-weight: bold;
+                color: #007bff;
+                margin-bottom: 30px;
+            }
+            .remarks-container {
+                margin-top: 30px;
+                text-align: center;
+            }
+            .remarks-heading {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .remarks {
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+            .courses-container {
+                margin-top: 30px;
+                text-align: center;
+            }
+            .courses-heading {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .course {
+                font-size: 14px;
+                margin-bottom: 10px;
+                background-color: #007bff;
+                color: #ffffff;
+                padding: 10px;
+                border-radius: 5px;
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>OAEWCA Results Released</h1>
+            <p>Your results are now available:</p>
+            <p><strong>Date:</strong> ' . $exam_date . '</p>
+            <div class="score-container">
+                <div class="score-heading">Your Score:</div>
+                <div class="score">' . $score . '</div>
+            </div>
+            <div class="remarks-container">
+                <div class="remarks-heading">Remarks:</div>
+                <div class="remarks">' . $remarks . '</div>
+            </div>
+            <div class="courses-container">
+                <div class="courses-heading">Top 3 Recommended Courses:</div>
+                <div class="course">' . $f_course . '</div>
+                <div class="course">' . $s_course . '</div>
+                <div class="course">' . $t_course . '</div>
+            </div>
+        </div>
+    </body>
+</html>';
+     
       // Update status column of the row
-      $update_sql = "UPDATE passers SET status='released' WHERE email='".$email."'";
+      $update_sql = "UPDATE results SET status='released' WHERE email='".$email."'";
       mysqli_query($conn, $update_sql);
+      $mail->send();
+          }
+          else if (strtolower($remarks) == 'failed') {
+            $mail->Body = '<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>OAEWCA Entrance Exam Results</title>
+        <style>
+            /* Styles for the email body */
+            body {
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                color: #333333;
+                line-height: 1.5;
+            }
+            h1 {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            .container {
+                width: 80%;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f2f2f2;
+                border-radius: 5px;
+            }
+            .result {
+                margin-top: 30px;
+                text-align: center;
+            }
+            .result-heading {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .result-text {
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>OAEWCA Entrance Exam Results</h1>
+            <div class="result">
+                <div class="result-heading">Dear ' . $recipient_name . ',</div>
+                <div class="result-text">We regret to inform you that you did not pass the OAEWCA entrance exam. Your score was ' . $score . ' out of 100.</div>
+                <div class="result-text">While we are disappointed that you will not be able to join us at OAEWCA at this time, we encourage you to continue pursuing your academic goals and wish you the best of luck in your future endeavors.</div>
+            </div>
+        </div>
+    </body>
+</html>';
+ // Update status column of the row
+ $update_sql = "UPDATE results SET status='released' WHERE email='".$email."'";
+ mysqli_query($conn, $update_sql);
+$mail->send();
+          }
         
       } catch (Exception $e) {
         echo "Message could not be sent for $email. Mailer Error: {$mail->ErrorInfo}";
@@ -135,7 +245,7 @@ if (isset($_POST['approve'])) {
           showConfirmButton: true,
           text: '',
           }).then(function() {
-          window.location = '../views/passers.php';
+          window.location = '../views/results.php';
           });
           }, 100);
           </script>";
@@ -151,7 +261,7 @@ if (isset($_POST['approve'])) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Passers</title>
+    <title>Results</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
@@ -323,8 +433,7 @@ p {
               </a>
               <div class="collapse" id="ui-applicants">
                 <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../views/passers.php">Passers</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/failures.php">Failures</a></li>
+                <li class="nav-item" active> <a class="nav-link" href="../views/results.php">Results</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/examiners.php">Examiners</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/unverified.php">Unverified Applicants</a></li>
                 </ul>
@@ -376,7 +485,7 @@ p {
                          if ($conn->connect_error) {
                            die("Connection failed: " . $conn->connect_error);
                          }
-                        $rows = getPassedStudent();
+                        $rows = getResults();
                         $i = 0;
                         while ($i < count($rows)) {   //Creates a loop to loop through results {
                            $row = $rows[$i];

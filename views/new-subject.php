@@ -125,8 +125,7 @@
               </a>
               <div class="collapse" id="ui-applicants">
                 <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../views/passers.php">Passers</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/failures.php">Failures</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../views/results.php">Results</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/examiners.php">Examiners</a></li>
                   <li class="nav-item"> <a class="nav-link" href="../views/unverified.php">Unverified Applicants</a></li>
                 </ul>
