@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2023 at 06:15 AM
+-- Generation Time: Mar 10, 2023 at 09:13 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -228,23 +228,6 @@ INSERT INTO `english_questionnaire` (`id`, `question`, `optionA`, `optionB`, `op
 (14, 'Calvin reached the __________ of his career in his early thirties when he became president and CEO of a software company.\r\n', 'zephyr', 'zenith', 'vale', 'nocturne', 'B'),
 (15, 'Genevieve’s stunning debut performance at the city opera has earned her  __________ from some of the city’s toughest critics.\r\n', 'antipathy', 'accolades', 'destitutions', 'lamentations', 'B'),
 (16, 'Prince Phillip had to choose: marry the woman he loved and ________ his right to the throne, or marry Fiona and inherit the crown.\r\n', 'reprimand', 'upbraid', 'abdicate', 'winnow', 'C');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `failures`
---
-
-CREATE TABLE `failures` (
-  `id` int(11) NOT NULL,
-  `fullname` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `score` int(11) NOT NULL,
-  `remarks` varchar(255) NOT NULL,
-  `f_course` varchar(255) NOT NULL,
-  `s_course` varchar(255) NOT NULL,
-  `t_course` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -498,33 +481,6 @@ INSERT INTO `math_questionnaire` (`id`, `question`, `optionA`, `optionB`, `optio
 -- --------------------------------------------------------
 
 --
--- Table structure for table `passers`
---
-
-CREATE TABLE `passers` (
-  `id` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `fullname` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `exam_date` varchar(255) NOT NULL,
-  `score` int(11) NOT NULL,
-  `remarks` varchar(255) NOT NULL,
-  `f_course` varchar(255) NOT NULL,
-  `s_course` varchar(255) NOT NULL,
-  `t_course` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `passers`
---
-
-INSERT INTO `passers` (`id`, `status`, `fullname`, `email`, `exam_date`, `score`, `remarks`, `f_course`, `s_course`, `t_course`) VALUES
-(1, 'released', 'Marvin Caharop', 'lebbraumjayce@gmail.com', '2023-03-09', 90, 'passed', 'Bachelor of Science in Accounting Information System (BSAIS)', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Bachelor of Science in Office Administration (BSOAd)'),
-(2, 'released', 'Marvin Caharop', 'lebbraumjayce3@gmail.com', '2023-03-09', 86, 'passed', 'Bachelor of Science in Accounting Information System (BSAIS)', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Bachelor of Science in Office Administration (BSOAd)');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `personality_traits`
 --
 
@@ -565,6 +521,33 @@ INSERT INTO `personality_traits` (`id`, `personality_trait`) VALUES
 (25, 'Articulate'),
 (26, 'Bilingual'),
 (27, 'Cross-culturally competent');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `results`
+--
+
+CREATE TABLE `results` (
+  `id` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `exam_date` varchar(255) NOT NULL,
+  `score` int(11) NOT NULL,
+  `remarks` varchar(255) NOT NULL,
+  `f_course` varchar(255) NOT NULL,
+  `s_course` varchar(255) NOT NULL,
+  `t_course` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `results`
+--
+
+INSERT INTO `results` (`id`, `status`, `fullname`, `email`, `exam_date`, `score`, `remarks`, `f_course`, `s_course`, `t_course`) VALUES
+(1, 'released', 'Marvin Caharop', 'lebbraumjayce@gmail.com', '2023-03-09', 90, 'passed', 'Bachelor of Science in Accounting Information System (BSAIS)', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Bachelor of Science in Office Administration (BSOAd)'),
+(2, 'released', 'Marvin Caharop', 'lebbraumjayce3@gmail.com', '2023-03-09', 70, 'failed', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)');
 
 -- --------------------------------------------------------
 
@@ -921,15 +904,15 @@ ALTER TABLE `math_questionnaire`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `passers`
---
-ALTER TABLE `passers`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `personality_traits`
 --
 ALTER TABLE `personality_traits`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `results`
+--
+ALTER TABLE `results`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1039,16 +1022,16 @@ ALTER TABLE `math_questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `passers`
---
-ALTER TABLE `passers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `personality_traits`
 --
 ALTER TABLE `personality_traits`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `results`
+--
+ALTER TABLE `results`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `science_questionnaire`
