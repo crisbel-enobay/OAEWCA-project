@@ -34,7 +34,7 @@
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="../views/admin.php">
-            <img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" class="logo-dark" />
+            <img src="../assets/img/kursonada.png" alt="logo" class="logo-dark" />
           </a>
           <a class="navbar-brand brand-logo-mini"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
         </div>
@@ -101,13 +101,7 @@
               </a>
             </li>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">History</span></li>
-            <li class="nav-item">
-              <a class="nav-link">
-                <span class="menu-title">Results</span>
-                <i class="icon-chart menu-icon"></i>
-              </a>
-            </li>
+            
           </ul>
         </nav>
        <!-- partial -->
@@ -132,7 +126,7 @@ if (!isset($_SESSION['start_time'])) {
 $start_time = $_SESSION['start_time'];
 
 // Calculate the elapsed time
-$allotted_time = 60*60;
+$allotted_time = $_SESSION['set_time']*60;
 $elapsed_time = $current_time - $start_time;
 
 // Check if the elapsed time is greater than the allotted time
@@ -214,6 +208,14 @@ if ($elapsed_time > $allotted_time) {
             if (!isset($_SESSION["displayed_pages"])) {
               $_SESSION["displayed_pages"] = array();
             }
+
+            if (!isset($_SESSION["score"])) {
+              $_SESSION["score"] = 0;
+            }
+
+            if (!isset($_SESSION["totalscore"])) {
+              $_SESSION["totalscore"] = 0;
+            }
       
             // Display the current page
             if (isset($_POST["next"])) {
@@ -221,17 +223,33 @@ if ($elapsed_time > $allotted_time) {
               do {
                 $next_page = $pages[array_rand($pages)];
               } while (in_array($next_page, $_SESSION["displayed_pages"]));
+
+              $_SESSION["score"] += $_POST['exam'];
+              $_SESSION["totalscore"] += 1;
       
               $_SESSION["displayed_pages"][] = $next_page;
               $_SESSION["current_page"] = $next_page;
             } elseif (isset($_POST["previous"])) {
               // Go back to the previous page
               array_pop($_SESSION["displayed_pages"]);
+              if ($_SESSION["totalscore"] <= $_SESSION["score"]){
+              $_SESSION["score"] -= 1;}
+              $_SESSION["totalscore"] -= 1;
+
               $_SESSION["current_page"] = end($_SESSION["displayed_pages"]);
             } else {
               // Display the first page
               $_SESSION["current_page"] = $pages[0];
               $_SESSION["displayed_pages"][] = $pages[0];
+            }
+
+            if (isset($_POST["finish"])) {
+
+              $_SESSION["score"] += $_POST['exam'];
+              $_SESSION["totalscore"] += 1;
+              
+              $percentile = ($_SESSION["score"]/$_SESSION["totalscore"])*100;
+              
             }
 
             $newsql = mysqli_query($conn,
@@ -259,25 +277,27 @@ if ($elapsed_time > $allotted_time) {
             }
       
             echo "<h1 style='font-size: 24px;'>" . $question . "</h1>";
+            //echo "<h1 style='font-size: 24px;'>" . $_SESSION['score'] . $_SESSION['totalscore'] . "</h1>";
+
             echo '<li>
               
               <div>
-                  <input type="radio" name="exam"  value="'.$value[0].'" />
+                  <input type="radio" name="exam"  value="'.$value[0].'" required/>
                   <label for="exam">A) '.$answers[0].' </label>
               </div>
               
               <div>
-                  <input type="radio" name="exam"  value="'.$value[1].'" />
+                  <input type="radio" name="exam"  value="'.$value[1].'" required/>
                   <label for="exam-B">B) '.$answers[1].'</label>
               </div>
               
               <div>
-                  <input type="radio" name="exam"  value="'.$value[2].'" />
+                  <input type="radio" name="exam"  value="'.$value[2].'" required/>
                   <label for="exam-C">C) '.$answers[2].'</label>
               </div>
               
               <div>
-                  <input type="radio" name="exam"  value="'.$value[3].'" />
+                  <input type="radio" name="exam"  value="'.$value[3].'" required/>
                   <label for="exam-D">D) '.$answers[3].'</label>
               </div>
           
@@ -292,6 +312,7 @@ if ($elapsed_time > $allotted_time) {
             if (count($_SESSION["displayed_pages"]) < count($pages)) {
               echo "<button type='submit' class='btn btn-primary mx-3' name='next'>Next</button>";
             } else if (count($_SESSION["displayed_pages"]) == count($pages)) {
+
               echo "<script>
                 setTimeout(function() {
                   Swal.fire({
@@ -302,7 +323,12 @@ if ($elapsed_time > $allotted_time) {
                     });
                     }, 1000);
                     </script>";
+
+              echo "<button type='submit' class='btn btn-primary mx-3' name='finish'>Finish</button>";
+
                     }
+
+
             
             
             ?>
