@@ -60,7 +60,7 @@ if (isset($_POST['approve'])) {
         $mail->Port = 465;
 
         //Recipients
-        $mail->setFrom('lebbraumjayce3@gmail.com', 'OAEWCA');
+        $mail->setFrom('lebbraumjayce3@gmail.com', 'KURSONADA');
 
         //Add a recipient
         $mail->addAddress($email, $recipient_name);
@@ -68,13 +68,13 @@ if (isset($_POST['approve'])) {
         //Set email format to HTML
         $mail->isHTML(true);
 
-        $mail->Subject = 'OAEWCA Results Released';
+        $mail->Subject = 'KURSONADA Results Released';
 
         if ($remarks == 'passed') {
         $mail->Body = '<html>
     <head>
         <meta charset="UTF-8">
-        <title>OAEWCA Results Released</title>
+        <title>KURSONADA Results Released</title>
         <style>
             /* Styles for the email body */
             body {
@@ -146,7 +146,7 @@ if (isset($_POST['approve'])) {
     </head>
     <body>
         <div class="container">
-            <h1>OAEWCA Results Released</h1>
+            <h1>KURSONADA Results Released</h1>
             <p>Your results are now available:</p>
             <p><strong>Date:</strong> ' . $exam_date . '</p>
             <div class="score-container">
@@ -176,7 +176,7 @@ if (isset($_POST['approve'])) {
             $mail->Body = '<html>
     <head>
         <meta charset="UTF-8">
-        <title>OAEWCA Entrance Exam Results</title>
+        <title>KURSONADA Entrance Exam Results</title>
         <style>
             /* Styles for the email body */
             body {
@@ -215,11 +215,11 @@ if (isset($_POST['approve'])) {
     </head>
     <body>
         <div class="container">
-            <h1>OAEWCA Entrance Exam Results</h1>
+            <h1>KURSONADA Entrance Exam Results</h1>
             <div class="result">
                 <div class="result-heading">Dear ' . $recipient_name . ',</div>
-                <div class="result-text">We regret to inform you that you did not pass the OAEWCA entrance exam. Your score was ' . $score . ' out of 100.</div>
-                <div class="result-text">While we are disappointed that you will not be able to join us at OAEWCA at this time, we encourage you to continue pursuing your academic goals and wish you the best of luck in your future endeavors.</div>
+                <div class="result-text">We regret to inform you that your score did not reach the passing grade we required. Your score was ' . $score . ' out of 100.</div>
+                <div class="result-text">While we are disappointed that you will not be able to join in our Campus, we encourage you to continue pursuing your academic goals and wish you the best of luck in your future endeavors.</div>
             </div>
         </div>
     </body>
