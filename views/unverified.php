@@ -58,7 +58,7 @@ if (isset($_POST['approve'])) {
             $mail->Port = 465;
  
             //Recipients
-            $mail->setFrom('lebbraumjayce3@gmail.com', 'OAEWCA');
+            $mail->setFrom('lebbraumjayce3@gmail.com', 'KURSONADA');
  
             //Add a recipient
             $mail->addAddress($email, $recipient_name);
