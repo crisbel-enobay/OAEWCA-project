@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2023 at 07:52 AM
+-- Generation Time: Mar 12, 2023 at 10:58 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -292,8 +292,8 @@ CREATE TABLE `generated_codes` (
 --
 
 INSERT INTO `generated_codes` (`id`, `fullname`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `traits`, `interest`, `skill`, `career_goal`, `f_course`, `f_related_course`, `s_course`, `s_related_course`, `t_course`, `t_related_course`, `exam_key_created_at`) VALUES
-(85, 'student name sample', 'user@gmail.com', 'gjtp5398', '2023-02-18', '15:00:00', '16:00:00', 'active', 'HUMMS', 'Bachelor of Science in Information Technology (BSIT)', 'Ethical,Good listener', 'Accounting,Administrative support,Advertising', 'Adaptability,Branding', 'Actuary,Administrative assistant', 'Bachelor of Science in Office Administration (BSOAd)', '0', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', '', 'Bachelor of Arts in Communication (BAComm)', '', '2023-03-10 20:22:04'),
-(86, 'Marvin Caharop', 'lebbraumjayce@gmail.com', 'cepi2935', '2023-03-09', '17:00:00', '19:00:00', 'pending', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16');
+(86, 'John Doe', 'lebbraumjayce@gmail.com', 'cepi2935', '2023-03-12', '17:00:00', '23:00:00', 'pending', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16'),
+(87, 'student name sample', 'user@gmail.com', 'oetz9563', '2023-03-09', '17:00:00', '23:00:00', 'pending', 'STEM', 'Bachelor of Science in Mathematics (BSMath)', 'Bilingual,Creative,Detail-oriented,Empathetic', 'Auditing,Business,Business development', 'Creative writing', 'Actuary,Advertising executive,Artificial intelligence specialist,Brand manager', 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT), , Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 'Bachelor of Science in Information System (BSIS)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', '2023-03-12 17:56:35');
 
 -- --------------------------------------------------------
 
@@ -564,7 +564,7 @@ CREATE TABLE `results` (
 
 INSERT INTO `results` (`id`, `fullname`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `score`, `remarks`, `status`, `strand`, `pref_course`, `traits`, `interest`, `skill`, `career_goal`, `f_course`, `f_related_course`, `s_course`, `s_related_course`, `t_course`, `t_related_course`, `exam_key_created_at`) VALUES
 (85, 'M', 'lebbraumjayce3@gmail.com', 'gjtp5398', '2023-02-18', '15:00:00', '16:00:00', 74, 'failed', 'released', 'HUMMS', 'Bachelor of Science in Information Technology (BSIT)', 'Ethical,Good listener', 'Accounting,Administrative support,Advertising', 'Adaptability,Branding', 'Actuary,Administrative assistant', 'Bachelor of Science in Office Administration (BSOAd)', '0', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', '', 'Bachelor of Arts in Communication (BAComm)', '', '2023-03-10 20:22:04'),
-(86, 'john doe', 'lebbraumjayce@gmail.com', 'cepi2935', '2023-03-09', '17:00:00', '19:00:00', 90, 'passed', 'released', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16');
+(90, 'John Doe', 'lebbraumjayce@gmail.com', 'cepi2935', '2023-03-12', '17:00:00', '19:00:00', 100, 'passed', 'active', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16');
 
 -- --------------------------------------------------------
 
@@ -1012,7 +1012,7 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `hobbies_interests`
@@ -1048,7 +1048,7 @@ ALTER TABLE `personality_traits`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `science_questionnaire`

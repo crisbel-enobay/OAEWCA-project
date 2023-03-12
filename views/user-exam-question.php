@@ -249,7 +249,124 @@ if ($elapsed_time > $allotted_time) {
               $_SESSION["totalscore"] += 1;
               
               $percentile = ($_SESSION["score"]/$_SESSION["totalscore"])*100;
+              $email = $_SESSION['email'];
+
+              if ($percentile >= 75) {
+                $remarks = 'passed';
+              } else {
+                $remarks = 'failed';
+              }
+              // Check connection
+              if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+              }
+
+              // SQL query to get rows where email is equal to session email
+              $sql = "SELECT * FROM generated_codes WHERE email = '$email'";
+
+              $result = mysqli_query($conn, $sql);
+
+              // Check if any rows were returned
+              if (mysqli_num_rows($result) > 0) {
+                // Loop through the rows and store the specific results column in variables
+                while($row = mysqli_fetch_assoc($result)) {
+                    $fullname = $row['fullname'];
+                    $exam_key = $row['exam_key'];
+                    $exam_date = $row['exam_date'];
+                    $exam_time = $row['exam_time'];
+                    $exam_time_end = $row['exam_time_end'];
+                    $status = $row['status'];
+                    $strand = $row['strand'];
+                    $pref_course = $row['pref_course'];
+                    $traits = $row['traits'];
+                    $interest = $row['interest'];
+                    $skill = $row['skill'];
+                    $career_goal = $row['career_goal'];
+                    $f_course = $row['f_course'];
+                    $f_related_course = $row['f_related_course'];
+                    $s_course = $row['s_course'];
+                    $s_related_course = $row['s_related_course'];
+                    $t_course = $row['t_course'];
+                    $t_related_course = $row['t_related_course'];
+                    $exam_key_created_at = $row['exam_key_created_at'];
+                 
+                // Check if a row with the same email already exists in the 'results' table
+                    $sql_check = "SELECT * FROM results WHERE email = '$email'";
+                    $result_check = mysqli_query($conn, $sql_check);
+
+                    if (mysqli_num_rows($result_check) > 0) {
+                        // If a row is found, delete it
+                        $sql_delete = "DELETE FROM results WHERE email = '$email'";
+                        if (mysqli_query($conn, $sql_delete)) {
+                            // If the row is deleted successfully, insert the new row
+                            $sql_insert = "INSERT INTO results (fullname, email, exam_key, score, remarks, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
+                            VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
+
+                            if (mysqli_query($conn, $sql_insert)) {
+                                echo "<script>
+                                        swal({
+                                          title: 'Record inserted successfully',
+                                          icon: 'success',
+                                          timer: 3000,
+                                          button: false,
+                                        });
+                                      </script>";
+                            } else {
+                                echo "<script>
+                                        swal({
+                                          title: 'Error inserting record',
+                                          text: '".mysqli_error($conn)."',
+                                          icon: 'error',
+                                          timer: 3000,
+                                          button: false,
+                                        });
+                                      </script>";
+                            }
+                        } else {
+                            // If there is an error deleting the row, display an error message
+                            echo "<script>
+                                    swal({
+                                      title: 'Error deleting existing record',
+                                      text: '".mysqli_error($conn)."',
+                                      icon: 'error',
+                                      timer: 3000,
+                                      button: false,
+                                    });
+                                  </script>";
+                        }
+                    } else {
+                        // If no row is found, insert the new row
+                        $sql_insert = "INSERT INTO results (fullname, email, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
+                        VALUES ('$fullname', '$email', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
+
+                        if (mysqli_query($conn, $sql_insert)) {
+                            echo "<script>
+                                    swal({
+                                      title: 'Record inserted successfully',
+                                      icon: 'success',
+                                      timer: 3000,
+                                      button: false,
+                                    });
+                                  </script>";
+                        } else {
+                            echo "<script>
+                                    swal({
+                                      title: 'Error inserting record',
+                                      text: '".mysqli_error($conn)."',
+                                      icon: 'error',
+                                      timer: 3000,
+                                      button: false,
+                                    });
+                                  </script>";
+                        }
+                    }
+
               
+
+                }
+              } else {
+                echo "No rows found";
+              }
             }
 
             $newsql = mysqli_query($conn,
@@ -313,16 +430,7 @@ if ($elapsed_time > $allotted_time) {
               echo "<button type='submit' class='btn btn-primary mx-3' name='next'>Next</button>";
             } else if (count($_SESSION["displayed_pages"]) == count($pages)) {
 
-              echo "<script>
-                setTimeout(function() {
-                  Swal.fire({
-                    title: 'All pages have been viewed',
-                    text: 'Congratulations, you have reached the end of the pages!',
-                    icon: 'success',
-                    confirmButtonText: 'Awesome'
-                    });
-                    }, 1000);
-                    </script>";
+        
 
               echo "<button type='submit' class='btn btn-primary mx-3' name='finish'>Finish</button>";
 
