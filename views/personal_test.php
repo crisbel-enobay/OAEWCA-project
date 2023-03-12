@@ -29,42 +29,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // );
 
   include "../forms/database.php";
-$query = "SELECT * FROM courses";
-$result = $conn->query($query);
+  $query = "SELECT * FROM courses";
+  $result = $conn->query($query);
+  
+  // Store fetched data in $course_data array
+  while ($row = $result->fetch_assoc()) {
+      $course_data[$row['course']] = array(
+          'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
+          'interests' => array_map('trim', explode(',', $row['interests'])),
+          'skills' => array_map('trim', explode(',', $row['skills'])),
+          'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
+          'related_courses' => array_map('trim', explode(',', $row['related_course']))
+      );
+  }
+  
+  $traits_query = "SELECT personality_trait FROM personality_traits";
+  $traits_result = $conn->query($traits_query);
+  
+  // create an empty array to store the traits
+  $traits_array = array();
+  
+  // loop through the fetched rows and add the traits to the array
+  if ($traits_result->num_rows > 0) {
+      while ($row = $traits_result->fetch_assoc()) {
+          $traits = $row["personality_trait"];
+          array_push($traits_array, $traits);
+      }
+  }
 
-// Store fetched data in $course_data array
-while ($row = $result->fetch_assoc()) {
-    $course_data[$row['course']] = array(
-        'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
-        'interests' => array_map('trim', explode(',', $row['interests'])),
-        'skills' => array_map('trim', explode(',', $row['skills'])),
-        'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
-    );
-}
-
-// Initialize variables to store top 3 courses
+// Initialize variables to store top 3 courses and related courses
 $first_course = '';
+$first_course_related = '';
 $second_course = '';
+$second_course_related = '';
 $third_course = '';
-  // Retrieve user's input
-  $traits = $_POST['traits'];
-  $interests = $_POST['interests'];
-  $skills = $_POST['skills'];
-  $career_goals = $_POST['career_goals'];
+$third_course_related = '';
 
-  // Calculate match score for each course based on user's input
-  $match_scores = array();
+// Retrieve user's input
+$traits = $_POST['traits'];
+$interests = $_POST['interests'];
+$skills = $_POST['skills'];
+$career_goals = $_POST['career_goals'];
+
+// Calculate match score for each course based on user's input
+$match_scores = array();
 foreach ($course_data as $course => $data) {
     $score = 0;
     foreach ($traits as $trait) {
-        if (in_array($trait, $data['personality_traits'])) {
+        if (in_array($trait, $traits_array)) {
             $score++;
         }
     }
-    $data['score'] = $score;
-    echo "Course: $course\n";
-    echo "Score: " . $data['score'] . "\n";
-    echo "Matching Personality Traits: " . implode(', ', $data['personality_traits']) . "\n\n";
     foreach ($interests as $interest) {
         if (in_array($interest, $data['interests'])) {
             $score++;
@@ -83,43 +98,37 @@ foreach ($course_data as $course => $data) {
     // Add the score to an array for the current course
     $match_scores[$course] = array(
         'score' => $score,
-        'personality_traits' => $data['personality_traits']
+        'personality_traits' => $data['personality_traits'],
+        'related_courses' => $data['related_courses']
     );
-
 }
 
 // Sort courses by match score and output top 3
 arsort($match_scores);
 $top_courses = array_slice($match_scores, 0, 3);
-
-echo "<h2>Top 3 Matching Courses:</h2>";
-// foreach ($top_courses as $course => $data) {
-//     $score = $data['score'];
-//     echo "<p>$course (Score: $score)</p>";
-foreach ($match_scores as $course => $data) {
-    echo "Course: $course\n";
-    echo "Score: " . $data['score'] . "\n";
-    echo "Personality Traits: " . implode(', ', $data['personality_traits']) . "\n\n";
-
+foreach ($top_courses as $course => $data) {
+    $score = $data['score'];
+    $related_courses = $data['related_courses'];
     
-    
-    // Store top 3 courses in separate variables
+    // Store top 3 courses and related courses in separate variables
     if ($score > 0 && $first_course == '') {
         $first_course = $course;
+        $first_course_related = implode(", ", $related_courses);
     } elseif ($score > 0 && $second_course == '') {
         $second_course = $course;
+        $second_course_related = implode(", ", $related_courses);
     } elseif ($score > 0 && $third_course == '') {
         $third_course = $course;
+        $third_course_related = implode(", ", $related_courses);
     }
 }
+
+// Output the top 3 courses and related courses
+echo "Top 3 recommended courses:<br>";
+echo "1. $first_course (Related courses: $first_course_related)<br>";
+echo "2. $second_course (Related courses: $second_course_related)<br>";
+echo "3. $third_course (Related courses: $third_course_related)<br>";
 }
-
-// Output top 3 courses stored in variables
-echo "<h2>Top 3 Matching Courses (Stored in Variables):</h2>";
-echo "<p>1. $first_course</p>";
-echo "<p>2. $second_course</p>";
-echo "<p>3. $third_course</p>";
-
 ?>
 
 <h1>Kurso-Nada</h1>
