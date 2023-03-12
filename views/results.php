@@ -31,6 +31,9 @@ if (isset($_POST['approve'])) {
       $f_course = $row['f_course'];
       $s_course = $row['s_course'];
       $t_course = $row['t_course'];
+      $f_related_course = $row['f_related_course'];
+      $s_related_course = $row['s_related_course'];
+      $t_related_course = $row['t_related_course'];
 
       $mail = new PHPMailer(true);
       
@@ -72,99 +75,160 @@ if (isset($_POST['approve'])) {
 
         if ($remarks == 'passed') {
         $mail->Body = '<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>KURSONADA Results Released</title>
+        <head>
+        <title>KURSONADA Entrance Exam Results Released</title>
         <style>
-            /* Styles for the email body */
-            body {
-                font-family: Arial, sans-serif;
-                font-size: 14px;
-                color: #333333;
-                line-height: 1.5;
-            }
-            h1 {
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 20px;
-                text-align: center;
-            }
-            .container {
-                width: 80%;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: #f2f2f2;
-                border-radius: 5px;
-            }
-            .score-container {
-                margin-top: 30px;
-                text-align: center;
-            }
-            .score-heading {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            .score {
-                font-size: 30px;
-                font-weight: bold;
-                color: #007bff;
-                margin-bottom: 30px;
-            }
-            .remarks-container {
-                margin-top: 30px;
-                text-align: center;
-            }
-            .remarks-heading {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            .remarks {
-                font-size: 14px;
-                margin-bottom: 30px;
-            }
-            .courses-container {
-                margin-top: 30px;
-                text-align: center;
-            }
-            .courses-heading {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            .course {
-                font-size: 14px;
-                margin-bottom: 10px;
-                background-color: #007bff;
-                color: #ffffff;
-                padding: 10px;
-                border-radius: 5px;
-                display: inline-block;
-            }
+          * {
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+          }
+          body {
+            background-color: #f5f5f5;
+          }
+          .container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+          }
+          h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #f7931e;
+            margin-bottom: 20px;
+          }
+          p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #444;
+            margin-bottom: 10px;
+            text-align: left;
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+          strong {
+            font-weight: bold;
+            color: #f7931e;
+          }
+          .score-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            text-align: left;
+          }
+          .score-heading {
+            font-size: 20px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 10px;
+          }
+          .score {
+            font-size: 32px;
+            font-weight: bold;
+            color: #f7931e;
+            line-height: 1.5;
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+          .remarks-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            text-align: left;
+          }
+          .remarks-heading {
+            font-size: 20px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 10px;
+          }
+          .remarks {
+            font-size: 32px;
+            font-weight: bold;
+            color: #f7931e;
+            line-height: 1.5;
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+          .courses-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            text-align: left;
+          }
+          .courses-heading {
+            font-size: 20px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 10px;
+          }
+          .course {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #444;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-bottom: 10px;
+          }
+          .container {
+            text-align: center;
+          }
+          
+          h1, h2, h3, h4, h5, h6 {
+            text-align: center;
+          }
+          
+          .score-heading, .remarks-heading, .courses-heading {
+            text-align: center;
+          }
+          
+          .score, .remarks, .course {
+            text-align: center;
+          }
         </style>
-    </head>
+      </head>
     <body>
-        <div class="container">
-            <h1>KURSONADA Results Released</h1>
-            <p>Your results are now available:</p>
-            <p><strong>Date:</strong> ' . $exam_date . '</p>
-            <div class="score-container">
-                <div class="score-heading">Your Score:</div>
-                <div class="score">' . $score . '</div>
-            </div>
-            <div class="remarks-container">
-                <div class="remarks-heading">Remarks:</div>
+    <div class="container">
+    <h1>KURSONADA Entrance Exam Results Released</h1>
+    <p style="font-size: 20px;
+    font-weight: bold;
+    color: #f7931e;
+    margin-bottom: 10px;">Dear ' . $recipient_name . ',</p>
+    <p>Your results are now available:</p>
+    <p><strong>Date taken:</strong> ' . $exam_date . '</p>
+    <div class="score-container">
+        <div class="score-heading">Your Score:</div>
+        <div class="score">' . $score . '</div>
+    </div>
+    <div class="remarks-container">
+        <div class="remarks-heading">Remarks:</div>
                 <div class="remarks">' . $remarks . '</div>
             </div>
             <div class="courses-container">
-                <div class="courses-heading">Top 3 Recommended Courses:</div>
-                <div class="course">' . $f_course . '</div>
-                <div class="course">' . $s_course . '</div>
-                <div class="course">' . $t_course . '</div>
-            </div>
-        </div>
-    </body>
+                <div class="courses-heading" style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">Top 3 Recommended Courses:</div>
+                <div class="course" style="background-color: #FFF2CC; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+                <span style="font-weight: bold;">' . $f_course . '</span><br>
+                <span style="color: #6C757D;">Related courses: ' . $f_related_course . '</span>
+                </div>
+                <div class="course" style="background-color: #FFF2CC; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+                <span style="font-weight: bold;">' . $s_course . '</span><br>
+                <span style="color: #6C757D;">Related courses: ' . $s_related_course . '</span>
+                </div>
+                <div class="course" style="background-color: #FFF2CC; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+                <span style="font-weight: bold;">' . $t_course . '</span><br>
+                <span style="color: #6C757D;">Related courses: ' . $t_related_course . '</span>
+                </div>
+                </div>
+                </div>              
+                </body>            
 </html>';
      
       // Update status column of the row
@@ -185,11 +249,22 @@ if (isset($_POST['approve'])) {
                 color: #333333;
                 line-height: 1.5;
             }
+
+            .container {
+              margin: 20px auto;
+              max-width: 600px;
+              padding: 20px;
+              background-color: #fff;
+              border-radius: 10px;
+              box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+              text-align: center;
+            }
+
             h1 {
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 20px;
-                text-align: center;
+              font-size: 28px;
+              font-weight: bold;
+              color: #f7931e;
+              margin-bottom: 20px;
             }
             .container {
                 width: 80%;
@@ -203,13 +278,21 @@ if (isset($_POST['approve'])) {
                 text-align: center;
             }
             .result-heading {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 10px;
+              font-size: 32px;
+              font-weight: bold;
+              color: #f7931e;
+              line-height: 1.5;
+              padding-left: 10px;
+              padding-right: 10px;
+              margin-bottom: 10px;
             }
             .result-text {
-                font-size: 14px;
-                margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #444;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-bottom: 10px;
             }
         </style>
     </head>
@@ -461,7 +544,7 @@ p {
               <form id="myform" action="" method="POST">
                 <div class="card-body">
                   <div class="card-header d-block d-md-flex">
-                  <p class="lead mb-0 ">Passed Students</p>
+                  <p class="lead mb-0 ">Entrance Exam Results</p>
                   </div>
                   <div class="table-responsive border rounded p-1">    
                       <table class="table table-hover text-nowrap datatable">

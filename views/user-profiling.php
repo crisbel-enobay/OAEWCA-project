@@ -401,15 +401,16 @@
                             $query = "SELECT * FROM courses";
                             $result = $conn->query($query);
 
-                            // Store fetched data in $course_data array
-                              while ($row = $result->fetch_assoc()) {
-                                $course_data[$row['course']] = array(
-                                    'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
-                                    'interests' => array_map('trim', explode(',', $row['interests'])),
-                                    'skills' => array_map('trim', explode(',', $row['skills'])),
-                                    'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
-                                );
-                              }
+                             // Store fetched data in $course_data array
+                            while ($row = $result->fetch_assoc()) {
+                              $course_data[$row['course']] = array(
+                                  'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
+                                  'interests' => array_map('trim', explode(',', $row['interests'])),
+                                  'skills' => array_map('trim', explode(',', $row['skills'])),
+                                  'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
+                                  'related_courses' => array_map('trim', explode(',', $row['related_course']))
+                              );
+                          }
 
                             $traits_query = "SELECT personality_trait FROM personality_traits";
                             $traits_result = $conn->query($traits_query);
@@ -426,8 +427,11 @@
                             }
                             // Initialize variables to store top 3 courses
                             $first_course = '';
+                            $first_course_related = '';
                             $second_course = '';
+                            $second_course_related = '';
                             $third_course = '';
+                            $third_course_related = '';
                               // Retrieve user's input
                               $traits = $_POST['traits'];
                               $interests = $_POST['interests'];
@@ -461,7 +465,8 @@
                                 // Add the score to an array for the current course
                                 $match_scores[$course] = array(
                                     'score' => $score,
-                                    'personality_traits' => $data['personality_traits']
+                                    'personality_traits' => $data['personality_traits'],
+                                    'related_courses' => $data['related_courses']
                                 );
                             }
 
@@ -470,14 +475,18 @@
                             $top_courses = array_slice($match_scores, 0, 3);
                             foreach ($top_courses as $course => $data) {
                                 $score = $data['score'];
+                                $related_courses = $data['related_courses'];
                                 
                                 // Store top 3 courses in separate variables
                                 if ($score > 0 && $first_course == '') {
                                     $first_course = $course;
+                                    $first_course_related = implode(", ", $related_courses);
                                 } elseif ($score > 0 && $second_course == '') {
                                     $second_course = $course;
+                                    $second_course_related = implode(", ", $related_courses);
                                 } elseif ($score > 0 && $third_course == '') {
                                     $third_course = $course;
+                                    $third_course_related = implode(", ", $related_courses);
                                 }
                             }
 
@@ -514,12 +523,12 @@
                                 if ($delete_result) {   
                                     //process of modifying profiling
                                     $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                                    strand, pref_course, traits, interest, skill, career_goal,f_course,s_course,t_course,
+                                    strand, pref_course, traits, interest, skill, career_goal,f_course,f_related_course,s_course,s_related_course,t_course,t_related_course,
                                      exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                       '".$pref_course. "', '".$traits_string. "',
                                        '".$interests_string."','".$skills_string."', 
-                                       '".$career_goals_string."','".$first_course."','".$second_course."','".$third_course."', NOW() )
+                                       '".$career_goals_string."','".$first_course."', '".$first_course_related. "','".$second_course."', '".$second_course_related. "','".$third_course."', '".$third_course_related. "', NOW() )
                                     ");
                                     
                                     if ($insert_result) {
@@ -555,12 +564,12 @@
                             else{
                               // Insert the new data
                               $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                                    strand, pref_course, traits, interest, skill, career_goal,f_course,s_course,t_course,
+                                    strand, pref_course, traits, interest, skill, career_goal,f_course,f_related_course,s_course,s_related_course,t_course,t_related_course,
                                      exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                       '".$pref_course. "', '".$traits_string. "',
-                                      '".$interests_string."','".$skills_string."', 
-                                      '".$career_goals_string."','".$first_course."','".$second_course."','".$third_course."', NOW() )
+                                       '".$interests_string."','".$skills_string."', 
+                                       '".$career_goals_string."','".$first_course."', '".$first_course_related. "','".$second_course."', '".$second_course_related. "','".$third_course."', '".$third_course_related. "', NOW() )
                                     ");
                                   
 
