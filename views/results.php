@@ -31,6 +31,9 @@ if (isset($_POST['approve'])) {
       $f_course = $row['f_course'];
       $s_course = $row['s_course'];
       $t_course = $row['t_course'];
+      $f_related_course = $row['f_related_course'];
+      $s_related_course = $row['s_related_course'];
+      $t_related_course = $row['t_related_course'];
 
       $mail = new PHPMailer(true);
       
@@ -72,77 +75,98 @@ if (isset($_POST['approve'])) {
 
         if ($remarks == 'passed') {
         $mail->Body = '<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>KURSONADA Results Released</title>
-        <style>
-            /* Styles for the email body */
-            body {
-                font-family: Arial, sans-serif;
-                font-size: 14px;
-                color: #333333;
-                line-height: 1.5;
-            }
-            h1 {
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 20px;
-                text-align: center;
-            }
-            .container {
-                width: 80%;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: #f2f2f2;
-                border-radius: 5px;
-            }
-            .score-container {
-                margin-top: 30px;
-                text-align: center;
-            }
-            .score-heading {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            .score {
-                font-size: 30px;
-                font-weight: bold;
-                color: #007bff;
-                margin-bottom: 30px;
-            }
-            .remarks-container {
-                margin-top: 30px;
-                text-align: center;
-            }
-            .remarks-heading {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            .remarks {
-                font-size: 14px;
-                margin-bottom: 30px;
-            }
-            .courses-container {
-                margin-top: 30px;
-                text-align: center;
-            }
-            .courses-heading {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            .course {
-                font-size: 14px;
-                margin-bottom: 10px;
-                background-color: #007bff;
-                color: #ffffff;
-                padding: 10px;
-                border-radius: 5px;
-                display: inline-block;
-            }
-        </style>
+          <head>
+              <meta charset="UTF-8">
+              <title>KURSONADA Results Released</title>
+              <style>
+                  /* Styles for the email body */
+                  body {
+                      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                      font-size: 16px;
+                      color: #333;
+                      line-height: 1.5;
+                      background-color: #f4f4f4;
+                  }
+                  h1 {
+                      font-size: 32px;
+                      font-weight: bold;
+                      margin-bottom: 20px;
+                      text-align: center;
+                      color: #ff6347;
+                  }
+                  .container {
+                      width: 80%;
+                      margin: 0 auto;
+                      padding: 20px;
+                      background-color: #fff;
+                      border-radius: 5px;
+                      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                  }
+                  .score-container {
+                      margin-top: 30px;
+                      text-align: center;
+                      border-top: 1px solid #ddd;
+                      padding-top: 20px;
+                  }
+                  .score-heading {
+                      font-size: 18px;
+                      font-weight: bold;
+                      margin-bottom: 10px;
+                      color: #ff6347;
+                  }
+                  .score {
+                      font-size: 48px;
+                      font-weight: bold;
+                      color: #ff6347;
+                      margin-bottom: 30px;
+                  }
+                  .remarks-container {
+                      margin-top: 30px;
+                      text-align: center;
+                      border-top: 1px solid #ddd;
+                      padding-top: 20px;
+                  }
+                  .remarks-heading {
+                      font-size: 18px;
+                      font-weight: bold;
+                      margin-bottom: 10px;
+                      color: #ff6347;
+                  }
+                  .remarks {
+                      font-size: 16px;
+                      margin-bottom: 30px;
+                      color: #333;
+                  }
+                  .courses-container {
+                      margin-top: 30px;
+                      text-align: center;
+                      border-top: 1px solid #ddd;
+                      padding-top: 20px;
+                  }
+                  .courses-heading {
+                      font-size: 18px;
+                      font-weight: bold;
+                      margin-bottom: 10px;
+                      color: #ff6347;
+                  }
+                  .course {
+                      font-size: 16px;
+                      margin-bottom: 10px;
+                      background-color: #ff6347;
+                      color: #fff;
+                      padding: 10px;
+                      border-radius: 5px;
+                      display: inline-block;
+                      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                  }
+                  .course a {
+                      color: #fff;
+                      text-decoration: none;
+                  }
+                  .course a:hover {
+                      text-decoration: underline;
+                  }
+              </style>
     </head>
     <body>
         <div class="container">
@@ -159,9 +183,9 @@ if (isset($_POST['approve'])) {
             </div>
             <div class="courses-container">
                 <div class="courses-heading">Top 3 Recommended Courses:</div>
-                <div class="course">' . $f_course . '</div>
-                <div class="course">' . $s_course . '</div>
-                <div class="course">' . $t_course . '</div>
+                <div class="course">' . $f_course . '<br>Related courses: ' . $f_related_course . '</div>
+                <div class="course">' . $s_course . '<br>Related courses: ' . $s_related_course . '</div>
+                <div class="course">' . $t_course . '<br>Related courses: ' . $t_related_course . '</div>
             </div>
         </div>
     </body>
