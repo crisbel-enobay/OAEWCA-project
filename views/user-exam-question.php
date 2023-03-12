@@ -303,14 +303,16 @@ if ($elapsed_time > $allotted_time) {
                             VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
 
                             if (mysqli_query($conn, $sql_insert)) {
-                                echo "<script>
-                                        swal({
-                                          title: 'Record inserted successfully',
-                                          icon: 'success',
-                                          timer: 3000,
-                                          button: false,
-                                        });
-                                      </script>";
+                              echo "<script>
+                              setTimeout(function() {
+                                Swal.fire({
+                                  title: 'FInished',
+                                  text: 'Congratulations, you have finished the exam!',
+                                  icon: 'success',
+                                  confirmButtonText: 'Awesome'
+                                  });
+                                  }, 1000);
+                                  </script>";
                             } else {
                                 echo "<script>
                                         swal({
@@ -340,14 +342,16 @@ if ($elapsed_time > $allotted_time) {
                         VALUES ('$fullname', '$email', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
 
                         if (mysqli_query($conn, $sql_insert)) {
-                            echo "<script>
-                                    swal({
-                                      title: 'Record inserted successfully',
-                                      icon: 'success',
-                                      timer: 3000,
-                                      button: false,
-                                    });
-                                  </script>";
+                          echo "<script>
+                          setTimeout(function() {
+                            Swal.fire({
+                              title: 'FInished',
+                              text: 'Congratulations, you have finished the exam!',
+                              icon: 'success',
+                              confirmButtonText: 'Awesome'
+                              });
+                              }, 1000);
+                              </script>";
                         } else {
                             echo "<script>
                                     swal({
