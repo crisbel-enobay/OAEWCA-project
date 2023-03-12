@@ -587,7 +587,7 @@ p {
                           // $exam_key_created_at = $row["exam_key_created_at"];
                           echo "<tr>";
                           // echo "<td><input type='checkbox' name='user_ids[]' value='".$row['id']."'></td>";
-                          if ($row['status'] == 'active') {
+                          if ($row['status'] == 'active' || $row['status'] == 'finished') {
                             echo "<td><div class='badge badge-success p-2'>" . $row['status'] . "</div></td>";
                         } elseif ($row['status'] == 'pending') {
                             echo "<td><div class='badge badge-danger p-2'>" . $row['status'] . "</div></td>";
