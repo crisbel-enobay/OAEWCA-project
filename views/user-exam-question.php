@@ -275,7 +275,7 @@ if ($elapsed_time > $allotted_time) {
                     $exam_date = $row['exam_date'];
                     $exam_time = $row['exam_time'];
                     $exam_time_end = $row['exam_time_end'];
-                    $status = $row['status'];
+                    $status = 'finished';
                     $strand = $row['strand'];
                     $pref_course = $row['pref_course'];
                     $traits = $row['traits'];
