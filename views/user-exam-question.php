@@ -245,6 +245,12 @@ if ($elapsed_time > $allotted_time) {
 
             if (isset($_POST["finish"])) {
 
+              // Unset the set_time
+              unset($_SESSION['set_time']);
+              // Get the remaining time and unset the start_time
+              $remaining_time = $allotted_time - $elapsed_time;
+              unset($_SESSION['start_time']);
+
               $_SESSION["score"] += $_POST['exam'];
               $_SESSION["totalscore"] += 1;
               
@@ -302,18 +308,24 @@ if ($elapsed_time > $allotted_time) {
                             $sql_insert = "INSERT INTO results (fullname, email, exam_key, score, remarks, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
                             VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
 
-                            if (mysqli_query($conn, $sql_insert)) {
-                              echo "<script>
-                              setTimeout(function() {
-                                Swal.fire({
-                                  title: 'FInished',
-                                  text: 'Congratulations, you have finished the exam!',
-                                  icon: 'success',
-                                  confirmButtonText: 'Awesome'
-                                  });
-                                  }, 1000);
-                                  </script>";
-                            } else {
+                              if (mysqli_query($conn, $sql_insert)) {
+                                echo "<script>
+                                setTimeout(function() {
+                                    Swal.fire({
+                                        title: 'Finished',
+                                        text: 'Congratulations, you have finished the exam!',
+                                        icon: 'success',
+                                        confirmButtonText: 'Awesome',
+                                        timer: 3000,
+                                        allowOutsideClick: true,
+                                        didDestroy: function() {
+                                            window.location.href = 'user-dashboard.php';
+                                        }
+                                    });
+                                }, 1000);
+                              </script>";
+
+                              } else {
                                 echo "<script>
                                         swal({
                                           title: 'Error inserting record',
@@ -344,14 +356,20 @@ if ($elapsed_time > $allotted_time) {
                             if (mysqli_query($conn, $sql_insert)) {
                               echo "<script>
                               setTimeout(function() {
-                                Swal.fire({
-                                  title: 'FInished',
-                                  text: 'Congratulations, you have finished the exam!',
-                                  icon: 'success',
-                                  confirmButtonText: 'Awesome'
+                                  Swal.fire({
+                                      title: 'Finished',
+                                      text: 'Congratulations, you have finished the exam!',
+                                      icon: 'success',
+                                      confirmButtonText: 'Awesome',
+                                      timer: 3000,
+                                      allowOutsideClick: true,
+                                      didDestroy: function() {
+                                          window.location.href = 'user-dashboard.php';
+                                      }
                                   });
-                                  }, 1000);
-                                  </script>";
+                              }, 1000);
+                          </script>";
+
                             } else {
                                 echo "<script>
                                         swal({
