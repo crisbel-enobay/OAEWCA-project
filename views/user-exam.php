@@ -225,7 +225,7 @@ $(document).ready(function() {
         Swal.fire({
           icon: 'error',
           title: 'Sorry',
-          text: 'Your key is not valid at this time',
+          text: 'Your key is approved but cannot be used at this time',
           showConfirmButton: true
         }).then((result) => {
           window.location.href = 'user-exam.php';
@@ -243,7 +243,22 @@ $(document).ready(function() {
           window.location.href = 'user-exam.php';
         });
       }, 100);
-    } else if (response.trim().toLowerCase() == 'expired') {
+    }
+    
+    else if (response.trim().toLowerCase() == 'finishedexam') {
+      setTimeout(function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Sorry',
+          text: 'You have finished your exam.',
+          showConfirmButton: true
+        }).then((result) => {
+          window.location.href = 'user-exam.php';
+        });
+      }, 100);
+    }
+
+    else if (response.trim().toLowerCase() == 'expired') {
       setTimeout(function() {
         Swal.fire({
           icon: 'error',
@@ -259,7 +274,7 @@ $(document).ready(function() {
         Swal.fire({
           icon: 'warning',
           title: 'Sorry',
-          text: 'Your key is not valid at this time. Please wait until the exam starts.',
+          text: 'Your key is approved. Please wait until the exam starts.',
           showConfirmButton: true
         }).then((result) => {
           window.location.href = 'user-exam.php';
@@ -281,7 +296,7 @@ $(document).ready(function() {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'An error occurred. Please try again later.',
+          text: 'Check if the key are using is designated on your account.',
           showConfirmButton: true
         }).then((result) => {
           window.location.href = 'user-exam.php';

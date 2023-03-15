@@ -309,22 +309,44 @@ if ($elapsed_time > $allotted_time) {
                             VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
 
                               if (mysqli_query($conn, $sql_insert)) {
-                                echo "<script>
-                                setTimeout(function() {
-                                    Swal.fire({
-                                        title: 'Finished',
-                                        text: 'Congratulations, you have finished the exam!',
-                                        icon: 'success',
-                                        confirmButtonText: 'Awesome',
-                                        timer: 3000,
-                                        allowOutsideClick: true,
-                                        didDestroy: function() {
-                                            window.location.href = 'user-dashboard.php';
-                                        }
-                                    });
-                                }, 1000);
-                              </script>";
-
+                                
+                              $sql_delete2 = "DELETE FROM generated_codes WHERE email = '$email'";
+                              if (mysqli_query($conn, $sql_delete2)) {
+                                  // If the row is deleted successfully, insert the new row
+                                  $sql_insert = "INSERT INTO generated_codes (fullname, email, exam_key, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
+                                  VALUES ('$fullname', '$email', '$exam_key', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
+      
+                                    if (mysqli_query($conn, $sql_insert)) {
+                                      echo "<script>
+                                      setTimeout(function() {
+                                          Swal.fire({
+                                              title: 'Finished',
+                                              text: 'Congratulations, you have finished the exam!',
+                                              icon: 'success',
+                                              confirmButtonText: 'Awesome',
+                                              timer: 3000,
+                                              allowOutsideClick: true,
+                                              didDestroy: function() {
+                                                  window.location.href = 'user-dashboard.php';
+                                              }
+                                          });
+                                      }, 1000);
+                                    </script>";
+      
+                                    } else {
+                                      echo "<script>
+                                      setTimeout(function() {
+                                              swal({
+                                                title: 'Error inserting record',
+                                                text: '".mysqli_error($conn)."',
+                                                icon: 'error',
+                                                timer: 3000,
+                                                button: false,
+                                              });
+                                            }, 1000);
+                                            </script>";
+                                  }
+                              }
                               } else {
                                 echo "<script>
                                         swal({
@@ -354,22 +376,43 @@ if ($elapsed_time > $allotted_time) {
                             VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
 
                             if (mysqli_query($conn, $sql_insert)) {
-                              echo "<script>
-                              setTimeout(function() {
-                                  Swal.fire({
-                                      title: 'Finished',
-                                      text: 'Congratulations, you have finished the exam!',
-                                      icon: 'success',
-                                      confirmButtonText: 'Awesome',
-                                      timer: 3000,
-                                      allowOutsideClick: true,
-                                      didDestroy: function() {
-                                          window.location.href = 'user-dashboard.php';
-                                      }
-                                  });
-                              }, 1000);
-                          </script>";
-
+                              $sql_delete2 = "DELETE FROM generated_codes WHERE email = '$email'";
+                              if (mysqli_query($conn, $sql_delete2)) {
+                                  // If the row is deleted successfully, insert the new row
+                                  $sql_insert = "INSERT INTO generate_codes (fullname, email, exam_key, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
+                                  VALUES ('$fullname', '$email', '$exam_key', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
+      
+                                    if (mysqli_query($conn, $sql_insert)) {
+                                      echo "<script>
+                                      setTimeout(function() {
+                                          Swal.fire({
+                                              title: 'Finished',
+                                              text: 'Congratulations, you have finished the exam!',
+                                              icon: 'success',
+                                              confirmButtonText: 'Awesome',
+                                              timer: 3000,
+                                              allowOutsideClick: true,
+                                              didDestroy: function() {
+                                                  window.location.href = 'user-dashboard.php';
+                                              }
+                                          });
+                                      }, 1000);
+                                    </script>";
+      
+                                    } else {
+                                      echo "<script>
+                                      setTimeout(function() {
+                                              swal({
+                                                title: 'Error inserting record',
+                                                text: '".mysqli_error($conn)."',
+                                                icon: 'error',
+                                                timer: 3000,
+                                                button: false,
+                                              });
+                                            }, 1000);
+                                            </script>";
+                                  }
+                              }
                             } else {
                                 echo "<script>
                                         swal({
