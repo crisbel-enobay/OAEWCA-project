@@ -22,7 +22,9 @@ include "../views/student-checker.php";
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../assets/css/style-admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -35,12 +37,15 @@ include "../views/student-checker.php";
           <a class="navbar-brand brand-logo" href="../views/admin.php">
             <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
           </a>
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex button-sm" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span><!--sidebar button-->
+          </button>
           <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+            <li class="nav-item dropdown"> <!--for mobile ui user drop down -->
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                <span class="font-weight-normal"> <?php echo ($_SESSION['fullname']); ?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -62,7 +67,7 @@ include "../views/student-checker.php";
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-profile">
+            <li class="nav-item nav-profile sidebar-menu-title"><!--for sidebar user drop down -->
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
@@ -74,7 +79,7 @@ include "../views/student-checker.php";
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category">
+            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
               <span class="nav-link">Student Dashboard</span>
             </li>
             <li class="nav-item">
@@ -83,7 +88,7 @@ include "../views/student-checker.php";
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">Admission Exam</span></li>
+            <li class="nav-item nav-category sidebar-menu-title"><span class="nav-link">Admission Exam</span></li>
             <li class="nav-item">
               <a class="nav-link" href="../views/user-exam.php">
                 <span class="menu-title">Examination</span>
@@ -97,7 +102,7 @@ include "../views/student-checker.php";
               </a>
             </li>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">History</span></li>
+            <li class="nav-item nav-category sidebar-menu-title"><span class="nav-link">History</span></li>
             <li class="nav-item">
               <a class="nav-link" href="../views/user-results.php">
                 <span class="menu-title">Results</span>
@@ -127,7 +132,7 @@ include "../views/student-checker.php";
                   </div>
                   <div class="card-body d-flex align-items-center justify-content-center">
                     <blockquote class="blockquote blockquote-primary">
-                      <p>Welcome to UCC-OAEW/CA!, We are here to recommend courses and support your decisions.</p>
+                      <p>Welcome to UCC-KURSONADA!, We are here to recommend courses and support your decisions.</p>
                       <footer class="blockquote-footer">from the <cite title="Source Title">Developers</cite></footer>
                     </blockquote>
                   </div>
@@ -309,6 +314,7 @@ $(document).ready(function() {
 });
 </script>
     <script src="../vendors/chart.js/Chart.min.js"></script>
+    <script src="../js/hoverable-collapse.js"></script><!--for sidebar user drop down -->
     <script src="../vendors/moment/moment.min.js"></script>
     <script src="../vendors/daterangepicker/daterangepicker.js"></script>
     <script src="../vendors/chartist/chartist.min.js"></script>
