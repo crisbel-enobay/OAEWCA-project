@@ -687,8 +687,23 @@ p {
     <script src="../js/dashboard.js"></script>
     <!-- End custom js for this page -->
 
-    <!-- Template Main JS File -->
-    <script src="../assets/js/main2.js"></script>
+   <!-- Template Main JS File -->
+        <script src="../assets/js/main2.js"></script>
     <!-- Other Custom JS -->
+
+    <script>
+ $(document).on("click", ".view-btn", function () {
+    var id = $(this).data('id');
+    $.ajax({
+        url: "../forms/get_results_student.php",
+        type: "POST",
+        data: {id: id},
+        success: function (data) {
+            $('#viewProfile').html(data);
+        }
+    });
+});
+</script>
+
   </body>
 </html>
