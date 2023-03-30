@@ -599,12 +599,12 @@
                           </div>
                         </div>
                     </form>
-                    <h2 style="text-align: center"> <?php 
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                     echo "your exam key is: ".$exam_code; 
-                    }
-                  ?>
-                  </h2>
+                    <!-- <h2 style="text-align: center"> <?php 
+                  //   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                  //    echo "your exam key is: ".$exam_code; 
+                  //   }
+                  // ?>
+                  </h2> -->
                   </div>
                 </div>
               </div>
