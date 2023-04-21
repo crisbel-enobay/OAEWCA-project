@@ -244,7 +244,7 @@
                           <input type="date" value="<?= date('Y-m-d') ?>" name="date" id="schedule date"  class="form-control" required>
                         </div>
                         <div class="mb-3">
-                          <label>Select Time</label>
+                          <label>Select Start Time</label>
                           <select name="start_time" id="time">
                               <option value="06:00:00">06:00 AM</option>
                               <option value="07:00:00">07:00 AM</option>
@@ -265,7 +265,7 @@
                               <option value="22:00:00">10:00 PM</option>
                               <option value="23:00:00">11:00 PM</option>
                         </select>
-                        <label>Select Time</label>
+                        <label>Select End Time</label>
                           <select name="end_time" id="time">
                               <option value="06:00:00">06:00 AM</option>
                               <option value="07:00:00">07:00 AM</option>
