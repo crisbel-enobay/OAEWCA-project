@@ -173,7 +173,7 @@
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Course List</li>
-                <li class="breadcrumb-item"><a href="../views/archived_courses.php">Archives</a></li>
+                <!-- <li class="breadcrumb-item"><a href="../views/archived_courses.php">Archives</a></li> -->
               </ol>
             </nav>
           </div>

@@ -226,7 +226,7 @@ p {
               <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="../views/admin-schedule.php">Exam Schedule List</a></li>
                 <li class="breadcrumb-item active">Exam Keys</li>
-                <li class="breadcrumb-item"><a href="../views/archived_schedule.php">Archive</a></li>
+                <!-- <li class="breadcrumb-item"><a href="../views/archived_schedule.php">Archive</a></li> -->
               </ol>
             </nav>
           </div>

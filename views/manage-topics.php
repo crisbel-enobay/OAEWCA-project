@@ -148,7 +148,7 @@
                 <li class="breadcrumb-item active">Topics listing</li>
                 <li class="breadcrumb-item"><a href="../views/new-topic.php">New Topic</a></li>
                <!-- <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>-->
-                <li class="breadcrumb-item"><a href="../views/archived_topic.php">Archives</a></li>
+                <!-- <li class="breadcrumb-item"><a href="../views/archived_topic.php">Archives</a></li> -->
               </ol>
             </nav>
           </div>

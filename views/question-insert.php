@@ -136,7 +136,7 @@
                 <li class="breadcrumb-item"><a href="../views/manage-topics.php">Topic Listing</a></li>
                 <li class="breadcrumb-item"><a href="../views/new-topic.php">New Topic</a></li>
                 <li class="breadcrumb-item active">Question</li>
-                <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
+                <!-- <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li> -->
               </ol>
             </nav>
           </div>

@@ -149,7 +149,7 @@
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="../views/admin-courses.php">Course List </a></li>
-                <li class="breadcrumb-item active">Archives</li>
+                <!-- <li class="breadcrumb-item active">Archives</li> -->
               </ol>
             </nav>
           </div>

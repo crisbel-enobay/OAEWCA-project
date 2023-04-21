@@ -177,7 +177,7 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Exam Schedule List</li>
                 <li class="breadcrumb-item"><a href="../views/admin-exam-key.php">Exam Keys</a></li>
-                <li class="breadcrumb-item"><a href="../views/archived_schedule.php">Archive</a></li>
+                <!-- <li class="breadcrumb-item"><a href="../views/archived_schedule.php">Archive</a></li> -->
               </ol>
             </nav>
           </div>

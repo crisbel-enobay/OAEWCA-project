@@ -125,7 +125,7 @@
                 <li class="breadcrumb-item"><a href="../views/admin-questions.php">Questions List</a></li>
                 <li class="breadcrumb-item active">Insert question</li>
                 <li class="breadcrumb-item"><a href="../views/admin-duration.php">Durations</a></li>
-                <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li>
+                <!-- <li class="breadcrumb-item"><a href="../views/archived_answer.php">Archives</a></li> -->
               </ol>
             </nav>
           </div>
