@@ -90,10 +90,16 @@ include "../views/student-checker.php";
             </li>
             <li class="nav-item nav-category sidebar-menu-title"><span class="nav-link">Admission Exam</span></li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/user-exam.php">
+              <a class="nav-link" data-toggle="collapse" href="#ui-subjects" aria-expanded="false" aria-controls="ui-subjects">
                 <span class="menu-title">Examination</span>
-                <i class="icon-globe menu-icon"></i>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-subjects">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/user-exam.php">Take Exam</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/more-info.php">More Info</a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../views/user-profiling.php">
