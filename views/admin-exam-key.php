@@ -22,7 +22,9 @@
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../assets/css/style-admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
     <!-- SweetAlert JS -->
@@ -89,12 +91,15 @@ p {
           <a class="navbar-brand brand-logo" href="../views/admin.php">
             <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
           </a>
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex button-sm" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span><!--sidebar button-->
+          </button>
           <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+          <li class="nav-item dropdown"> <!--for mobile ui user drop down -->
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                <span class="font-weight-normal"> <?php echo ($_SESSION['fullname']); ?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -141,7 +146,7 @@ p {
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-profile">
+          <li class="nav-item nav-profile sidebar-menu-title"><!--for sidebar user drop down -->
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
@@ -153,7 +158,7 @@ p {
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category">
+            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
               <span class="nav-link">Admin Dashboard</span>
             </li>
             <li class="nav-item">
@@ -221,8 +226,8 @@ p {
               <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="../views/admin-schedule.php">Exam Schedule List</a></li>
                 <li class="breadcrumb-item active">Exam Keys</li>
-                <li class="breadcrumb-item"><a href="../views/archived_schedule.php">Archive</a></li>
-              </ol>
+                <!-- <li class="breadcrumb-item"><a href="../views/archived_schedule.php">Archive</a></li> -->
+                </ol>
             </nav>
           </div>
           <!-- Quick Action Toolbar Starts-->
@@ -507,6 +512,7 @@ p {
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
+    <script src="../js/hoverable-collapse.js"></script><!--for sidebar user drop down -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="../vendors/chart.js/Chart.min.js"></script>

@@ -22,7 +22,9 @@
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../assets/css/style-admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
 
@@ -35,12 +37,15 @@
           <a class="navbar-brand brand-logo" href="../views/admin.php">
             <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
           </a>
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex button-sm" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span><!--sidebar button-->
+          </button>
           <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+          <li class="nav-item dropdown"> <!--for mobile ui user drop down -->
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                <span class="font-weight-normal"> <?php echo ($_SESSION['fullname']); ?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -62,7 +67,7 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-profile">
+          <li class="nav-item nav-profile sidebar-menu-title"><!--for sidebar user drop down -->
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
@@ -74,7 +79,7 @@
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category">
+            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
               <span class="nav-link">Student Dashboard</span>
             </li>
             <li class="nav-item">
@@ -83,26 +88,30 @@
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">Admission Exam</span></li>
+            <li class="nav-item nav-category sidebar-menu-title"><span class="nav-link">Entrance Exam</span></li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/user-exam.php">
+            <a class="nav-link" data-toggle="collapse" href="#ui-subjects" aria-expanded="false" aria-controls="ui-subjects">
                 <span class="menu-title">Examination</span>
-                <i class="icon-globe menu-icon"></i>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-subjects">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/user-exam.php">Take Exam</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/more-info.php">More Info</a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/user-profiling.php">
+            <a class="nav-link" data-toggle="collapse" href="#ui-subjects" aria-expanded="false" aria-controls="ui-subjects">
                 <span class="menu-title">Schedule</span>
-                <i class="icon-globe menu-icon"></i>
+                <i class="icon-layers menu-icon"></i>
               </a>
-            </li>
-            </li>
-            <li class="nav-item nav-category"><span class="nav-link">History</span></li>
-            <li class="nav-item">
-              <a class="nav-link" href="../views/user-results.php">
-                <span class="menu-title">Results</span>
-                <i class="icon-chart menu-icon"></i>
-              </a>
+              <div class="collapse" id="ui-subjects">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/user-profiling.php">Exam Schedule</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/user-exam_key.php">Exam keys</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </nav>
@@ -626,6 +635,7 @@
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
+    <script src="../js/hoverable-collapse.js"></script><!--for sidebar user drop down -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="../vendors/chart.js/Chart.min.js"></script>

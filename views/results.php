@@ -357,7 +357,9 @@ $mail->send();
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../assets/css/style-admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
 
@@ -424,12 +426,15 @@ p {
           <a class="navbar-brand brand-logo" href="../views/admin.php">
             <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
           </a>
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex button-sm" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span><!--sidebar button-->
+          </button>
           <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+          <li class="nav-item dropdown"> <!--for mobile ui user drop down -->
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                <span class="font-weight-normal"><?php echo ($_SESSION['fullname']); ?></span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -451,7 +456,7 @@ p {
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-profile">
+          <li class="nav-item nav-profile sidebar-menu-title"><!--for sidebar user drop down -->
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
@@ -463,7 +468,7 @@ p {
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category">
+            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
               <span class="nav-link">Admin Dashboard</span>
             </li>
             <li class="nav-item">
@@ -508,8 +513,7 @@ p {
                 <i class="icon-globe menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="../views/admin-results.php">
+            <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-applicants" aria-expanded="false" aria-controls="ui-applicants">
                 <span class="menu-title">Applicants</span>
                 <i class="icon-layers menu-icon"></i>
@@ -530,7 +534,7 @@ p {
           <div class="page-header">
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="../views/results.php">Results</a></li>
+              <li class="breadcrumb-item active">Results</li>
                 <li class="breadcrumb-item"><a href="../views/examiners.php">Examiners</a></li>
                 <li class="breadcrumb-item"><a href="../views/unverified.php">Unverified</a></li>
                 <li class="breadcrumb-item"><a href="../views/admin.php">Home</a></li>
@@ -542,7 +546,6 @@ p {
             <div class="col-md-12 grid-margin">
               <div class="card">
               <form id="myform" action="" method="POST">
-                <div class="card-body">
                   <div class="card-header d-block d-md-flex">
                   <p class="lead mb-0 ">Entrance Exam Results</p>
                   </div>
@@ -644,7 +647,7 @@ p {
                   </div>
                 </div>
               </div>
-                <button type="submit" name="approve" class="btn btn-primary my-4 py-2 px-4" id="add" data-bs-toggle="modal" data-bs-target="#transactionModal">Release Results</button>
+                <button type="submit" name="approve" class="btn btn-primary my-4 py-2 px-4" style="margin-left: 45%;" data-bs-toggle="modal" data-bs-target="#transactionModal">Release Results</button>
               </div>
                 </div>
                </form>
@@ -667,6 +670,7 @@ p {
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
+    <script src="../js/hoverable-collapse.js"></script><!--for sidebar user drop down -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="../vendors/chart.js/Chart.min.js"></script>

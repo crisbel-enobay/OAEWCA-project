@@ -72,7 +72,7 @@ include "file/session.php";
       <div class="row gy-4">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h1>Welcome to UCC-Kursonada!</h1>
-          <h2>We are here to recommend courses and support your decisions.</h2>
+          <h2>Take your education to the next level with our online entrance examination and course assessment tool, designed to help you succeed in your academic pursuits with ease and convenience. Sign up now and pave the way to a brighter future!</h2>
           <div>
             <a href="views/loginform.php" class="btn-get-started scrollto">Get Started</a>
           </div>
@@ -101,18 +101,28 @@ include "file/session.php";
             <div class="col-lg-6 pt-5 pt-lg-0">
               <h3 data-aos="fade-up">UCC-Kursonada: Online Entrance Examination With Course Assessment</h3>
               <p data-aos="fade-up" data-aos-delay="100">
-                UCC-Kursonado is a system intended for freshmen, shifters, and inquirers of incoming student of University of Caloocan City to help them decide on the course most fitted for them.
+                UCC-Kursonado is a system designed to assist applicants in choosing the course that is best for them after passing the examination.
               </p>
               <div class="row">
                 <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                   <i class="bx bx-receipt"></i>
                   <h4>Build to "Recommend"</h4>
-                  <p>Recommend courses based on their overall scores, interest and past strand.</p>
+                  <p>Recommend courses based on their exam scores, and profiling.</p>
                 </div>
                 <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                   <i class="bx bx-cube-alt"></i>
                   <h4>Build to "Assess"</h4>
-                  <p>Assess student whether they are suitable to their preferred courses.</p>
+                  <p>Assess applicants whether they are qualified to attend the institution.</p>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                  <i class="bx bx-receipt"></i>
+                  <h4>Build to "Adapt"</h4>
+                  <p>Adapt the use of online services for efficient and convenient use.</p>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                  <i class="bx bx-cube-alt"></i>
+                  <h4>Build for "Fast Transaction"</h4>
+                  <p>Transaction such as exam scheduling, and test results are notified easily to applicants.</p>
                 </div>
               </div>
             </div>
@@ -242,59 +252,44 @@ include "file/session.php";
         <ul class="faq-list" data-aos="fade-up" data-aos-delay="100">
 
           <li>
-            <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">What is the difference between admissions and enrolment? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">what are the procedure to take the entrance examination?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
             <div id="faq1" class="collapse" data-bs-parent=".faq-list">
               <p>
-              - &nbsp;a freshman (a senior high school graduate who has not enrolled in another college or university)<br>
-              - &nbsp;a transferee (previously enrolled and taken units in another college or university)<br>
-              - &nbsp;a returnee (an admitted student in UCC who intends to enroll for a particular semester but was not enrolled during the previous semester/s)<br>
-              - &nbsp;a 2nd courser (completed an undergraduate program and enrolling in another program)<br>
-              - &nbsp;You apply for admissions only once while enrolment needs to done every semester until program completion.
+              First, register and click for more info for step by step procedure.
               </p>
             </div>
           </li>
 
           <li>
-            <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">What are the requirements for application<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">what are the requirements to be able to take an entrance examination?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
               <div id="faq2" class="collapse" data-bs-parent=".faq-list">
-                <p>Photocopy of the following:</p>
-                <p>&nbsp; - &nbsp; Transcript of Records (of highest degree earned)</p>
-                <p>&nbsp; - &nbsp;Two copies ID pictures, 2"x2" (recent, identical and formal attire w/ white background)</p>
-                <p>&nbsp; - &nbsp;Birth Certificate (NSO Authenticated)</p>
+                <p>The following are the requirements:</p>
+                <p>&nbsp; - &nbsp;Highschool/SHS Diploma - Original and Photocopy</p>
+                <p>&nbsp; - &nbsp;Two copies ID pictures, 2 "2x2" and "1x1" (recent, identical and formal attire w/ white background)</p>
+                <p>&nbsp; - &nbsp;Parents/Guardian ID Photocopy</p>
+                <p>&nbsp; - &nbsp;Birth Certificate (NSO Authenticated or PSA)</p>
                 <p>&nbsp; - &nbsp;Certificate of Employment or Service Record (if employed)</p>
                 <p>&nbsp; - &nbsp;Certificate of Marriage (for female married applicant)</p>
                 <p>&nbsp; - &nbsp;One (1) Long Brown Envelope with computerized name on the upper left side; (font should be Tahoma, font size should be 20)</p>
                 <p>&nbsp; - &nbsp;Entrance Examination Fee (PhP 100.00)</p>
+                <p>&nbsp; - &nbsp;For further info, visit the official ucc website and wait for their announcement.</p>
               </div>
           </li>
 
           <li>
-            <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Are there exam cutoff scores for board programs? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-            <div id="faq3" class="collapse" data-bs-parent=".faq-list">
-              <p>
-                The cutoff scores are announced during every orientation given by the University Registrar Office to test takers. 
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">What are waived entrance exam programs? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">How will you find out whether you are qualified to take the entrance examination?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
             <div id="faq4" class="collapse" data-bs-parent=".faq-list">
               <p>
-                These are undergraduate programs that do not have an entrance examination requirement for admissions. Kindly visit this page to view the full list of programs under waived entrance exam.
+              Upon notifying that your schedule have been approved by looking at the status of your exam key.
               </p>
             </div>
           </li>
 
           <li>
-            <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">I am transferee from another school, what documents should I prepare? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">After taking the exam, how do we receive the test result and the recommendation?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
             <div id="faq5" class="collapse" data-bs-parent=".faq-list">
               <p>
-                You need to secure the following documents from your previous school: <br>
-                &nbsp; - &nbsp;Transcript of Records,<br>
-                &nbsp; - &nbsp; Transfer Credentials (formerly called Honorable Dismissal), <br>
-                &nbsp; - &nbsp;and Good Moral Certificate.<br>
-                &nbsp; - &nbsp;You will submit these documents to the University Registrar during enrolment.
+              Test result will be notify through email with course recommendation included.
               </p>
             </div>
           </li>
@@ -325,7 +320,7 @@ include "file/session.php";
                 </div>
                 <div class="social">
                   <a href="cortez.graceplaquia@gmail.com"><i class="bi bi-google"></i></a>
-                  <a href="cortez.graceplaquia"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.facebook.com/cortez.graceplaquia"><i class="bi bi-facebook"></i></a>
                 </div>
               </div>
             </div>
@@ -341,7 +336,7 @@ include "file/session.php";
                 </div>
                 <div class="social">
                   <a href="cenobay9@gmail.com"><i class="bi bi-google"></i></a>
-                  <a href="100088215255090"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.facebook.com/cenobay27"><i class="bi bi-facebook"></i></a>
                 </div>
               </div>
             </div>
@@ -357,7 +352,7 @@ include "file/session.php";
                 </div>
                 <div class="social">
                   <a href="cenobay9@gmail.com"><i class="bi bi-google"></i></a>
-                  <a href="mcaharop"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.facebook.com/mcaharop"><i class="bi bi-facebook"></i></a>
                 </div>
               </div>
             </div>
@@ -373,7 +368,7 @@ include "file/session.php";
                 </div>
                 <div class="social">
                   <a href="lactud.jl@gmail.com"><i class="bi bi-google"></i></a>
-                  <a href="lorence.lactud"><i class="bi bi-facebook"></i></a>
+                  <a href="https://www.facebook.com/lorence.lactud"><i class="bi bi-facebook"></i></a>
                 </div>
               </div>
             </div>
@@ -409,7 +404,7 @@ include "file/session.php";
         <div class="row">
                 <div class="col-lg-6 col-md-12 footer-info text-start text-md-center">
                   <br><br>
-                  <p class="p-3">UCC-Kursonada: Online Entrance Examination With Course Assessment offers incoming students a new way to take admission exam with course recommendation.</p>
+                  <p class="p-3">UCC-Kursonada: Online Entrance Examination With Course Assessment offers incoming students a new way to take entrance examination with course recommendation.</p>
                 </div>
       
                 <div class="col-lg-6 col-md-12 footer-contact text-start text-md-center">

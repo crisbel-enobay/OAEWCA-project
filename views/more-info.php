@@ -22,7 +22,9 @@ include '../views/student-checker.php';
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../assets/css/style-admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
   </head>
@@ -35,12 +37,15 @@ include '../views/student-checker.php';
           <a class="navbar-brand brand-logo" href="../views/admin.php">
             <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
           </a>
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex button-sm" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span><!--sidebar button-->
+          </button>
           <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?> </h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+          <li class="nav-item dropdown"> <!--for mobile ui user drop down -->
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                <span class="font-weight-normal"> <?php echo ($_SESSION['fullname']); ?></span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -62,7 +67,7 @@ include '../views/student-checker.php';
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-profile">
+          <li class="nav-item nav-profile sidebar-menu-title"><!--for sidebar user drop down -->
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name">Student user</p>
@@ -74,7 +79,7 @@ include '../views/student-checker.php';
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category">
+            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
               <span class="nav-link">Student Dashboard</span>
             </li>
             <li class="nav-item">
@@ -83,25 +88,23 @@ include '../views/student-checker.php';
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">Admission Exam</span></li>
-            <li class="nav-item active">
-              <a class="nav-link" href="../views/user-exam.php">
+            <li class="nav-item nav-category sidebar-menu-title"><span class="nav-link">Entrance Exam</span></li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-subjects" aria-expanded="false" aria-controls="ui-subjects">
                 <span class="menu-title">Examination</span>
-                <i class="icon-globe menu-icon"></i>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-subjects">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/user-exam.php">Take Exam</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/more-info.php">More Info</a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/admin-schedule.php">
+            <a class="nav-link" href="../views/user-profiling.php">
                 <span class="menu-title">Schedule</span>
                 <i class="icon-globe menu-icon"></i>
-              </a>
-            </li>
-            </li>
-            <li class="nav-item nav-category"><span class="nav-link">History</span></li>
-            <li class="nav-item">
-              <a class="nav-link" href="../views/user-results.php">
-                <span class="menu-title">Results</span>
-                <i class="icon-chart menu-icon"></i>
               </a>
             </li>
           </ul>
@@ -126,84 +129,50 @@ include '../views/student-checker.php';
                     <p class="ml-auto mb-0"><a href="user-exam.php">Take Examination?</a><i class="icon-bulb"></i></p>
                   </div>
                   
-                  <div class="card-body col-md-12">
-                    <blockquote class="blockquote blockquote-primary">
-                    <div class="d-sm-flex align-items-baseline report-summary-header">
-                          <h5>Subjects To Take</h5> 
-                        </div>
-                      <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">
-                      <div class="col-sm-4 col-md-3 p-3 text-center btn-wrapper">
-                        <p>English</p>
-                      </div>
-                      <div class="col-sm-4 col-md-2 p-3 text-center btn-wrapper">
-                        <p>Math</p>
-                      </div>
-                      <div class="col-sm-4 col-md-2 p-3 text-center btn-wrapper">
-                        <p>Filipino</p>
-                      </div>
-                      <div class="col-sm-4 col-md-2 p-3 text-center btn-wrapper">
-                        <p>Science</p>
-                      </div>
-                      <div class="col-sm-4 col-md-2 p-3 text-center btn-wrapper">
-                        <p>Logic</p>
-                      </div>
-                    </div>
-                    </blockquote>
-                  </div>
+                 
               </div>
               </div>
                   
               <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Requirements</h4>
-                    <p class="card-description"> Students must have the following: </p>
-                    <h6 class="lead">Reminder</h6>
-                      <ul class="list-ticked">
-                        <li>once online enrollment has been confirmed and a student number has been obtained, requirements must be submitted to the registrar's office (unless specifically stated to be submitted prior to admission). Enrollment is conditional upon receipt of all required paperwork (original hard copies) in person. <br>
-                        The Registrar will make known the submission deadline. Please be aware that any needs you provide will belong to UCC and won't be given back to you.</li>
-                        <li>Applicants may submit documents on campus </li>
+                    <h4 class="card-title">Examination Procedure</h4>
+                    <p class="card-description"> Step-by-step: </p>
+                    <h6 class="lead">1. Create and Request a schedule</h6>
+                      <ul class="list-arrow">
+                        <li>go to<a style="font-style: italic;" href="../views/user-profiling.php"> Exam Schedule</a>, choose a schedule and complete your profile.</li>
                       </ul>
-                      <h6 class="lead">Additional Health Requirements:</h6>
-                      <ul class="list-ticked">
-                        <li>All College or applicants who will undergo in-person classes MUST be *fully vaccinated against COVID-19. While it is not required by DepEd, we encourage our High School students to have their COVID-19 vaccinations when eligible.</li>
-                        <li>Fully vaccinated means a person has received all recommended doses in their primary series of COVID-19 vaccines.</li>
+                      <h6 class="lead">2. Wait for the approval of your chosen schedule</h6>
+                      <ul class="list-arrow">
+                        <li>this request will be approved by the admin.</li>
                       </ul>
-                      
+                      <h6 class="lead">3. When approved, get the access code</h6>
+                      <ul class="list-arrow">
+                        <li>from your exam key (note: access code can only be access through activation by the admin). Then, insert on the button "take exam".</li>
+                      </ul>
+                      <h6 class="lead">4. Lastly, read and follow the instruction</h6>
+                      <ul class="list-arrow">
+                        <li>exam are differ per category so make sure to read the instruction.</li>
+                      </ul>
                   </div>
                 </div>
               </div>
               <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Instructions</h4>
-                    <p class="card-description"> Students should do the following: </p>
-                      <h6 class="lead">Before Exam</h6>
-                        <ul class="list-ticked">
-                          <li>Please make sure that:<br>
-                            •	You have an active user account. Log on to ______.<br>
-                            •	You remember the password for your account. If you have forgotten your password, you can change it at _______.                               
-                          </li>
-                          <li>When using a laptop at digital examinations, the laptop has to be set up as soon as possible. Make sure that the internet connection is stable.</li>
-                          <li>You must bring your own scratch paper for use during the examination.</li>
-                          <li>If failure to comply with these recommendations results in technical problems that cause a delay in your examination, you cannot expect to be granted extended time.</li>
+                    <h4 class="card-title">Results</h4>
+                    <p class="card-description">Exam and Course recommendation results</p>
+                      <h6 class="lead">Releasing of Exam results</h6>
+                        <ul class="list-arrow">
+                          <li>Results will be emailed to the applicants upon checking by the admins and only the passers will be given course/s recommendations.</li>
                         </ul>
-                        <h6 class="lead">During Exam</h6>
-                        <ul class="list-ticked">
-                          <li>You are required to comply with the directions given by the head invigilator or admin.</li>
-                          <li>You must be visible on the screen or camera of the devices.</li>
-                          <li>You may keep food and drink on or by the desk during the entire examination. You may eat and drink whenever you want.</li>
-                          <li>You are not permitted to leave the examination for a break.  </li>
-                          <li>You must be visible on the screen or camera of the devices.</li>
-                          <li>If anything in the examination question is unclear, you can contact the lecturer or admin. Such contact is facilitated by the head invigilator.</li>
-                          <li>Papers and computer/laptop are to be covered when you leave your place.</li>
-                          <li>If you experience technical problems during a digital examination, you must immediately contact one of the invigilators. The invigilator will call for technical support. Failure to report such technical problems might be treated as cheating or an attempt to cheat.</li>
+                        <h4 class="card-title">Additional Info</h4>
+                        <h6 class="lead">Admission Procedure</h6>
+                    <p class="card-description">Unfortunately this feature isn't cover by the system.</p>
+                        <ul class="list-arrow">
+                          <li>Upon passing the entrance examination, users can be updated with the further information/procedure by checking the University of Caloocan City Website - <a href="http://www.ucc-caloocan.edu.ph/?fbclid=IwAR2lYXu98Th7WgOItnxqdW4v3tG4kfYrNOoK4loz3rwnrdtpzUsY8eJcmmE">admission info</a>.</li>
                         </ul>
-                        <h6 class="lead">After Exam</h6>
-                        <ul class="list-ticked">
-                          <li>You can withdraw from an examination, at the earliest, one hour after the examination has started. Contact the head invigilator and complete a withdrawal form. Withdrawals during an examination will be treated as an examination attempt. You have to contact the head invigilator before you close down the examination program at digital examination.</li>
-                          <li>If you fall ill during the examination and cannot complete it, you can withdraw from the examination. Contact the head invigilator and complete a withdrawal form. In order for an absence caused by illness to be registered as legitimate absence, you must see a doctor immediately after leaving the examination venue. The doctor's certificate must be issued on the day of the examination and must identify the illness that arose during the examination. The doctor's certificate, possibly along with an application for a postponed examination, must be sent or submitted to the faculty in charge of the examination within the deadlines set by the Faculty. It is your responsibility to apply to the Faculty and to submit the relevant documentation and to assure you have the information about the deadlines that apply. Withdrawal from an examination due to documented illness is not considered an examination attempt.</li>
-                        </ul>
+                      
                   </div>
                 
               </div>
@@ -224,6 +193,7 @@ include '../views/student-checker.php';
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
+    <script src="../js/hoverable-collapse.js"></script><!--for sidebar user drop down -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="../vendors/chart.js/Chart.min.js"></script>
