@@ -312,7 +312,7 @@ include "file/session.php";
 
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
             <div class="member">
-              <img src="assets/img/team/Grace.jpg" class="img-fluid" alt="" style="height: 300px; width: 350px;">
+              <img src="assets/img/team/cortez.jpg" class="img-fluid" alt="" style="height: 450px; width: 350px;">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Grace Cortez</h4>
@@ -328,7 +328,7 @@ include "file/session.php";
 
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
             <div class="member">
-              <img src="assets/img/team/crisbel.jpg" class="img-fluid" alt="" style="height: 300px; width: 350px;">
+              <img src="assets/img/team/bel.jpg" class="img-fluid" alt="" style="height: 450px; width: 350px;">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Crisbel Enobay</h4>
@@ -344,7 +344,7 @@ include "file/session.php";
 
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
             <div class="member">
-              <img src="assets/img/team/marvin.jpg" class="img-fluid" alt="" style="height: 300px; width: 350px;">
+              <img src="assets/img/team/marvs.jpg" class="img-fluid" alt="" style="height: 450px; width: 350px;">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Marvin Caharop</h4>
@@ -360,7 +360,7 @@ include "file/session.php";
 
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
             <div class="member">
-              <img src="assets/img/team/lactud.jpg" class="img-fluid" alt="" style="height: 300px; width: 350px;">
+              <img src="assets/img/team/lorence.jpg" class="img-fluid" alt="" style="height: 450px; width: 350px;">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Lorence Lactud</h4>
