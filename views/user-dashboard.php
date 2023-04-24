@@ -133,6 +133,15 @@
               </ol>
             </nav>
           </div>
+          <div class="col-md-12 grid-margin quick-action-toolbar">
+              <div class="card">
+                  <div class="card-header d-block d-md-flex">
+                    <p class="lead mb-0">Welcome to UCC - Kursonada!</p>
+                  </div>
+              </div>
+            </div>
+          
+          <div class="col-md-12 grid-margin quick-action-toolbar">
           <div class="row">   
             <div class="col-sm-3 grid-margin stretch-card">
                   <div class="card">
@@ -205,8 +214,6 @@
                   </div>
               </div>
             </div>
-            
-            </div>      
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
