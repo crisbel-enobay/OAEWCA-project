@@ -127,7 +127,7 @@ include "../views/student-checker.php";
                     <blockquote class="blockquote blockquote-primary">
                         <?php 
                         include 'conn.php';
-                        if ($_SESSION['subjectexam'] == 0) { $subid = 1;}
+                        if ($_SESSION['subjectexam'] == 1) { $subid = 1;}
                         else {$subid = $_SESSION['subjectexam'];}
                         $select = mysqli_query($conn,
                         "SELECT *
@@ -145,7 +145,7 @@ include "../views/student-checker.php";
                       <input type="submit" class="btn btn-outline-primary btn-fw" name="submit" value="Proceed">
                       <?php
                       if (isset($_POST['submit'])){
-                        if ($_SESSION['topicexam'] == 0) { $_SESSION['topicexam']++;}
+                        $_SESSION['topicexam'] = $subid;
                         echo "<script> window.location = 'user-exam-topic.php' </script>";
 
                       }

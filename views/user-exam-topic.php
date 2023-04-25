@@ -22,9 +22,7 @@ include "../views/student-checker.php";
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
-    <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
-    <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
+    <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
   </head>
@@ -34,25 +32,22 @@ include "../views/student-checker.php";
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="../views/admin.php">
-            <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
+            <img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" class="logo-dark" />
           </a>
-          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex button-sm" type="button" data-toggle="minimize">
-            <span class="icon-menu"></span><!--sidebar button-->
-          </button>
-          <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="../views/admin.php"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-          <li class="nav-item dropdown"> <!--for mobile ui user drop down -->
+            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-               <span class="font-weight-normal"><?php echo ($_SESSION['fullname']); ?> </span></a>
+               <span class="font-weight-normal"> <?php echo ($_SESSION['fullname']); ?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
                   <p class="mb-1 mt-3"><?php echo ($_SESSION['fullname']); ?></p>
                   <p class="font-weight-light text-muted mb-0"><?php echo ($_SESSION['email']); ?></p>
                 </div>
-                <a href="?log=out" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                <a href="?log=out"e class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
               </div>
             </li>
           </ul>
@@ -66,7 +61,7 @@ include "../views/student-checker.php";
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-          <li class="nav-item nav-profile sidebar-menu-title"><!--for sidebar user drop down -->
+            <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
@@ -78,7 +73,7 @@ include "../views/student-checker.php";
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
+            <li class="nav-item nav-category">
               <span class="nav-link">Student Dashboard</span>
             </li>
             <li class="nav-item">
@@ -87,8 +82,7 @@ include "../views/student-checker.php";
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
-              <span class="nav-link">Admission Exam</span></li>
+            <li class="nav-item nav-category"><span class="nav-link">Admission Exam</span></li>
             <li class="nav-item">
               <a class="nav-link" href="../views/user-exam.php">
                 <span class="menu-title">Examination</span>
@@ -101,6 +95,13 @@ include "../views/student-checker.php";
                 <i class="icon-globe menu-icon"></i>
               </a>
             </li>
+            </li>
+            <li class="nav-item nav-category"><span class="nav-link">History</span></li>
+            <li class="nav-item">
+              <a class="nav-link" href="../views/user-results.php">
+                <span class="menu-title">Results</span>
+                <i class="icon-chart menu-icon"></i>
+              </a>
             </li>
           </ul>
         </nav>
@@ -146,7 +147,8 @@ include "../views/student-checker.php";
                       <input type="submit" class="btn btn-outline-primary btn-fw" name="submit" value="Proceed">
                       <?php
                       if (isset($_POST['submit'])){
-                        
+
+                        $_SESSION['set_time'] = $seek['topic_duration'];
                         echo "<script> window.location = 'user-exam-question.php' </script>";
 
                       }
@@ -173,9 +175,11 @@ include "../views/student-checker.php";
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
-    <script src="../js/hoverable-collapse.js"></script><!--for sidebar user drop down -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
+    <script>
+
+</script>
     <script src="../vendors/chart.js/Chart.min.js"></script>
     <script src="../vendors/moment/moment.min.js"></script>
     <script src="../vendors/daterangepicker/daterangepicker.js"></script>

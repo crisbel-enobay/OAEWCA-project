@@ -24,9 +24,7 @@
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
-    <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
-    <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
+    <link rel="stylesheet" href="../assets/css/style-admin.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
   </head>
@@ -36,17 +34,14 @@
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="../views/admin.php">
-            <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
+            <img src="../assets/img/kursonada.png" alt="logo" class="logo-dark" />
           </a>
-          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex button-sm" type="button" data-toggle="minimize">
-            <span class="icon-menu"></span><!--sidebar button-->
-          </button>
-          <a class="navbar-brand brand-logo-mini"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
+          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?></h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-          <li class="nav-item dropdown"> <!--for mobile ui user drop down -->
+            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                <span class="font-weight-normal"><?php echo ($_SESSION['fullname']); ?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -77,7 +72,7 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-          <li class="nav-item nav-profile sidebar-menu-title"><!--for sidebar user drop down -->
+            <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
@@ -89,7 +84,7 @@
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
+            <li class="nav-item nav-category">
               <span class="nav-link">Student Dashboard</span>
             </li>
             <li class="nav-item"> 
@@ -98,8 +93,7 @@
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
-              <span class="nav-link">Admission Exam</span></li>
+            <li class="nav-item nav-category"><span class="nav-link">Admission Exam</span></li>
             <li class="nav-item active">
               <a class="nav-link" href="../views/user-exam.php">
                 <span class="menu-title">Examination</span>
@@ -118,7 +112,16 @@
             <div class="col-md-12 grid-margin">
               <div class="card">
                   <div class="card-header d-block d-md-flex"> 
-                     <h5 class="mb-0 font-weight-medium d-none d-lg-flex">English</h5>
+                     <h5 class="mb-0 font-weight-medium d-none d-lg-flex">
+                      <?php
+                        $named = mysqli_query($conn,
+                        "SELECT *
+                        FROM tbl_exam_subjects where subj_id = ".$_SESSION['subjectexam']."
+                        ");
+                        
+                        $naming = $named->fetch_assoc();
+                        echo $naming['subj_name']
+                     ?></h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
           <?php
 
@@ -160,7 +163,7 @@ if ($elapsed_time > $allotted_time) {
             $pages = array();
             $sql = mysqli_query($conn,
             "SELECT *
-            FROM tbl_topic_questions where que_topic = 1
+            FROM tbl_topic_questions where que_topic = ".$_SESSION['subjectexam']."
             ");
             $sqlrows = mysqli_fetch_all($sql, MYSQLI_ASSOC);
             $rows = $sqlrows;
@@ -252,14 +255,21 @@ if ($elapsed_time > $allotted_time) {
             if (isset($_POST["finish"])) {
 
               // Unset the set_time
-              unset($_SESSION['set_time']);
+              //unset($_SESSION['set_time']);
               // Get the remaining time and unset the start_time
-              $remaining_time = $allotted_time - $elapsed_time;
-              unset($_SESSION['start_time']);
+              //$remaining_time = $allotted_time - $elapsed_time;
+              //unset($_SESSION['start_time']);
 
               $_SESSION["score"] += $_POST['exam'];
               $_SESSION["totalscore"] += 1;
-              
+
+              if ($_SESSION['subjectexam'] != 3){
+                unset ($_SESSION["displayed_pages"]);
+                $_SESSION['subjectexam']++;
+                echo "<script> window.location = 'user-exam-subject.php' </script>";
+              }
+
+              if ($_SESSION['subjectexam'] == 3){
               $percentile = ($_SESSION["score"]/$_SESSION["totalscore"])*100;
               $email = $_SESSION['email'];
 
@@ -385,7 +395,7 @@ if ($elapsed_time > $allotted_time) {
                               $sql_delete2 = "DELETE FROM generated_codes WHERE email = '$email'";
                               if (mysqli_query($conn, $sql_delete2)) {
                                   // If the row is deleted successfully, insert the new row
-                                  $sql_insert = "INSERT INTO generate_codes (fullname, email, exam_key, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
+                                  $sql_insert = "INSERT INTO generated_codes (fullname, email, exam_key, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
                                   VALUES ('$fullname', '$email', '$exam_key', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
       
                                     if (mysqli_query($conn, $sql_insert)) {
@@ -437,7 +447,7 @@ if ($elapsed_time > $allotted_time) {
                 }
               } else {
                 echo "No rows found";
-              }
+              }}
             }
 
             $newsql = mysqli_query($conn,
@@ -550,7 +560,6 @@ if ($elapsed_time > $allotted_time) {
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
-    <script src="../js/hoverable-collapse.js"></script><!--for sidebar user drop down -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="../vendors/chart.js/Chart.min.js"></script>
