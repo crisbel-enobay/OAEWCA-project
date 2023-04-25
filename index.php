@@ -319,7 +319,7 @@ include "file/session.php";
                   <span>Project Manager</span>
                 </div>
                 <div class="social">
-                  <a href="cortez.graceplaquia@gmail.com"><i class="bi bi-google"></i></a>
+                  <a><i class="bi bi-google" data-bs-toggle="tooltip" data-bs-placement="right" title="20190895m.cortez.grace.bscs@gmail.com"></i></a>
                   <a href="https://www.facebook.com/cortez.graceplaquia"><i class="bi bi-facebook"></i></a>
                 </div>
               </div>
@@ -335,7 +335,7 @@ include "file/session.php";
                   <span>Web Designer</span>
                 </div>
                 <div class="social">
-                  <a href="cenobay9@gmail.com"><i class="bi bi-google"></i></a>
+                  <a><i class="bi bi-google" data-bs-toggle="tooltip" data-bs-placement="right" title="20190909m.enobay.crisbel.bscs@gmail.com"></i></a>
                   <a href="https://www.facebook.com/cenobay27"><i class="bi bi-facebook"></i></a>
                 </div>
               </div>
@@ -348,10 +348,10 @@ include "file/session.php";
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>Marvin Caharop</h4>
-                  <span>Support Developer</span>
+                  <span>Main Developer</span>
                 </div>
                 <div class="social">
-                  <a href="cenobay9@gmail.com"><i class="bi bi-google"></i></a>
+                <a><i class="bi bi-google" data-bs-toggle="tooltip" data-bs-placement="right" title="20190290m.caharop.marvin.bscs@gmail.com"></i></a>
                   <a href="https://www.facebook.com/mcaharop"><i class="bi bi-facebook"></i></a>
                 </div>
               </div>
@@ -367,7 +367,7 @@ include "file/session.php";
                   <span>Main Developer</span>
                 </div>
                 <div class="social">
-                  <a href="lactud.jl@gmail.com"><i class="bi bi-google"></i></a>
+                  <a><i class="bi bi-google" data-bs-toggle="tooltip" data-bs-placement="right" title="lactud.jl@gmail.com"></i></a>
                   <a href="https://www.facebook.com/lorence.lactud"><i class="bi bi-facebook"></i></a>
                 </div>
               </div>
