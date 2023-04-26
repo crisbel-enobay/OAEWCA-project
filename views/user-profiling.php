@@ -417,7 +417,12 @@
                                   'interests' => array_map('trim', explode(',', $row['interests'])),
                                   'skills' => array_map('trim', explode(',', $row['skills'])),
                                   'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
-                                  'related_courses' => array_map('trim', explode(',', $row['related_course']))
+                                  'related_courses' => array_map('trim', explode(',', $row['related_course'])),
+                                  'math_score_requirement' => intval($row['Math']),
+                                  'english_score_requirement' => intval($row['English']),
+                                  'filipino_score_requirement' => intval($row['Filipino']),
+                                  'logic_score_requirement' => intval($row['Logic']),
+                                  'science_score_requirement' => intval($row['Science']),
                               );
                           }
 
@@ -446,11 +451,18 @@
                               $interests = $_POST['interests'];
                               $skills = $_POST['skills'];
                               $career_goals = $_POST['career_goals'];
+                              $predefined_math_score = 20;
+                              $predefined_english_score = 20;
+                              $predefined_logic_score = 20;
+                              $predefined_science_score = 20;
+                              $predefined_filipino_score = 20;
+                            
 
                               // Calculate match score for each course based on user's input
                               $match_scores = array();
                             foreach ($course_data as $course => $data) {
                                 $score = 0;
+                                $course_score = 0;
                                 foreach ($traits as $trait) {
                                     if (in_array($trait, $traits_array)) {
                                         $score++;
@@ -471,14 +483,40 @@
                                       $score++;
                                   }
                               }
+                              if ($predefined_math_score <= $data['math_score_requirement']) {
+                                $course_score++;
+                              }
+                              if ($predefined_english_score <= $data['english_score_requirement']) {
+                                $course_score++;
+                              }
+                              if ($predefined_logic_score <= $data['logic_score_requirement']) {
+                                $course_score++;
+                              }
+                              if ($predefined_science_score <= $data['science_score_requirement']) {
+                                $course_score++;
+                              }
+                              if ($predefined_filipino_score <= $data['filipino_score_requirement']) {
+                                $course_score++;
+                              }
                                 // Add the score to an array for the current course
                                 $match_scores[$course] = array(
-                                    'score' => $score,
-                                    'personality_traits' => $data['personality_traits'],
-                                    'related_courses' => $data['related_courses']
-                                );
+                                  'total_score' => $score + $course_score,
+                                  'score' => $score,
+                                  'subject_course_score' => $course_score,
+                                  'math_score_requirement' => $data['math_score_requirement'],
+                                  'personality_traits' => $data['personality_traits'],
+                                  'related_courses' => $data['related_courses']
+                              );
                             }
 
+                            foreach ($match_scores as $course_name => $course_data) {
+                              $score = $course_data['score'];
+                              $total_score = $course_data['total_score'];
+                              $subject_course_score = $course_data['subject_course_score'];
+                              echo $course_name . ': ' . $score . ' ' . $subject_course_score . ' ' . $total_score . '<br>';
+                          }
+
+                          
                             // Sort courses by match score and output top 3
                             arsort($match_scores);
                             $top_courses = array_slice($match_scores, 0, 3);
@@ -548,7 +586,7 @@
                                               title: 'Success',
                                               icon: 'success',
                                               showConfirmButton: true,
-                                              text: 'Exam schedule and profile modified',
+                                              text: 'Exam Schedule Modified',
                                             }).then(function() {
                                               window.location = '../views/user-exam_key.php';
                                             });
