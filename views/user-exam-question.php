@@ -118,7 +118,18 @@
             <div class="col-md-12 grid-margin">
               <div class="card">
                   <div class="card-header d-block d-md-flex"> 
-                     <h5 class="mb-0 font-weight-medium d-none d-lg-flex">English</h5>
+                     <h5 class="mb-0 font-weight-medium d-none d-lg-flex">
+                      <?php
+                      include 'conn.php';
+                      $select = mysqli_query($conn,
+                        "SELECT subj_name
+                        FROM tbl_exam_subjects where subj_id = ".$_SESSION['subjectexam']."
+                        ");
+                        
+                        $seek = $select->fetch_assoc();
+                        echo $seek['subj_name'];
+                      ?>
+                     </h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
           <?php
 
@@ -132,7 +143,7 @@ if (!isset($_SESSION['start_time'])) {
 $start_time = $_SESSION['start_time'];
 
 // Calculate the elapsed time
-$allotted_time = $_SESSION['set_time']*60;
+$allotted_time = 120*60;
 $elapsed_time = $current_time - $start_time;
 
 // Check if the elapsed time is greater than the allotted time
@@ -160,7 +171,7 @@ if ($elapsed_time > $allotted_time) {
             $pages = array();
             $sql = mysqli_query($conn,
             "SELECT *
-            FROM tbl_topic_questions where que_topic = 1
+            FROM tbl_topic_questions where que_topic = ".$_SESSION['topicvalue']."
             ");
             $sqlrows = mysqli_fetch_all($sql, MYSQLI_ASSOC);
             $rows = $sqlrows;
@@ -222,6 +233,14 @@ if ($elapsed_time > $allotted_time) {
             if (!isset($_SESSION["totalscore"])) {
               $_SESSION["totalscore"] = 0;
             }
+
+            if (!isset($_SESSION["score"])) {
+              $_SESSION["tempscore"] = 0;
+            }
+
+            if (!isset($_SESSION["totalscore"])) {
+              $_SESSION["temptotalscore"] = 0;
+            }
       
             // Display the current page
             if (isset($_POST["next"])) {
@@ -239,8 +258,11 @@ if ($elapsed_time > $allotted_time) {
               // Go back to the previous page
               array_pop($_SESSION["displayed_pages"]);
               if ($_SESSION["totalscore"] <= $_SESSION["score"]){
-              $_SESSION["score"] -= 1;}
+              $_SESSION["score"] -= 1;
+              $_SESSION["tempscore"] -= 1;
+              }
               $_SESSION["totalscore"] -= 1;
+              $_SESSION["temptotalscore"] -= 1;
 
               $_SESSION["current_page"] = end($_SESSION["displayed_pages"]);
             } else {
@@ -252,14 +274,63 @@ if ($elapsed_time > $allotted_time) {
             if (isset($_POST["finish"])) {
 
               // Unset the set_time
-              unset($_SESSION['set_time']);
+              //unset($_SESSION['set_time']);
               // Get the remaining time and unset the start_time
-              $remaining_time = $allotted_time - $elapsed_time;
-              unset($_SESSION['start_time']);
+              //$remaining_time = $allotted_time - $elapsed_time;
+              //unset($_SESSION['start_time']);
 
               $_SESSION["score"] += $_POST['exam'];
               $_SESSION["totalscore"] += 1;
+              $_SESSION["tempscore"] += $_POST['exam'];
+              $_SESSION["temptotalscore"] += 1;
+              $_SESSION['topicexam']+=1;
+              $totaltopics = mysqli_query($conn,
+              "SELECT row_number() OVER (ORDER BY topic_id, topic_name) n,
+              topic_id, topic_name
+              FROM tbl_exam_topics where topic_subj = ".$_SESSION['subjectexam']."
+              ;
+              ");
+              $rowcount=mysqli_num_rows($totaltopics);
+              if ($_SESSION['topicexam'] <= $rowcount){
+                $result = mysqli_query($conn,
+                "SELECT row_number() OVER (ORDER BY topic_id, topic_name) n,
+                topic_id, topic_name
+                FROM tbl_exam_topics where topic_subj = ".$_SESSION['subjectexam']."
+                ;
+                ");
+                
+                while ($row = $result->fetch_assoc()) {
+                if ($row['n'] == $_SESSION['topicexam']){
+                  $_SESSION['topicvalue'] =  $row['topic_id'];
+                }
+                //$_SESSION['topicexam'];
+                }
+                echo "<script> window.location = 'user-exam-topic.php' </script>";
+                return;
+              }
+
+              else if ($_SESSION['topicexam'] > $rowcount){
+                if ($_SESSION['subjectexam'] == 1){
+                  $_SESSION['english'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
+                }
+                else if ($_SESSION['subjectexam'] == 2){
+                  $_SESSION['science'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
+                }
+                else if ($_SESSION['subjectexam'] == 3){
+                  $_SESSION['math'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
+                }
+                else if ($_SESSION['subjectexam'] == 4){
+                  $_SESSION['logic'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
+                }
+                unset($_SESSION["tempscore"]);
+                unset($_SESSION["temptotalscore"]);
+                $_SESSION['subjectexam']++;
+                $_SESSION['topicexam'] = 0;
+              echo "<script> window.location = 'user-exam-subject.php' </script>";
+              }
+
               
+              if ($_SESSION['subjectexam'] == 4){
               $percentile = ($_SESSION["score"]/$_SESSION["totalscore"])*100;
               $email = $_SESSION['email'];
 
@@ -580,7 +651,7 @@ if ($elapsed_time > $allotted_time) {
                 }
               } else {
                 echo "No rows found";
-              }
+              }}
             }
 
             $newsql = mysqli_query($conn,
@@ -614,22 +685,22 @@ if ($elapsed_time > $allotted_time) {
               
               <div>
                   <input type="radio" name="exam"  value="'.$value[0].'" required/>
-                  <label for="exam">A) '.$answers[0].' </label>
+                  <label for="exam"> '.$answers[0].' </label>
               </div>
               
               <div>
                   <input type="radio" name="exam"  value="'.$value[1].'" required/>
-                  <label for="exam-B">B) '.$answers[1].'</label>
+                  <label for="exam-B"> '.$answers[1].'</label>
               </div>
               
               <div>
                   <input type="radio" name="exam"  value="'.$value[2].'" required/>
-                  <label for="exam-C">C) '.$answers[2].'</label>
+                  <label for="exam-C"> '.$answers[2].'</label>
               </div>
               
               <div>
                   <input type="radio" name="exam"  value="'.$value[3].'" required/>
-                  <label for="exam-D">D) '.$answers[3].'</label>
+                  <label for="exam-D"> '.$answers[3].'</label>
               </div>
           
           </li>';
