@@ -435,7 +435,7 @@ if ($elapsed_time > $allotted_time) {
                                     $second_course_related = implode(", ", $related_courses);
                                 } elseif ($total_scores > 0 && $third_course == '') {
                                     $third_course = $course;
-                                    $third_related_course = implode(", ", $related_courses);
+                                    $third_course_related = implode(", ", $related_courses);
                                 }
                             }
                  
