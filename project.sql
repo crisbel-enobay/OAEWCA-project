@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2023 at 09:22 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Apr 26, 2023 at 12:16 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -682,8 +682,9 @@ CREATE TABLE `tbl_exam_subjects` (
 
 INSERT INTO `tbl_exam_subjects` (`subj_id`, `subj_name`, `subj_desc`, `subj_status`, `subj_timestamp`) VALUES
 (1, 'English', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:21:08'),
-(2, 'Filipino', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:34:17'),
-(3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48');
+(2, 'Science', 'Includes general knowledge about science', 1, '2023-04-26 02:36:43'),
+(3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48'),
+(4, 'Abstract Reasoning', 'Abstract Reasoning', 1, '2023-04-26 02:59:53');
 
 -- --------------------------------------------------------
 
@@ -708,7 +709,10 @@ CREATE TABLE `tbl_exam_topics` (
 INSERT INTO `tbl_exam_topics` (`topic_id`, `topic_name`, `topic_desc`, `topic_duration`, `topic_stat`, `topic_stamp`, `topic_subj`) VALUES
 (1, 'Vocabulary', 'one of the four words or phrases given a choices means almost SAME as the capitalized word in the preceding sentence. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 21:44:02', 1),
 (2, 'Basic Math Problems', 'This is a test of your ability to think out solution to quantitative problems in Basic Mathematics. Analyze and solve each problem carefully. Choose the letter that corresponds to your answer.\r\n', 45, 1, '2023-02-17 21:56:12', 3),
-(3, 'General Science', 'This is a test of your proficiency in General Science. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 22:17:18', 2);
+(3, 'General Science', 'This is a test of your proficiency in General Science. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 22:17:18', 2),
+(4, 'Analogy', 'Analogy', 30, 1, '2023-04-26 02:38:02', 1),
+(5, 'Synonym', 'Find the synonym of the word', 30, 1, '2023-04-26 02:49:36', 1),
+(6, 'Abstract Reasoning', 'Abstract Reasoning', 30, 1, '2023-04-26 03:00:11', 4);
 
 -- --------------------------------------------------------
 
@@ -787,7 +791,83 @@ INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
 (69, 19, 'Mitochondria', 1),
 (70, 19, 'Nucleus', 0),
 (71, 19, 'Cytoplasm', 0),
-(72, 19, 'Cell Membrane', 0);
+(72, 19, 'Cell Membrane', 0),
+(73, 20, 'indict:guilt', 0),
+(74, 20, 'raucous:sound', 1),
+(75, 20, 'obey:order', 0),
+(76, 20, 'divert:stream', 0),
+(77, 21, 'strident:voice', 0),
+(78, 21, 'look:scrutinize', 1),
+(79, 21, 'flicker:shine', 0),
+(80, 21, 'deliberate:propose', 0),
+(81, 22, 'chew:swallow', 0),
+(82, 22, 'nibble:bite', 0),
+(83, 22, 'wade:swim', 1),
+(84, 22, 'condemn :accuse', 0),
+(85, 23, 'feign:impression', 0),
+(86, 23, 'slander:reputation', 1),
+(87, 23, 'adopt:evolution', 0),
+(88, 23, 'impersonate:celebrity', 0),
+(89, 24, 'inject:needle', 0),
+(90, 24, 'dwindle:hoard', 0),
+(91, 24, 'obstruct:blockade', 0),
+(92, 24, 'coagulate:clot', 1),
+(93, 25, 'hygenic:dirty', 0),
+(94, 25, ' parched:thirsty', 1),
+(95, 25, 'cold:hot', 0),
+(96, 25, 'run:climb', 0),
+(97, 26, 'credulous:convince', 0),
+(98, 26, 'promote:job', 1),
+(99, 26, 'hospitable:house', 0),
+(100, 26, 'eminent:praise', 0),
+(101, 27, 'moon:earth', 0),
+(102, 27, 'insect:light', 0),
+(103, 27, 'ring:finger ', 0),
+(104, 27, 'satellite:orbit', 1),
+(105, 28, 'idea:germinate', 1),
+(106, 28, 'myth:explode', 0),
+(107, 28, 'crop:harvest', 0),
+(108, 28, 'virus:speed', 0),
+(109, 29, 'encourage', 1),
+(110, 29, 'protest', 0),
+(111, 29, 'evade', 0),
+(112, 29, 'conceive', 0),
+(113, 30, 'fail', 0),
+(114, 30, 'consent', 1),
+(115, 30, 'correct', 0),
+(116, 30, 'mollify', 0),
+(117, 31, 'prospective', 0),
+(118, 31, 'righteous', 0),
+(119, 31, 'assistant', 1),
+(120, 31, 'mandatory', 0),
+(121, 32, 'psychological', 0),
+(122, 32, 'startled', 1),
+(123, 32, 'started', 0),
+(124, 32, 'crooked', 0),
+(125, 33, 'clashing', 0),
+(126, 33, 'unusual', 1),
+(127, 33, 'lovely', 0),
+(128, 33, 'critical', 0),
+(129, 34, 'adolescent', 0),
+(130, 34, 'conflicting', 0),
+(131, 34, 'noisy', 1),
+(132, 34, 'grateful', 0),
+(133, 35, 'memory', 0),
+(134, 35, 'simile', 0),
+(135, 35, 'tension', 0),
+(136, 35, 'repetition', 1),
+(137, 36, 'splendor', 0),
+(138, 36, 'tenacity', 1),
+(139, 36, 'tendency', 0),
+(140, 36, 'decimation', 0),
+(141, 37, 'minority', 1),
+(142, 37, 'dependent', 0),
+(143, 37, 'quorum', 0),
+(144, 37, 'host', 0),
+(145, 39, '<image src = \"../abstract/2a.png\">', 0),
+(146, 39, '<image src = \"../abstract/2b.png\">', 1),
+(147, 39, '<image src = \"../abstract/2c.png\">', 0),
+(148, 39, '<image src = \"../abstract/2d.png\">', 0);
 
 -- --------------------------------------------------------
 
@@ -820,7 +900,26 @@ INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
 (16, 'The sun is mostly made of which gas?', 3),
 (17, 'Of the following metric units which one is the smallest?', 3),
 (18, 'A rise in atmosphere temperature due to an increase in carbon dioxide, methane and other gases that trap heat in the atmosphere is called _____.', 3),
-(19, 'The powerhouse of the cell.', 3);
+(19, 'The powerhouse of the cell.', 3),
+(20, 'STRIDENT:VOICE', 4),
+(21, 'READ:PERUSE', 4),
+(22, 'DAB:PAINT', 4),
+(23, ' PERJURE:TESTIMONY', 4),
+(24, 'FREEZE:ICE', 4),
+(25, 'TERRIFIED:SCARED ', 4),
+(26, 'ACCESIBLE:REACH', 4),
+(27, 'SAILBOAT:COURSE', 4),
+(28, 'SEED:SPROUT', 4),
+(29, 'ABET', 5),
+(30, 'ACCEDE', 5),
+(31, 'AUXILIARY', 5),
+(32, 'AWRY', 5),
+(33, 'ATYPICAL', 5),
+(34, 'BOISTEROUS', 5),
+(35, 'TAUTOLOGY', 5),
+(36, 'PERSEVERANCE', 5),
+(37, 'MINION', 5),
+(39, 'Which comes next?\n<image src = \'../abstract/no2.png\'>', 6);
 
 -- --------------------------------------------------------
 
@@ -1069,25 +1168,25 @@ ALTER TABLE `skills`
 -- AUTO_INCREMENT for table `tbl_exam_subjects`
 --
 ALTER TABLE `tbl_exam_subjects`
-  MODIFY `subj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `subj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_exam_topics`
 --
 ALTER TABLE `tbl_exam_topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_que_answers`
 --
 ALTER TABLE `tbl_que_answers`
-  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `tbl_topic_questions`
 --
 ALTER TABLE `tbl_topic_questions`
-  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `users`
