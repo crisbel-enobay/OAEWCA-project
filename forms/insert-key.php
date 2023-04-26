@@ -70,11 +70,14 @@
                                 $_SESSION['key'] = $key;
                                 $_SESSION['subjectexam'] = 0;
                                 $_SESSION['topicexam'] = 0;
+<<<<<<< Updated upstream
+=======
                                 $_SESSION['topicvalue'] = 1;
-                                $_SESSION['english'] = 0;
-                                $_SESSION['science'] = 0;
-                                $_SESSION['math'] = 0;
-                                $_SESSION['logic'] = 0;
+                                //$_SESSION['english'] = 0;
+                                //$_SESSION['science'] = 0;
+                                //$_SESSION['math'] = 0;
+                                //$_SESSION['logic'] = 0;
+>>>>>>> Stashed changes
                                 mysqli_free_result($result);
                               
                                    
