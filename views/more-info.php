@@ -102,10 +102,16 @@ include '../views/student-checker.php';
               </div>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="../views/user-profiling.php">
+            <a class="nav-link" data-toggle="collapse" href="#ui-subjects" aria-expanded="false" aria-controls="ui-subjects">
                 <span class="menu-title">Schedule</span>
-                <i class="icon-globe menu-icon"></i>
+                <i class="icon-layers menu-icon"></i>
               </a>
+              <div class="collapse" id="ui-subjects">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="../views/user-profiling.php">Exam Schedule</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/user-exam_key.php">Exam key</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
         </nav>

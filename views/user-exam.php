@@ -109,7 +109,7 @@ include "../views/student-checker.php";
               <div class="collapse" id="ui-subjects">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="../views/user-profiling.php">Exam Schedule</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/user-exam_key.php">Exam keys</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/user-exam_key.php">Exam key</a></li>
                 </ul>
               </div>
             </li>

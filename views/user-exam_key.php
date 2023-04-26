@@ -188,7 +188,7 @@ p {
               <div class="collapse" id="ui-subjects">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="../views/user-profiling.php">Exam Schedule</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="../views/user-exam_key.php">Exam keys</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="../views/user-exam_key.php">Exam key</a></li>
                 </ul>
               </div>
             </li>
@@ -201,7 +201,7 @@ p {
           <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="../views/user-profiling.php">Exam Schedule List</a></li>
-                <li class="breadcrumb-item active">Exam Keys</li>
+                <li class="breadcrumb-item active">Exam Key</li>
 
               </ol>
             </nav>
@@ -508,7 +508,7 @@ p {
                         </div>
                         
                       <div class="modal-footer">
-                        <input type="submit" disabled name="Add" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="myBtn" value="Add"/>       
+                        <input type="submit" disabled name="Add" data-toggle="modal" data-target="#myModal" class="btn btn-primary" id="myBtn" value="change"/>       
 <?php
                              if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           // if (isset($_POST['Add'])){
