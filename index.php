@@ -367,7 +367,7 @@ include "file/session.php";
                   <span>Main Developer</span>
                 </div>
                 <div class="social">
-                  <a><i class="bi bi-google" data-bs-toggle="tooltip" data-bs-placement="right" title="lactud.jl@gmail.com"></i></a>
+                  <a><i class="bi bi-google" data-bs-toggle="tooltip" data-bs-placement="right" title="20190370m.lactud.lorence.bscs@gmail.com"></i></a>
                   <a href="https://www.facebook.com/lorence.lactud"><i class="bi bi-facebook"></i></a>
                 </div>
               </div>
