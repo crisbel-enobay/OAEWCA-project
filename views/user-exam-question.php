@@ -24,7 +24,9 @@
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../assets/css/style-admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
   </head>
@@ -34,14 +36,17 @@
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="../views/admin.php">
-            <img src="../assets/img/kursonada.png" alt="logo" class="logo-dark" />
+            <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
           </a>
-          <a class="navbar-brand brand-logo-mini"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex button-sm" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span><!--sidebar button-->
+          </button>
+          <a class="navbar-brand brand-logo-mini"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?></h5>
+          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+          <li class="nav-item dropdown"> <!--for mobile ui user drop down -->
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                <span class="font-weight-normal"><?php echo ($_SESSION['fullname']); ?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -72,7 +77,7 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-profile">
+          <li class="nav-item nav-profile sidebar-menu-title"><!--for sidebar user drop down -->
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
@@ -84,7 +89,7 @@
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category">
+            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
               <span class="nav-link">Student Dashboard</span>
             </li>
             <li class="nav-item"> 
@@ -93,7 +98,8 @@
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">Admission Exam</span></li>
+            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
+              <span class="nav-link">Admission Exam</span></li>
             <li class="nav-item active">
               <a class="nav-link" href="../views/user-exam.php">
                 <span class="menu-title">Examination</span>
@@ -114,14 +120,16 @@
                   <div class="card-header d-block d-md-flex"> 
                      <h5 class="mb-0 font-weight-medium d-none d-lg-flex">
                       <?php
-                        $named = mysqli_query($conn,
-                        "SELECT *
+                      include 'conn.php';
+                      $select = mysqli_query($conn,
+                        "SELECT subj_name
                         FROM tbl_exam_subjects where subj_id = ".$_SESSION['subjectexam']."
                         ");
                         
-                        $naming = $named->fetch_assoc();
-                        echo $naming['subj_name']
-                     ?></h5>
+                        $seek = $select->fetch_assoc();
+                        echo $seek['subj_name'];
+                      ?>
+                     </h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
           <?php
 
@@ -163,7 +171,7 @@ if ($elapsed_time > $allotted_time) {
             $pages = array();
             $sql = mysqli_query($conn,
             "SELECT *
-            FROM tbl_topic_questions where que_topic = ".$_SESSION['subjectexam']."
+            FROM tbl_topic_questions where que_topic = ".$_SESSION['topicvalue']."
             ");
             $sqlrows = mysqli_fetch_all($sql, MYSQLI_ASSOC);
             $rows = $sqlrows;
@@ -226,11 +234,13 @@ if ($elapsed_time > $allotted_time) {
               $_SESSION["totalscore"] = 0;
             }
 
+            if (!isset($_SESSION["score"])) {
+              $_SESSION["tempscore"] = 0;
+            }
 
-           /* if (!isset($_SESSION["totalscore"])) {
+            if (!isset($_SESSION["totalscore"])) {
               $_SESSION["temptotalscore"] = 0;
-            }*/
-
+            }
       
             // Display the current page
             if (isset($_POST["next"])) {
@@ -248,9 +258,12 @@ if ($elapsed_time > $allotted_time) {
               // Go back to the previous page
               array_pop($_SESSION["displayed_pages"]);
               if ($_SESSION["totalscore"] <= $_SESSION["score"]){
-
-              $_SESSION["score"] -= 1;}
+              $_SESSION["score"] -= 1;
+              $_SESSION["tempscore"] -= 1;
+              }
               $_SESSION["totalscore"] -= 1;
+              $_SESSION["temptotalscore"] -= 1;
+
               $_SESSION["current_page"] = end($_SESSION["displayed_pages"]);
             } else {
               // Display the first page
@@ -268,8 +281,8 @@ if ($elapsed_time > $allotted_time) {
 
               $_SESSION["score"] += $_POST['exam'];
               $_SESSION["totalscore"] += 1;
-              if ($_SESSION['subjectexam'] != 3){
-                unset ($_SESSION["displayed_pages"]);
+              $_SESSION["tempscore"] += $_POST['exam'];
+              $_SESSION["temptotalscore"] += 1;
               $_SESSION['topicexam']+=1;
               $totaltopics = mysqli_query($conn,
               "SELECT row_number() OVER (ORDER BY topic_id, topic_name) n,
@@ -296,7 +309,7 @@ if ($elapsed_time > $allotted_time) {
                 return;
               }
 
-              else if ($_SESSION['topicexam'] > $rowcount && $_SESSION['subjectexam'] !=4){/*
+              else if ($_SESSION['topicexam'] > $rowcount){
                 if ($_SESSION['subjectexam'] == 1){
                   $_SESSION['english'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
                 }
@@ -310,13 +323,14 @@ if ($elapsed_time > $allotted_time) {
                   $_SESSION['logic'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
                 }
                 unset($_SESSION["tempscore"]);
-                unset($_SESSION["temptotalscore"]);*/
+                unset($_SESSION["temptotalscore"]);
                 $_SESSION['subjectexam']++;
-                echo "<script> window.location = 'user-exam-subject.php' </script>";
+                $_SESSION['topicexam'] = 0;
+              echo "<script> window.location = 'user-exam-subject.php' </script>";
               }
 
               
-              if ($_SESSION['subjectexam'] >= 4){
+              if ($_SESSION['subjectexam'] == 4){
               $percentile = ($_SESSION["score"]/$_SESSION["totalscore"])*100;
               $email = $_SESSION['email'];
 
@@ -575,31 +589,37 @@ if ($elapsed_time > $allotted_time) {
                         $sql_insert = "INSERT INTO results (fullname, email, exam_key, score, remarks, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
                         VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits_var', '$interest_var', '$skill_var', '$career_goal_var', '$first_course', '$first_course_related', '$second_course', '$second_course_related', '$third_course', '$third_course_related', '$exam_key_created_at')";
 
-                            if (mysqli_query($conn, $sql_insert)) {
-                              $sql_delete2 = "DELETE FROM generated_codes WHERE email = '$email'";
-                              if (mysqli_query($conn, $sql_delete2)) {
-                                  // If the row is deleted successfully, insert the new row
-                                  $sql_insert = "INSERT INTO generated_codes (fullname, email, exam_key, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
-                                  VALUES ('$fullname', '$email', '$exam_key', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
-      
-                                    if (mysqli_query($conn, $sql_insert)) {
-                                      echo "<script>
-                                      setTimeout(function() {
-                                          Swal.fire({
-                                              title: 'Finished',
-                                              text: 'Congratulations, you have finished the exam!',
-                                              icon: 'success',
-                                              confirmButtonText: 'Awesome',
-                                              timer: 3000,
-                                              allowOutsideClick: true,
-                                              didDestroy: function() {
-                                                  window.location.href = 'user-dashboard.php';
-                                              }
-                                          });
-                                      }, 1000);
-                                    </script>";
-      
-                                    } else {
+              if (mysqli_query($conn, $sql_insert)) {
+                $sql_update = "UPDATE generated_codes SET
+                                status = '$status',
+                                skill = '$skill_var',
+                                interest = '$interest_var',
+                                pref_course = '$pref_course',
+                                traits = '$traits_var',
+                                career_goal = '$career_goal_var',
+                                exam_date = '$exam_date',
+                                exam_time = '$exam_time',
+                              exam_time_end = '$exam_time_end'
+                              WHERE email = '$email' AND fullname = '$fullname'";
+        
+                        if (mysqli_query($conn, $sql_update)) {
+                            echo "<script>
+                                  setTimeout(function() {
+                                      Swal.fire({
+                                    title: 'Finished',
+                                    text: 'Congratulations, you have finished the exam!',
+                                    icon: 'success',
+                                    confirmButtonText: 'Awesome',
+                                    // timer: 3000,
+                                    allowOutsideClick: true,
+                                    didDestroy: function() {
+                                        window.location.href = 'user-dashboard.php';
+                                    }
+                                });
+                            }, 1000);
+                          </script>";
+                  }
+                else {
                                       echo "<script>
                                       setTimeout(function() {
                                               swal({
@@ -633,7 +653,7 @@ if ($elapsed_time > $allotted_time) {
                 echo "No rows found";
               }}
             }
-          }
+
             $newsql = mysqli_query($conn,
             "SELECT *
             FROM tbl_topic_questions where que_id = '".$_SESSION['current_page']."'
@@ -744,6 +764,7 @@ if ($elapsed_time > $allotted_time) {
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
+    <script src="../js/hoverable-collapse.js"></script><!--for sidebar user drop down -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="../vendors/chart.js/Chart.min.js"></script>
