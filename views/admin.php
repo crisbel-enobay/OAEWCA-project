@@ -1,5 +1,5 @@
 <?php 
-
+  include 'conn.php';
   include '../file/logout-function.php';
   include '../forms/adminQueries.php';
   include "admin-checker.php";
@@ -28,6 +28,46 @@
     <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
+
+    <!-- barchart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['courses','English', 'Math', 'Science', 'Filipino','Logic'],
+          <?php
+            $query="select * from courses";
+            $res=mysqli_query($conn,$query);
+            while($data=mysqli_fetch_array($res)){
+              $course=$data['courses'];
+              $English=$data['English'];
+              $Math=$data['Math'];
+              $Science=$data['Science'];
+              $Filipino=$data['Filipino'];
+              $Logic=$data['Logic'];
+           ?>
+           ['<?php echo $course;?>',<?php echo $English;?>,<?php echo $Math;?>,<?php echo $Science;?>,<?php echo $Filipino;?>,<?php echo $Logic;?>],   
+           <?php   
+            }
+           ?> 
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Courses',
+            subtitle: 'Subject scoring',
+          },
+          bars: 'vertical' // Required for Material Bar Charts.
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
   </head>
   <body>
     
@@ -223,9 +263,18 @@
                         <a href="../views/unverified.php" class="align-self-end px-4">View more</a>
                       </div>
                 </div>
-              </div>        
+              </div>     
+              <!-- chart -->
+              <div class="row income-expense-summary-chart mt-3">
+              <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body m-0">
+                  <div id="barchart_material" style="height:320px;"></div>
+                   
+                  </div>
+                </div>
+              </div>   
         <!-- Quick Action Toolbar Starts-->
-        <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
               <div class="card">
               <form id="myform" action="" method="POST">
