@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2023 at 09:35 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Apr 27, 2023 at 12:00 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,9 +40,8 @@ CREATE TABLE `admin_schedule` (
 --
 
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_time`, `exam_time_end`, `exam_date_created`) VALUES
-(56, '2023-04-26', '07:00:00', '20:00:00', '2023-04-25 17:58:48'),
-(58, '2023-02-18', '15:00:00', '16:00:00', '2023-02-16 20:39:55'),
-(62, '2023-03-09', '17:00:00', '19:00:00', '2023-03-09 17:10:09');
+(65, '2023-04-24', '19:00:00', '20:00:00', '2023-04-24 19:42:59'),
+(66, '2023-04-27', '00:00:00', '23:00:00', '2023-04-26 18:52:19');
 
 -- --------------------------------------------------------
 
@@ -559,8 +558,10 @@ CREATE TABLE `results` (
 --
 
 INSERT INTO `results` (`id`, `fullname`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `score`, `remarks`, `status`, `strand`, `pref_course`, `traits`, `interest`, `skill`, `career_goal`, `f_course`, `f_related_course`, `s_course`, `s_related_course`, `t_course`, `t_related_course`, `exam_key_created_at`) VALUES
-(92, 'Joaquin Bordado', 'lebbraumjayce3@gmail.com', 'cepi2935', '2023-03-12', '17:00:00', '23:00:00', 50, 'failed', 'released', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16'),
-(118, 'John Doe', 'lebbraumjayce@gmail.com', 'hvxf3150', '2023-04-26', '07:00:00', '20:00:00', 80, 'passed', 'finished', 'STEM', 'Bachelor of Science in Mathematics (BSMath)', 'Adaptable,Analytical,Logical,Observant', 'Office management,Politics,Problem-solving', 'Classroom management,Critical thinking,Mathematical reasoning', 'Data analyst,Database administrator,Diplomat,Entrepreneur,Mathematician', 'Bachelor of Science in Mathematics (BSMath)', 'Bachelor of Science in Physics (BSP), Bachelor of Science in Statistics (BStat)', 'Bachelor of Science in Information System (BSIS)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Arts in Political Science (ABPS/ABPolSci)', '', '2023-04-26 12:43:19');
+(85, 'M', 'lebbraumjayce3@gmail.com', 'gjtp5398', '2023-02-18', '15:00:00', '16:00:00', 74, 'failed', 'released', 'HUMMS', 'Bachelor of Science in Information Technology (BSIT)', 'Ethical,Good listener', 'Accounting,Administrative support,Advertising', 'Adaptability,Branding', 'Actuary,Administrative assistant', 'Bachelor of Science in Office Administration (BSOAd)', '0', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', '', 'Bachelor of Arts in Communication (BAComm)', '', '2023-03-10 20:22:04'),
+(90, 'John Doe', 'lebbraumjayce@gmail.com', 'cepi2935', '2023-03-12', '17:00:00', '19:00:00', 100, 'passed', 'released', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16'),
+(96, 'student name sample', 'user@gmail.com', 'lvsb6917', '2023-04-26', '08:00:00', '20:00:00', 39, 'failed', 'released', 'STEM', 'Bachelor of Science in Mathematics', 'Adaptable', 'Accounting', 'Accounting principles', 'Accountant', 'Bachelor of Science in Accounting Information System', 'Bachelor of Science in Accountancy (BSA)', 'Bachelor of Science in Accountancy', 'Bachelor of Science in Accounting Technology (BSAcT)', 'Bachelor of Science in Psychology', 'Bachelor of Science in Social Work (BSSW), Bachelor of Science in Nursing (BSN)', '2023-04-26 18:49:07'),
+(102, 'Lorence Lactud', 'lactud.jl@gmail.com', 'abnh4268', '2023-04-27', '00:00:00', '23:00:00', 81, 'passed', 'released', 'STEM', 'Bachelor of Science in Computer Science', 'Logical', 'Game development', 'Programming languages', 'IT consultant', 'Bachelor of Science in Information Technology', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', 'Bachelor of Science in Information System', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', '2023-04-27 05:37:38');
 
 -- --------------------------------------------------------
 
@@ -941,7 +942,9 @@ INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verificatio
 (1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
 (3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
 (7, 'student name sample', 'user2@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
-(13, 'John Doe', 'lebbraumjayce@gmail.com', '$2y$10$jlj5RqoX8ajARAxs8iWkj.eXXUxuzYOUgewAoY1affRI6jlv/hhKG', 0, '234097', '2023-04-25 19:52:59', '', '');
+(12, 'Marvin Caharop', 'lebbraumjayce@gmail.com', '$2y$10$5u/XjUI5X/hNckiDrA92BOeh6SukcZnguQ/P/0A02hzLXlyuXHjWC', 0, '331835', '2023-03-12 12:56:10', '', ''),
+(13, 'Enobay, Crisbel', 'cenobay9@gmail.com', '$2y$10$BepTOUgqBtsdLh6hH9eroOyhYGOV31b6dwnv18ERGnwcIfRqNUQrG', 0, '181151', '2023-04-25 14:49:10', '', ''),
+(14, 'Lorence Lactud', 'lactud.jl@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '18115', '2023-04-25 14:49:10', '', '');
 
 --
 -- Indexes for dumped tables
@@ -1077,7 +1080,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_schedule`
 --
 ALTER TABLE `admin_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `archived_courses`
@@ -1185,7 +1188,7 @@ ALTER TABLE `tbl_topic_questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
