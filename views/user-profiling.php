@@ -532,7 +532,7 @@
                                 if ($delete_result) {   
                                     //process of modifying profiling
                                     $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                                    strand, pref_course, traits, interest, skill, career_goal,f_course,f_related_course,s_course,s_related_course,t_course,t_related_course,
+                                    strand, pref_course, traits, interest, skill, career_goal,
                                      exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                       '".$pref_course. "', '".$traits_string. "',
@@ -573,6 +573,7 @@
                             else{
                               // Insert the new data
                               $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
+<<<<<<< Updated upstream
                                     strand, pref_course, traits, interest, skill, career_goal,f_course,f_related_course,s_course,s_related_course,t_course,t_related_course,
                                      exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
@@ -580,6 +581,15 @@
                                        '".$interests_string."','".$skills_string."', 
                                        '".$career_goals_string."','".$first_course."', '".$first_course_related. "','".$second_course."', '".$second_course_related. "','".$third_course."', '".$third_course_related. "', NOW() )
                                     ");
+=======
+                              strand, pref_course, traits, interest, skill, career_goal,
+                               exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
+                               '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                '".$pref_course. "', '".$traits_string. "',
+                                 '".$interests_string."','".$skills_string."', 
+                                 '".$career_goals_string."', NOW() )
+                              ");
+>>>>>>> Stashed changes
                                   
 
                             if ($insert_result) {

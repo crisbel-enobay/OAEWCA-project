@@ -225,6 +225,17 @@ if ($elapsed_time > $allotted_time) {
             if (!isset($_SESSION["totalscore"])) {
               $_SESSION["totalscore"] = 0;
             }
+<<<<<<< Updated upstream
+=======
+            /*
+            if (!isset($_SESSION["score"])) {
+              $_SESSION["tempscore"] = 0;
+            }
+
+            if (!isset($_SESSION["totalscore"])) {
+              $_SESSION["temptotalscore"] = 0;
+            }*/
+>>>>>>> Stashed changes
       
             // Display the current page
             if (isset($_POST["next"])) {
@@ -242,8 +253,16 @@ if ($elapsed_time > $allotted_time) {
               // Go back to the previous page
               array_pop($_SESSION["displayed_pages"]);
               if ($_SESSION["totalscore"] <= $_SESSION["score"]){
+<<<<<<< Updated upstream
               $_SESSION["score"] -= 1;}
               $_SESSION["totalscore"] -= 1;
+=======
+              $_SESSION["score"] -= 1;
+              //$_SESSION["tempscore"] -= 1;
+              }
+              $_SESSION["totalscore"] -= 1;
+              //$_SESSION["temptotalscore"] -= 1;
+>>>>>>> Stashed changes
 
               $_SESSION["current_page"] = end($_SESSION["displayed_pages"]);
             } else {
@@ -262,14 +281,65 @@ if ($elapsed_time > $allotted_time) {
 
               $_SESSION["score"] += $_POST['exam'];
               $_SESSION["totalscore"] += 1;
+<<<<<<< Updated upstream
 
               if ($_SESSION['subjectexam'] != 3){
                 unset ($_SESSION["displayed_pages"]);
+=======
+              //$_SESSION["tempscore"] += $_POST['exam'];
+              //$_SESSION["temptotalscore"] += 1;
+              $_SESSION['topicexam']+=1;
+              $totaltopics = mysqli_query($conn,
+              "SELECT row_number() OVER (ORDER BY topic_id, topic_name) n,
+              topic_id, topic_name
+              FROM tbl_exam_topics where topic_subj = ".$_SESSION['subjectexam']."
+              ;
+              ");
+              $rowcount=mysqli_num_rows($totaltopics);
+              if ($_SESSION['topicexam'] <= $rowcount){
+                $result = mysqli_query($conn,
+                "SELECT row_number() OVER (ORDER BY topic_id, topic_name) n,
+                topic_id, topic_name
+                FROM tbl_exam_topics where topic_subj = ".$_SESSION['subjectexam']."
+                ;
+                ");
+                
+                while ($row = $result->fetch_assoc()) {
+                if ($row['n'] == $_SESSION['topicexam']){
+                  $_SESSION['topicvalue'] =  $row['topic_id'];
+                }
+                //$_SESSION['topicexam'];
+                }
+                echo "<script> window.location = 'user-exam-topic.php' </script>";
+                return;
+              }
+
+              else if ($_SESSION['topicexam'] > $rowcount && $_SESSION['subjectexam'] !=4){/*
+                if ($_SESSION['subjectexam'] == 1){
+                  $_SESSION['english'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
+                }
+                else if ($_SESSION['subjectexam'] == 2){
+                  $_SESSION['science'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
+                }
+                else if ($_SESSION['subjectexam'] == 3){
+                  $_SESSION['math'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
+                }
+                else if ($_SESSION['subjectexam'] == 4){
+                  $_SESSION['logic'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
+                }
+                unset($_SESSION["tempscore"]);
+                unset($_SESSION["temptotalscore"]);*/
+>>>>>>> Stashed changes
                 $_SESSION['subjectexam']++;
                 echo "<script> window.location = 'user-exam-subject.php' </script>";
               }
 
+<<<<<<< Updated upstream
               if ($_SESSION['subjectexam'] == 3){
+=======
+              
+              if ($_SESSION['subjectexam'] >= 4){
+>>>>>>> Stashed changes
               $percentile = ($_SESSION["score"]/$_SESSION["totalscore"])*100;
               $email = $_SESSION['email'];
 
@@ -447,9 +517,9 @@ if ($elapsed_time > $allotted_time) {
                 }
               } else {
                 echo "No rows found";
-              }}
+              }
             }
-
+          }
             $newsql = mysqli_query($conn,
             "SELECT *
             FROM tbl_topic_questions where que_id = '".$_SESSION['current_page']."'
