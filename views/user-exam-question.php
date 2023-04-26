@@ -233,14 +233,6 @@ if ($elapsed_time > $allotted_time) {
             if (!isset($_SESSION["totalscore"])) {
               $_SESSION["totalscore"] = 0;
             }
-
-            if (!isset($_SESSION["score"])) {
-              $_SESSION["tempscore"] = 0;
-            }
-
-            if (!isset($_SESSION["totalscore"])) {
-              $_SESSION["temptotalscore"] = 0;
-            }
       
             // Display the current page
             if (isset($_POST["next"])) {
@@ -259,10 +251,8 @@ if ($elapsed_time > $allotted_time) {
               array_pop($_SESSION["displayed_pages"]);
               if ($_SESSION["totalscore"] <= $_SESSION["score"]){
               $_SESSION["score"] -= 1;
-              $_SESSION["tempscore"] -= 1;
               }
               $_SESSION["totalscore"] -= 1;
-              $_SESSION["temptotalscore"] -= 1;
 
               $_SESSION["current_page"] = end($_SESSION["displayed_pages"]);
             } else {
@@ -281,8 +271,6 @@ if ($elapsed_time > $allotted_time) {
 
               $_SESSION["score"] += $_POST['exam'];
               $_SESSION["totalscore"] += 1;
-              $_SESSION["tempscore"] += $_POST['exam'];
-              $_SESSION["temptotalscore"] += 1;
               $_SESSION['topicexam']+=1;
               $totaltopics = mysqli_query($conn,
               "SELECT row_number() OVER (ORDER BY topic_id, topic_name) n,
@@ -309,21 +297,7 @@ if ($elapsed_time > $allotted_time) {
                 return;
               }
 
-              else if ($_SESSION['topicexam'] > $rowcount){
-                if ($_SESSION['subjectexam'] == 1){
-                  $_SESSION['english'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
-                }
-                else if ($_SESSION['subjectexam'] == 2){
-                  $_SESSION['science'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
-                }
-                else if ($_SESSION['subjectexam'] == 3){
-                  $_SESSION['math'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
-                }
-                else if ($_SESSION['subjectexam'] == 4){
-                  $_SESSION['logic'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
-                }
-                unset($_SESSION["tempscore"]);
-                unset($_SESSION["temptotalscore"]);
+              else if ($_SESSION['topicexam'] > $rowcount && $_SESSION['subjectexam'] != 4){
                 $_SESSION['subjectexam']++;
                 $_SESSION['topicexam'] = 0;
               echo "<script> window.location = 'user-exam-subject.php' </script>";
@@ -527,8 +501,8 @@ if ($elapsed_time > $allotted_time) {
                               $sql_delete2 = "DELETE FROM generated_codes WHERE email = '$email'";
                               if (mysqli_query($conn, $sql_delete2)) {
                                   // If the row is deleted successfully, insert the new row
-                                  $sql_insert = "INSERT INTO generated_codes (fullname, email, exam_key, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
-                                  VALUES ('$fullname', '$email', '$exam_key', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits_var', '$interest_var', '$skill_var', '$career_goal_var', '$first_course', '$first_course_related', '$second_course', '$second_course_related', '$third_course', '$third_course_related', '$exam_key_created_at')";
+                                  $sql_insert = "INSERT INTO generated_codes (fullname, email, exam_key, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, exam_key_created_at)
+                                  VALUES ('$fullname', '$email', '$exam_key', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits_var', '$interest_var', '$skill_var', '$career_goal_var', '$exam_key_created_at')";
       
                                     if (mysqli_query($conn, $sql_insert)) {
                                       echo "<script>
