@@ -14,18 +14,36 @@
  
         if (mysqli_affected_rows($conn) == 0)
         {
-        //    function verifyFailed(){
-        //     $verify_failed = "verification failed";
-        //     return $verify_failed;
-                 $verify_status = "incorrect OTP";
-           }
+            $verify_status = "incorrect OTP";
+            echo "<script>
+                setTimeout(function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Verification Failed',
+                        text: '".$verify_status."'
+                    });
+                }, 100);
+            </script>";
+        }
         else {
-            $verify_status = "Verification Succesful! You can login now!";
+            $verify_status = "You can login now!";
+            echo "<script>
+                setTimeout(function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Verification Successful',
+                        text: '".$verify_status."'
+                    }).then(function() {
+                        window.location.href = '../views/loginform.php'; 
+                    });
+                }, 100);
+            </script>";
+        }
     }
-}
-
  
 ?>
+
+
 <!-- 
 <form method="POST">
      <input type="hidden" name="email" value="<?php // echo $_GET['email']; ?>" required/> 

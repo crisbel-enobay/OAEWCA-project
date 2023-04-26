@@ -219,6 +219,7 @@
                                     <td>" . $datecreated . "</td>
                                     <td>" .
                                   "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-dateid='$id' onClick='deleteSchedule(this)'>Delete</button>" .
+                                  "<button type='submit' class='btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-dateid='$id' data-date'$exam_date' data-starttime='$formattedTime' data-endtime='$formattedTime2' onClick='editExamDate(this)'>Edit</button>" .
                                          "</td>
 
                                     </tr>";  //$row['index'] the index here is a field name
@@ -245,7 +246,7 @@
                       <div class="modal-body p-5">
                         <div class="mb-3">
                           <label>Select Date</label>
-                          <input type="date" value="<?= date('Y-m-d') ?>" name="date" id="schedule date"  class="form-control" required>
+                          <input type="date" value="<?= date('Y-m-d') ?>" name="date" id="schedule_date"  class="form-control" required>
                         </div>
                         <div class="mb-3">
                           <label>Start Time</label>
@@ -336,6 +337,89 @@
                 </div>
               </div>
               <!-- End Add Bus-->
+
+               <!-- Edit Modal-->
+               <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Exam Date</h5>
+                      </div>
+                      <form method="POST">
+                        <div class="modal-body">
+                          <input type="hidden" name="edit_id" id="edit_id" />
+                           <div class="mb-3">
+                          <label>Select Date</label>
+                          <input type="date" value="<?= date('Y-m-d') ?>" name="edit_date" id="edit_schedule_date"  class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                          <label>Start Time</label>
+                          <select name="start_time" id="editStartTime">
+                              <option value="06:00:00">06:00 AM</option>
+                              <option value="07:00:00">07:00 AM</option>
+                              <option value="08:00:00">08:00 AM</option>
+                              <option value="09:00:00">09:00 AM</option>
+                              <option value="10:00:00">10:00 AM</option>
+                              <option value="11:00:00">11:00 AM</option>
+                              <option value="12:00:00">12:00 PM</option>
+                              <option value="13:00:00">01:00 PM</option>
+                              <option value="14:00:00">02:00 PM</option>
+                              <option value="15:00:00">03:00 PM</option>
+                              <option value="16:00:00">04:00 PM</option>
+                              <option value="17:00:00">05:00 PM</option>
+                              <option value="18:00:00">06:00 PM</option>
+                              <option value="19:00:00">07:00 PM</option>
+                              <option value="20:00:00">08:00 PM</option>
+                              <option value="21:00:00">09:00 PM</option>
+                              <option value="22:00:00">10:00 PM</option>
+                              <option value="23:00:00">11:00 PM</option>
+                        </select>
+                        <label>End Time</label>
+                          <select name="end_time" id="editEndtime">
+                              <option value="06:00:00">06:00 AM</option>
+                              <option value="07:00:00">07:00 AM</option>
+                              <option value="08:00:00">08:00 AM</option>
+                              <option value="09:00:00">09:00 AM</option>
+                              <option value="10:00:00">10:00 AM</option>
+                              <option value="11:00:00">11:00 AM</option>
+                              <option value="12:00:00">12:00 PM</option>
+                              <option value="13:00:00">01:00 PM</option>
+                              <option value="14:00:00">02:00 PM</option>
+                              <option value="15:00:00">03:00 PM</option>
+                              <option value="16:00:00">04:00 PM</option>
+                              <option value="17:00:00">05:00 PM</option>
+                              <option value="18:00:00">06:00 PM</option>
+                              <option value="19:00:00">07:00 PM</option>
+                              <option value="20:00:00">08:00 PM</option>
+                              <option value="21:00:00">09:00 PM</option>
+                              <option value="22:00:00">10:00 PM</option>
+                              <option value="23:00:00">11:00 PM</option>
+                        </select>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" name="Update" class="btn btn-primary"/>
+                          <?php
+                          if (isset($_POST['Update'])){
+                            include 'conn.php';                    
+                            $edit_id = $_POST['edit_id'];        
+                            $edit_schedule_date = new DateTime($_POST['edit_date']);  
+                            $edit_schedule_date_formatted = $edit_schedule_date->format('Y-m-d');                           
+                            $edit_start_time = $_POST['start_time'];           
+                            $edit_end_time = $_POST['end_time'];           
+                        
+                            $sql = mysqli_query($conn,
+                                "UPDATE admin_schedule SET id='".$edit_id."' , exam_date='".$edit_schedule_date_formatted."', exam_time='".$edit_start_time."', exam_time_end='".$edit_end_time."', exam_date_created = now() WHERE id= ".$edit_id."
+                            ");
+                            echo "<script> window.location = 'admin-schedule.php' </script>";
+                        }                        
+                        ?>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
 
                <!-- Archive Modal -->
                <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -435,6 +519,20 @@
       function deleteSchedule(value) {
       let dateID = value.getAttribute("data-dateid");
       document.querySelector("#exam_date_id").value = dateID;
+    }
+  </script>
+  <script>
+    // data-dateid='$id' data-date'$exam_date' data-starttime='$formattedTime' data-endtime='$formattedTime2'
+      function editExamDate(value) {
+      let id = value.getAttribute("data-dateid");
+      let date = value.getAttribute("data-date");
+      let startTime = value.getAttribute("data-starttime");
+      let endTime = value.getAttribute("data-endtime");
+      
+      document.querySelector("#edit_id").value = id;
+      document.querySelector("#edit_schedule_date").value = date;
+      document.querySelector("#editStartTime").value = startTime;
+      document.querySelector("#editEndtime").value = endTime;
     }
   </script>
   </body>

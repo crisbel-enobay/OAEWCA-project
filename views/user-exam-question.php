@@ -424,10 +424,10 @@ if ($elapsed_time > $allotted_time) {
                             $third_course = '';
                             $third_course_related = '';
                               // Retrieve user's score per subject input
-                              $predefined_math_score =  $_SESSION['math'];
-                              $predefined_english_score =  $_SESSION['english'];
-                              $predefined_logic_score =  $_SESSION['logic'];
-                              $predefined_science_score =  $_SESSION['science'];
+                              $predefined_math_score = 20;
+                              $predefined_english_score = 20;
+                              $predefined_logic_score = 20;
+                              $predefined_science_score = 20;
                               $predefined_filipino_score = 20;
                             
 
