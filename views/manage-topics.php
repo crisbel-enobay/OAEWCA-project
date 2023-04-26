@@ -476,7 +476,7 @@
                                   die("Connection failed!:" . $conn->connect_error);
                               }
                               $sql = mysqli_query($conn,
-                              "DELETE FROM tbl_exam_subjects WHERE id = ".$delid."
+                              "DELETE FROM tbl_exam_topics WHERE topic_id = ".$delid."
                               ");
                               echo "<script> window.location = 'manage-subjects.php' </script>";
                               }
