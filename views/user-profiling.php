@@ -403,139 +403,139 @@
                               // Connect to the database
                             $conn = mysqli_connect("localhost", "root", "", "project");
 
-                            // Check connection
-                            if (!$conn) {
-                                die("Connection failed: " . mysqli_connect_error());
-                            }
-                            $query = "SELECT * FROM courses";
-                            $result = $conn->query($query);
+                          //   // Check connection
+                          //   if (!$conn) {
+                          //       die("Connection failed: " . mysqli_connect_error());
+                          //   }
+                          //   $query = "SELECT * FROM courses";
+                          //   $result = $conn->query($query);
 
-                             // Store fetched data in $course_data array
-                            while ($row = $result->fetch_assoc()) {
-                              $course_data[$row['course']] = array(
-                                  'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
-                                  'interests' => array_map('trim', explode(',', $row['interests'])),
-                                  'skills' => array_map('trim', explode(',', $row['skills'])),
-                                  'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
-                                  'related_courses' => array_map('trim', explode(',', $row['related_course'])),
-                                  'math_score_requirement' => intval($row['Math']),
-                                  'english_score_requirement' => intval($row['English']),
-                                  'filipino_score_requirement' => intval($row['Filipino']),
-                                  'logic_score_requirement' => intval($row['Logic']),
-                                  'science_score_requirement' => intval($row['Science']),
-                              );
-                          }
+                          //    // Store fetched data in $course_data array
+                          //   while ($row = $result->fetch_assoc()) {
+                          //     $course_data[$row['course']] = array(
+                          //         'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
+                          //         'interests' => array_map('trim', explode(',', $row['interests'])),
+                          //         'skills' => array_map('trim', explode(',', $row['skills'])),
+                          //         'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
+                          //         'related_courses' => array_map('trim', explode(',', $row['related_course'])),
+                          //         'math_score_requirement' => intval($row['Math']),
+                          //         'english_score_requirement' => intval($row['English']),
+                          //         'filipino_score_requirement' => intval($row['Filipino']),
+                          //         'logic_score_requirement' => intval($row['Logic']),
+                          //         'science_score_requirement' => intval($row['Science']),
+                          //     );
+                          // }
 
-                            $traits_query = "SELECT personality_trait FROM personality_traits";
-                            $traits_result = $conn->query($traits_query);
+                          //   $traits_query = "SELECT personality_trait FROM personality_traits";
+                          //   $traits_result = $conn->query($traits_query);
 
-                            // create an empty array to store the traits
-                            $traits_array = array();
+                          //   // create an empty array to store the traits
+                          //   $traits_array = array();
 
-                            // loop through the fetched rows and add the traits to the array
-                            if ($traits_result->num_rows > 0) {
-                                while ($row = $traits_result->fetch_assoc()) {
-                                    $traits = $row["personality_trait"];
-                                    array_push($traits_array, $traits);
-                                }
-                            }
-                            // Initialize variables to store top 3 courses
-                            $first_course = '';
-                            $first_course_related = '';
-                            $second_course = '';
-                            $second_course_related = '';
-                            $third_course = '';
-                            $third_course_related = '';
-                              // Retrieve user's input
-                              $traits = $_POST['traits'];
-                              $interests = $_POST['interests'];
-                              $skills = $_POST['skills'];
-                              $career_goals = $_POST['career_goals'];
-                              $predefined_math_score = 20;
-                              $predefined_english_score = 20;
-                              $predefined_logic_score = 20;
-                              $predefined_science_score = 20;
-                              $predefined_filipino_score = 20;
+                          //   // loop through the fetched rows and add the traits to the array
+                          //   if ($traits_result->num_rows > 0) {
+                          //       while ($row = $traits_result->fetch_assoc()) {
+                          //           $traits = $row["personality_trait"];
+                          //           array_push($traits_array, $traits);
+                          //       }
+                          //   }
+                          //   // Initialize variables to store top 3 courses
+                          //   $first_course = '';
+                          //   $first_course_related = '';
+                          //   $second_course = '';
+                          //   $second_course_related = '';
+                          //   $third_course = '';
+                          //   $third_course_related = '';
+                          //     // Retrieve user's input
+                          //     $traits = $_POST['traits'];
+                          //     $interests = $_POST['interests'];
+                          //     $skills = $_POST['skills'];
+                          //     $career_goals = $_POST['career_goals'];
+                          //     $predefined_math_score = 20;
+                          //     $predefined_english_score = 20;
+                          //     $predefined_logic_score = 20;
+                          //     $predefined_science_score = 20;
+                          //     $predefined_filipino_score = 20;
                             
 
-                              // Calculate match score for each course based on user's input
-                              $match_scores = array();
-                            foreach ($course_data as $course => $data) {
-                                $score = 0;
-                                $course_score = 0;
-                                foreach ($traits as $trait) {
-                                    if (in_array($trait, $traits_array)) {
-                                        $score++;
-                                    }
-                                }
-                                foreach ($interests as $interest) {
-                                  if (in_array($interest, $data['interests'])) {
-                                      $score++;
-                                  }
-                              }
-                              foreach ($skills as $skill) {
-                                  if (in_array($skill, $data['skills'])) {
-                                      $score++;
-                                  }
-                              }
-                                foreach ($career_goals as $career_goal) {
-                                  if (in_array($career_goal, $data['career_goals'])) {
-                                      $score++;
-                                  }
-                              }
-                              if ($predefined_math_score <= $data['math_score_requirement']) {
-                                $course_score++;
-                              }
-                              if ($predefined_english_score <= $data['english_score_requirement']) {
-                                $course_score++;
-                              }
-                              if ($predefined_logic_score <= $data['logic_score_requirement']) {
-                                $course_score++;
-                              }
-                              if ($predefined_science_score <= $data['science_score_requirement']) {
-                                $course_score++;
-                              }
-                              if ($predefined_filipino_score <= $data['filipino_score_requirement']) {
-                                $course_score++;
-                              }
-                                // Add the score to an array for the current course
-                                $match_scores[$course] = array(
-                                  'total_score' => $score + $course_score,
-                                  'score' => $score,
-                                  'subject_course_score' => $course_score,
-                                  'math_score_requirement' => $data['math_score_requirement'],
-                                  'personality_traits' => $data['personality_traits'],
-                                  'related_courses' => $data['related_courses']
-                              );
-                            }
+                          //     // Calculate match score for each course based on user's input
+                          //     $match_scores = array();
+                          //   foreach ($course_data as $course => $data) {
+                          //       $score = 0;
+                          //       $course_score = 0;
+                          //       foreach ($traits as $trait) {
+                          //           if (in_array($trait, $traits_array)) {
+                          //               $score++;
+                          //           }
+                          //       }
+                          //       foreach ($interests as $interest) {
+                          //         if (in_array($interest, $data['interests'])) {
+                          //             $score++;
+                          //         }
+                          //     }
+                          //     foreach ($skills as $skill) {
+                          //         if (in_array($skill, $data['skills'])) {
+                          //             $score++;
+                          //         }
+                          //     }
+                          //       foreach ($career_goals as $career_goal) {
+                          //         if (in_array($career_goal, $data['career_goals'])) {
+                          //             $score++;
+                          //         }
+                          //     }
+                          //     if ($predefined_math_score <= $data['math_score_requirement']) {
+                          //       $course_score++;
+                          //     }
+                          //     if ($predefined_english_score <= $data['english_score_requirement']) {
+                          //       $course_score++;
+                          //     }
+                          //     if ($predefined_logic_score <= $data['logic_score_requirement']) {
+                          //       $course_score++;
+                          //     }
+                          //     if ($predefined_science_score <= $data['science_score_requirement']) {
+                          //       $course_score++;
+                          //     }
+                          //     if ($predefined_filipino_score <= $data['filipino_score_requirement']) {
+                          //       $course_score++;
+                          //     }
+                          //       // Add the score to an array for the current course
+                          //       $match_scores[$course] = array(
+                          //         'total_score' => $score + $course_score,
+                          //         'score' => $score,
+                          //         'subject_course_score' => $course_score,
+                          //         'math_score_requirement' => $data['math_score_requirement'],
+                          //         'personality_traits' => $data['personality_traits'],
+                          //         'related_courses' => $data['related_courses']
+                          //     );
+                          //   }
 
-                            foreach ($match_scores as $course_name => $course_data) {
-                              $score = $course_data['score'];
-                              $total_score = $course_data['total_score'];
-                              $subject_course_score = $course_data['subject_course_score'];
-                              echo $course_name . ': ' . $score . ' ' . $subject_course_score . ' ' . $total_score . '<br>';
-                          }
+                          //   foreach ($match_scores as $course_name => $course_data) {
+                          //     $score = $course_data['score'];
+                          //     $total_score = $course_data['total_score'];
+                          //     $subject_course_score = $course_data['subject_course_score'];
+                          //     echo $course_name . ': ' . $score . ' ' . $subject_course_score . ' ' . $total_score . '<br>';
+                          // }
 
                           
-                            // Sort courses by match score and output top 3
-                            arsort($match_scores);
-                            $top_courses = array_slice($match_scores, 0, 3);
-                            foreach ($top_courses as $course => $data) {
-                                $score = $data['score'];
-                                $related_courses = $data['related_courses'];
+                          //   // Sort courses by match score and output top 3
+                          //   arsort($match_scores);
+                          //   $top_courses = array_slice($match_scores, 0, 3);
+                          //   foreach ($top_courses as $course => $data) {
+                          //       $score = $data['score'];
+                          //       $related_courses = $data['related_courses'];
                                 
-                                // Store top 3 courses in separate variables
-                                if ($score > 0 && $first_course == '') {
-                                    $first_course = $course;
-                                    $first_course_related = implode(", ", $related_courses);
-                                } elseif ($score > 0 && $second_course == '') {
-                                    $second_course = $course;
-                                    $second_course_related = implode(", ", $related_courses);
-                                } elseif ($score > 0 && $third_course == '') {
-                                    $third_course = $course;
-                                    $third_course_related = implode(", ", $related_courses);
-                                }
-                            }
+                          //       // Store top 3 courses in separate variables
+                          //       if ($score > 0 && $first_course == '') {
+                          //           $first_course = $course;
+                          //           $first_course_related = implode(", ", $related_courses);
+                          //       } elseif ($score > 0 && $second_course == '') {
+                          //           $second_course = $course;
+                          //           $second_course_related = implode(", ", $related_courses);
+                          //       } elseif ($score > 0 && $third_course == '') {
+                          //           $third_course = $course;
+                          //           $third_course_related = implode(", ", $related_courses);
+                          //       }
+                          //   }
 
                             
 
@@ -575,7 +575,7 @@
                                      '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
                                       '".$pref_course. "', '".$traits_string. "',
                                        '".$interests_string."','".$skills_string."', 
-                                       '".$career_goals_string."','".$first_course."', '".$first_course_related. "','".$second_course."', '".$second_course_related. "','".$third_course."', '".$third_course_related. "', NOW() )
+                                       '".$career_goals_string."', NOW() )
                                     ");
                                     
                                     if ($insert_result) {
@@ -611,13 +611,13 @@
                             else{
                               // Insert the new data
                               $insert_result = mysqli_query($conn,  "INSERT INTO generated_codes(fullname,email,exam_key,exam_date,exam_time,exam_time_end,status, 
-                                    strand, pref_course, traits, interest, skill, career_goal,f_course,f_related_course,s_course,s_related_course,t_course,t_related_course,
-                                     exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
-                                     '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
-                                      '".$pref_course. "', '".$traits_string. "',
-                                       '".$interests_string."','".$skills_string."', 
-                                       '".$career_goals_string."','".$first_course."', '".$first_course_related. "','".$second_course."', '".$second_course_related. "','".$third_course."', '".$third_course_related. "', NOW() )
-                                    ");
+                              strand, pref_course, traits, interest, skill, career_goal,f_course,f_related_course,s_course,s_related_course,t_course,t_related_course,
+                               exam_key_created_at) VALUES ('". $fullname . "','". $email . "','".$exam_code."',
+                               '".$examDate."','". $examTime."','". $examtimeend."','pending','".$strand."',
+                                '".$pref_course. "', '".$traits_string. "',
+                                 '".$interests_string."','".$skills_string."', 
+                                 '".$career_goals_string."', NOW() )
+                              ");
                                   
 
                             if ($insert_result) {
