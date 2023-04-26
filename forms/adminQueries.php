@@ -171,6 +171,41 @@ function getTopics() {
     ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }
+
+// get topics
+function getFailedStudents() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT *
+    FROM results WHERE remarks = 'failed'
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+
+function getPassedStudents() {
+    $url = 'localhost';
+    $username = 'root';
+    $password = '';
+
+    $conn = new mysqli($url, $username, $password, 'project');
+    if ($conn->connect_error) {
+        die("Connection failed!:" . $conn->connect_error);
+    }
+    $sql = mysqli_query($conn,
+    "SELECT *
+    FROM results WHERE remarks = 'passed'
+    ");
+    return mysqli_fetch_all($sql, MYSQLI_ASSOC);
+}
+
+
 //archived courses
 function getArchivedCourses() {
     /*include 'database.php';

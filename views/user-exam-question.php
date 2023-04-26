@@ -352,7 +352,7 @@ if ($elapsed_time > $allotted_time) {
                             $second_course_related = '';
                             $third_course = '';
                             $third_course_related = '';
-                              // Retrieve user's input
+                              // Retrieve user's score per subject input
                               $predefined_math_score = 20;
                               $predefined_english_score = 20;
                               $predefined_logic_score = 20;
