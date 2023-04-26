@@ -24,7 +24,9 @@
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../assets/css/style-admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
+    <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
   </head>
@@ -34,14 +36,17 @@
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-brand-wrapper d-flex align-items-center">
           <a class="navbar-brand brand-logo" href="../views/admin.php">
-            <img src="../assets/img/kursonada.png" alt="logo" class="logo-dark" />
+            <img src="../assets/img/Kursonada.png" alt="logo" class="logo-dark" />
           </a>
-          <a class="navbar-brand brand-logo-mini"><img src="../assets/img/OAEWCA-LOGO copy.png" alt="logo" /></a>
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex button-sm" type="button" data-toggle="minimize">
+            <span class="icon-menu"></span><!--sidebar button-->
+          </button>
+          <a class="navbar-brand brand-logo-mini"><img src="../assets/img/Kursonada-mini.png" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?></h5>
+          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome <?php echo ($_SESSION['fullname']); ?>!</h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
-            <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+          <li class="nav-item dropdown"> <!--for mobile ui user drop down -->
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                <span class="font-weight-normal"><?php echo ($_SESSION['fullname']); ?> </span></a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -72,7 +77,7 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-profile">
+          <li class="nav-item nav-profile sidebar-menu-title"><!--for sidebar user drop down -->
               <a href="#" class="nav-link">
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo ($_SESSION['fullname']); ?></p>
@@ -84,7 +89,7 @@
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category">
+            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
               <span class="nav-link">Student Dashboard</span>
             </li>
             <li class="nav-item"> 
@@ -93,7 +98,8 @@
                 <i class="icon-screen-desktop menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item nav-category"><span class="nav-link">Admission Exam</span></li>
+            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
+              <span class="nav-link">Admission Exam</span></li>
             <li class="nav-item active">
               <a class="nav-link" href="../views/user-exam.php">
                 <span class="menu-title">Examination</span>
@@ -114,14 +120,16 @@
                   <div class="card-header d-block d-md-flex"> 
                      <h5 class="mb-0 font-weight-medium d-none d-lg-flex">
                       <?php
-                        $named = mysqli_query($conn,
-                        "SELECT *
+                      include 'conn.php';
+                      $select = mysqli_query($conn,
+                        "SELECT subj_name
                         FROM tbl_exam_subjects where subj_id = ".$_SESSION['subjectexam']."
                         ");
                         
-                        $naming = $named->fetch_assoc();
-                        echo $naming['subj_name']
-                     ?></h5>
+                        $seek = $select->fetch_assoc();
+                        echo $seek['subj_name'];
+                      ?>
+                     </h5>
           <ul class="navbar-nav navbar-nav-right ml-auto">
           <?php
 
@@ -135,7 +143,7 @@ if (!isset($_SESSION['start_time'])) {
 $start_time = $_SESSION['start_time'];
 
 // Calculate the elapsed time
-$allotted_time = $_SESSION['set_time']*60;
+$allotted_time = 120*60;
 $elapsed_time = $current_time - $start_time;
 
 // Check if the elapsed time is greater than the allotted time
@@ -163,7 +171,7 @@ if ($elapsed_time > $allotted_time) {
             $pages = array();
             $sql = mysqli_query($conn,
             "SELECT *
-            FROM tbl_topic_questions where que_topic = ".$_SESSION['subjectexam']."
+            FROM tbl_topic_questions where que_topic = ".$_SESSION['topicvalue']."
             ");
             $sqlrows = mysqli_fetch_all($sql, MYSQLI_ASSOC);
             $rows = $sqlrows;
@@ -225,17 +233,14 @@ if ($elapsed_time > $allotted_time) {
             if (!isset($_SESSION["totalscore"])) {
               $_SESSION["totalscore"] = 0;
             }
-<<<<<<< Updated upstream
-=======
-            /*
+
             if (!isset($_SESSION["score"])) {
               $_SESSION["tempscore"] = 0;
             }
 
             if (!isset($_SESSION["totalscore"])) {
               $_SESSION["temptotalscore"] = 0;
-            }*/
->>>>>>> Stashed changes
+            }
       
             // Display the current page
             if (isset($_POST["next"])) {
@@ -253,16 +258,11 @@ if ($elapsed_time > $allotted_time) {
               // Go back to the previous page
               array_pop($_SESSION["displayed_pages"]);
               if ($_SESSION["totalscore"] <= $_SESSION["score"]){
-<<<<<<< Updated upstream
-              $_SESSION["score"] -= 1;}
-              $_SESSION["totalscore"] -= 1;
-=======
               $_SESSION["score"] -= 1;
-              //$_SESSION["tempscore"] -= 1;
+              $_SESSION["tempscore"] -= 1;
               }
               $_SESSION["totalscore"] -= 1;
-              //$_SESSION["temptotalscore"] -= 1;
->>>>>>> Stashed changes
+              $_SESSION["temptotalscore"] -= 1;
 
               $_SESSION["current_page"] = end($_SESSION["displayed_pages"]);
             } else {
@@ -281,13 +281,8 @@ if ($elapsed_time > $allotted_time) {
 
               $_SESSION["score"] += $_POST['exam'];
               $_SESSION["totalscore"] += 1;
-<<<<<<< Updated upstream
-
-              if ($_SESSION['subjectexam'] != 3){
-                unset ($_SESSION["displayed_pages"]);
-=======
-              //$_SESSION["tempscore"] += $_POST['exam'];
-              //$_SESSION["temptotalscore"] += 1;
+              $_SESSION["tempscore"] += $_POST['exam'];
+              $_SESSION["temptotalscore"] += 1;
               $_SESSION['topicexam']+=1;
               $totaltopics = mysqli_query($conn,
               "SELECT row_number() OVER (ORDER BY topic_id, topic_name) n,
@@ -314,7 +309,7 @@ if ($elapsed_time > $allotted_time) {
                 return;
               }
 
-              else if ($_SESSION['topicexam'] > $rowcount && $_SESSION['subjectexam'] !=4){/*
+              else if ($_SESSION['topicexam'] > $rowcount){
                 if ($_SESSION['subjectexam'] == 1){
                   $_SESSION['english'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
                 }
@@ -328,18 +323,14 @@ if ($elapsed_time > $allotted_time) {
                   $_SESSION['logic'] = ($_SESSION["tempscore"]/$_SESSION["temptotalscore"])*100;
                 }
                 unset($_SESSION["tempscore"]);
-                unset($_SESSION["temptotalscore"]);*/
->>>>>>> Stashed changes
+                unset($_SESSION["temptotalscore"]);
                 $_SESSION['subjectexam']++;
-                echo "<script> window.location = 'user-exam-subject.php' </script>";
+                $_SESSION['topicexam'] = 0;
+              echo "<script> window.location = 'user-exam-subject.php' </script>";
               }
 
-<<<<<<< Updated upstream
-              if ($_SESSION['subjectexam'] == 3){
-=======
               
-              if ($_SESSION['subjectexam'] >= 4){
->>>>>>> Stashed changes
+              if ($_SESSION['subjectexam'] == 4){
               $percentile = ($_SESSION["score"]/$_SESSION["totalscore"])*100;
               $email = $_SESSION['email'];
 
@@ -370,17 +361,154 @@ if ($elapsed_time > $allotted_time) {
                     $status = 'finished';
                     $strand = $row['strand'];
                     $pref_course = $row['pref_course'];
-                    $traits = $row['traits'];
-                    $interest = $row['interest'];
-                    $skill = $row['skill'];
-                    $career_goal = $row['career_goal'];
-                    $f_course = $row['f_course'];
-                    $f_related_course = $row['f_related_course'];
-                    $s_course = $row['s_course'];
-                    $s_related_course = $row['s_related_course'];
-                    $t_course = $row['t_course'];
-                    $t_related_course = $row['t_related_course'];
+                    $traits_var = $row['traits'];
+                    $interest_var = $row['interest'];
+                    $skill_var = $row['skill'];
+                    $career_goal_var = $row['career_goal'];
+                    $traits_string = explode(',', $traits_var);
+                    $interests_string = explode(',', $interest_var);
+                    $skills_string = explode(',', $skill_var);
+                    $career_goals_string = explode(',', $career_goal_var);
+                    // $f_course = $row['f_course'];
+                    // $f_related_course = $row['f_related_course'];
+                    // $s_course = $row['s_course'];
+                    // $s_related_course = $row['s_related_course'];
+                    // $t_course = $row['t_course'];
+                    // $t_related_course = $row['t_related_course'];
                     $exam_key_created_at = $row['exam_key_created_at'];
+
+                    
+                      // Connect to the database
+                      $conn = mysqli_connect("localhost", "root", "", "project");
+                            // Check connection
+                            if (!$conn) {
+                                die("Connection failed: " . mysqli_connect_error());
+                            }
+                            $query = "SELECT * FROM courses";
+                            $result = $conn->query($query);
+
+                             // Store fetched data in $course_data array
+                            while ($row = $result->fetch_assoc()) {
+                              $course_data[$row['course']] = array(
+                                  'personality_traits' => array_map('trim', explode(',', $row['personality_traits'])),
+                                  'interests' => array_map('trim', explode(',', $row['interests'])),
+                                  'skills' => array_map('trim', explode(',', $row['skills'])),
+                                  'career_goals' => array_map('trim', explode(',', $row['career_goals'])),
+                                  'related_courses' => array_map('trim', explode(',', $row['related_course'])),
+                                  'math_score_requirement' => intval($row['Math']),
+                                  'english_score_requirement' => intval($row['English']),
+                                  'filipino_score_requirement' => intval($row['Filipino']),
+                                  'logic_score_requirement' => intval($row['Logic']),
+                                  'science_score_requirement' => intval($row['Science']),
+                              );
+                          }
+
+                            $traits_query = "SELECT personality_trait FROM personality_traits";
+                            $traits_result = $conn->query($traits_query);
+
+                            // create an empty array to store the traits
+                            $traits_array = array();
+
+                            // loop through the fetched rows and add the traits to the array
+                            if ($traits_result->num_rows > 0) {
+                                while ($row = $traits_result->fetch_assoc()) {
+                                    $traits = $row["personality_trait"];
+                                    array_push($traits_array, $traits);
+                                }
+                            }
+                            // Initialize variables to store top 3 courses
+                            $first_course = '';
+                            $first_course_related = '';
+                            $second_course = '';
+                            $second_course_related = '';
+                            $third_course = '';
+                            $third_course_related = '';
+                              // Retrieve user's score per subject input
+                              $predefined_math_score = 20;
+                              $predefined_english_score = 20;
+                              $predefined_logic_score = 20;
+                              $predefined_science_score = 20;
+                              $predefined_filipino_score = 20;
+                            
+
+                              // Calculate match score for each course based on user's input
+                              $match_scores = array();
+                            foreach ($course_data as $course => $data) {
+                                $score = 0;
+                                $course_score = 0;
+                                foreach ($traits_string as $trait) {
+                                    if (in_array($trait, $traits_array)) {
+                                        $score++;
+                                    }
+                                }
+                                foreach ($interests_string as $interest) {
+                                  if (in_array($interest, $data['interests'])) {
+                                      $score++;
+                                  }
+                              }
+                              foreach ($skills_string as $skill) {
+                                  if (in_array($skill, $data['skills'])) {
+                                      $score++;
+                                  }
+                              }
+                                foreach ($career_goals_string as $career_goal) {
+                                  if (in_array($career_goal, $data['career_goals'])) {
+                                      $score++;
+                                  }
+                              }
+                              if ($predefined_math_score <= $data['math_score_requirement']) {
+                                $course_score++;
+                              }
+                              if ($predefined_english_score <= $data['english_score_requirement']) {
+                                $course_score++;
+                              }
+                              if ($predefined_logic_score <= $data['logic_score_requirement']) {
+                                $course_score++;
+                              }
+                              if ($predefined_science_score <= $data['science_score_requirement']) {
+                                $course_score++;
+                              }
+                              if ($predefined_filipino_score <= $data['filipino_score_requirement']) {
+                                $course_score++;
+                              }
+                                // Add the score to an array for the current course
+                                $match_scores[$course] = array(
+                                  'total_score' => $score + $course_score,
+                                  'score' => $score,
+                                  'subject_course_score' => $course_score,
+                                  'math_score_requirement' => $data['math_score_requirement'],
+                                  'personality_traits' => $data['personality_traits'],
+                                  'related_courses' => $data['related_courses']
+                              );
+                            }
+
+                          //   foreach ($match_scores as $course_name => $course_data) {
+                          //     $score = $course_data['score'];
+                          //     $total_score = $course_data['total_score'];
+                          //     $subject_course_score = $course_data['subject_course_score'];
+                          //     echo $course_name . ': ' . $score . ' ' . $subject_course_score . ' ' . $total_score . '<br>';
+                          // }
+
+                          
+                            // Sort courses by match score and output top 3
+                            arsort($match_scores);
+                            $top_courses = array_slice($match_scores, 0, 3);
+                            foreach ($top_courses as $course => $data) {
+                                $total_scores = $data['score'];
+                                $related_courses = $data['related_courses'];
+                                
+                                // Store top 3 courses in separate variables
+                                if ($total_scores > 0 && $first_course == '') {
+                                    $first_course = $course;
+                                    $first_course_related = implode(", ", $related_courses);
+                                } elseif ($total_scores > 0 && $second_course == '') {
+                                    $second_course = $course;
+                                    $second_course_related = implode(", ", $related_courses);
+                                } elseif ($total_scores > 0 && $third_course == '') {
+                                    $third_course = $course;
+                                    $third_course_related = implode(", ", $related_courses);
+                                }
+                            }
                  
                 // Check if a row with the same email already exists in the 'results' table
                     $sql_check = "SELECT * FROM results WHERE email = '$email'";
@@ -392,7 +520,7 @@ if ($elapsed_time > $allotted_time) {
                         if (mysqli_query($conn, $sql_delete)) {
                             // If the row is deleted successfully, insert the new row
                             $sql_insert = "INSERT INTO results (fullname, email, exam_key, score, remarks, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
-                            VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
+                            VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits_var', '$interest_var', '$skill_var', '$career_goal_var', '$first_course', '$first_course_related', '$second_course', '$second_course_related', '$third_course', '$third_course_related', '$exam_key_created_at')";
 
                               if (mysqli_query($conn, $sql_insert)) {
                                 
@@ -400,7 +528,7 @@ if ($elapsed_time > $allotted_time) {
                               if (mysqli_query($conn, $sql_delete2)) {
                                   // If the row is deleted successfully, insert the new row
                                   $sql_insert = "INSERT INTO generated_codes (fullname, email, exam_key, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
-                                  VALUES ('$fullname', '$email', '$exam_key', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
+                                  VALUES ('$fullname', '$email', '$exam_key', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits_var', '$interest_var', '$skill_var', '$career_goal_var', '$first_course', '$first_course_related', '$second_course', '$second_course_related', '$third_course', '$third_course_related', '$exam_key_created_at')";
       
                                     if (mysqli_query($conn, $sql_insert)) {
                                       echo "<script>
@@ -410,7 +538,7 @@ if ($elapsed_time > $allotted_time) {
                                               text: 'Congratulations, you have finished the exam!',
                                               icon: 'success',
                                               confirmButtonText: 'Awesome',
-                                              timer: 3000,
+                                              // timer: 3000,
                                               allowOutsideClick: true,
                                               didDestroy: function() {
                                                   window.location.href = 'user-dashboard.php';
@@ -459,46 +587,52 @@ if ($elapsed_time > $allotted_time) {
                     } else {
                         // If no row is found, insert the new row
                         $sql_insert = "INSERT INTO results (fullname, email, exam_key, score, remarks, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
-                            VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
+                        VALUES ('$fullname', '$email', '$exam_key', '$percentile', '$remarks', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits_var', '$interest_var', '$skill_var', '$career_goal_var', '$first_course', '$first_course_related', '$second_course', '$second_course_related', '$third_course', '$third_course_related', '$exam_key_created_at')";
 
-                            if (mysqli_query($conn, $sql_insert)) {
-                              $sql_delete2 = "DELETE FROM generated_codes WHERE email = '$email'";
-                              if (mysqli_query($conn, $sql_delete2)) {
-                                  // If the row is deleted successfully, insert the new row
-                                  $sql_insert = "INSERT INTO generated_codes (fullname, email, exam_key, exam_date, exam_time, exam_time_end, status, strand, pref_course, traits, interest, skill, career_goal, f_course, f_related_course, s_course, s_related_course, t_course, t_related_course, exam_key_created_at)
-                                  VALUES ('$fullname', '$email', '$exam_key', '$exam_date', '$exam_time', '$exam_time_end', '$status', '$strand', '$pref_course', '$traits', '$interest', '$skill', '$career_goal', '$f_course', '$f_related_course', '$s_course', '$s_related_course', '$t_course', '$t_related_course', '$exam_key_created_at')";
-      
-                                    if (mysqli_query($conn, $sql_insert)) {
-                                      echo "<script>
-                                      setTimeout(function() {
-                                          Swal.fire({
-                                              title: 'Finished',
-                                              text: 'Congratulations, you have finished the exam!',
-                                              icon: 'success',
-                                              confirmButtonText: 'Awesome',
-                                              timer: 3000,
-                                              allowOutsideClick: true,
-                                              didDestroy: function() {
-                                                  window.location.href = 'user-dashboard.php';
-                                              }
-                                          });
-                                      }, 1000);
-                                    </script>";
-      
-                                    } else {
+              if (mysqli_query($conn, $sql_insert)) {
+                $sql_update = "UPDATE generated_codes SET
+                                status = '$status',
+                                skill = '$skill_var',
+                                interest = '$interest_var',
+                                pref_course = '$pref_course',
+                                traits = '$traits_var',
+                                career_goal = '$career_goal_var',
+                                exam_date = '$exam_date',
+                                exam_time = '$exam_time',
+                              exam_time_end = '$exam_time_end'
+                              WHERE email = '$email' AND fullname = '$fullname'";
+        
+                        if (mysqli_query($conn, $sql_update)) {
+                            echo "<script>
+                                  setTimeout(function() {
+                                      Swal.fire({
+                                    title: 'Finished',
+                                    text: 'Congratulations, you have finished the exam!',
+                                    icon: 'success',
+                                    confirmButtonText: 'Awesome',
+                                    // timer: 3000,
+                                    allowOutsideClick: true,
+                                    didDestroy: function() {
+                                        window.location.href = 'user-dashboard.php';
+                                    }
+                                });
+                            }, 1000);
+                          </script>";
+                  }
+                else {
                                       echo "<script>
                                       setTimeout(function() {
                                               swal({
                                                 title: 'Error inserting record',
                                                 text: '".mysqli_error($conn)."',
                                                 icon: 'error',
-                                                timer: 3000,
+                                                // timer: 3000,
                                                 button: false,
                                               });
                                             }, 1000);
                                             </script>";
                                   }
-                              }
+                              
                             } else {
                                 echo "<script>
                                         swal({
@@ -517,9 +651,9 @@ if ($elapsed_time > $allotted_time) {
                 }
               } else {
                 echo "No rows found";
-              }
+              }}
             }
-          }
+
             $newsql = mysqli_query($conn,
             "SELECT *
             FROM tbl_topic_questions where que_id = '".$_SESSION['current_page']."'
@@ -551,22 +685,22 @@ if ($elapsed_time > $allotted_time) {
               
               <div>
                   <input type="radio" name="exam"  value="'.$value[0].'" required/>
-                  <label for="exam">A) '.$answers[0].' </label>
+                  <label for="exam"> '.$answers[0].' </label>
               </div>
               
               <div>
                   <input type="radio" name="exam"  value="'.$value[1].'" required/>
-                  <label for="exam-B">B) '.$answers[1].'</label>
+                  <label for="exam-B"> '.$answers[1].'</label>
               </div>
               
               <div>
                   <input type="radio" name="exam"  value="'.$value[2].'" required/>
-                  <label for="exam-C">C) '.$answers[2].'</label>
+                  <label for="exam-C"> '.$answers[2].'</label>
               </div>
               
               <div>
                   <input type="radio" name="exam"  value="'.$value[3].'" required/>
-                  <label for="exam-D">D) '.$answers[3].'</label>
+                  <label for="exam-D"> '.$answers[3].'</label>
               </div>
           
           </li>';
@@ -630,6 +764,7 @@ if ($elapsed_time > $allotted_time) {
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
+    <script src="../js/hoverable-collapse.js"></script><!--for sidebar user drop down -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="../vendors/chart.js/Chart.min.js"></script>
