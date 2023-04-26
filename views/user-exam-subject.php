@@ -127,7 +127,7 @@ include "../views/student-checker.php";
                     <blockquote class="blockquote blockquote-primary">
                         <?php 
                         include 'conn.php';
-                        if ($_SESSION['subjectexam'] == 1) { $subid = 1;}
+                        if ($_SESSION['subjectexam'] == 0) { $subid = 1; $_SESSION['subjectexam']++;}
                         else {$subid = $_SESSION['subjectexam'];}
                         //$subid = 4;
                         $select = mysqli_query($conn,
@@ -145,8 +145,23 @@ include "../views/student-checker.php";
                     <form method="POST">
                       <input type="submit" class="btn btn-outline-primary btn-fw" name="submit" value="Proceed">
                       <?php
-                      if (isset($_POST['submit'])){
-                        $_SESSION['topicexam'] = $subid;
+                      if (isset($_POST['submit']))
+                      {
+                        if ($_SESSION['topicexam'] == 0) { $_SESSION['topicexam']++;}
+                        $result = mysqli_query($conn,
+                        "SELECT row_number() OVER (ORDER BY topic_id, topic_name) n,
+                        topic_id, topic_name
+                        FROM tbl_exam_topics where topic_subj = ".$subid."
+                        ");
+                        
+                        while ($row = $result->fetch_assoc()) {
+                        if ($row['n'] == $_SESSION['topicexam']){
+                          $_SESSION['topicvalue'] =  $row['topic_id'];
+
+                        }
+                        //$_SESSION['topicexam'];
+                        }
+                        //echo $_SESSION['topicvalue'];
                         echo "<script> window.location = 'user-exam-topic.php' </script>";
 
 
