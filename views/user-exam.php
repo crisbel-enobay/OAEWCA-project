@@ -214,7 +214,7 @@ $(document).ready(function() {
           timerProgressBar: true,
           showConfirmButton: false
         }).then((result) => {
-          window.location.href = 'user-exam-topic.php';
+          window.location.href = 'user-exam-subject.php';
         });
       }, 100);
     } else if (response.trim().toLowerCase() == 'invalid') {

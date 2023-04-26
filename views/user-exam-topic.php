@@ -126,19 +126,17 @@ include "../views/student-checker.php";
                     <blockquote class="blockquote blockquote-primary">
                         <?php 
                         include 'conn.php';
-                        if ($_SESSION['topicexam'] == 0) { $topid = 1;}
-                        else {$topid = $_SESSION['topicexam'];}
+                        $topid = $_SESSION['topicvalue'];
                         $select = mysqli_query($conn,
                         "SELECT *
-                        FROM tbl_exam_topics where topic_subj = ".$topid."
+                        FROM tbl_exam_topics where topic_id = ".$topid."
                         ");
                         
                         $seek = $select->fetch_assoc();
-                        $_SESSION['set_time'] = $seek['topic_duration']; 
+                        //$_SESSION['set_time'] = $seek['topic_duration']; 
                         ?>
                         <center><h1><?php echo $seek['topic_name']; ?></h1></center>
                       <p><b>Instructions: </b><?php echo $seek['topic_desc']; ?></p>
-                      <p><b>Alloted Time: </b><?php echo $seek['topic_duration']; ?> minutes</p>
                     </blockquote>
                   </div>
                   <div class="card-body d-flex align-items-center justify-content-center">
@@ -146,7 +144,9 @@ include "../views/student-checker.php";
                       <input type="submit" class="btn btn-outline-primary btn-fw" name="submit" value="Proceed">
                       <?php
                       if (isset($_POST['submit'])){
-                        
+                        if (isset($_SESSION["displayed_pages"])) {
+                          unset($_SESSION["displayed_pages"]);
+                        }
                         echo "<script> window.location = 'user-exam-question.php' </script>";
 
                       }
