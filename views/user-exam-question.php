@@ -424,11 +424,11 @@ if ($elapsed_time > $allotted_time) {
                             $third_course = '';
                             $third_course_related = '';
                               // Retrieve user's score per subject input
-                              $predefined_math_score = 20;
-                              $predefined_english_score = 20;
-                              $predefined_logic_score = 20;
-                              $predefined_science_score = 20;
-                              $predefined_filipino_score = 20;
+                              $predefined_math_score = $_SESSION['math'];
+                              $predefined_english_score = $_SESSION['english'];
+                              $predefined_logic_score = $_SESSION['logic'];
+                              $predefined_science_score = $_SESSION['science'];
+                              // $predefined_filipino_score = $_SESSION['filipino'];
                             
 
                               // Calculate match score for each course based on user's input
@@ -468,9 +468,9 @@ if ($elapsed_time > $allotted_time) {
                               if ($predefined_science_score <= $data['science_score_requirement']) {
                                 $course_score++;
                               }
-                              if ($predefined_filipino_score <= $data['filipino_score_requirement']) {
-                                $course_score++;
-                              }
+                              // if ($predefined_filipino_score <= $data['filipino_score_requirement']) {
+                              //   $course_score++;
+                              // }
                                 // Add the score to an array for the current course
                                 $match_scores[$course] = array(
                                   'total_score' => $score + $course_score,
