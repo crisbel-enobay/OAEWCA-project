@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2023 at 10:58 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Apr 27, 2023 at 12:00 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,9 +40,8 @@ CREATE TABLE `admin_schedule` (
 --
 
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_time`, `exam_time_end`, `exam_date_created`) VALUES
-(56, '2023-02-16', '21:00:00', '23:00:00', '2023-02-16 20:39:55'),
-(58, '2023-02-18', '15:00:00', '16:00:00', '2023-02-16 20:39:55'),
-(62, '2023-03-09', '17:00:00', '19:00:00', '2023-03-09 17:10:09');
+(65, '2023-04-24', '19:00:00', '20:00:00', '2023-04-24 19:42:59'),
+(66, '2023-04-27', '00:00:00', '23:00:00', '2023-04-26 18:52:19');
 
 -- --------------------------------------------------------
 
@@ -153,6 +152,7 @@ INSERT INTO `career_goals` (`id`, `career_goal`) VALUES
 
 CREATE TABLE `courses` (
   `crs_id` int(11) NOT NULL,
+  `courses` varchar(255) NOT NULL,
   `course` varchar(255) NOT NULL,
   `personality_traits` varchar(255) NOT NULL,
   `interests` varchar(255) NOT NULL,
@@ -170,33 +170,33 @@ CREATE TABLE `courses` (
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`crs_id`, `course`, `personality_traits`, `interests`, `skills`, `career_goals`, `related_course`, `English`, `Math`, `Filipino`, `Science`, `Logic`) VALUES
-(1, 'Bachelor of Science in Mathematics (BSMath)', 'Analytical,Logical,Detail-oriented', 'Problem-solving, Research, Data analysis', 'Mathematical reasoning, Statistical analysis', 'Actuary, Data analyst, Mathematician', 'Bachelor of Science in Physics (BSP),Bachelor of Science in Statistics (BStat)', 3, 4, 3, 3, 4),
-(2, 'Bachelor of Science in Psychology (BSPsych)', 'Empathetic,Observant,Good listener', 'Counseling, Research, Mental health advocacy', 'Communication, Empathy, Research', 'Clinical psychologist, School psychologist, Social worker', 'Bachelor of Science in Social Work (BSSW),Bachelor of Science in Nursing (BSN)', 3, 2, 2, 4, 3),
-(3, 'Bachelor of Science in Criminology (BSCrim)', 'Detail-oriented,	\nObservant,Analytical', 'Forensic science, Law enforcement, Criminal justice research', 'Critical thinking, Investigation, Report writing', 'FBI agent, Police officer, Criminologist', 'Bachelor of Laws (LLB)', 3, 3, 2, 3, 3),
-(4, 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Logical,Analytical,Detail-oriented', 'Programming, Software development, Artificial intelligence', 'Problem-solving, Programming languages, Data structures and algorithms', 'Software developer, Data scientist, Artificial intelligence specialist, Computer systems analyst\n', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 2, 3, 3, 2, 4),
-(5, 'Bachelor of Science in Information System (BSIS)', 'Strategic,Technically adept,Detail-oriented', 'Technology, Business, Problem-solving', 'Project management, Systems analysis, Database management', 'IT consultant, Business analyst, Database administrator', 'Bachelor of Science in Computer Science (BSCS/BSComSci),Bachelor of Science in Information Technology (BSIT)', 2, 3, 3, 2, 3),
-(6, 'Bachelor of Science in Information Technology (BSIT)', 'Innovativeo,Analytical,Detail-oriented', 'Technology, Programming, Cybersecurity', 'Programming languages, Network administration, Cybersecurity skills', 'Network administrator, Cybersecurity specialist, IT consultant', 'Bachelor of Science in Computer Science (BSCS/BSComSci),Bachelor of Science in Information Systems (BSIS)', 2, 3, 3, 2, 3),
-(7, 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Creative,Collaborative,Technically adept', 'Video production, Animation, Game development', 'Creative writing, Graphic design, Video editing', 'Game designer, Animator, Video editor', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA),Bachelor of Science in Animation (BSA)', 2, 3, 3, 2, 3),
-(8, 'Bachelor of Arts in Political Science (ABPS/ABPolSci)', 'Analytical,Inquisitive,Persuasive', 'Politics, Public policy, Diplomacy', 'Research, Writing, Public speaking', 'Politician, Diplomat, Public policy analyst', 'Bachelor of Arts in Diplomacy and International Relations,Bachelor of Science in Legal Management (BSLM) (BADIR),', 3, 2, 2, 2, 3),
-(9, 'Bachelor of Arts in Communication (BAComm)', 'Empathetic,Creative,Persuasive', 'Journalism, Public relations, Advertising', 'Writing, Public speaking, Graphic design', 'Journalist, Public relations specialist, Advertising executive', 'Bachelor of Arts in Broadcasting (BAB)', 4, 2, 3, 2, 2),
-(10, 'Bachelor of Arts in Behavioral Science: Organizational and Social Systems Development (ABBS-OSSD)', 'Analytical,Collaborative,Problem-solving', 'Organizational development, Human resources, Community development', 'Communication, Leadership, Conflict resolution', 'Organizational development specialist, Human resources manager, Community development specialist', 'Bachelor of Science in Psychology (BSPsych),Bachelor of Science in Social Work (BSSW)', 3, 2, 3, 2, 3),
-(11, 'Bachelor in Public Administration (BPA)', 'Strategic,Collaborative,Ethical', 'Public service, Public policy, Management', 'Leadership, Decision-making, Conflict resolution', 'Government administrator, Nonprofit manager, Policy analyst', 'Bachelor of Science in Community Development (BSCD),Bachelor of Science in Development Communication (BSDC)', 3, 2, 3, 2, 2),
-(12, 'Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 'Collaborative,Empathetic,Strategic', 'Human resources, Employee training and development, Organizational behavior', 'Training and development, Performance evaluation, Conflict resolution', 'Human resources manager, Training and development specialist, Organizational development consultant', 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT),Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 3, 4, 2, 2, 3),
-(13, 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 'Detail-oriented,Analytical,Strategic', 'Finance, Investment, Risk management', 'Financial analysis, Investment analysis, Risk assessment', 'Financial analyst, Investment banker, Risk manager', 'Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM),Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 3, 4, 2, 2, 3),
-(14, 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 'Creative,Collaborative,Persuasive', 'Detail-oriented, Analytical, Strategic', 'Market research, Branding, Campaign management', 'Marketing manager, Brand manager, Advertising executive', 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT),,Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 3, 4, 2, 2, 3),
-(15, 'Bachelor of Science in Entrepreneurial Management (BSEM)', 'Innovative,Risk-taking,Strategic', 'Entrepreneurship, Innovation, Business development', 'Market research, Business planning, Financial management', 'Entrepreneur, Business owner, Business development manager', 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT),Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 3, 4, 2, 2, 3),
-(16, 'Bachelor of Science in Accountancy (BSA)', 'Detail-oriented,Analytical,Ethical', 'Accounting, Taxation, Auditing', 'Accounting, Financial analysis, Attention to detail', 'Certified Public Accountant, Tax accountant, Auditor', 'Bachelor of Science in Accounting Technology (BSAcT)', 3, 4, 2, 2, 3),
-(17, 'Bachelor of Science in Accounting Information System (BSAIS)', 'Detail-oriented,Analytical,Technically adept', 'Accounting, Information systems, Data analysis', 'Accounting principles, Database management, Information security', 'Accountant, Auditor, Financial analyst', 'Bachelor of Science in Accountancy (BSA)', 3, 4, 2, 2, 3),
-(18, 'Bachelor of Science in Office Administration (BSOAd)', 'Organized,Detail-oriented,Good communicator', 'Office management, Administrative support, Customer service', 'Time management, Record keeping, Customer service', 'Administrative assistant, Office manager, Customer service representative', 'Bachelor of Science in Management Accounting (BSMA)', 3, 4, 2, 2, 3),
-(19, 'Bachelor of Science in Tourism Management (BSTM)', 'Hospitable,Creative,Culturally sensitive', 'Travel, Hospitality, Event planning', 'Customer service, Marketing, Event planning', 'Tourism manager, Travel agent, Event coordinator', 'Bachelor of Science in Hospitality Management (BSHM)', 4, 2, 2, 2, 2),
-(20, 'Bachelor of Science in Hotel and Restaurant Management (BSHRM)', 'Hospitable,Detail-oriented,Good communicator', 'Hospitality, Culinary arts, Hotel and restaurant operations', 'Customer service, Budget management, Event planning', 'Hotel manager, Restaurant manager, Event coordinator', 'Bachelor in Tourism Management (BSTM)', 2, 2, 2, 2, 2),
-(21, 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 'Patient,Creative,Energetic', 'Child development, Teaching, Curriculum design', 'Classroom management, Lesson planning, Child assessment', 'Early childhood educator, Preschool teacher, Daycare center director', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 2, 2, 2, 2, 2),
-(22, 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Patient,Empathetic,Resourceful', 'Special education, Disability advocacy, Teaching', 'Adaptability, Multitasking, Problem-solving', 'Special education teacher, Disability advocate, Education consultant', 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 3, 3, 3, 3, 3),
-(23, 'Bachelor in Secondary Education: Science (BSEd-Sci)', 'Inquisitive,Resourceful,Adaptable', 'Science, Education, Research', 'Lesson planning, Classroom management, Scientific research', 'Science teacher, Science curriculum developer, Science education researcher', 'Bachelor in Secondary Education: Mathematics (BSEd-Math),Bachelor in Secondary Education: Biological Science (BSEd-Bio)', 3, 3, 2, 4, 3),
-(24, 'Bachelor in Secondary Education: English (BSEd-Eng)', 'Creative,Articulate,Patient', 'English language, Literature, Education', 'Lesson planning, Classroom management, Communication', 'English teacher, Curriculum developer, Education consultant', 'Bachelor in Secondary Education: Filipino (BSEd-Fil),Bachelor in Secondary Education: Mathematics (BSEd-Math)', 4, 2, 2, 2, 2),
-(25, 'Bachelor in Secondary Education: English-Chinese (BSEd-EngChi)', 'Bilingual,Cross-culturally competent,Adaptable', 'English language, Chinese language, Education', 'Lesson planning, Classroom management, Translation', 'Bilingual teacher, Language teacher, Education consultant', 'Bachelor in Secondary Education: Filipino (BSEd-Fil),Bachelor in Secondary Education: Mathematics (BSEd-Math)', 4, 2, 2, 2, 2),
-(26, 'Bachelor in Secondary Education: BTLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)', 'Creative, Resourceful, Patient', 'Home economics, Education, Culinary arts', 'Lesson planning, Classroom management, Culinary skills', 'Home economics teacher, Culinary instructor, Education consultant', 'Bachelor in Secondary Education: TLE-IA ( Bachelor of Technology and Livelihood Education major in Industrial Arts),Bachelor in Secondary Education: TLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)', 2, 2, 2, 2, 2);
+INSERT INTO `courses` (`crs_id`, `courses`, `course`, `personality_traits`, `interests`, `skills`, `career_goals`, `related_course`, `English`, `Math`, `Filipino`, `Science`, `Logic`) VALUES
+(1, 'BSMath', 'Bachelor of Science in Mathematics', 'Analytical,Logical,Detail-oriented', 'Problem-solving, Research, Data analysis', 'Mathematical reasoning, Statistical analysis', 'Actuary, Data analyst, Mathematician', 'Bachelor of Science in Physics (BSP),Bachelor of Science in Statistics (BStat)', 10, 8, 7, 6, 5),
+(2, 'BSPsych', 'Bachelor of Science in Psychology', 'Empathetic,Observant,Good listener', 'Counseling, Research, Mental health advocacy', 'Communication, Empathy, Research', 'Clinical psychologist, School psychologist, Social worker', 'Bachelor of Science in Social Work (BSSW),Bachelor of Science in Nursing (BSN)', 9, 9, 5, 10, 6),
+(3, 'BSCrim', 'Bachelor of Science in Criminology', 'Detail-oriented,	\nObservant,Analytical', 'Forensic science, Law enforcement, Criminal justice research', 'Critical thinking, Investigation, Report writing', 'FBI agent, Police officer, Criminologist', 'Bachelor of Laws (LLB)', 7, 5, 7, 7, 7),
+(4, 'BSCS', 'Bachelor of Science in Computer Science', 'Logical,Analytical,Detail-oriented', 'Programming, Software development, Artificial intelligence', 'Problem-solving, Programming languages, Data structures and algorithms', 'Software developer, Data scientist, Artificial intelligence specialist, Computer systems analyst\n', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 4, 7, 5, 5, 8),
+(5, 'BSIS', 'Bachelor of Science in Information System', 'Strategic,Technically adept,Detail-oriented', 'Technology, Business, Problem-solving', 'Project management, Systems analysis, Database management', 'IT consultant, Business analyst, Database administrator', 'Bachelor of Science in Computer Science (BSCS/BSComSci),Bachelor of Science in Information Technology (BSIT)', 7, 7, 5, 5, 7),
+(6, 'BSIT', 'Bachelor of Science in Information Technology', 'Innovativeo,Analytical,Detail-oriented', 'Technology, Programming, Cybersecurity', 'Programming languages, Network administration, Cybersecurity skills', 'Network administrator, Cybersecurity specialist, IT consultant', 'Bachelor of Science in Computer Science (BSCS/BSComSci),Bachelor of Science in Information Systems (BSIS)', 7, 7, 5, 5, 7),
+(7, 'BSEMC', 'Bachelor of Science in Entertainment and Multimedia Computing', 'Creative,Collaborative,Technically adept', 'Video production, Animation, Game development', 'Creative writing, Graphic design, Video editing', 'Game designer, Animator, Video editor', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA),Bachelor of Science in Animation (BSA)', 7, 7, 5, 5, 7),
+(8, 'ABPS', 'Bachelor of Arts in Political Science', 'Analytical,Inquisitive,Persuasive', 'Politics, Public policy, Diplomacy', 'Research, Writing, Public speaking', 'Politician, Diplomat, Public policy analyst', 'Bachelor of Arts in Diplomacy and International Relations,Bachelor of Science in Legal Management (BSLM) (BADIR),', 8, 5, 8, 5, 8),
+(9, 'BAComm', 'Bachelor of Arts in Communication', 'Empathetic,Creative,Persuasive', 'Journalism, Public relations, Advertising', 'Writing, Public speaking, Graphic design', 'Journalist, Public relations specialist, Advertising executive', 'Bachelor of Arts in Broadcasting (BAB)', 9, 5, 8, 5, 5),
+(10, 'ABBS-OSSD', 'Bachelor of Arts in Behavioral Science: Organizational and Social Systems Development', 'Analytical,Collaborative,Problem-solving', 'Organizational development, Human resources, Community development', 'Communication, Leadership, Conflict resolution', 'Organizational development specialist, Human resources manager, Community development specialist', 'Bachelor of Science in Psychology (BSPsych),Bachelor of Science in Social Work (BSSW)', 8, 6, 5, 9, 6),
+(11, 'BPA', 'Bachelor in Public Administration', 'Strategic,Collaborative,Ethical', 'Public service, Public policy, Management', 'Leadership, Decision-making, Conflict resolution', 'Government administrator, Nonprofit manager, Policy analyst', 'Bachelor of Science in Community Development (BSCD),Bachelor of Science in Development Communication (BSDC)', 8, 5, 8, 5, 5),
+(12, 'BSBA-HRDM', 'Bachelor of Science in Business Administration: Human Resource Development Management', 'Collaborative,Empathetic,Strategic', 'Human resources, Employee training and development, Organizational behavior', 'Training and development, Performance evaluation, Conflict resolution', 'Human resources manager, Training and development specialist, Organizational development consultant', 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT),Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 8, 7, 7, 4, 4),
+(13, 'BSBA-FMGT', 'Bachelor of Science in Business Administration: Financial Management ', 'Detail-oriented,Analytical,Strategic', 'Finance, Investment, Risk management', 'Financial analysis, Investment analysis, Risk assessment', 'Financial analyst, Investment banker, Risk manager', 'Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM),Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 7, 9, 5, 4, 4),
+(14, 'BSBA-MKMGT', 'Bachelor of Science in Business Administration: Marketing Management', 'Creative,Collaborative,Persuasive', 'Detail-oriented, Analytical, Strategic', 'Market research, Branding, Campaign management', 'Marketing manager, Brand manager, Advertising executive', 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT),,Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 9, 4, 8, 4, 4),
+(15, 'BSEM', 'Bachelor of Science in Entrepreneurial Management', 'Innovative,Risk-taking,Strategic', 'Entrepreneurship, Innovation, Business development', 'Market research, Business planning, Financial management', 'Entrepreneur, Business owner, Business development manager', 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT),Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 9, 4, 8, 4, 5),
+(16, 'BSA', 'Bachelor of Science in Accountancy', 'Detail-oriented,Analytical,Ethical', 'Accounting, Taxation, Auditing', 'Accounting, Financial analysis, Attention to detail', 'Certified Public Accountant, Tax accountant, Auditor', 'Bachelor of Science in Accounting Technology (BSAcT)', 6, 9, 5, 4, 6),
+(17, 'BSAIS', 'Bachelor of Science in Accounting Information System', 'Detail-oriented,Analytical,Technically adept', 'Accounting, Information systems, Data analysis', 'Accounting principles, Database management, Information security', 'Accountant, Auditor, Financial analyst', 'Bachelor of Science in Accountancy (BSA)', 7, 8, 6, 5, 5),
+(18, 'BSOAd', 'Bachelor of Science in Office Administration', 'Organized,Detail-oriented,Good communicator', 'Office management, Administrative support, Customer service', 'Time management, Record keeping, Customer service', 'Administrative assistant, Office manager, Customer service representative', 'Bachelor of Science in Management Accounting (BSMA)', 9, 7, 6, 3, 3),
+(19, 'BSTM', 'Bachelor of Science in Tourism Management', 'Hospitable,Creative,Culturally sensitive', 'Travel, Hospitality, Event planning', 'Customer service, Marketing, Event planning', 'Tourism manager, Travel agent, Event coordinator', 'Bachelor of Science in Hospitality Management (BSHM)', 8, 5, 6, 4, 3),
+(20, 'BSHRM', 'Bachelor of Science in Hotel and Restaurant Management', 'Hospitable,Detail-oriented,Good communicator', 'Hospitality, Culinary arts, Hotel and restaurant operations', 'Customer service, Budget management, Event planning', 'Hotel manager, Restaurant manager, Event coordinator', 'Bachelor in Tourism Management (BSTM)', 6, 6, 6, 4, 4),
+(21, 'BEEd-ECEd', 'Bachelor in Elementary Education: Early Childhood ', 'Patient,Creative,Energetic', 'Child development, Teaching, Curriculum design', 'Classroom management, Lesson planning, Child assessment', 'Early childhood educator, Preschool teacher, Daycare center director', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 7, 7, 6, 3, 3),
+(22, 'BEEd-SpEd', 'Bachelor in Elementary Education: Special Education', 'Patient,Empathetic,Resourceful', 'Special education, Disability advocacy, Teaching', 'Adaptability, Multitasking, Problem-solving', 'Special education teacher, Disability advocate, Education consultant', 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 6, 5, 5, 5, 3),
+(23, 'BSEd-Sci', 'Bachelor in Secondary Education: Science', 'Inquisitive,Resourceful,Adaptable', 'Science, Education, Research', 'Lesson planning, Classroom management, Scientific research', 'Science teacher, Science curriculum developer, Science education researcher', 'Bachelor in Secondary Education: Mathematics (BSEd-Math),Bachelor in Secondary Education: Biological Science (BSEd-Bio)', 6, 6, 5, 5, 4),
+(24, 'BSEd-Eng', 'Bachelor in Secondary Education: English', 'Creative,Articulate,Patient', 'English language, Literature, Education', 'Lesson planning, Classroom management, Communication', 'English teacher, Curriculum developer, Education consultant', 'Bachelor in Secondary Education: Filipino (BSEd-Fil),Bachelor in Secondary Education: Mathematics (BSEd-Math)', 10, 4, 4, 5, 3),
+(25, 'BSEd-EngChi', 'Bachelor in Secondary Education: English-Chinese', 'Bilingual,Cross-culturally competent,Adaptable', 'English language, Chinese language, Education', 'Lesson planning, Classroom management, Translation', 'Bilingual teacher, Language teacher, Education consultant', 'Bachelor in Secondary Education: Filipino (BSEd-Fil),Bachelor in Secondary Education: Mathematics (BSEd-Math)', 8, 6, 4, 4, 3),
+(26, 'BTLE-HE', 'Bachelor in Secondary Education:( Bachelor of Technology and Livelihood Education major in Home Economics)', 'Creative, Resourceful, Patient', 'Home economics, Education, Culinary arts', 'Lesson planning, Classroom management, Culinary skills', 'Home economics teacher, Culinary instructor, Education consultant', 'Bachelor in Secondary Education: TLE-IA ( Bachelor of Technology and Livelihood Education major in Industrial Arts),Bachelor in Secondary Education: TLE-HE ( Bachelor of Technology and Livelihood Education major in Home Economics)', 8, 5, 4, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -293,7 +293,9 @@ CREATE TABLE `generated_codes` (
 
 INSERT INTO `generated_codes` (`id`, `fullname`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `traits`, `interest`, `skill`, `career_goal`, `f_course`, `f_related_course`, `s_course`, `s_related_course`, `t_course`, `t_related_course`, `exam_key_created_at`) VALUES
 (86, 'John Doe', 'lebbraumjayce@gmail.com', 'cepi2935', '2023-03-12', '17:00:00', '23:00:00', 'pending', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16'),
-(87, 'student name sample', 'user@gmail.com', 'oetz9563', '2023-03-09', '17:00:00', '23:00:00', 'pending', 'STEM', 'Bachelor of Science in Mathematics (BSMath)', 'Bilingual,Creative,Detail-oriented,Empathetic', 'Auditing,Business,Business development', 'Creative writing', 'Actuary,Advertising executive,Artificial intelligence specialist,Brand manager', 'Bachelor of Science in Business Administration: Marketing Management (BSBA-MKMGT)', 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT), , Bachelor of Science in Business Administration: Human Resource Development Management (BSBA-HRDM)', 'Bachelor of Science in Information System (BSIS)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', '2023-03-12 17:56:35');
+(93, 'Enobay, Crisbel', 'cenobay9@gmail.com', 'rgkx4920', '2023-04-25', '14:00:00', '18:00:00', 'active', 'STEM', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Adaptable', 'Accounting', 'Adaptability', 'Accountant', 'Bachelor of Science in Accounting Information System (BSAIS)', 'Bachelor of Science in Accountancy (BSA)', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', 'Bachelor in Elementary Education: Early Childhood (BEEd-ECEd)', 'Bachelor of Science in Accountancy (BSA)', 'Bachelor of Science in Accounting Technology (BSAcT)', '2023-04-25 14:51:13'),
+(97, 'student name sample', 'user@gmail.com', 'lvsb6917', '2023-04-26', '08:00:00', '20:00:00', 'finished', 'STEM', 'Bachelor of Science in Mathematics', 'Adaptable', 'Accounting', 'Accounting principles', 'Accountant', 'Bachelor of Science in Accounting Information System', 'Bachelor of Science in Accountancy (BSA)', 'Bachelor of Science in Accountancy', 'Bachelor of Science in Accounting Technology (BSAcT)', 'Bachelor of Science in Psychology', 'Bachelor of Science in Social Work (BSSW), Bachelor of Science in Nursing (BSN)', '2023-04-26 18:49:07'),
+(101, 'Lorence Lactud', 'lactud.jl@gmail.com', 'abnh4268', '2023-04-27', '00:00:00', '23:00:00', 'finished', 'STEM', 'Bachelor of Science in Computer Science', 'Logical', 'Game development', 'Programming languages', 'IT consultant', 'Bachelor of Science in Information Technology', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', 'Bachelor of Science in Information System', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', '2023-04-27 05:37:38');
 
 -- --------------------------------------------------------
 
@@ -564,7 +566,9 @@ CREATE TABLE `results` (
 
 INSERT INTO `results` (`id`, `fullname`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `score`, `remarks`, `status`, `strand`, `pref_course`, `traits`, `interest`, `skill`, `career_goal`, `f_course`, `f_related_course`, `s_course`, `s_related_course`, `t_course`, `t_related_course`, `exam_key_created_at`) VALUES
 (85, 'M', 'lebbraumjayce3@gmail.com', 'gjtp5398', '2023-02-18', '15:00:00', '16:00:00', 74, 'failed', 'released', 'HUMMS', 'Bachelor of Science in Information Technology (BSIT)', 'Ethical,Good listener', 'Accounting,Administrative support,Advertising', 'Adaptability,Branding', 'Actuary,Administrative assistant', 'Bachelor of Science in Office Administration (BSOAd)', '0', 'Bachelor in Elementary Education: Special Education (BEEd-SpEd)', '', 'Bachelor of Arts in Communication (BAComm)', '', '2023-03-10 20:22:04'),
-(90, 'John Doe', 'lebbraumjayce@gmail.com', 'cepi2935', '2023-03-12', '17:00:00', '19:00:00', 100, 'passed', 'active', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16');
+(90, 'John Doe', 'lebbraumjayce@gmail.com', 'cepi2935', '2023-03-12', '17:00:00', '19:00:00', 100, 'passed', 'released', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16'),
+(96, 'student name sample', 'user@gmail.com', 'lvsb6917', '2023-04-26', '08:00:00', '20:00:00', 39, 'failed', 'released', 'STEM', 'Bachelor of Science in Mathematics', 'Adaptable', 'Accounting', 'Accounting principles', 'Accountant', 'Bachelor of Science in Accounting Information System', 'Bachelor of Science in Accountancy (BSA)', 'Bachelor of Science in Accountancy', 'Bachelor of Science in Accounting Technology (BSAcT)', 'Bachelor of Science in Psychology', 'Bachelor of Science in Social Work (BSSW), Bachelor of Science in Nursing (BSN)', '2023-04-26 18:49:07'),
+(102, 'Lorence Lactud', 'lactud.jl@gmail.com', 'abnh4268', '2023-04-27', '00:00:00', '23:00:00', 81, 'passed', 'released', 'STEM', 'Bachelor of Science in Computer Science', 'Logical', 'Game development', 'Programming languages', 'IT consultant', 'Bachelor of Science in Information Technology', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', 'Bachelor of Science in Information System', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', '2023-04-27 05:37:38');
 
 -- --------------------------------------------------------
 
@@ -680,8 +684,9 @@ CREATE TABLE `tbl_exam_subjects` (
 
 INSERT INTO `tbl_exam_subjects` (`subj_id`, `subj_name`, `subj_desc`, `subj_status`, `subj_timestamp`) VALUES
 (1, 'English', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:21:08'),
-(2, 'Filipino', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:34:17'),
-(3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48');
+(2, 'Science', 'Includes general knowledge about science', 1, '2023-04-26 02:36:43'),
+(3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48'),
+(4, 'Abstract Reasoning', 'Abstract Reasoning', 1, '2023-04-26 02:59:53');
 
 -- --------------------------------------------------------
 
@@ -706,7 +711,10 @@ CREATE TABLE `tbl_exam_topics` (
 INSERT INTO `tbl_exam_topics` (`topic_id`, `topic_name`, `topic_desc`, `topic_duration`, `topic_stat`, `topic_stamp`, `topic_subj`) VALUES
 (1, 'Vocabulary', 'one of the four words or phrases given a choices means almost SAME as the capitalized word in the preceding sentence. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 21:44:02', 1),
 (2, 'Basic Math Problems', 'This is a test of your ability to think out solution to quantitative problems in Basic Mathematics. Analyze and solve each problem carefully. Choose the letter that corresponds to your answer.\r\n', 45, 1, '2023-02-17 21:56:12', 3),
-(3, 'General Science', 'This is a test of your proficiency in General Science. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 22:17:18', 2);
+(3, 'General Science', 'This is a test of your proficiency in General Science. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 22:17:18', 2),
+(4, 'Analogy', 'Analogy', 30, 1, '2023-04-26 02:38:02', 1),
+(5, 'Synonym', 'Find the synonym of the word', 30, 1, '2023-04-26 02:49:36', 1),
+(6, 'Abstract Reasoning', 'Abstract Reasoning', 30, 1, '2023-04-26 03:00:11', 4);
 
 -- --------------------------------------------------------
 
@@ -785,7 +793,83 @@ INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
 (69, 19, 'Mitochondria', 1),
 (70, 19, 'Nucleus', 0),
 (71, 19, 'Cytoplasm', 0),
-(72, 19, 'Cell Membrane', 0);
+(72, 19, 'Cell Membrane', 0),
+(73, 20, 'indict:guilt', 0),
+(74, 20, 'raucous:sound', 1),
+(75, 20, 'obey:order', 0),
+(76, 20, 'divert:stream', 0),
+(77, 21, 'strident:voice', 0),
+(78, 21, 'look:scrutinize', 1),
+(79, 21, 'flicker:shine', 0),
+(80, 21, 'deliberate:propose', 0),
+(81, 22, 'chew:swallow', 0),
+(82, 22, 'nibble:bite', 0),
+(83, 22, 'wade:swim', 1),
+(84, 22, 'condemn :accuse', 0),
+(85, 23, 'feign:impression', 0),
+(86, 23, 'slander:reputation', 1),
+(87, 23, 'adopt:evolution', 0),
+(88, 23, 'impersonate:celebrity', 0),
+(89, 24, 'inject:needle', 0),
+(90, 24, 'dwindle:hoard', 0),
+(91, 24, 'obstruct:blockade', 0),
+(92, 24, 'coagulate:clot', 1),
+(93, 25, 'hygenic:dirty', 0),
+(94, 25, ' parched:thirsty', 1),
+(95, 25, 'cold:hot', 0),
+(96, 25, 'run:climb', 0),
+(97, 26, 'credulous:convince', 0),
+(98, 26, 'promote:job', 1),
+(99, 26, 'hospitable:house', 0),
+(100, 26, 'eminent:praise', 0),
+(101, 27, 'moon:earth', 0),
+(102, 27, 'insect:light', 0),
+(103, 27, 'ring:finger ', 0),
+(104, 27, 'satellite:orbit', 1),
+(105, 28, 'idea:germinate', 1),
+(106, 28, 'myth:explode', 0),
+(107, 28, 'crop:harvest', 0),
+(108, 28, 'virus:speed', 0),
+(109, 29, 'encourage', 1),
+(110, 29, 'protest', 0),
+(111, 29, 'evade', 0),
+(112, 29, 'conceive', 0),
+(113, 30, 'fail', 0),
+(114, 30, 'consent', 1),
+(115, 30, 'correct', 0),
+(116, 30, 'mollify', 0),
+(117, 31, 'prospective', 0),
+(118, 31, 'righteous', 0),
+(119, 31, 'assistant', 1),
+(120, 31, 'mandatory', 0),
+(121, 32, 'psychological', 0),
+(122, 32, 'startled', 1),
+(123, 32, 'started', 0),
+(124, 32, 'crooked', 0),
+(125, 33, 'clashing', 0),
+(126, 33, 'unusual', 1),
+(127, 33, 'lovely', 0),
+(128, 33, 'critical', 0),
+(129, 34, 'adolescent', 0),
+(130, 34, 'conflicting', 0),
+(131, 34, 'noisy', 1),
+(132, 34, 'grateful', 0),
+(133, 35, 'memory', 0),
+(134, 35, 'simile', 0),
+(135, 35, 'tension', 0),
+(136, 35, 'repetition', 1),
+(137, 36, 'splendor', 0),
+(138, 36, 'tenacity', 1),
+(139, 36, 'tendency', 0),
+(140, 36, 'decimation', 0),
+(141, 37, 'minority', 1),
+(142, 37, 'dependent', 0),
+(143, 37, 'quorum', 0),
+(144, 37, 'host', 0),
+(145, 39, '<image src = \"../abstract/2a.png\">', 0),
+(146, 39, '<image src = \"../abstract/2b.png\">', 1),
+(147, 39, '<image src = \"../abstract/2c.png\">', 0),
+(148, 39, '<image src = \"../abstract/2d.png\">', 0);
 
 -- --------------------------------------------------------
 
@@ -818,7 +902,26 @@ INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
 (16, 'The sun is mostly made of which gas?', 3),
 (17, 'Of the following metric units which one is the smallest?', 3),
 (18, 'A rise in atmosphere temperature due to an increase in carbon dioxide, methane and other gases that trap heat in the atmosphere is called _____.', 3),
-(19, 'The powerhouse of the cell.', 3);
+(19, 'The powerhouse of the cell.', 3),
+(20, 'STRIDENT:VOICE', 4),
+(21, 'READ:PERUSE', 4),
+(22, 'DAB:PAINT', 4),
+(23, ' PERJURE:TESTIMONY', 4),
+(24, 'FREEZE:ICE', 4),
+(25, 'TERRIFIED:SCARED ', 4),
+(26, 'ACCESIBLE:REACH', 4),
+(27, 'SAILBOAT:COURSE', 4),
+(28, 'SEED:SPROUT', 4),
+(29, 'ABET', 5),
+(30, 'ACCEDE', 5),
+(31, 'AUXILIARY', 5),
+(32, 'AWRY', 5),
+(33, 'ATYPICAL', 5),
+(34, 'BOISTEROUS', 5),
+(35, 'TAUTOLOGY', 5),
+(36, 'PERSEVERANCE', 5),
+(37, 'MINION', 5),
+(39, 'Which comes next?\n<image src = \'../abstract/no2.png\'>', 6);
 
 -- --------------------------------------------------------
 
@@ -846,7 +949,9 @@ INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verificatio
 (1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
 (3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
 (7, 'student name sample', 'user2@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
-(12, 'Marvin Caharop', 'lebbraumjayce@gmail.com', '$2y$10$5u/XjUI5X/hNckiDrA92BOeh6SukcZnguQ/P/0A02hzLXlyuXHjWC', 0, '331835', '2023-03-12 12:56:10', '', '');
+(12, 'Marvin Caharop', 'lebbraumjayce@gmail.com', '$2y$10$5u/XjUI5X/hNckiDrA92BOeh6SukcZnguQ/P/0A02hzLXlyuXHjWC', 0, '331835', '2023-03-12 12:56:10', '', ''),
+(13, 'Enobay, Crisbel', 'cenobay9@gmail.com', '$2y$10$BepTOUgqBtsdLh6hH9eroOyhYGOV31b6dwnv18ERGnwcIfRqNUQrG', 0, '181151', '2023-04-25 14:49:10', '', ''),
+(14, 'Lorence Lactud', 'lactud.jl@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '18115', '2023-04-25 14:49:10', '', '');
 
 --
 -- Indexes for dumped tables
@@ -982,7 +1087,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_schedule`
 --
 ALTER TABLE `admin_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `archived_courses`
@@ -1012,7 +1117,7 @@ ALTER TABLE `filipino_questionnaire`
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `hobbies_interests`
@@ -1048,7 +1153,7 @@ ALTER TABLE `personality_traits`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `science_questionnaire`
@@ -1066,31 +1171,31 @@ ALTER TABLE `skills`
 -- AUTO_INCREMENT for table `tbl_exam_subjects`
 --
 ALTER TABLE `tbl_exam_subjects`
-  MODIFY `subj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `subj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_exam_topics`
 --
 ALTER TABLE `tbl_exam_topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_que_answers`
 --
 ALTER TABLE `tbl_que_answers`
-  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `tbl_topic_questions`
 --
 ALTER TABLE `tbl_topic_questions`
-  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
