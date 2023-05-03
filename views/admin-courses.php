@@ -255,9 +255,9 @@
                       
                         <div class="modal-body">
                           
-                          <h4 id = "courses" class="lead mb-0"><p>Course:</p></h4>
-                          <h4 id = "course" class="lead mb-0">Course Name:</h4>
-                          <h4 id = "crs_desc" class="lead mb-0" style="text-align: justify;">Course Description:</h4>
+                          <h4>Course:<span id = "courses" class="lead"></span></h4>
+                          <h4>Course Name:<span id = "course" class="lead"></span></h4>
+                          <h4 style="text-align: justify;">Course Description:<span id = "crs_desc" class="lead" ></span></h4>
 
                           </div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -546,9 +546,9 @@
       let courseName = value.getAttribute("data-exName");
       let course = value.getAttribute("data-exCourse");
       let crs_desc = value.getAttribute("data-exDesc");
-      subname.innerHTML = 'Course: ' + courseName ;
-      subdesc.innerHTML = 'Course Name: ' + course ;
-      coursedesc.innerHTML = 'Course Description: ' + crs_desc ;
+      subname.innerHTML = ' ' + courseName ;
+      subdesc.innerHTML = ' ' + course ;
+      coursedesc.innerHTML = ' ' + crs_desc ;
     }
     /* check duplicate similar values
     $(document).ready(function() {

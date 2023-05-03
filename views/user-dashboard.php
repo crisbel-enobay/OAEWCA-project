@@ -28,6 +28,49 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
   </head>
+  <style>
+  table {
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    width: 100%;
+  }
+  
+  .badge-custom{
+    padding: 5px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+  }
+  th {
+    color: black;
+    font-weight: bold;
+  }
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: #5bc0de;
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.close {
+  color: #fff;
+}
+
+.modal-body {
+  font-size: 16px;
+  padding: 10px;
+}
+
+</style>
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->

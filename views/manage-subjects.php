@@ -218,10 +218,10 @@
                       
                         <div class="modal-body">
                           
-                          <h4 id = "subjName" class="lead mb-0">Name:</h4>
-                          <h4 id = "subjDesc" class="lead mb-0">Description:</h4>
-                          <h4 id = "subjStatus" class="lead mb-0">Status:</h4>
-                          <h4 id = "subjTime" class="lead mb-0">Date Created:</h4>
+                          <h4>Name:<span id = "subjName" class="lead mb-0"></span></h4>
+                          <h4>Description:<span id = "subjDesc" class="lead mb-0"></span></h4>
+                          <h4>Status:<span id = "subjStatus" class="lead mb-0"></span></h4>
+                          <h4>Date Created:<span id = "subjTime" class="lead mb-0"></span></h4>
 
                           </div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -430,10 +430,10 @@
       let state = "";
       if (status == 1) {state = "Active";}
       if (status == 0) {state = "Inactive";}
-      subname.innerHTML = 'Name: ' + name ;
-      subdesc.innerHTML = 'Description: ' + desc ;
-      substat.innerHTML = 'Status: ' + state ;
-      substmp.innerHTML = 'Date Created: ' + stamp ;
+      subname.innerHTML = ' ' + name ;
+      subdesc.innerHTML = ' ' + desc ;
+      substat.innerHTML = ' ' + state ;
+      substmp.innerHTML = ' ' + stamp ;
     }
 
     function archiveCourse(value) {

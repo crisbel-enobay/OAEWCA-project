@@ -347,17 +347,20 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Subject Description</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Topic Description</h5>
                       </div>
                       
                         <div class="modal-body">
                           
-                          <h4 id = "topicName" class="lead mb-0">Name:</h4>
-                          <h4 id = "topicSubj" class="lead mb-0">Subject:</h4>
-                          <h4 id = "topicDesc" class="lead mb-0">Description:</h4>
-                          <h4 id = "topicDuration" class="lead mb-0">Duration: -- minutes</h4>
-                          <h4 id = "topicStatus" class="lead mb-0">Status:</h4>
-                          <h4 id = "topicTime" class="lead mb-0">Date Created:</h4>
+                          <h4>Name:<span id = "topicName" class="lead mb-0"></span></h4>
+                          <h4>Subject:<span id = "topicSubj" class="lead mb-0"></span></h4>
+                          <h4>Description:<span id = "topicDesc" class="lead mb-0"></span></h4>
+                          <h4>Duration:<span id = "topicDuration" class="lead mb-0"></span></h4>
+                          <h4>Status:<span id = "topicStatus" class="lead mb-0"></span>
+                          <h4>Date Created:<span id = "topicTime" class="lead mb-0"></span>
+                          
+                         
+                          
 
                           </div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -617,12 +620,12 @@
       let state = "";
       if (status == 1) {state = "Active";}
       if (status == 0) {state = "Inactive";}
-      topname.innerHTML = 'Name: ' + name ;
-      topsubj.innerHTML = 'Subj: ' + subj ;
-      topdesc.innerHTML = 'Description: ' + desc ;
-      topdura.innerHTML = 'Duration: ' + dura + " minutes";
-      topstat.innerHTML = 'Status: ' + state ;
-      topstmp.innerHTML = 'Date Created: ' + stamp ;
+      topname.innerHTML = ' ' + name ;
+      topsubj.innerHTML = ' ' + subj ;
+      topdesc.innerHTML = ' ' + desc ;
+      topdura.innerHTML = ' ' + dura + " minutes";
+      topstat.innerHTML = ' ' + state ;
+      topstmp.innerHTML = ' ' + stamp ;
     }
 
     function archiveCourse(value) {

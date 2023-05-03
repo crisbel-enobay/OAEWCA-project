@@ -226,7 +226,6 @@ p {
                           <th class="font-weight-bold text-center" scope="col">EXAM DATE</th>
                           <th class="font-weight-bold text-center" scope="col">START TIME</th>
                           <th class="font-weight-bold text-center" scope="col">END TIME</th>
-                          <th class="font-weight-bold text-center" scope="col">ACTIONS</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -242,7 +241,7 @@ p {
                           $formattedTime = date('h:i A', strtotime($row['exam_time']));
                           $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                           $status = $row["status"];
-                          echo "<tr>";
+                          echo "<tr data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>";
                           if ($row['status'] == 'active') {
                             echo "<td><div class='badge badge-success p-2'>" . $row['status'] . "</div></td>";
                           } elseif ($row['status'] == 'pending') {
@@ -256,7 +255,6 @@ p {
                           echo "<td class ='tdclass'>" . $row["exam_date"] . "</td>";
                           echo "<td class ='tdclass'>" . $formattedTime . "</td>";
                           echo "<td class ='tdclass'>" . $formattedTime2 . "</td>";
-                          echo "<td><div class='text-center'><button type='button' class='btn btn-primary view-btn' data-toggle='modal' data-target='#viewModal' data-id='" . $id . "'>View Profiling</div></button></td>";
                           echo "</tr>";
                         }
                       } else {
