@@ -352,12 +352,12 @@
                       
                         <div class="modal-body">
                           
-                          <h4 id = "topicName">Name:</h4>
-                          <h4 id = "topicSubj">Subject:</h4>
-                          <h4 id = "topicDesc">Description:</h4>
-                          <h4 id = "topicDuration">Duration: -- minutes</h4>
-                          <h4 id = "topicStatus">Status:</h4>
-                          <h4 id = "topicTime">Date Created:</h4>
+                          <h4 id = "topicName" class="lead mb-0">Name:</h4>
+                          <h4 id = "topicSubj" class="lead mb-0">Subject:</h4>
+                          <h4 id = "topicDesc" class="lead mb-0">Description:</h4>
+                          <h4 id = "topicDuration" class="lead mb-0">Duration: -- minutes</h4>
+                          <h4 id = "topicStatus" class="lead mb-0">Status:</h4>
+                          <h4 id = "topicTime" class="lead mb-0">Date Created:</h4>
 
                           </div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>

@@ -193,6 +193,7 @@
                     <thead>
                         <tr>
                           <th scope="col">COURSES</th>
+                          <th scope="col">COURSE NAME</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -201,9 +202,12 @@
                         $i = 0;
                         while ($i < count($rows)) {   //Creates a loop to loop through results
                           $row = $rows[$i];
-                          $courseName = $row['course'];
-                          echo "<tr>
+                          $courseName = $row['courses'];
+                          $course = $row['course'];
+                          $crs_desc = $row['crs_desc'];
+                          echo "<tr id='expandbutton' data-bs-toggle='modal' data-bs-target='#expandmodal' data-exName='$courseName' data-exCourse='$course' data-exDesc='$crs_desc' onClick='expand(this)'>
                                     <td>" . $courseName . "</td>
+                                    <td>" . $course . "</td>
                             
                                   </tr>";  //$row['index'] the index here is a field name
                           $i++; 
@@ -212,6 +216,23 @@
                       </tbody>
                     </table>
                   </div>
+                  <!-- View Modal-->
+              <div class="modal fade" id="expandmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Course Description</h5>
+                      </div>
+                      
+                        <div class="modal-body">
+                          <h4>Course:<span id = "courses" class="lead"></span></h4>
+                          <h4>Course Name:<span id = "course" class="lead"></span></h4>
+                          <h4 style="text-align: justify;">Course Description:<span id = "crs_desc" class="lead" ></span></h4>
+                          </div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                  </div>
+
               </div>
             </div>
         </div>
@@ -257,6 +278,19 @@
     <!-- Other JS Files -->
     <script>
         <?php include '../assets/js/jquery.js' ?>
+
+        function expand(value) {
+          const subname = document.getElementById("courses");
+          const subdesc = document.getElementById("course");
+          const coursedesc = document.getElementById("crs_desc");
+          let courseName = value.getAttribute("data-exName");
+          let course = value.getAttribute("data-exCourse");
+          let crs_desc = value.getAttribute("data-exDesc");
+          subname.innerHTML = ' ' + courseName ;
+          subdesc.innerHTML = ' ' + course ;
+          coursedesc.innerHTML = ' ' + crs_desc ;
+        }
     </script>
+    
   </body>
 </html>

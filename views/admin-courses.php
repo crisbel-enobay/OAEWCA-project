@@ -25,6 +25,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><!--for sidebar user drop down -->
     <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css"><!--for sidebar user drop down -->
     <link rel="stylesheet" href="../assets/css/styles-admin.css"><!--new admin style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
     <!-- SweetAlert JS -->
@@ -188,8 +189,14 @@
                     <table class="table table-hover text-nowrap datatable">
                       <thead>
                         <tr>
-                          <th scope="col">COURSE ID</th>
+                          <th scope="col">ID</th>
                           <th scope="col">COURSES</th>
+                          <th scope="col">ENG</th>
+                          <th scope="col">FIL</th>
+                          <th scope="col">MATH</th>
+                          <th scope="col">SCIE</th>
+                          <th scope="col">LOG</th>
+                          <th scope="col">ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -199,7 +206,9 @@
                         while ($i < count($rows)) {   //Creates a loop to loop through results
                           $row = $rows[$i];
                           $id = $row['crs_id'];
-                          $courseName = $row['course'];
+                          $courseName = $row['courses'];
+                          $course = $row['course'];
+                          $crs_desc = $row['crs_desc'];
                           $eng = $row['English'];
                           $fil = $row['Filipino'];
                           $mat = $row['Math'];
@@ -208,12 +217,20 @@
                           echo "<tr>
                                     <td>" . $id . "</td>
                                     <td>" . $courseName . "</td>
+                                    <td>" . $eng . "</td>
+                                    <td>" . $fil . "</td>
+                                    <td>" . $mat . "</td>
+                                    <td>" . $sci . "</td>
+                                    <td>" . $log . "</td>
                                     <td>" .
                             "<div class='d-flex '>
                               <form method='POST' action='../forms/delete_bus.php'>
-                                        <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$courseName' data-eng='$eng' data-mat='$mat' data-fil='$fil' data-sci='$sci' data-log='$log' onClick='editCourse(this)'>EDIT</button>
-                                      </form>" .
-                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'>ARCHIVE</button>" .
+                                <button type='button' id='expandbutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#expandmodal' data-exName='$courseName' data-exCourse='$course' data-exDesc='$crs_desc' onClick='expand(this)'>
+                                <i class='fa fa-search-plus'></i>
+                               </button>
+                                <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$courseName' data-eng='$eng' data-mat='$mat' data-fil='$fil' data-sci='$sci' data-log='$log' onClick='editCourse(this)'><i class='fa fa-pencil'></i></button>
+                              </form>" .
+                            "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'><i class='fa fa-trash-o'></i></button>" .
                             "</div>" .
                             "</td>" .
                             "</td>
@@ -227,6 +244,25 @@
               <div>
                 <button type="button" class="btn btn-primary my-4 py-2 px-4" style="margin-left: 45%" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Course</button>
               </div>
+
+              <!-- View Modal-->
+              <div class="modal fade" id="expandmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Course Description</h5>
+                      </div>
+                      
+                        <div class="modal-body">
+                          
+                          <h4 id = "courses" class="lead mb-0"><p>Course:</p></h4>
+                          <h4 id = "course" class="lead mb-0">Course Name:</h4>
+                          <h4 id = "crs_desc" class="lead mb-0" style="text-align: justify;">Course Description:</h4>
+
+                          </div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                  </div>
 
               <!-- Add Bus-->
               <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -408,6 +444,7 @@
                         </div>
                         <div class="modal-footer">
                           <input type="submit" name="Archive" class="btn btn-danger" value="Yes" />
+                          
                           <?php
                             if (isset($_POST['Archive'])){
                               $url = 'localhost';
@@ -418,18 +455,8 @@
                               if ($conn->connect_error) {
                                   die("Connection failed!:" . $conn->connect_error);
                               }
-                              // $sql = mysqli_query($conn,
-                              // "DELETE FROM courses WHERE crs_id = ".$delid."
-                              // ");
                               $sql = mysqli_query($conn,
-                              "INSERT archived_courses
-                              (crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic)
-                              SELECT crs_id, course, related_hobbies, English, Math, Filipino, Science, Logic FROM courses
-                              WHERE crs_id = ". $delid ."
-                              ");
-                              $sql2 = mysqli_query($conn,
-                              "DELETE FROM courses
-                              WHERE crs_id = ". $delid ."
+                              "DELETE FROM courses WHERE id = ".$delid."
                               ");
                               echo "<script> window.location = 'admin-courses.php' </script>";
                               }
@@ -512,6 +539,17 @@
       document.querySelector("#course_id").value = courseID;
     }
 
+    function expand(value) {
+      const subname = document.getElementById("courses");
+      const subdesc = document.getElementById("course");
+      const coursedesc = document.getElementById("crs_desc");
+      let courseName = value.getAttribute("data-exName");
+      let course = value.getAttribute("data-exCourse");
+      let crs_desc = value.getAttribute("data-exDesc");
+      subname.innerHTML = 'Course: ' + courseName ;
+      subdesc.innerHTML = 'Course Name: ' + course ;
+      coursedesc.innerHTML = 'Course Description: ' + crs_desc ;
+    }
     /* check duplicate similar values
     $(document).ready(function() {
       $('#check_plateNo').keyup(function(e) {

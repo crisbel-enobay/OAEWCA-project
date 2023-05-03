@@ -218,10 +218,10 @@
                       
                         <div class="modal-body">
                           
-                          <h4 id = "subjName">Name:</h4>
-                          <h4 id = "subjDesc">Description:</h4>
-                          <h4 id = "subjStatus">Status:</h4>
-                          <h4 id = "subjTime">Date Created:</h4>
+                          <h4 id = "subjName" class="lead mb-0">Name:</h4>
+                          <h4 id = "subjDesc" class="lead mb-0">Description:</h4>
+                          <h4 id = "subjStatus" class="lead mb-0">Status:</h4>
+                          <h4 id = "subjTime" class="lead mb-0">Date Created:</h4>
 
                           </div><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>

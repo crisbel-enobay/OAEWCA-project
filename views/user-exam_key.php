@@ -308,10 +308,10 @@ p {
 
                 if (count($tableList) > 0) {
                   // render the modal button
-                  echo '<button type="button" class="btn btn-primary my-4 py-2 px-4" style="margin-left: 40%;" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>';
+                  echo '<button type="button" class="btn btn-primary my-4 py-2 px-4 align-items-center" style="margin: 40%;" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>';
                 } else {
                   // render a disabled modal button
-                  echo '<button type="button" disabled class="btn btn-primary my-4 py-2 px-4" style="margin-left: 40%;" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>';
+                  echo '<button type="button" disabled class="btn btn-primary my-4 py-2 px-4 align-items-center" style="margin-left: 40%;" data-bs-toggle="modal" data-bs-target="#transactionModal">Edit Exam Schedule and Profile</button>';
                 }
                 ?>
               </div>
