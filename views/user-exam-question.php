@@ -393,85 +393,97 @@ if ($elapsed_time > $allotted_time) {
                               $predefined_science_score = 20;
                               $predefined_filipino_score = 20;
                             
+// Define weights for each criterion
+$weights = array(
+    'personality_traits' => 0.25,
+    'interests' => 0.1,
+    'skills' => 0.15,
+    'career_goals' => 0.2,
+    'math_score_requirement' => 0.05,
+    'english_score_requirement' => 0.05,
+    'filipino_score_requirement' => 0.05,
+    'science_score_requirement' => 0.05,
+    'logic_score_requirement' => 0.05,
+);
 
-                              // Calculate match score for each course based on user's input
-                              $match_scores = array();
-                            foreach ($course_data as $course => $data) {
-                                $score = 0;
-                                $course_score = 0;
-                                foreach ($traits_string as $trait) {
-                                    if (in_array($trait, $traits_array)) {
-                                        $score++;
-                                    }
-                                }
-                                foreach ($interests_string as $interest) {
-                                  if (in_array($interest, $data['interests'])) {
-                                      $score++;
-                                  }
-                              }
-                              foreach ($skills_string as $skill) {
-                                  if (in_array($skill, $data['skills'])) {
-                                      $score++;
-                                  }
-                              }
-                                foreach ($career_goals_string as $career_goal) {
-                                  if (in_array($career_goal, $data['career_goals'])) {
-                                      $score++;
-                                  }
-                              }
-                              if ($predefined_math_score <= $data['math_score_requirement']) {
-                                $course_score++;
-                              }
-                              if ($predefined_english_score <= $data['english_score_requirement']) {
-                                $course_score++;
-                              }
-                              if ($predefined_logic_score <= $data['logic_score_requirement']) {
-                                $course_score++;
-                              }
-                              if ($predefined_science_score <= $data['science_score_requirement']) {
-                                $course_score++;
-                              }
-                              if ($predefined_filipino_score <= $data['filipino_score_requirement']) {
-                                $course_score++;
-                              }
-                                // Add the score to an array for the current course
-                                $match_scores[$course] = array(
-                                  'total_score' => $score + $course_score,
-                                  'score' => $score,
-                                  'subject_course_score' => $course_score,
-                                  'math_score_requirement' => $data['math_score_requirement'],
-                                  'personality_traits' => $data['personality_traits'],
-                                  'related_courses' => $data['related_courses']
-                              );
-                            }
+// Calculate match score for each course based on user's input
+$match_scores = array();
+foreach ($course_data as $course => $data) {
+    $score = 0;
+    foreach ($traits_string as $trait) {
+        if (in_array($trait, $data['personality_traits'])) {
+            $score += $weights['personality_traits'];
+        }
+    }
+    foreach ($interests_string as $interest) {
+        if (in_array($interest, $data['interests'])) {
+            $score += $weights['interests'];
+        }
+    }
+    foreach ($skills_string as $skill) {
+        if (in_array($skill, $data['skills'])) {
+            $score += $weights['skills'];
+        }
+    }
+    foreach ($career_goals_string as $career_goal) {
+        if (in_array($career_goal, $data['career_goals'])) {
+            $score += $weights['career_goals'];
+        }
+    }
+    if ($predefined_math_score <= $data['math_score_requirement']) {
+        $score += $weights['math_score_requirement'];
+    }
+    if ($predefined_english_score <= $data['english_score_requirement']) {
+        $score += $weights['english_score_requirement'];
+    }
+    if ($predefined_filipino_score <= $data['filipino_score_requirement']) {
+        $score += $weights['filipino_score_requirement'];
+    }
+    if ($predefined_science_score <= $data['science_score_requirement']) {
+        $score += $weights['science_score_requirement'];
+    }
+    if ($predefined_logic_score <= $data['logic_score_requirement']) {
+        $score += $weights['logic_score_requirement'];
+    }
+    // Add the score to an array for the current course
+    $match_scores[$course] = array(
+        'total_score' => $score,
+        'personality_traits' => $data['personality_traits'],
+        'related_courses' => $data['related_courses']
+    );
+}
 
-                          //   foreach ($match_scores as $course_name => $course_data) {
-                          //     $score = $course_data['score'];
-                          //     $total_score = $course_data['total_score'];
-                          //     $subject_course_score = $course_data['subject_course_score'];
-                          //     echo $course_name . ': ' . $score . ' ' . $subject_course_score . ' ' . $total_score . '<br>';
-                          // }
-
-                          
-                            // Sort courses by match score and output top 3
-                            arsort($match_scores);
-                            $top_courses = array_slice($match_scores, 0, 3);
-                            foreach ($top_courses as $course => $data) {
-                                $total_scores = $data['score'];
-                                $related_courses = $data['related_courses'];
-                                
-                                // Store top 3 courses in separate variables
-                                if ($total_scores > 0 && $first_course == '') {
-                                    $first_course = $course;
-                                    $first_course_related = implode(", ", $related_courses);
-                                } elseif ($total_scores > 0 && $second_course == '') {
-                                    $second_course = $course;
-                                    $second_course_related = implode(", ", $related_courses);
-                                } elseif ($total_scores > 0 && $third_course == '') {
-                                    $third_course = $course;
-                                    $third_course_related = implode(", ", $related_courses);
-                                }
-                            }
+// Sort courses by match score and output top 3
+arsort($match_scores);
+$total_weight = array_sum($weights);
+$top_courses = array_slice($match_scores, 0, 3);
+foreach ($top_courses as $course => $data) {
+    $total_score = $data['total_score'];
+    $related_courses = $data['related_courses'];
+    $score_percentage = round($total_score / $total_weight * 100);
+    // Store top 3 courses in separate variables
+    if ($score_percentage > 0 && $first_course == '' && $total_score > 0) {
+      $first_course = $course;
+      $first_course_related = implode(", ", $related_courses);
+      } elseif ($score_percentage > 0  && $second_course == '' && $total_score > 0) {
+      $second_course = $course;
+      $second_course_related = implode(", ", $related_courses);
+      } elseif ($score_percentage > 0 && $third_course == '' && $total_score > 0) {
+      $third_course = $course;
+      $third_course_related = implode(", ", $related_courses);
+      }
+      }
+       // Calculate total percentage score for top 3 courses
+       $total_score = 0;
+       foreach ($top_courses as $course => $data) {
+           $course_score = $data['total_score'];
+          //  $percentage_score = ($course_score / 10) * 100; // Convert to percentage
+          //  $total_score += $percentage_score;
+          //  echo "$percentage_score\n";
+           echo "$course_score\n";
+       }
+      // echo "$percentage_score\n";
+      echo "$course_score\n";
                  
                 // Check if a row with the same email already exists in the 'results' table
                     $sql_check = "SELECT * FROM results WHERE email = '$email'";
