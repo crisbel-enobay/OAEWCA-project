@@ -78,29 +78,12 @@ include "../views/student-checker.php";
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
-              <span class="nav-link">Student Dashboard</span>
-            </li>
+            <li class="nav-item nav-category sidebar-menu-title"><span class="nav-link">Entrance Exam</span></li>
             <li class="nav-item">
-              <a class="nav-link" href="../views/user-dashboard.php">
-                <span class="menu-title">Dashboard</span>
-                <i class="icon-screen-desktop menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
-              <span class="nav-link">Admission Exam</span></li>
-            <li class="nav-item">
-              <a class="nav-link" href="../views/user-exam.php">
+              <a class="nav-link" href="">
                 <span class="menu-title">Examination</span>
-                <i class="icon-globe menu-icon"></i>
+                <i class="icon-arrow-right-circle menu-icon"></i>
               </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../views/user-profiling.php">
-                <span class="menu-title">Schedule</span>
-                <i class="icon-globe menu-icon"></i>
-              </a>
-            </li>
             </li>
           </ul>
         </nav>
@@ -111,7 +94,6 @@ include "../views/student-checker.php";
               <nav>
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item active">Examination</li>
-                  <li class="breadcrumb-item"><a href="../views/more-info.php">More info</a></li>
                 </ol>
               </nav>
             </div>

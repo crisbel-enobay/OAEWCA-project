@@ -89,23 +89,12 @@
                 </div>
               </a>
             </li>
-            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
-              <span class="nav-link">Student Dashboard</span>
-            </li>
-            <li class="nav-item"> 
-              <a class="nav-link">
-                <span class="menu-title">Dashboard</span>
-                <i class="icon-screen-desktop menu-icon"></i>
-              </a>
-            </li>
-            <li class="nav-item nav-category sidebar-menu-title"><!--for sidebar user drop down -->
-              <span class="nav-link">Admission Exam</span></li>
-            <li class="nav-item active">
-              <a class="nav-link" href="../views/user-exam.php">
+            <li class="nav-item nav-category sidebar-menu-title"><span class="nav-link">Entrance Exam</span></li>
+            <li class="nav-item">
+              <a class="nav-link" href="">
                 <span class="menu-title">Examination</span>
-                <i class="icon-globe menu-icon"></i>
+                <i class="icon-arrow-right-circle menu-icon"></i>
               </a>
-            </li>
             </li>
             
           </ul>
@@ -652,10 +641,10 @@ if ($elapsed_time > $allotted_time) {
               }
             }
       
-            echo "<h1 style='font-size: 24px;'>" . $question . "</h1>";
+            echo "<h1 style='font-size: 24px; padding-left: 2%;'>" . $question . "</h1>";
             //echo "<h1 style='font-size: 24px;'>" . $_SESSION['score'] . $_SESSION['totalscore'] . "</h1>";
 
-            echo '<li>
+            echo '<li style="padding-left: 5%; text-decoration: none;">
               
               <div>
                   <input type="radio" name="exam"  value="'.$value[0].'" required/>
@@ -681,17 +670,17 @@ if ($elapsed_time > $allotted_time) {
       
             // Display the "Previous" button if there is a previous page
             if (count($_SESSION["displayed_pages"]) > 1) {
-              echo "<button type='submit' class='btn btn-danger' name='previous'>Previous</button>";
+              echo "<button type='submit' class='btn btn-danger' style='margin-left: 5%;' name='previous'>Previous</button>";
             }
       
             // Display the "Next" button if there are more pages to display
             if (count($_SESSION["displayed_pages"]) < count($pages)) {
-              echo "<button type='submit' class='btn btn-primary mx-3' name='next'>Next</button>";
+              echo "<button type='submit' class='btn btn-primary mx-3' style='margin-left: 5%;' name='next'>Next</button>";
             } else if (count($_SESSION["displayed_pages"]) == count($pages)) {
 
         
 
-              echo "<button type='submit' class='btn btn-primary mx-3' name='finish'>Finish</button>";
+              echo "<button type='submit' class='btn btn-primary mx-3' style='margin-left: 5%;' name='finish'>Finish</button>";
 
                     }
 
