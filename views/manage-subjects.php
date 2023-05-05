@@ -187,12 +187,15 @@
                                     <td>" .
                             "<div class='d-flex '>
                                 <form method='POST'>
-                                <button type='button' id='expandbutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#expandmodal' data-exname='$name' data-exStatus='$state' data-exDesc='$desc' data-exTime='$stamp' onClick='expand(this)'>
+                                <button type='button' id='expandbutton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#expandmodal' data-exname='$name' data-exStatus='$state' data-exDesc='$desc' data-exTime='$stamp' onClick='expand(this)'>
                                 <i class='fa fa-search-plus'></i>
                                </button>
-                                <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-editid='$id' data-editName='$name' data-status='$state' data-description='$desc' onClick='editSubject(this)'>
+                                <button type='button' id='editButton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-editid='$id' data-editName='$name' data-status='$state' data-description='$desc' onClick='editSubject(this)'>
                                 <i class='fa fa-pencil'></i>
                                 </button>
+                                <button type='button' id='showbutton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#managemodal' data-courseid='$id' data-exname='$name' onClick='manageQuestion(this)'>
+                                <i class='fa fa-question'> Show Questions</i>
+                               </button>
                                 
                             <button type='button' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' data-question='$name' onClick='archiveCourse(this)'><i class='fa fa-trash-o'></i></button> </form>" .
                             "</div>" .
@@ -286,6 +289,34 @@
                   </div>
                 </div>
                 <!-- End Edit Modal -->
+
+                <!-- Manage Modal -->
+              <div class="modal fade" id="managemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Manage Questions</h5>
+                      </div>
+                      <form  method="POST">
+                        <div class="modal-body">
+                          <input type="hidden" name="manage_id" id="manage_id" />
+                          <h4 id = "manage_text">There are currently xx questions for xxxx.</h4>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" name="Manage" class="btn btn-success" value="Manage" />
+                          <?php
+                            if (isset($_POST['Manage'])){
+                            $_SESSION['quest_sub'] = $_POST['manage_id'];
+                            echo "<script> window.location = 'subject-questions.php' </script>";
+                              }
+                          ?>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Manage Modal -->
 
                 <!-- Archive Modal -->
                 <div class="modal fade" id="delmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -416,6 +447,15 @@
       document.querySelector("#edit_id").value = edtid;
       document.querySelector("#edtquestion").value = subject;
       document.querySelector("#edtA").value = desc;
+    }
+
+    function manageQuestion(value) {
+      const confirmtext = document.getElementById("manage_text");
+      let manageid = value.getAttribute("data-courseid");
+      let count = value.getAttribute("data-manageCount");
+      let name = value.getAttribute("data-exname");
+      confirmtext.innerHTML = 'Show all question(s) on ' + name + '?';
+      document.querySelector("#manage_id").value = manageid;
     }
 
     function expand(value) {

@@ -179,7 +179,7 @@
                         include 'conn.php';
                         $sql = mysqli_query($conn,
                         "SELECT *
-                        FROM tbl_topic_questions INNER JOIN tbl_exam_topics ON tbl_topic_questions.que_topic =  tbl_exam_topics.topic_id where topic_subj = 1;
+                        FROM tbl_topic_questions INNER JOIN tbl_exam_topics ON tbl_topic_questions.que_topic =  tbl_exam_topics.topic_id where topic_subj = ".$_SESSION['quest_sub'].";
                         ");
                         $sqlrows = mysqli_fetch_all($sql, MYSQLI_ASSOC);
                         $rows = $sqlrows;
