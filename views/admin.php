@@ -29,6 +29,61 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+  table {
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    width: 100%;
+  }
+  
+  .badge-custom{
+    padding: 5px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  th {
+    color: black;
+    font-weight: bold;
+  }
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: #5bc0de;
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.close {
+  color: #fff;
+}
+
+.modal-body {
+  font-size: 16px;
+  padding: 10px;
+}
+
+#viewProfile p {
+  margin-bottom: 5px;
+}
+p {
+  font-weight: bold;
+}
+.view-btn{
+  padding:5px;
+}
+</style>
+
   </head>
   <body>
     
@@ -323,6 +378,24 @@
                       </tbody>
                     </table>
                   </div>
+                  <div>
+                                  <!-- View Modal -->
+              <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="viewModalLabel">View Profiling</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div id="viewProfile"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
                 </div>
               </div>
         <!-- content-wrapper ends -->
@@ -364,5 +437,19 @@
        <!-- Template Main JS File -->
        <script src="../assets/js/main2.js"></script>
     <!-- Other Custom JS -->
+    <script>
+ $(document).on("click", ".view-btn", function () {
+    var id = $(this).data('id');
+    $.ajax({
+        url: "../forms/get_results_student.php",
+        type: "POST",
+        data: {id: id},
+        success: function (data) {
+            $('#viewProfile').html(data);
+        }
+    });
+});
+</script>
+
   </body>
 </html>
