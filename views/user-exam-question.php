@@ -387,23 +387,36 @@ if ($elapsed_time > $allotted_time) {
                             $third_course = '';
                             $third_course_related = '';
                               // Retrieve user's score per subject input
-                              $predefined_math_score = 20;
-                              $predefined_english_score = 20;
-                              $predefined_logic_score = 20;
-                              $predefined_science_score = 20;
-                              $predefined_filipino_score = 20;
+                              $predefined_math_score = 80;
+                              $predefined_english_score = 74;
+                              $predefined_logic_score = 90;
+                              $predefined_science_score = 74;
+                              $predefined_filipino_score = 74;
                             
+// // Define weights for each criterion
+// $weights = array(
+//     'personality_traits' => 0.25,
+//     'interests' => 0.1,
+//     'skills' => 0.15,
+//     'career_goals' => 0.2,
+//     'math_score_requirement' => 0.05,
+//     'english_score_requirement' => 0.05,
+//     'filipino_score_requirement' => 0.05,
+//     'science_score_requirement' => 0.05,
+//     'logic_score_requirement' => 0.05,
+// );
+
 // Define weights for each criterion
 $weights = array(
-    'personality_traits' => 0.25,
-    'interests' => 0.1,
-    'skills' => 0.15,
-    'career_goals' => 0.2,
-    'math_score_requirement' => 0.05,
-    'english_score_requirement' => 0.05,
-    'filipino_score_requirement' => 0.05,
-    'science_score_requirement' => 0.05,
-    'logic_score_requirement' => 0.05,
+  'personality_traits' => 0.041,
+  'interests' => 0.041,
+  'skills' => 0.041,
+  'career_goals' => 0.041,
+  'math_score_requirement' => 0.10,
+  'english_score_requirement' => 0.10,
+  'filipino_score_requirement' => 0.10,
+  'science_score_requirement' => 0.10,
+  'logic_score_requirement' => 0.10,
 );
 
 // Calculate match score for each course based on user's input
@@ -430,19 +443,19 @@ foreach ($course_data as $course => $data) {
             $score += $weights['career_goals'];
         }
     }
-    if ($predefined_math_score <= $data['math_score_requirement']) {
+    if ($predefined_math_score >= $data['math_score_requirement']) {
         $score += $weights['math_score_requirement'];
     }
-    if ($predefined_english_score <= $data['english_score_requirement']) {
+    if ($predefined_english_score >= $data['english_score_requirement']) {
         $score += $weights['english_score_requirement'];
     }
-    if ($predefined_filipino_score <= $data['filipino_score_requirement']) {
+    if ($predefined_filipino_score >= $data['filipino_score_requirement']) {
         $score += $weights['filipino_score_requirement'];
     }
-    if ($predefined_science_score <= $data['science_score_requirement']) {
+    if ($predefined_science_score >= $data['science_score_requirement']) {
         $score += $weights['science_score_requirement'];
     }
-    if ($predefined_logic_score <= $data['logic_score_requirement']) {
+    if ($predefined_logic_score >= $data['logic_score_requirement']) {
         $score += $weights['logic_score_requirement'];
     }
     // Add the score to an array for the current course
@@ -485,6 +498,40 @@ foreach ($top_courses as $course => $data) {
       // echo "$percentage_score\n";
       echo "$course_score\n";
                  
+                $sql_check = "SELECT * FROM data_analytics WHERE email = '$email'";
+                $analytics_check = mysqli_query($conn, $sql_check);
+
+                if (mysqli_num_rows($analytics_check) > 0) {
+                  // If a row is found, delete it
+                  $sql_delete_analytics = "DELETE FROM data_analytics WHERE email = '$email'";
+                  if (mysqli_query($conn, $sql_delete_analytics)) {
+                      // If the row is deleted successfully, insert the new row
+                      $sql_insert_analytics = "INSERT INTO data_analytics (name, email, english, math, filipino, science, logic, date_created)
+                      VALUES ('$fullname', '$email', '$predefined_english_score', '$predefined_math_score', '$predefined_filipino_score', '$predefined_science_score', '$predefined_logic_score', NOW())";
+              
+                      if (mysqli_query($conn, $sql_insert_analytics)) {
+                          // Success message
+                          //echo "Data updated successfully!";
+                      } else {
+                          // Error message for insert query
+                          //echo "Error updating data: " . mysqli_error($conn);
+                      }
+                  } else {
+                      // Error message for delete query
+                     // echo "Error deleting data: " . mysqli_error($conn);
+                  }
+              } 
+                else{
+                  $sql_insert_analytics = "INSERT INTO data_analytics (name, email, english, math, filipino, science, logic, date_created)
+                  VALUES ('$fullname', '$email', '$predefined_english_score', '$predefined_math_score', '$predefined_filipino_score', '$predefined_science_score', '$predefined_logic_score', NOW())";
+                  if (mysqli_query($conn, $sql_insert_analytics)){
+                    echo "inserted";
+                  }
+                  else{
+                    echo "not inserted";
+                  }
+                }
+
                 // Check if a row with the same email already exists in the 'results' table
                     $sql_check = "SELECT * FROM results WHERE email = '$email'";
                     $result_check = mysqli_query($conn, $sql_check);
