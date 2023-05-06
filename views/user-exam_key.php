@@ -28,6 +28,8 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../assets/img/ucc.png" />
     <!-- SweetAlert JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+	  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <style>
   table {
@@ -263,7 +265,26 @@ p {
                       mysqli_close($conn);
                     ?>
                       </tbody>
+                      
                     </table>
+                    <?php
+                           $conn = mysqli_connect("localhost", "root", "", "project");
+                           $email = $_SESSION['email'];
+                           $sql = "SELECT exam_key FROM generated_codes where email = '$email'";
+                           $result = $conn->query($sql);
+                           if ($result->num_rows > 0) {
+                            // Output the exam key value as a hidden input field
+                            $row = $result->fetch_assoc();
+                            $exam_key = $row["exam_key"];
+                            echo "<input type='hidden' id='exam_key' value='$exam_key'>";
+                        } else {
+                            echo "0 results";
+                        }
+                        $conn->close();
+                      ?>
+                      <div class="preview text-muted" style="font-size: 0.8em;">
+                         <button type="button" onclick="copyToClipboard()" class="btn btn-inverse-dark btn-sm ml-2"><i class="icon-docs"  data-bs-toggle="tooltip" data-bs-placement="right" title="copy exam key"></i></button>  copy exam key
+                      </div>
                   </div>
                 </div>
                 
@@ -299,7 +320,7 @@ p {
                     </div>
                   </div>
                 </div>
-
+                        
                 <div>
                 <?php
                 // assume $tableList is an array of items in the table
@@ -801,6 +822,39 @@ p {
     <script>
         <?php include '../assets/js/jquery.js' ?>
     </script>
+    <!-- copy to clipboard -->
+    <script>
+        function copyToClipboard() {
+          // Get the value of the hidden input field
+          var exam_key = document.getElementById("exam_key").value;
+
+          // Create a temporary input field and set its value to the exam key
+          var tempInput = document.createElement("input");
+          tempInput.value = exam_key;
+
+          // Append the temporary input field to the document
+          document.body.appendChild(tempInput);
+
+          // Select the value of the temporary input field
+          tempInput.select();
+
+          // Copy the selected value to the clipboard
+          document.execCommand("copy");
+
+          // Remove the temporary input field from the document
+          document.body.removeChild(tempInput);
+
+          // Show a message using SweetAlert2 indicating that the value has been copied
+            Swal.fire({
+              title: "Exam Key Copied!",
+              text: exam_key,
+              icon: "success",
+              timer: 2000,
+              timerProgressBar: true,
+              showConfirmButton: false
+            });
+        }
+      </script>
        <script>
   const form = document.querySelector("form");
   const submitBtn = form.querySelector("input[type='submit']");
