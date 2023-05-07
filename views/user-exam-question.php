@@ -408,10 +408,10 @@ if ($elapsed_time > $allotted_time) {
 
 // Define weights for each criterion
 $weights = array(
-  'personality_traits' => 0.041,
-  'interests' => 0.041,
-  'skills' => 0.041,
-  'career_goals' => 0.041,
+  'personality_traits' => 0.0415,
+  'interests' => 0.0415,
+  'skills' => 0.0415,
+  'career_goals' => 0.0415,
   'math_score_requirement' => 0.10,
   'english_score_requirement' => 0.10,
   'filipino_score_requirement' => 0.10,
