@@ -27,7 +27,10 @@ if (isset($_POST['approve'])) {
       $email = $row['email'];
       $score = $row['score'];
       $remarks = $row['remarks'];
+      $status = $row['status'];
       $exam_date = $row['exam_date'];
+      $exam_date_formatted = date('F j, Y', strtotime($exam_date));
+      $pref_course = $row['pref_course'];
       $f_course = $row['f_course'];
       $s_course = $row['s_course'];
       $t_course = $row['t_course'];
@@ -73,6 +76,14 @@ if (isset($_POST['approve'])) {
 
         $mail->Subject = 'KURSONADA Results Released';
 
+        if ($pref_course == $f_course || $pref_course == $s_course || $pref_course == $t_course) {
+          // Pref course matches one of the other courses
+          $pref_result_message = "Congrats! One of your preferred course is within your ability.";
+      } else {
+          // Pref course does not match any of the other courses
+          $pref_result_message = "Sorry, your preferred course does not match your ability.";
+      }
+      if (strtolower($status) != 'released'){
         if ($remarks == 'passed') {
         $mail->Body = '<html>
         <head>
@@ -203,7 +214,7 @@ if (isset($_POST['approve'])) {
     color: #f7931e;
     margin-bottom: 10px;">Dear ' . $recipient_name . ',</p>
     <p>Your results are now available:</p>
-    <p><strong>Date taken:</strong> ' . $exam_date . '</p>
+    <p><strong>Date taken:</strong> ' . $exam_date_formatted . '</p>
     <div class="score-container">
         <div class="score-heading">Your Score:</div>
         <div class="score">' . $score . '</div>
@@ -212,6 +223,12 @@ if (isset($_POST['approve'])) {
         <div class="remarks-heading">Remarks:</div>
                 <div class="remarks">' . $remarks . '</div>
             </div>
+            <div class="remarks-container">
+            <div class="remarks-heading">Your Preferred Course:</div>
+            <div class="remarks">' . $pref_course.'</div>
+            <div class="remarks-heading">'.$pref_result_message.'</div>
+                </div>
+           
             <div class="courses-container">
                 <div class="courses-heading" style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">Top 3 Recommended Courses:</div>
                 <div class="course" style="background-color: #FFF2CC; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
@@ -312,9 +329,9 @@ if (isset($_POST['approve'])) {
  mysqli_query($conn, $update_sql);
 $mail->send();
           }
-        
+        }
       } catch (Exception $e) {
-        echo "Message could not be sent for $email. Mailer Error: {$mail->ErrorInfo}";
+        // echo "Message could not be sent for $email. Mailer Error: {$mail->ErrorInfo}";
       }
     }
 
@@ -333,7 +350,7 @@ $mail->send();
           }, 100);
           </script>";
           } catch (Exception $e) {
-          echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+          // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
           }
           }
           
