@@ -228,7 +228,7 @@
                                 <button type='button' id='expandbutton' class = 'btn btn-primary editbtn' data-bs-toggle='modal' data-bs-target='#expandmodal' data-exName='$courseName' data-exCourse='$course' data-exDesc='$crs_desc' onClick='expand(this)'>
                                 <i class='fa fa-search-plus'></i>
                                </button>
-                                <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$courseName' data-eng='$eng' data-mat='$mat' data-fil='$fil' data-sci='$sci' data-log='$log' onClick='editCourse(this)'><i class='fa fa-pencil'></i></button>
+                                <button type='button' id='editButton' class = 'btn btn-primary mx-3 editbtn' data-bs-toggle='modal' data-bs-target='#editmodal' data-courseID='$id' data-coursename='$course' data-courseabbr='$courseName' data-coursedes='$crs_desc' data-eng='$eng' data-mat='$mat' data-fil='$fil' data-sci='$sci' data-log='$log' onClick='editCourse(this)'><i class='fa fa-pencil'></i></button>
                               </form>" .
                             "<button type='submit' class='btn btn-danger delbtn' data-bs-toggle='modal' data-bs-target='#delmodal' data-courseid='$id' onClick='archiveCourse(this)'><i class='fa fa-trash-o'></i></button>" .
                             "</div>" .
@@ -280,8 +280,12 @@
                           <input type="text" name="courseName" class="form-control" placeholder="Enter Course" required />
                         </div>
                         <div class="mb-3">
-                          <label>Related Hobbies</label>
-                          <input name="relhobby" class="form-control" id="relhobby" placeholder="Enter Department" required  />
+                          <label>Course Abbreviation</label>
+                          <input type="text" name="courseAbbreviation" class="form-control" placeholder="Enter Course Abbreviation" required />
+                        </div>
+                        <div class="mb-3">
+                          <label>Course Description</label>
+                          <textarea name="crs_desc" class="form-control" placeholder="Enter Course Description" required></textarea>
                         </div>
                         <div class="mb-3">
                           <label>English</label>
@@ -311,8 +315,9 @@
                           $url = 'localhost';
                           $username = 'root';
                           $password = '';                     
-                          $newcrs = $_POST['courseName'];                      
-                          $newhob= $_POST['relhobby'];                      
+                          $newcrs = $_POST['courseName']; 
+                          $newabb = $_POST['courseAbbreviation'];
+                          $newdesc = $_POST['crs_desc'];                     
                           $newen = $_POST['neng'];                      
                           $newmt = $_POST['nmat'];                      
                           $newfl = $_POST['nfil'];                      
@@ -323,7 +328,7 @@
                               die("Connection failed!:" . $conn->connect_error);
                           }
                           $sql = mysqli_query($conn,
-                          "INSERT INTO courses(course, related_hobbies, English, Math, Filipino, Science, Logic) VALUES ('".$newcrs."','".$newhob."', ".$newen.", ".$newmt.", ".$newfl.", ".$newsc.", ".$newlg.")
+                          "INSERT INTO courses(course, courses, crs_desc,  English, Math, Filipino, Science, Logic) VALUES ('".$newabb."',' " . $newcrs . "', '" . $newdesc . "', ".$newen.", ".$newmt.", ".$newfl.", ".$newsc.", ".$newlg.")
                           ");
                               echo "<script> window.location = 'admin-courses.php' </script>";
                           }
@@ -352,23 +357,14 @@
                             <input type="text" name="editcourseName" id="editcourseName" class="form-control" required />
                           </div>
                           <div class="mb-3">
-                          <label>Related Hobbies</label>
-                          <select name="relhob" class="form-control" id="edithob" required>
-                            <option value="0">-No Changes-</option>
-                            <?php
-                            // $conn = new mysqli('localhost', 'root', '', 'project');
-                            // if ($conn->connect_error) {
-                            //     die("Connection failed!:" . $conn->connect_error);
-                            // }
-                            // $find = "select * from courses";
-                            // $list = $conn->query($find);
-                            // while($row = $list->fetch_assoc()){
-                            //   echo '<option value="'.$row['hob_id'].'">'.$row['hobby'].'</option>';
-                            // }
-                            ?>
-                          </select>
-                        </div>
                           <div class="mb-3">
+                          <label>Course Abbreviation</label>
+                          <input type="text" name="editcourseAbbreviation" id="editcourseAbbreviation" class="form-control" placeholder="Enter Course Abbreviation" required />
+                        </div>
+                        <div class="mb-3">
+                          <label>Course Description</label>
+                          <textarea name="editcrs_desc" id="editcrs_desc" class="form-control" placeholder="Enter Course Description" required></textarea>
+                        </div>
                           <label>English</label>
                           <input type="number" name="editeng" class="form-control" id="editeng" placeholder="Set Score Threshold" required  />
                         </div>
@@ -397,7 +393,9 @@
                           $username = 'root';
                           $password = '';                     
                           $edtid = $_POST['edit_id'];                      
-                          $edtcrs = $_POST['editcourseName'];                      
+                          $edtcrs = $_POST['editcourseName'];   
+                          $edtcrsabbr = $_POST['editcourseAbbreviation'];  
+                          $edtcrsdesc = $_POST['editcrs_desc'];                     
                           $edten = $_POST['editeng'];                      
                           $edtmt = $_POST['editmat'];                      
                           $edtfl = $_POST['editfil'];                      
@@ -407,21 +405,13 @@
                           if ($conn->connect_error) {
                               die("Connection failed!:" . $conn->connect_error);
                           }
-                          if ($_POST['relhob'] == '0'){
                             $sql = mysqli_query($conn,
-                          "UPDATE courses SET course='".$edtcrs."' , English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
+                          "UPDATE courses SET course='".$edtcrs."' , courses='".$edtcrsabbr."' , crs_desc='".$edtcrsdesc."' , English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
                           ");
-                          }
-                          else {
-                          $findhob = "select * from hobbies where hob_id = ".$_POST['relhob']." ";
-                            $showhob = $conn->query($findhob);                 
-                            $changedhob = $showhob->fetch_assoc();
-                          $sql = mysqli_query($conn,
-                          "UPDATE courses SET course='".$edtcrs."',related_hobbies='".$changedhob['hobby']."',English=".$edten.",Math=".$edtmt.",Filipino=".$edtfl.",Science=".$edtsc.",Logic=".$edtlg." WHERE crs_id= ".$edtid."
-                          ");}
-                              echo "<script> window.location = 'admin-courses.php' </script>";
-                          }
-                        ?>
+                          echo "<script> window.location = 'admin-courses.php' </script>";
+                        }
+                        ?>                
+                        
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                       </form>
@@ -456,7 +446,7 @@
                                   die("Connection failed!:" . $conn->connect_error);
                               }
                               $sql = mysqli_query($conn,
-                              "DELETE FROM courses WHERE id = ".$delid."
+                              "DELETE FROM courses WHERE crs_id = ".$delid."
                               ");
                               echo "<script> window.location = 'admin-courses.php' </script>";
                               }
@@ -520,6 +510,8 @@
     function editCourse(value) {
       let courseID = value.getAttribute("data-courseID");
       let courseName = value.getAttribute("data-coursename");
+      let courseabbr = value.getAttribute("data-courseabbr");
+      let coursedes = value.getAttribute("data-coursedes");
       let english = value.getAttribute("data-eng");
       let math = value.getAttribute("data-mat");
       let filipino = value.getAttribute("data-fil");
@@ -527,6 +519,8 @@
       let logic = value.getAttribute("data-log");
       document.querySelector("#edit_id").value = courseID;
       document.querySelector("#editcourseName").value = courseName;
+      document.querySelector("#editcourseAbbreviation").value = courseabbr;
+      document.querySelector("#editcrs_desc").value = coursedes;
       document.querySelector("#editeng").value = english;
       document.querySelector("#editmat").value = math;
       document.querySelector("#editfil").value = filipino;
