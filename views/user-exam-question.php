@@ -105,8 +105,8 @@
     <div class="container-scroller">
     <div class="row quick-action-toolbar">
             <div class="col-md-12 grid-margin">
-              <div class="card">
-                  <div class="card-header d-block d-md-flex"> 
+              <div class="card ml-4 mr-4">
+                  <div class="card-header d-block d-md-flex p-3"> 
                      <h5 class="mb-0 font-weight-medium d-none d-lg-flex">
                       <?php
                       include 'conn.php';
@@ -153,7 +153,7 @@ if ($elapsed_time > $allotted_time) {
      
         <div class="card-body d-flex align-items-center justify-content-center">
           <div class="row flex-grow">
-            <div class="container-fluid">
+            <div class="container-fluid p-4">
             <form method="POST" >
             <?php
             include 'conn.php';
@@ -729,17 +729,17 @@ foreach ($top_courses as $course => $data) {
       
             // Display the "Previous" button if there is a previous page
             if (count($_SESSION["displayed_pages"]) > 1) {
-              echo "<button type='submit' class='btn btn-danger' style='margin-left: 5%;' name='previous'>Previous</button>";
+              echo "<button type='submit' class='btn btn-danger mt-4' style='margin-left: 5%;' name='previous'>Previous</button>";
             }
       
             // Display the "Next" button if there are more pages to display
             if (count($_SESSION["displayed_pages"]) < count($pages)) {
-              echo "<button type='submit' class='btn btn-primary mx-3' style='margin-left: 5%;' name='next'>Next</button>";
+              echo "<button type='submit' class='btn btn-primary mx-3 mt-4' style='margin-left: 5%;' name='next'>Next</button>";
             } else if (count($_SESSION["displayed_pages"]) == count($pages)) {
 
         
 
-              echo "<button type='submit' class='btn btn-primary mx-3' style='margin-left: 5%;' name='finish'>Finish</button>";
+              echo "<button type='submit' class='btn btn-primary mx-3 mt-4' style='margin-left: 5%;' name='finish'>Finish</button>";
 
                     }
 
