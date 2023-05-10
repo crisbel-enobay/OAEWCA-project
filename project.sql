@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2023 at 01:26 PM
+-- Generation Time: May 10, 2023 at 09:46 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,7 +42,8 @@ CREATE TABLE `admin_schedule` (
 INSERT INTO `admin_schedule` (`id`, `exam_date`, `exam_time`, `exam_time_end`, `exam_date_created`) VALUES
 (56, '2023-04-26', '07:00:00', '20:00:00', '2023-04-25 17:58:48'),
 (58, '2023-02-18', '15:00:00', '16:00:00', '2023-02-16 20:39:55'),
-(62, '2023-03-09', '17:00:00', '19:00:00', '2023-03-09 17:10:09');
+(62, '2023-05-08', '11:00:00', '23:00:00', '2023-03-09 17:10:09'),
+(65, '2023-05-08', '11:00:00', '23:00:00', '2023-05-08 12:51:23');
 
 -- --------------------------------------------------------
 
@@ -223,7 +224,8 @@ CREATE TABLE `data_analytics` (
 --
 
 INSERT INTO `data_analytics` (`id`, `name`, `email`, `english`, `math`, `filipino`, `science`, `logic`, `date_created`) VALUES
-(8, 'John Doe', 'lebbraumjayce@gmail.com', 74, 80, 74, 74, 90, '2023-05-05 08:25:19');
+(8, 'John Doe', 'lebbraumjayce@gmail.com', 74, 80, 80, 90, 90, '2023-05-05 08:25:19'),
+(12, 'Jhon Lorence Lactud', 'lactud.jl@gmail.com', 86, 60, 100, 80, 100, '2023-05-08 14:38:28');
 
 -- --------------------------------------------------------
 
@@ -256,7 +258,8 @@ CREATE TABLE `generated_codes` (
 INSERT INTO `generated_codes` (`id`, `fullname`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `status`, `strand`, `pref_course`, `traits`, `interest`, `skill`, `career_goal`, `exam_key_created_at`) VALUES
 (93, 'student name sample', 'user@gmail.com', 'riuz0852', '2023-03-09', '17:00:00', '19:00:00', 'pending', 'HUMMS', 'Bachelor of Science in Business Administration: Financial Management (BSBA-FMGT)', 'Culturally sensitive,Detail-oriented,Empathetic,Good communicator', 'Administrative support,Child development,Consumer behavior,Counseling', 'Branding,Budget management,Child assessment,Classroom management,Critical thinking,Customer service', 'Daycare center director,Diplomat,Entrepreneur,FBI agent,Game designer,Government administrator,Investment banker', '2023-04-06 15:55:35'),
 (204, 'John Doe', 'lebbraumjayce2@gmail.com', 'wprl2586', '2023-04-26', '07:00:00', '20:00:00', 'pending', 'STEM', 'Bachelor of Science in Mathematics (BSMath)', 'Analytical', 'Problem-solving', 'Mathematical reasoning', 'Mathematician', '2023-04-26 11:45:26'),
-(243, 'John Doe', 'lebbraumjayce@gmail.com', 'hvxf3150', '2023-05-05', '06:00:00', '20:00:00', 'finished', 'STEM', 'Bachelor of Science in Mathematics (BSMath)', 'Adaptable,Analytical,Logical,Observant', 'Office management,Politics,Problem-solving', 'Classroom management,Critical thinking,Mathematical reasoning', 'Data analyst,Database administrator,Diplomat,Entrepreneur,Mathematician', '2023-04-26 12:43:19');
+(243, 'John Doe', 'lebbraumjayce@gmail.com', 'hvxf3150', '2023-05-05', '06:00:00', '20:00:00', 'finished', 'STEM', 'Bachelor of Science in Mathematics (BSMath)', 'Adaptable,Analytical,Logical,Observant', 'Office management,Politics,Problem-solving', 'Classroom management,Critical thinking,Mathematical reasoning', 'Data analyst,Database administrator,Diplomat,Entrepreneur,Mathematician', '2023-04-26 12:43:19'),
+(245, 'Jhon Lorence Lactud', 'lactud.jl@gmail.com', 'vpjw6845', '2023-05-08', '11:00:00', '23:00:00', 'active', 'STEM', 'Bachelor of Science in Computer Science', 'Adaptable,Analytical,Logical,Observant', 'Cybersecurity,Problem-solving', 'Attention to detail,Critical thinking,Mathematical reasoning', 'Data analyst,Database administrator,Diplomat,Entrepreneur,Mathematician', '2023-05-08 11:34:34');
 
 -- --------------------------------------------------------
 
@@ -416,7 +419,7 @@ CREATE TABLE `results` (
 
 INSERT INTO `results` (`id`, `fullname`, `email`, `exam_key`, `exam_date`, `exam_time`, `exam_time_end`, `score`, `remarks`, `status`, `strand`, `pref_course`, `traits`, `interest`, `skill`, `career_goal`, `f_course`, `f_related_course`, `s_course`, `s_related_course`, `t_course`, `t_related_course`, `exam_key_created_at`) VALUES
 (92, 'Joaquin Bordado', 'lebbraumjayce3@gmail.com', 'cepi2935', '2023-03-12', '17:00:00', '23:00:00', 50, 'failed', 'released', 'GAS', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Analytical,Empathetic', 'Animation,Artificial intelligence', 'Cybersecurity skills,Data structures and algorithms', 'Animator,Artificial intelligence specialist,Auditor', 'Bachelor of Science in Computer Science (BSCS/BSComSci)', 'Bachelor of Science in Information Technology (BSIT).Bachelor of Science in Information Systems (BSIS)/Bachelor of Science in Software Engineering (BSSE)', 'Bachelor of Science in Entertainment and Multimedia Computing (BSEMC)', 'Bachelor of Fine Arts in Digital Media Arts (BFDMA), Bachelor of Science in Animation (BSA)', 'Bachelor of Science in Information Technology (BSIT)', 'Bachelor of Science in Computer Science (BSCS/BSComSci), Bachelor of Science in Information Systems (BSIS)', '2023-03-12 13:06:16'),
-(152, 'John Doe', 'lebbraumjayce@gmail.com', 'hvxf3150', '2023-05-05', '06:00:00', '20:00:00', 27, 'failed', 'finished', 'STEM', 'Bachelor of Science in Mathematics (BSMath)', 'Adaptable,Analytical,Logical,Observant', 'Office management,Politics,Problem-solving', 'Classroom management,Critical thinking,Mathematical reasoning', 'Data analyst,Database administrator,Diplomat,Entrepreneur,Mathematician', 'Bachelor of Science in Mathematics', 'Bachelor of Science in Physics (BSP), Bachelor of Science in Statistics (BStat)', 'Bachelor of Science in Criminology', 'Bachelor of Laws (LLB)', 'Bachelor of Arts in Political Science', 'Bachelor of Arts in Diplomacy and International Relations, Bachelor of Science in Legal Management (BSLM) (BADIR), ', '2023-04-26 12:43:19');
+(152, 'John Doe', 'lebbraumjayce@gmail.com', 'hvxf3150', '2023-05-05', '06:00:00', '20:00:00', 27, 'failed', 'released', 'STEM', 'Bachelor of Science in Mathematics (BSMath)', 'Adaptable,Analytical,Logical,Observant', 'Office management,Politics,Problem-solving', 'Classroom management,Critical thinking,Mathematical reasoning', 'Data analyst,Database administrator,Diplomat,Entrepreneur,Mathematician', 'Bachelor of Science in Mathematics', 'Bachelor of Science in Physics (BSP), Bachelor of Science in Statistics (BStat)', 'Bachelor of Science in Criminology', 'Bachelor of Laws (LLB)', 'Bachelor of Arts in Political Science', 'Bachelor of Arts in Diplomacy and International Relations, Bachelor of Science in Legal Management (BSLM) (BADIR), ', '2023-04-26 12:43:19');
 
 -- --------------------------------------------------------
 
@@ -507,7 +510,8 @@ INSERT INTO `tbl_exam_subjects` (`subj_id`, `subj_name`, `subj_desc`, `subj_stat
 (1, 'English', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-02-10 05:21:08'),
 (2, 'Science', 'Includes general knowledge about science', 1, '2023-04-26 02:36:43'),
 (3, 'Mathematics', 'This includes algebra, geometry and calculus.', 1, '2023-02-10 05:33:48'),
-(4, 'Abstract Reasoning', 'Abstract Reasoning', 1, '2023-04-26 02:59:53');
+(4, 'Filipino', 'This includes vocabulary, reading comprehension, and verbal test', 1, '2023-05-08 03:00:05'),
+(5, 'Abstract Reasoning', 'Abstract Reasoning', 1, '2023-05-08 03:00:15');
 
 -- --------------------------------------------------------
 
@@ -535,7 +539,8 @@ INSERT INTO `tbl_exam_topics` (`topic_id`, `topic_name`, `topic_desc`, `topic_du
 (3, 'General Science', 'This is a test of your proficiency in General Science. Choose the letter that corresponds to your answer.', 30, 1, '2023-02-17 22:17:18', 2),
 (4, 'Analogy', 'Analogy', 30, 1, '2023-04-26 02:38:02', 1),
 (5, 'Synonym', 'Find the synonym of the word', 30, 1, '2023-04-26 02:49:36', 1),
-(6, 'Abstract Reasoning', 'Abstract Reasoning', 30, 1, '2023-04-26 03:00:11', 4);
+(7, 'Talahulugan', 'Piliin ang salitang pinakamalapit ang ibig sabihin sa salitang naka malaking titik.', 0, 1, '2023-05-08 03:09:23', 4),
+(8, 'Abstract Reasoning', 'Abstract reasoning', 0, 1, '2023-05-08 03:17:16', 5);
 
 -- --------------------------------------------------------
 
@@ -687,10 +692,74 @@ INSERT INTO `tbl_que_answers` (`ans_id`, `que_id`, `ans_desc`, `correct`) VALUES
 (142, 37, 'dependent', 0),
 (143, 37, 'quorum', 0),
 (144, 37, 'host', 0),
-(145, 39, '<image src = \"../abstract/2a.png\">', 0),
-(146, 39, '<image src = \"../abstract/2b.png\">', 1),
-(147, 39, '<image src = \"../abstract/2c.png\">', 0),
-(148, 39, '<image src = \"../abstract/2d.png\">', 0);
+(149, 40, 'bunot', 0),
+(150, 40, 'ukit', 1),
+(151, 40, 'balat', 0),
+(152, 40, 'putol', 0),
+(153, 41, 'kasakiman', 1),
+(154, 41, 'kalungkutan', 0),
+(155, 41, 'kamatayan', 0),
+(156, 41, 'paghihirap', 0),
+(157, 42, 'upuan', 0),
+(158, 42, 'guro', 0),
+(159, 42, 'ihatid', 1),
+(160, 42, 'sunduin', 0),
+(161, 43, 'gutom', 0),
+(162, 43, 'kawawa', 0),
+(163, 43, 'walang malay', 1),
+(164, 43, 'walang buhay', 0),
+(165, 44, 'paghuhugas', 1),
+(166, 44, 'paglilinis', 0),
+(167, 44, 'pagpupunas', 0),
+(168, 44, 'pag-aayos', 0),
+(169, 45, 'pagtitiis', 1),
+(170, 45, 'babala', 0),
+(171, 45, 'paunawa', 0),
+(172, 45, 'pag-aalsa', 0),
+(173, 46, 'mabilis', 0),
+(174, 46, 'tumatakbo', 0),
+(175, 46, 'agad-agad', 1),
+(176, 46, 'patakbo', 0),
+(177, 47, 'pagpipigil', 1),
+(178, 47, 'pagdarasal', 0),
+(179, 47, 'pag-iisip', 0),
+(180, 47, 'paghihirap', 0),
+(181, 48, 'maginhawa', 0),
+(182, 48, 'masagana', 1),
+(183, 48, 'masaya', 0),
+(184, 48, 'mapang-akit', 0),
+(185, 49, 'bigasan', 0),
+(186, 49, 'batasan', 0),
+(187, 49, 'unibersidad', 1),
+(188, 49, 'pamahalaan', 0),
+(189, 50, 'opinyon', 0),
+(190, 50, 'isipan', 0),
+(191, 50, 'desisyon', 0),
+(192, 50, 'akala', 1),
+(193, 51, 'desisyon', 0),
+(194, 51, 'pag-iisip', 1),
+(195, 51, 'pagnanasa', 0),
+(196, 51, 'pananaw', 0),
+(197, 52, '<img src =\"../abstract/2a.png\">', 0),
+(198, 52, '<img src =\"../abstract/2b.png\">', 1),
+(199, 52, '<img src =\"../abstract/2c.png\">', 0),
+(200, 52, '<img src =\"../abstract/2d.png\">', 0),
+(201, 54, '<img src =\"../abstract/1a.png\">', 1),
+(202, 54, '<img src =\"../abstract/1b.png\">', 0),
+(203, 54, '<img src =\"../abstract/1c.png\">', 0),
+(204, 54, '<img src =\"../abstract/1d.png\">', 0),
+(205, 55, '<img src =\"../abstract/3a.png\">', 1),
+(206, 55, '<img src =\"../abstract/3b.png\">', 0),
+(207, 55, '<img src =\"../abstract/3c.png\">', 0),
+(208, 55, '<img src =\"../abstract/3d.png\">', 0),
+(209, 56, '<img src =\"../abstract/4a.png\">', 1),
+(210, 56, '<img src =\"../abstract/4b.png\">', 0),
+(211, 56, '<img src =\"../abstract/4c.png\">', 0),
+(212, 56, '<img src =\"../abstract/4d.png\">', 0),
+(213, 57, '<img src =\"../abstract/5a.png\">', 0),
+(214, 57, '<img src =\"../abstract/5b.png\">', 0),
+(215, 57, '<img src =\"../abstract/5c.png\">', 1),
+(216, 57, '<img src =\"../abstract/5d.png\">', 0);
 
 -- --------------------------------------------------------
 
@@ -742,7 +811,23 @@ INSERT INTO `tbl_topic_questions` (`que_id`, `que_desc`, `que_topic`) VALUES
 (35, 'TAUTOLOGY', 5),
 (36, 'PERSEVERANCE', 5),
 (37, 'MINION', 5),
-(39, 'Which comes next?\n<image src = \'../abstract/no2.png\'>', 6);
+(40, 'mariing AAB sa puno', 7),
+(41, 'walang katapusang ABARISYA	', 7),
+(42, 'ABAYAN sa eskwelahan	', 7),
+(43, 'WALANG ULIRAT na matanda', 7),
+(44, 'PAGBABANLAW ng pinggan', 7),
+(45, 'nakasasawang PAGWAWAKSI', 7),
+(46, 'WALANG KAABUG ABOG na umalis	', 7),
+(47, 'taimtim na PAG-AAYUNO', 7),
+(48, 'NAMUMUTIKTIK na buhay', 7),
+(49, 'LINANGAN ng Pilipinas', 7),
+(50, 'maling HINUHA', 7),
+(51, 'baluktot na SAPANTAHA', 7),
+(52, 'Which comes next? <img src = \'../abstract/no2.png\'>', 8),
+(54, 'Which is odd one out?', 8),
+(55, '<img src =\'../abstract/no3.png\'>', 8),
+(56, 'Which comes next? <img src =\'../abstract/no4.png\'>', 8),
+(57, '<img src =\'../abstract/no5.png\'>', 8);
 
 -- --------------------------------------------------------
 
@@ -770,7 +855,8 @@ INSERT INTO `users` (`id`, `Fullname`, `email`, `password`, `type`, `verificatio
 (1, 'admin name sample', 'admin@gmail.com', '$2y$10$qVBICpn0Vk8QSa4A/LVDE.xwpqJvxTug.TF2u3utOXNgHMRavcowq', 1, '174093', '2023-01-04 21:23:08', '', ''),
 (3, 'student name sample', 'user@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
 (7, 'student name sample', 'user2@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '334467', '2023-01-05 23:40:50', '', ''),
-(13, 'John Doe', 'lebbraumjayce@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '234097', '2023-04-25 19:52:59', '', '');
+(13, 'John Doe', 'lebbraumjayce@gmail.com', '$2y$10$dOFXxqdDGFW.V3YDp/KPUuFPtOTV0m7Kpl1x2AkjA6Mf/YnbNbvMi', 0, '234097', '2023-04-25 19:52:59', '', ''),
+(14, 'Jhon Lorence Lactud', 'lactud.jl@gmail.com', '$2y$10$oNwSe2tjcGqTzGzs69uGF.ZYhvqEKPFHgIaV.oo2vfTGE7VPgJv6e', 0, '274987', '2023-05-08 11:32:10', '', '');
 
 --
 -- Indexes for dumped tables
@@ -876,7 +962,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_schedule`
 --
 ALTER TABLE `admin_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `archived_courses`
@@ -894,13 +980,13 @@ ALTER TABLE `career_goals`
 -- AUTO_INCREMENT for table `data_analytics`
 --
 ALTER TABLE `data_analytics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `generated_codes`
 --
 ALTER TABLE `generated_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 
 --
 -- AUTO_INCREMENT for table `interests`
@@ -918,7 +1004,7 @@ ALTER TABLE `personality_traits`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
 --
 -- AUTO_INCREMENT for table `skills`
@@ -930,31 +1016,31 @@ ALTER TABLE `skills`
 -- AUTO_INCREMENT for table `tbl_exam_subjects`
 --
 ALTER TABLE `tbl_exam_subjects`
-  MODIFY `subj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `subj_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_exam_topics`
 --
 ALTER TABLE `tbl_exam_topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_que_answers`
 --
 ALTER TABLE `tbl_que_answers`
-  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 
 --
 -- AUTO_INCREMENT for table `tbl_topic_questions`
 --
 ALTER TABLE `tbl_topic_questions`
-  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `que_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

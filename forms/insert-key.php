@@ -4,7 +4,7 @@
   session_start();
  }
                                   // Create connection
-                                  $conn = new mysqli('localhost', 'root', '', 'project');
+                                  $conn = new mysqli('localhost', 'root', "", "project");
                                   // Check connection
                                   if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
@@ -14,7 +14,7 @@
                                   $email = ($_SESSION['email']);
   
                                  // Create connection
-                                  $conn = new mysqli('localhost', 'root', '', 'project');
+                                  $conn = new mysqli('localhost', 'root', "", "project");
                                   // Check connection
                                   if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
@@ -74,6 +74,7 @@
                                 $_SESSION['english'] = 0;
                                 $_SESSION['science'] = 0;
                                 $_SESSION['math'] = 0;
+                                $_SESSION['filipino'] = 0;
                                 $_SESSION['logic'] = 0;
                                 mysqli_free_result($result);
                               
