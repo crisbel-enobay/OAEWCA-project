@@ -51,7 +51,8 @@ function getGeneratedCodes() {
         }
         $sql = mysqli_query($conn,
         "SELECT *
-        FROM generated_codes WHERE status != 'active'
+        FROM generated_codes
+        WHERE status NOT IN ('active', 'finished')
         ");
     return mysqli_fetch_all($sql, MYSQLI_ASSOC);
 }

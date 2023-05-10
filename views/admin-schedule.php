@@ -210,10 +210,11 @@
                                     $formattedTime = date('h:i A', strtotime($row['exam_time']));
                                     $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                                     $exam_date = $row['exam_date'];
+                                    $exam_date_formatted = date('F j, Y', strtotime($exam_date));
                                     $datecreated = $row['exam_date_created'];                      
                                     echo "<tr>
                                     <td>" . $id . "</td>
-                                    <td>" .$exam_date . "</td>
+                                    <td>" .$exam_date_formatted . "</td>
                                     <td>" . $formattedTime . "</td>
                                     <td>" . $formattedTime2 . "</td>
                                     <td>" . $datecreated . "</td>

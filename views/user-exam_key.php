@@ -240,6 +240,7 @@ p {
                         foreach ($tableList as $row) {
                           $id = $row["id"];
                           $exam_date = $row["exam_date"];
+                          $exam_date_formatted = date('F j, Y', strtotime($exam_date));
                           $formattedTime = date('h:i A', strtotime($row['exam_time']));
                           $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                           $status = $row["status"];
@@ -254,7 +255,7 @@ p {
                           echo "<td class ='tdclass'>" . $row["id"] . "</td>";
                           echo "<td class ='tdclass'>" . $row["email"] . "</td>";
                           echo "<td class ='tdclass'>" . $row["exam_key"] . "</td>";
-                          echo "<td class ='tdclass'>" . $row["exam_date"] . "</td>";
+                          echo "<td class ='tdclass'>" . $exam_date_formatted . "</td>";
                           echo "<td class ='tdclass'>" . $formattedTime . "</td>";
                           echo "<td class ='tdclass'>" . $formattedTime2 . "</td>";
                           echo "</tr>";

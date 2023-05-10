@@ -653,6 +653,7 @@ p {
                           $email = $row['email'];
                           // $exam_key = $row["exam_key"];
                           $exam_date = $row["exam_date"];
+                          $exam_date_formatted = date('F j, Y', strtotime($exam_date));
                           // $formattedTime = date('h:i A', strtotime($row['exam_time']));
                           // $formattedTime2 = date('h:i A', strtotime($row['exam_time_end']));
                           // $pref_course = $row["pref_course"];
@@ -673,7 +674,7 @@ p {
                           echo "<td>" . $row["id"] . "</td>";
                           echo "<td>" . $row["fullname"] . "</td>";
                           echo "<td>" . $row["email"] . "</td>";
-                          echo "<td>" . $row["exam_date"] . "</td>";
+                          echo "<td>" . $exam_date_formatted . "</td>";
                           echo "<td>" . $row["score"] . "</td>";
                           if ($row['remarks'] == 'passed') {
                             echo "<td><div class='badge badge-success p-2'>" . $row['remarks'] . "</div></td>";
