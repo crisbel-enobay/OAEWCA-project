@@ -237,7 +237,7 @@ p {
                         <div class="card-body m-0">
                             <h5 class="card-title">Total Subjects
                               <h3 class="text-success"><?php
-                                      $rows = getResults();
+                                      $rows = getSubjects();
                                       echo count($rows);
                                       ?>
                                       <span class="text-muted lead pt-1">subjects</span>
@@ -314,7 +314,7 @@ p {
                       <tbody>
                       <?php
                          // Create connection
-                         $conn = new mysqli('localhost', 'root', '', 'project');
+                         $conn = new mysqli('localhost', 'root', "", "project");
                          // Check connection
                          if ($conn->connect_error) {
                            die("Connection failed: " . $conn->connect_error);

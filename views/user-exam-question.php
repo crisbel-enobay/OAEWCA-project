@@ -219,8 +219,16 @@ if ($elapsed_time > $allotted_time) {
               $_SESSION["score"] = 0;
             }
 
+            if (!isset($_SESSION["tempscore"])) {
+              $_SESSION["tempscore"] = 0;
+            }
+
             if (!isset($_SESSION["totalscore"])) {
               $_SESSION["totalscore"] = 0;
+            }
+
+            if (!isset($_SESSION["temptotal"])) {
+              $_SESSION["temptotal"] = 0;
             }
       
             // Display the current page
@@ -231,7 +239,9 @@ if ($elapsed_time > $allotted_time) {
               } while (in_array($next_page, $_SESSION["displayed_pages"]));
 
               $_SESSION["score"] += $_POST['exam'];
+              $_SESSION["tempscore"] += $_POST['exam'];
               $_SESSION["totalscore"] += 1;
+              $_SESSION["temptotal"] += 1;
       
               $_SESSION["displayed_pages"][] = $next_page;
               $_SESSION["current_page"] = $next_page;
@@ -239,9 +249,11 @@ if ($elapsed_time > $allotted_time) {
               // Go back to the previous page
               array_pop($_SESSION["displayed_pages"]);
               if ($_SESSION["totalscore"] <= $_SESSION["score"]){
+              $_SESSION["tempscore"] -= 1;
               $_SESSION["score"] -= 1;
               }
               $_SESSION["totalscore"] -= 1;
+              $_SESSION["temptotal"] -= 1;
 
               $_SESSION["current_page"] = end($_SESSION["displayed_pages"]);
             } else {
@@ -259,7 +271,9 @@ if ($elapsed_time > $allotted_time) {
               //unset($_SESSION['start_time']);
 
               $_SESSION["score"] += $_POST['exam'];
+              $_SESSION["tempscore"] += $_POST['exam'];
               $_SESSION["totalscore"] += 1;
+              $_SESSION["temptotal"] += 1;
               $_SESSION['topicexam']+=1;
               $totaltopics = mysqli_query($conn,
               "SELECT row_number() OVER (ORDER BY topic_id, topic_name) n,
@@ -286,14 +300,31 @@ if ($elapsed_time > $allotted_time) {
                 return;
               }
 
-              else if ($_SESSION['topicexam'] > $rowcount && $_SESSION['subjectexam'] != 4){
+              else if ($_SESSION['topicexam'] > $rowcount && $_SESSION['subjectexam'] != 5){
+                if ($_SESSION['subjectexam'] == 1){
+                    $_SESSION['english'] = ($_SESSION['tempscore']/$_SESSION["temptotal"])*100;
+                }
+                else if ($_SESSION['subjectexam'] == 2){
+                  $_SESSION['science'] = ($_SESSION['tempscore']/$_SESSION["temptotal"])*100;
+                }
+                else if ($_SESSION['subjectexam'] == 3){
+                  $_SESSION['math'] = ($_SESSION['tempscore']/$_SESSION["temptotal"])*100;
+                }
+                else if ($_SESSION['subjectexam'] == 4){
+                  $_SESSION['filipino'] = ($_SESSION['tempscore']/$_SESSION["temptotal"])*100;
+                }
                 $_SESSION['subjectexam']++;
+                unset($_SESSION['tempscore']);
+                unset($_SESSION['temptotal']);
                 $_SESSION['topicexam'] = 0;
               echo "<script> window.location = 'user-exam-subject.php' </script>";
               }
 
               
-              if ($_SESSION['subjectexam'] == 4){
+              if ($_SESSION['subjectexam'] == 5){
+              $_SESSION['logic'] = ($_SESSION['tempscore']/$_SESSION["temptotal"])*100;
+              unset($_SESSION['tempscore']);
+              unset($_SESSION['temptotal']);
               $percentile = ($_SESSION["score"]/$_SESSION["totalscore"])*100;
               $email = $_SESSION['email'];
 
@@ -387,11 +418,11 @@ if ($elapsed_time > $allotted_time) {
                             $third_course = '';
                             $third_course_related = '';
                               // Retrieve user's score per subject input
-                              $predefined_math_score = 80;
-                              $predefined_english_score = 74;
-                              $predefined_logic_score = 90;
-                              $predefined_science_score = 74;
-                              $predefined_filipino_score = 74;
+                              $predefined_math_score = intval($_SESSION['math']);
+                              $predefined_english_score = intval($_SESSION['english']);
+                              $predefined_logic_score = intval($_SESSION['logic']);
+                              $predefined_science_score = intval($_SESSION['science']);
+                              $predefined_filipino_score = intval($_SESSION['filipino']);
                             
 // // Define weights for each criterion
 // $weights = array(
