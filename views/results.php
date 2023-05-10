@@ -38,6 +38,19 @@ if (isset($_POST['approve'])) {
       $s_related_course = $row['s_related_course'];
       $t_related_course = $row['t_related_course'];
 
+      if($email){
+        $data_analytics = "SELECT * FROM data_analytics WHERE email = '$email'"; // Select all rows in the table
+        $data_analytics_result = mysqli_query($conn, $data_analytics);
+        while ($row = mysqli_fetch_assoc($data_analytics_result)) {
+          // access the columns by their name
+          $english = $row['english'];
+          $math = $row['math'];
+          $filipino = $row['filipino'];
+          $science = $row['science'];
+          $abstract = $row['logic'];
+      }
+    }
+
       $mail = new PHPMailer(true);
       
       try {
@@ -88,6 +101,7 @@ if (isset($_POST['approve'])) {
         $mail->Body = '<html>
         <head>
         <title>KURSONADA Entrance Exam Results Released</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <style>
           * {
             box-sizing: border-box;
@@ -138,6 +152,26 @@ if (isset($_POST['approve'])) {
             font-weight: bold;
             color: #444;
             margin-bottom: 10px;
+          }
+          #subjects-table {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+          }
+          #subjects-heading th{
+            font-size: 20px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 10px;
+            padding-right:10px;
+          }
+          #subjects-table td {
+            font-size: 32px;
+            font-weight: bold;
+            color: #f7931e;
+            line-height: 1.5;
+            padding-left: 10px;
+            padding-right: 10px;
           }
           .score {
             font-size: 32px;
@@ -216,8 +250,30 @@ if (isset($_POST['approve'])) {
     <p>Your results are now available:</p>
     <p><strong>Date taken:</strong> ' . $exam_date_formatted . '</p>
     <div class="score-container">
-        <div class="score-heading">Your Score:</div>
+        <div class="score-heading">Your overall score:</div>
         <div class="score">' . $score . '</div>
+    </div>
+    <div class="score-container">
+    <table id="subjects-table">
+    <thead>
+      <tr id="subjects-heading">
+        <th scope="col">English</th>
+        <th scope="col">Science</th>
+        <th scope="col">Math</th>
+        <th scope="col">Filipino</th>
+        <th scope="col">Abstract</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>'. $english .'</td>
+        <td>'. $math .'</td>
+        <td>'. $filipino .'</td>
+        <td>'. $science .'</td>
+        <td>'. $abstract .'</td>
+      </tr>
+    </tbody>
+  </table>
     </div>
     <div class="remarks-container">
         <div class="remarks-heading">Remarks:</div>
