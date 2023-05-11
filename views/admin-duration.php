@@ -1,4 +1,5 @@
-<?php
+<?
+    include '../file/session_start.php';
     include '../forms/adminQueries.php';
     include "admin-checker.php";
     include '../file/logout-function.php';

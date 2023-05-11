@@ -1,4 +1,5 @@
 <?php
+include '../file/session_start.php';
  include "../views/student-checker.php";
  include '../file/logout-function.php';
 ?>

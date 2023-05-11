@@ -1,3 +1,6 @@
+<?php
+include '../file/session_start.php';
+?>
 <html>
   <head>
     <style>

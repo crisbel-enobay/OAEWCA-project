@@ -2,11 +2,7 @@
 <html lang="en">
   
 <?php
-
-   if(session_status() !== PHP_SESSION_ACTIVE) 
-   {
-    session_start();
-   }
+include '../file/session_start.php';
     if (isset($_SESSION['valid'])){
     if ($_SESSION['valid'] == true){
         if ($_SESSION['type'] == 'admin'){
